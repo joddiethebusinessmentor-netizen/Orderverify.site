@@ -1,6 +1,8 @@
 {
-  "name": "Thibitisha Order - Biashara Mtandao",
+  "name": "Orderverify.site",
   "description": "Fanya kazi ya kuthibitisha order za wateja na ulipwe papo hapo. Inafanya kazi Afrika Mashariki yote.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

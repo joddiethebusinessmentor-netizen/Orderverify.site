@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle2, AlertCircle, Wallet, 
-  UserPlus, MessageCircle, Send, Globe, MessageSquare, X,
+  UserPlus, MessageCircle, Send, Globe, MessageSquare, X, Loader2,
   Activity, ChevronRight, ChevronLeft, Smartphone, Users, ArrowDownToLine, ChevronDown, PhoneCall,
   Video, Phone, Mic, PhoneOff, CreditCard
 } from 'lucide-react';
@@ -181,7 +181,7 @@ function LiveClock() {
         </div>
         <div>
           <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-0.5">Mfumo Upo Live</p>
-          <p className="text-white text-sm font-bold">Data Hubadilika Kila Baada ya Masaa 12</p>
+          
         </div>
       </div>
       <div className="flex gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
@@ -201,6 +201,17 @@ function LiveClock() {
 // --- Main Dashboard ---
 
 function Dashboard() {
+
+  const [globalLoading, setGlobalLoading] = useState(false);
+  
+  const runWithLoader = (action: () => void) => {
+    setGlobalLoading(true);
+    setTimeout(() => {
+      setGlobalLoading(false);
+      action();
+    }, 3000); // 3 seconds loading simulation
+  };
+
   const [balance, setBalance] = useState(0);
   const [verifiedOrders, setVerifiedOrders] = useState<number[]>([]);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
@@ -247,8 +258,10 @@ function Dashboard() {
       time: "Sasa hivi",
       avatar: "https://i.pravatar.cc/150?img=32"
     };
-    setComments([newCommentObj, ...comments]);
-    setNewCommentText("");
+    runWithLoader(() => {
+      setComments([newCommentObj, ...comments]);
+      setNewCommentText("");
+    });
   };
 
   const handleConfirmAction = (orderId: number, payout: number) => {
@@ -292,7 +305,7 @@ function Dashboard() {
           </div>
         </div>
         <button 
-          onClick={() => handleActionRequiresAuth("Ili kupata akaunti yako na kuanza kuthibitisha order, tafadhali jisajili kwanza.")}
+          onClick={() => runWithLoader(() => handleActionRequiresAuth("Ili kupata akaunti yako na kuanza kuthibitisha order, tafadhali jisajili kwanza."))} 
           className="bg-[#00E676] text-black font-bold px-5 py-1.5 rounded-full text-xs"
         >
           Jisajili
@@ -307,7 +320,7 @@ function Dashboard() {
         {/* 3 Top Cards */}
         <div className="grid grid-cols-3 gap-3">
           <button 
-            onClick={() => setShowWithdrawModal(true)}
+            onClick={() => runWithLoader(() => setShowWithdrawModal(true))}
             className="bg-gradient-to-b from-[#00E676] to-[#00B259] rounded-2xl p-4 flex flex-col items-center justify-center text-black font-black shadow-lg shadow-[#00E676]/20 transition-transform active:scale-95 border-2 border-[#00E676]"
           >
             <Wallet className="w-8 h-8 mb-2 opacity-90" />
@@ -390,8 +403,11 @@ function Dashboard() {
           </h3>
           <p className="text-[#00E676] text-sm font-bold mb-4">Zinazosubiri Kuthibitishwa (5% Kamisheni)</p>
           
-          <div className="inline-flex items-center gap-2 bg-[#1C1D24] border border-slate-700 px-4 py-2 rounded-full text-xs font-bold shadow-lg">
-            📅 Orodha Zilizopo Sasa Hivi
+          <div className="inline-flex flex-col items-center gap-2 bg-[#1C1D24] border border-slate-700 px-4 py-3 rounded-2xl text-xs shadow-lg max-w-lg mx-auto">
+            <span className="font-bold text-sm">📅 Orodha Zilizopo Sasa Hivi</span>
+            <p className="text-slate-300 text-center font-medium leading-relaxed border-t border-slate-700 pt-2">
+              <strong className="text-[#00E676]">Jinsi ya kuanza:</strong> Soma order ya mteja kwanza, kisha bonyeza <span className="bg-[#00E676]/20 text-[#00E676] px-2 py-0.5 rounded">Thibitisha Order</span> na ufuate hatua zinazofuata ili kuingiza kamisheni yako.
+            </p>
           </div>
         </div>
 
@@ -406,9 +422,9 @@ function Dashboard() {
                 <div className="h-24 bg-slate-800 relative">
                   <img src={order.productImage} alt={order.product} className={`w-full h-full object-cover ${isVerified ? 'grayscale' : ''}`} />
                   {isVerified && (
-                    <div className="absolute inset-0 bg-black/60 flex items-center justify-center backdrop-blur-[2px]">
-                      <div className="bg-[#00E676] text-black text-[10px] font-black px-2 py-1 rounded-full flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3" /> THIBITISHO TAYARI
+                    <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center backdrop-blur-[1px]">
+                      <div className="bg-slate-900 border border-[#00E676] text-[#00E676] text-[10px] font-black px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-[0_0_10px_rgba(0,230,118,0.3)]">
+                        <CheckCircle2 className="w-3.5 h-3.5" /> VERIFIED & SECURED
                       </div>
                     </div>
                   )}
@@ -448,16 +464,17 @@ function Dashboard() {
                   {/* Action Button / Success Status */}
                   <div className="mt-auto relative space-y-2">
                     {isVerified ? (
-                      <div className="bg-[#00E676] text-black text-[9px] font-bold p-2 rounded-xl text-center shadow-lg border border-[#00E676] z-10 flex flex-col items-center gap-0.5">
-                        <span>🎉 Umelipwa TZS {order.payout.toLocaleString()}!</span>
+                      <div className="bg-[#1C1D24] text-[#00E676] text-[10px] sm:text-[11px] font-bold py-2 rounded-xl text-center shadow-inner border border-slate-700 z-10 flex flex-col items-center justify-center gap-0.5">
+                        <span className="flex items-center gap-1 opacity-90"><CheckCircle2 className="w-3 h-3" /> PAID</span>
+                        <span className="text-white">+TZS {order.payout.toLocaleString()}</span>
                       </div>
                     ) : (
                       <button
-                        onClick={() => {
+                        onClick={() => runWithLoader(() => {
                           setActiveVerification(order);
                           setCallStatus('idle');
                           setVerificationText("SEND");
-                        }}
+                        })}
                         className="w-full py-2 rounded-xl font-black text-[11px] uppercase flex items-center justify-center gap-1 transition-transform bg-[#00E676] text-black hover:scale-105 active:scale-95 shadow-md shadow-[#00E676]/20"
                       >
                         THIBITISHA ORDER
@@ -525,7 +542,7 @@ function Dashboard() {
             <MessageSquare className="w-5 h-5 text-blue-400" /> Tuma Ujumbe
           </a>
           <button 
-            onClick={() => handleActionRequiresAuth("Ili ku-install App, tafadhali jisajili kwanza.")}
+            onClick={() => runWithLoader(() => handleActionRequiresAuth("Ili ku-install App, tafadhali jisajili kwanza."))} 
             className="bg-slate-800 text-white border border-slate-600 font-bold text-sm py-3 px-6 rounded-full flex items-center justify-center gap-2 shadow-lg w-full sm:w-auto"
           >
             <Smartphone className="w-5 h-5 text-indigo-400" /> Install App
@@ -631,7 +648,7 @@ function Dashboard() {
           
           {!showAllComments && comments.length > 4 && (
             <button 
-              onClick={() => setShowAllComments(true)}
+              onClick={() => runWithLoader(() => setShowAllComments(true))}
               className="w-full mt-4 py-3 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-2"
             >
               View All <ChevronDown className="w-4 h-4" />
@@ -643,11 +660,11 @@ function Dashboard() {
         <div className="mt-12 mb-6 border-t border-slate-800 pt-8 pb-4 text-center">
           <h2 className="text-xl font-black mb-4 tracking-tight uppercase text-white">ORDERVERIFY</h2>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm font-bold text-slate-400 mb-6">
-            <a href="#" className="hover:text-[#00E676] transition-colors">About Us</a>
-            <a href="#" className="hover:text-[#00E676] transition-colors">Contact Support</a>
-            <a href="#" className="hover:text-[#00E676] transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-[#00E676] transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-[#00E676] transition-colors">FAQ</a>
+            <button onClick={() => runWithLoader(() => {})} className="hover:text-[#00E676] transition-colors">About Us</button>
+            <button onClick={() => runWithLoader(() => {})} className="hover:text-[#00E676] transition-colors">Contact Support</button>
+            <button onClick={() => runWithLoader(() => {})} className="hover:text-[#00E676] transition-colors">Privacy Policy</button>
+            <button onClick={() => runWithLoader(() => {})} className="hover:text-[#00E676] transition-colors">Terms of Service</button>
+            <button onClick={() => runWithLoader(() => {})} className="hover:text-[#00E676] transition-colors">FAQ</button>
           </div>
           <p className="text-xs text-slate-500 font-medium">
             &copy; {new Date().getFullYear()} OrderVerify Inc. All rights reserved. <br className="sm:hidden" />
@@ -656,6 +673,22 @@ function Dashboard() {
         </div>
 
       </div>
+
+
+      {/* Global Loading Overlay */}
+      <AnimatePresence>
+        {globalLoading && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0B0C10]/80 backdrop-blur-sm"
+          >
+            <Loader2 className="w-12 h-12 text-[#00E676] animate-spin mb-4" />
+            <p className="text-white font-bold text-sm animate-pulse">Loading...</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Withdraw Modal */}
       <AnimatePresence>
@@ -811,18 +844,18 @@ function Dashboard() {
                   </div>
                   
                   <div className="grid grid-cols-2 gap-3 mb-6">
-                    <button onClick={() => simulateCall('calling-video')} className="bg-white border border-slate-200 rounded-2xl py-4 flex flex-col items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors shadow-sm">
+                    <button onClick={() => runWithLoader(() => simulateCall('calling-video'))} className="bg-white border border-slate-200 rounded-2xl py-4 flex flex-col items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors shadow-sm">
                       <Video className="w-6 h-6 mb-1 text-indigo-500" />
                       <span className="text-[10px] font-black uppercase tracking-wide">Video Call</span>
                     </button>
-                    <button onClick={() => simulateCall('calling-voice')} className="bg-white border border-slate-200 rounded-2xl py-4 flex flex-col items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors shadow-sm">
+                    <button onClick={() => runWithLoader(() => simulateCall('calling-voice'))} className="bg-white border border-slate-200 rounded-2xl py-4 flex flex-col items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors shadow-sm">
                       <Phone className="w-6 h-6 mb-1 text-emerald-500" />
                       <span className="text-[10px] font-black uppercase tracking-wide">Voice Call</span>
                     </button>
                   </div>
                   
                   <motion.button 
-                    onClick={() => handleConfirmAction(activeVerification.id, activeVerification.payout)}
+                    onClick={() => runWithLoader(() => handleConfirmAction(activeVerification.id, activeVerification.payout))}
                     animate={{ rotate: [-2, 2, -2, 2, 0], scale: [1, 1.02, 1] }}
                     transition={{ repeat: Infinity, duration: 1 }}
                     className="w-full bg-[#00E676] text-black font-black px-5 py-4 rounded-2xl hover:bg-[#00C260] shadow-[0_5px_15px_rgba(0,230,118,0.3)] flex items-center justify-center gap-2 text-sm uppercase tracking-wider"
