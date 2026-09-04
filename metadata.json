@@ -1,0 +1,6 @@
+{
+  "name": "Thibitisha Order - Biashara Mtandao",
+  "description": "Fanya kazi ya kuthibitisha order za wateja na ulipwe papo hapo. Inafanya kazi Afrika Mashariki yote.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
