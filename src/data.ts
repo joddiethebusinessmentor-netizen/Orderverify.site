@@ -137,63 +137,352 @@ export const livePayouts = shuffle(Array.from({ length: 120 }).map((_, i) => {
   };
 }));
 
-const rawComments = [
-  { id: 1, name: "Aisha T.", text: "Hii biashara ni nzuri sana, nimeanza jana na tayari nimeshatoa hela! Asanteni sana 🙏", avatar: "https://i.pravatar.cc/150?img=9", replies: [{ id: 101, name: "Zuhura (Admin)", text: "Hongera sana Aisha! 🥳🔥 Piga kazi!", avatar: "https://i.pravatar.cc/150?img=1" }] },
-  { id: 2, name: "Kelvin M.", text: "Mwanzoni nilidhani ni uongo, ila baada ya kujaribu, faida niliyoipata ni kubwa ndani ya siku mbili.", avatar: "https://i.pravatar.cc/150?img=11", replies: [] },
-  { id: 3, name: "Mama Samira", text: "Order zinalipa sana, ukiweka bidii unapata hela nzuri sana. Mungu awabariki kwa fursa hii.", avatar: "https://i.pravatar.cc/150?img=5", replies: [{ id: 102, name: "Baraka", text: "Ukweli kabisa mama! Nami nimepata mtaji hapa 💪💯🏆", avatar: "https://i.pravatar.cc/150?img=12" }] },
-  { id: 4, name: "Erick", text: "Kutoa hela ni chap chap, hawacheleweshi kabisa. Ni uhakika 100%. Nimeshathibitisha order nyingi leo.", avatar: "https://i.pravatar.cc/150?img=12", replies: [] },
-  { id: 5, name: "Fatma O.", text: "Kiukweli sijutii kujiunga na OrderVerify, imenisaidia sana kupata kipato cha ziada nikiwa nyumbani.", avatar: "https://i.pravatar.cc/150?img=20", replies: [{ id: 103, name: "Lilian", text: "Kabisa shoga angu, mie leo nimetengeneza elfu 30! 🎉👏", avatar: "https://i.pravatar.cc/150?img=21" }] },
-  { id: 6, name: "John K.", text: "Application ipo fasta na malipo yanaingia M-Pesa bila usumbufu wowote. Safi sana!", avatar: "https://i.pravatar.cc/150?img=33", replies: [] },
-  { id: 7, name: "Neema A.", text: "Mimi nilikuwa natafuta kazi mtandaoni siku nyingi sana. Hii ni suluhisho pekee la uhakika. 🙏", avatar: "https://i.pravatar.cc/150?img=42", replies: [{ id: 104, name: "Zuhura (Admin)", text: "Karibu sana kwenye familia Neema! Tuko pamoja 🚀", avatar: "https://i.pravatar.cc/150?img=1" }] },
-  { id: 8, name: "Rashid", text: "Ukiwa makini, elfu 50 kwa siku haikukosi. Nakubali sana mfumo wenu.", avatar: "https://i.pravatar.cc/150?img=51", replies: [] },
-  { id: 9, name: "Salome", text: "Leo nimetoa TZS 85,000! Ni furaha tupu. Asante sana uongozi mzima.", avatar: "https://i.pravatar.cc/150?img=45", replies: [{ id: 105, name: "Erick", text: "Hongera sana Salome! Nami naelekea huko huko 🏃‍♂️🔥", avatar: "https://i.pravatar.cc/150?img=12" }] },
-  { id: 10, name: "Wakili msomi", text: "Sheria na usalama wa data ziko vizuri, na nimevutiwa sana na malipo ya papo hapo.", avatar: "https://i.pravatar.cc/150?img=59", replies: [] },
-  { id: 11, name: "Hamis T.", text: "Jana usiku nimetengeneza elfu 25 nikiwa nimelala tu! Ni kazi rahisi sana.", avatar: "https://i.pravatar.cc/150?img=60", replies: [] },
-  { id: 12, name: "Glory M.", text: "Naomba kuuliza, vipi kama mteja hapokei simu inakuwaje?", avatar: "https://i.pravatar.cc/150?img=41", replies: [{ id: 106, name: "Zuhura (Admin)", text: "Ukiona hapokei, bonyeza tu 'Send Order' mfumo wetu utamtafuta baadae. Utalipwa kawaida.", avatar: "https://i.pravatar.cc/150?img=1" }] },
-  { id: 13, name: "Peter", text: "Sijawahi kuona fursa nzuri kama hii Tanzania. Mungu awazidishie.", avatar: "https://i.pravatar.cc/150?img=62", replies: [] },
-  { id: 14, name: "Anna", text: "Mtaji wa 14,500 ni mdogo sana kulingana na faida unayopata. Nimerudisha mtaji siku ya kwanza.", avatar: "https://i.pravatar.cc/150?img=43", replies: [] },
-  { id: 15, name: "Kaka Juma", text: "Jamani hii kitu ni fire 🔥🔥 Leo nimevuta laki nzima mbele ya macho yangu.", avatar: "https://i.pravatar.cc/150?img=53", replies: [{ id: 107, name: "Erick", text: "Kaka Juma naona unapiga hela mpaka hutaki kulala 😂", avatar: "https://i.pravatar.cc/150?img=12" }] },
-  { id: 16, name: "Stella", text: "Kazi inaeleweka. Hakuna mambo ya kualika watu, unafanya kazi yako mwenyewe unalipwa.", avatar: "https://i.pravatar.cc/150?img=44", replies: [] },
-  { id: 17, name: "Brian K.", text: "Kuthibitisha order ni dakika 2 tu ushamaliza na salio linasoma. Very efficient system.", avatar: "https://i.pravatar.cc/150?img=15", replies: [] },
-  { id: 18, name: "Lucy", text: "Niliogopa kutapeliwa mwanzoni, lakini baada ya kupokea hela yangu ya kwanza nikapata ujasiri.", avatar: "https://i.pravatar.cc/150?img=26", replies: [{ id: 108, name: "Zuhura (Admin)", text: "Tunajali sana uaminifu wetu kwa wateja wetu. Karibu sana Lucy!", avatar: "https://i.pravatar.cc/150?img=1" }] },
-  { id: 19, name: "Mzee wa Kazi", text: "Hii nimeipenda, naifanya nikiwa kwenye daladala naingiza hela. 💯", avatar: "https://i.pravatar.cc/150?img=68", replies: [] },
-  { id: 20, name: "Diana", text: "Asante OrderVerify. Ada ya chuo nimelipa kupitia hapa.", avatar: "https://i.pravatar.cc/150?img=25", replies: [{ id: 109, name: "Hamis T.", text: "Hongera sana dada! Hii ndio maana halisi ya fursa.", avatar: "https://i.pravatar.cc/150?img=60" }] },
-  { id: 21, name: "Victor", text: "Naweza kujiunga na simu ya kawaida ambayo sio smartphone?", avatar: "https://i.pravatar.cc/150?img=69", replies: [{ id: 110, name: "Zuhura (Admin)", text: "Ndio Victor, mradi iwe na uwezo wa kuingia mtandaoni kidogo inatosha.", avatar: "https://i.pravatar.cc/150?img=1" }] },
-  { id: 22, name: "Zainab", text: "Wow, malipo yangu yameingia Tigo Pesa sasa hivi! 💃", avatar: "https://i.pravatar.cc/150?img=35", replies: [] },
-  { id: 23, name: "Frank", text: "Ukiweka malengo, hii ni kazi nzuri sana. Mimi nina target ya elfu 30 kila siku.", avatar: "https://i.pravatar.cc/150?img=70", replies: [] },
-  { id: 24, name: "Babu Tale", text: "Vijana changamkieni fursa hizi msilale. Kazi ni rahisi na inalipa vizuri.", avatar: "https://i.pravatar.cc/150?img=52", replies: [] },
-  { id: 25, name: "Amina", text: "Mimi ni mwanafunzi na hii inanisaidia sana kupata hela ya matumizi. 📚💸", avatar: "https://i.pravatar.cc/150?img=28", replies: [] },
-  { id: 26, name: "Godlisten", text: "Ukweli utabaki pale pale, hii kampuni inaeleweka sana kuliko nyingi nilizowahi kujaribu.", avatar: "https://i.pravatar.cc/150?img=61", replies: [] },
-  { id: 27, name: "Rosemary", text: "Leo nilisahau kuthitisha order mbili, ila kesho napambana nifidie.", avatar: "https://i.pravatar.cc/150?img=22", replies: [] },
-  { id: 28, name: "Michael", text: "Nimejisajili jana, tayari nina elfu 15 kwenye balance yangu. Very nice.", avatar: "https://i.pravatar.cc/150?img=17", replies: [] },
-  { id: 29, name: "Sikudhani", text: "Hata mimi wa kijijini nimeweza kufanya kazi hii. Mtandao ukishika tu napiga hela.", avatar: "https://i.pravatar.cc/150?img=29", replies: [{ id: 111, name: "Zuhura (Admin)", text: "Pongezi kwako! Haina mipaka, kila mtu anafaidika. 🎉", avatar: "https://i.pravatar.cc/150?img=1" }] },
-  { id: 30, name: "David M.", text: "Nimeanza na rafiki zangu watatu, wote tunafurahia kipato.", avatar: "https://i.pravatar.cc/150?img=13", replies: [] },
-  { id: 31, name: "Wema", text: "Nilikuwa na wasiwasi, lakini kiukweli nimelipwa. 🤑", avatar: "https://i.pravatar.cc/150?img=32", replies: [] },
-  { id: 32, name: "Samson", text: "Nahitaji maelekezo ya jinsi ya kupata order zenye bei kubwa zaidi.", avatar: "https://i.pravatar.cc/150?img=58", replies: [{ id: 112, name: "Zuhura (Admin)", text: "Ukithibitisha order nyingi mfululizo, mfumo unakuweka kwenye VIP na kuanza kuona order za thamani kubwa zaidi.", avatar: "https://i.pravatar.cc/150?img=1" }] },
-  { id: 33, name: "Juliana", text: "Kazi nzuri sana, nimeipenda. Asante kwa nafasi.", avatar: "https://i.pravatar.cc/150?img=36", replies: [] },
-  { id: 34, name: "Ben", text: "Nimetoa hela leo mara mbili bila shida. Tigo pesa wako fasta.", avatar: "https://i.pravatar.cc/150?img=57", replies: [] },
-  { id: 35, name: "Christina", text: "Je, naweza kufanya kazi usiku?", avatar: "https://i.pravatar.cc/150?img=38", replies: [{ id: 113, name: "Erick", text: "Ndio Christina, order zipo muda wote 24/7. Ukiamka usiku unazikuta tu.", avatar: "https://i.pravatar.cc/150?img=12" }] },
-  { id: 36, name: "Musa", text: "Hii inasaidia sana vijana kujiajiri. Safi kabisa.", avatar: "https://i.pravatar.cc/150?img=63", replies: [] },
-  { id: 37, name: "Agness", text: "Sina maneno mengi, hii kazi ni 🔥🔥🔥", avatar: "https://i.pravatar.cc/150?img=39", replies: [] },
-  { id: 38, name: "Shabani", text: "Nimegundua siri ya kufanikiwa hapa ni kuingia mara kwa mara kuangalia order mpya.", avatar: "https://i.pravatar.cc/150?img=64", replies: [] },
-  { id: 39, name: "Rehema", text: "Naweza kuwa wakala nikiwa Mwanza?", avatar: "https://i.pravatar.cc/150?img=40", replies: [{ id: 114, name: "Zuhura (Admin)", text: "Ndio Rehema, mtandao wetu unakufikia popote ulipo Tanzania na duniani kote.", avatar: "https://i.pravatar.cc/150?img=1" }] },
-  { id: 40, name: "Omari", text: "Mimi nilipata shida kwenye usajili, lakini huduma kwa wateja walinisaidia vizuri sana na sasa napiga kazi.", avatar: "https://i.pravatar.cc/150?img=65", replies: [] }
-];
+export const generate12HourComments = () => {
+  // Rotate every day/12h with fresh determinism so comments feel active and non-repetitive
+  const epoch = Math.floor(Date.now() / (12 * 60 * 60 * 1000));
+  let s = epoch * 181 + 109;
+  const rnd = () => {
+    const x = Math.sin(s++) * 10000;
+    return x - Math.floor(x);
+  };
 
-export const initialComments = shuffle(rawComments).map((c) => {
-  const isMins = random() > 0.5;
-  const timeVal = isMins ? Math.floor(random() * 59) + 1 : Math.floor(random() * 11) + 1;
-  const timeUnit = isMins ? "mins ago" : "hrs ago";
-  
-  const replies = (c.replies || []).map(r => {
-    const rIsMins = random() > 0.5;
-    const rTimeVal = rIsMins ? Math.floor(random() * 59) + 1 : Math.floor(random() * 11) + 1;
-    return { ...r, time: `${rTimeVal} ${rIsMins ? "mins ago" : "hrs ago"}` };
+  const sampleProducts = [
+    "Luxury Velvet Sofa", "Samsung 55' 4K Smart TV", "Apple MacBook Air M1", "Heavy Duty Cordless Drill",
+    "Sony PlayStation 5", "Designer Men's Suit", "Solar Water Pump", "Modern Dining Table",
+    "Women's Evening Dress", "Pro Ultrasound Scanner", "Gold Plated Watch", "Canon DSLR Camera",
+    "DJI Mavic Air 2 Drone", "Wooden Wardrobe", "Authentic Leather Jacket", "High Pressure Washer",
+    "Queen Size Bed", "Recliner Armchair", "Welding Machine Pro", "Commercial Greenhouse"
+  ];
+
+  const members = [
+    { name: "Aisha Twaha", city: "Dar es Salaam", country: "Tanzania" },
+    { name: "Kelvin Mwangi", city: "Nairobi", country: "Kenya" },
+    { name: "Mama Samira", city: "Mwanza", country: "Tanzania" },
+    { name: "Erick Baraka", city: "Arusha", country: "Tanzania" },
+    { name: "Fatma Omary", city: "Zanzibar", country: "Tanzania" },
+    { name: "John Kigozi", city: "Kampala", country: "Uganda" },
+    { name: "Neema Ally", city: "Dodoma", country: "Tanzania" },
+    { name: "Rashid Salim", city: "Tanga", country: "Tanzania" },
+    { name: "Salome Mwita", city: "Mbeya", country: "Tanzania" },
+    { name: "Grace Wanjiku", city: "Nakuru", country: "Kenya" },
+    { name: "Hamis Tembo", city: "Morogoro", country: "Tanzania" },
+    { name: "Aline Mutesi", city: "Kigali", country: "Rwanda" },
+    { name: "Peter Kimani", city: "Nairobi", country: "Kenya" },
+    { name: "Anna Massawe", city: "Moshi", country: "Tanzania" },
+    { name: "Kaka Juma", city: "Dar es Salaam", country: "Tanzania" },
+    { name: "Stella Namubiru", city: "Entebbe", country: "Uganda" },
+    { name: "Brian Mutua", city: "Mombasa", country: "Kenya" },
+    { name: "Lucy Nduta", city: "Eldoret", country: "Kenya" },
+    { name: "Mzee Shabani", city: "Kigoma", country: "Tanzania" },
+    { name: "Diana Mlay", city: "Iringa", country: "Tanzania" },
+    { name: "Pierre Ndikumana", city: "Bujumbura", country: "Burundi" },
+    { name: "Zainab Bakari", city: "Dar es Salaam", country: "Tanzania" },
+    { name: "Frank Lyimo", city: "Arusha", country: "Tanzania" },
+    { name: "Babu Tale", city: "Dodoma", country: "Tanzania" },
+    { name: "Amina Juma", city: "Mtwara", country: "Tanzania" },
+    { name: "Godlisten K.", city: "Moshi", country: "Tanzania" },
+    { name: "Rosemary M.", city: "Mwanza", country: "Tanzania" },
+    { name: "Michael Otieno", city: "Kisumu", country: "Kenya" },
+    { name: "Sikudhani Paul", city: "Tabora", country: "Tanzania" },
+    { name: "David Mwangi", city: "Nairobi", country: "Kenya" },
+    { name: "Wema Isaac", city: "Dar es Salaam", country: "Tanzania" },
+    { name: "Samson Mugisha", city: "Kigali", country: "Rwanda" },
+    { name: "Juliana Paul", city: "Shinyanga", country: "Tanzania" },
+    { name: "Benard Mrema", city: "Mbeya", country: "Tanzania" },
+    { name: "Christina John", city: "Arusha", country: "Tanzania" },
+    { name: "Musa Hassan", city: "Singida", country: "Tanzania" },
+    { name: "Agness Komba", city: "Songea", country: "Tanzania" },
+    { name: "Shabani Rajabu", city: "Tanga", country: "Tanzania" },
+    { name: "Rehema Chale", city: "Morogoro", country: "Tanzania" },
+    { name: "Omari Athumani", city: "Dar es Salaam", country: "Tanzania" },
+    { name: "Baraka Mwita", city: "Dodoma", country: "Tanzania" },
+    { name: "Faith Chebet", city: "Kericho", country: "Kenya" },
+    { name: "Jean Claude", city: "Kigali", country: "Rwanda" },
+    { name: "Hadija Seif", city: "Mtwara", country: "Tanzania" },
+    { name: "Charles Ochieng", city: "Kisumu", country: "Kenya" },
+    { name: "Beatrice Kimario", city: "Kilimanjaro", country: "Tanzania" },
+    { name: "Emmanuel Joseph", city: "Mwanza", country: "Tanzania" },
+    { name: "Joyce Muthoni", city: "Thika", country: "Kenya" },
+    { name: "Godfrey Tarimo", city: "Dar es Salaam", country: "Tanzania" },
+    { name: "Sarah Nabatanzi", city: "Kampala", country: "Uganda" },
+    { name: "Denis Marwa", city: "Mara", country: "Tanzania" },
+    { name: "Martha Shirima", city: "Moshi", country: "Tanzania" }
+  ];
+
+  // Human comment pool: Questions with Agent Replies, Thank Yous, & Motivational Testimonies
+  const commentTemplates = [
+    // 1. Questions & Agent Replies
+    {
+      q: (m: any) => `Hivi nikishajisajili na kulipia mtaji wa 14,500/= naanza kufanya kazi mara moja au kuna muda wa kusubiri?`,
+      tag: "Swali & Jibu 💬",
+      reply: (m: any) => ({
+        name: "Agent Jackson (Huduma)",
+        text: `Habari ${m.name.split(' ')[0]}! Ukishakamilisha malipo akaunti yako inafunguliwa papo hapo bila kuchelewa, unaanza kuthibitisha oda mara moja na kuona salio lako likiongezeka!`,
+        avatar: "https://i.pravatar.cc/150?img=60"
+      })
+    },
+    {
+      q: () => `Kiwango cha chini cha kutoa pesa kwenye simu yangu ni shilingi ngapi jamani?`,
+      tag: "Swali & Jibu 💬",
+      reply: () => ({
+        name: "Agent Grace (Support)",
+        text: `Habari! Unaweza kutoa kuanzia TZS 5,000 tu kwenda moja kwa moja kwenye M-Pesa, Tigo Pesa, Airtel Money au HaloPesa bila makato yoyote.`,
+        avatar: "https://i.pravatar.cc/150?img=47"
+      })
+    },
+    {
+      q: (m: any) => `Mimi nipo ${m.city} huku kijijini, je naweza kufanya hii kazi au inahitaji uwe mjini pekee?`,
+      tag: "Swali & Jibu 💬",
+      reply: (m: any) => ({
+        name: "OrderVerify Support",
+        text: `Popote pale ulipo ${m.city} au kijijini ilimradi uwe na simu ya mkononi yenye intaneti unaweza kufanya kazi na kulipwa bila shida yoyote!`,
+        avatar: "https://i.pravatar.cc/150?img=68"
+      })
+    },
+    {
+      q: () => `Mtaji huu wa 14,500/= unalipwa mara moja tu au unalipwa kila mwezi?`,
+      tag: "Swali & Jibu 💬",
+      reply: () => ({
+        name: "Admin Zuhura",
+        text: `Unalipia mara moja tu kwa ajili ya kufungua akaunti yako rasmi na kuanza kupokea kazi za kuthibitisha oda maisha yako yote. Hakuna ada ya mwezi.`,
+        avatar: "https://i.pravatar.cc/150?img=1"
+      })
+    },
+    {
+      q: (m: any, p: string) => `Nimetuma oda ya ${p} naona salio limeongezeka, naweza kutoa pesa zangu leo au mpaka mwisho wa mwezi?`,
+      tag: "Swali & Jibu 💬",
+      reply: () => ({
+        name: "Agent Frank (Malipo)",
+        text: `Hapa hakuna kusubiri mwisho wa mwezi! Kila unachokipata unaweza kubofya kitufe cha 'Toa Pesa' na ukalipwa siku hiyo hiyo kwenye simu yako.`,
+        avatar: "https://i.pravatar.cc/150?img=33"
+      })
+    },
+    {
+      q: () => `Kama sina laini ya Vodacom, je naweza kutumia namba yangu ya Tigo au Airtel kutoa pesa?`,
+      tag: "Swali & Jibu 💬",
+      reply: () => ({
+        name: "OrderVerify Help Desk",
+        text: `Ndiyo kabisa! Mfumo wetu unalipa moja kwa moja kupitia Vodacom M-Pesa, Tigo Pesa, Airtel Money pamoja na HaloPesa.`,
+        avatar: "https://i.pravatar.cc/150?img=12"
+      })
+    },
+    {
+      q: () => `Kuna kikomo cha oda ninazoweza kuthibitisha kwa siku au naweza kufanya nyingi niwezavyo?`,
+      tag: "Swali & Jibu 💬",
+      reply: () => ({
+        name: "Agent Jackson (Huduma)",
+        text: `Hakuna kikomo cha oda! Kadiri unavyothibitisha oda nyingi ndivyo unavyoingiza faida na kamisheni kubwa zaidi kila siku.`,
+        avatar: "https://i.pravatar.cc/150?img=60"
+      })
+    },
+    {
+      q: () => `Je kazi hii inahitaji ujuzi mkubwa wa kompyuta au smartphone ya bei ghali?`,
+      tag: "Swali & Jibu 💬",
+      reply: () => ({
+        name: "Agent Grace (Support)",
+        text: `Hapana, haihitaji ujuzi mgumu. Ni kubofya tu kitufe cha 'Thibitisha Order' na kufuata hatua rahisi zinazoonekana kwenye skrini yako ya simu.`,
+        avatar: "https://i.pravatar.cc/150?img=47"
+      })
+    },
+    {
+      q: () => `Je naweza kutoa pesa hata nyakati za jioni au siku za wikendi?`,
+      tag: "Swali & Jibu 💬",
+      reply: () => ({
+        name: "OrderVerify Support",
+        text: `Mfumo wa utoaji pesa unafanya kazi masaa 24 kila siku ikiwemo jumamosi na jumapili. Pesa inaingia papo hapo.`,
+        avatar: "https://i.pravatar.cc/150?img=68"
+      })
+    },
+    {
+      q: () => `Nimejisajili sasa hivi, nikilipia hiyo 14,500/= naunganishwa vipi na group la WhatsApp la mafunzo?`,
+      tag: "Swali & Jibu 💬",
+      reply: () => ({
+        name: "Admin Zuhura",
+        text: `Bofya tu kile kitufe cha kijani cha 'JIUNGE NA GROUP LETU' kule juu, utaingia moja kwa moja kwenye group letu na kupata msaada wa karibu.`,
+        avatar: "https://i.pravatar.cc/150?img=1"
+      })
+    },
+
+    // 2. Shukrani & Uthibitisho wa Malipo (Gratitude & Payouts)
+    {
+      q: (m: any) => `Asanteni sana OrderVerify! Nimepokea TZS ${(24000 + Math.floor(rnd() * 45) * 1000).toLocaleString()} asubuhi hii kwenye M-Pesa yangu kutoka kwa wateja niliothibitisha oda zao. Mungu awabariki sana.`,
+      tag: "Malipo Yamepokelewa 💰",
+      reply: null
+    },
+    {
+      q: (m: any) => `Mimi nilianza na wasiwasi sana jana, lakini saa 8 mchana nimevuta TZS ${(18000 + Math.floor(rnd() * 38) * 1000).toLocaleString()} Airtel Money bila tatizo lolote! Hakika tovuti hii ni mkombozi.`,
+      tag: "Malipo Yamepokelewa 💰",
+      reply: null
+    },
+    {
+      q: (m: any) => `Nashukuru sana nimepata pesa ya kulipia bili ya umeme na chakula cha familia leo kwa kuthibitisha order chache tu asubuhi. Kazi ni rahisi na inalipa.`,
+      tag: "Shukrani ya Mwanachama 🙏",
+      reply: () => ({
+        name: "Agent Grace (Support)",
+        text: `Hongera sana na asante kwa kuwa sehemu yetu! Endelea kufanya kazi kwa bidii, oda zipo nyingi sana leo.`,
+        avatar: "https://i.pravatar.cc/150?img=47"
+      })
+    },
+    {
+      q: (m: any) => `Tigo Pesa imelia sasa hivi TZS ${(26000 + Math.floor(rnd() * 50) * 1000).toLocaleString()}! Mwanzoni nilisita kulipa 14,500 lakini nisharudisha mtaji wangu mara tatu ndani ya siku mbili tu.`,
+      tag: "Malipo Yamepokelewa 💰",
+      reply: null
+    },
+    {
+      q: (m: any) => `Mwanzo nilidhani ni utani kama tovuti nyingine, ila baada ya kutoa elfu 32 yangu ya kwanza nimeamini huu mfumo uko makini sana. Asanteni sana OrderVerify team!`,
+      tag: "Ushuhuda Halisi ✨",
+      reply: null
+    },
+    {
+      q: (m: any) => `Nalipwa kila jioni baada ya kutoka kwenye kazi zangu za kawaida za ofisini. Hii fursa hainivurugii ratiba zangu hata kidogo!`,
+      tag: "Kipato cha Ziada 📱",
+      reply: null
+    },
+    {
+      q: (m: any) => `Hata dada yangu nimemwelekeza jinsi ya kujisajili na tayari naye anapokea kamisheni zake huko ${m.city}. Hakuna mtu wa kulalamika njaa tena.`,
+      tag: "Shukrani ya Mwanachama 🙏",
+      reply: null
+    },
+    {
+      q: (m: any) => `Nimepokea TZS ${(35000 + Math.floor(rnd() * 40) * 1000).toLocaleString()} mchana huu HaloPesa, hii imenisaidia sana kumlipia mtoto wangu ada ya shule. Asanteni kwa uaminifu wenu!`,
+      tag: "Malipo Yamepokelewa 💰",
+      reply: null
+    },
+    {
+      q: (m: any, p: string) => `Oda ya ${p} kwenda kwa mteja imekamilika kwa kubofya kitufe kimoja tu, na kamisheni ya 5% imeingia kwenye salio langu papo hapo. Raha sana!`,
+      tag: "Oda Imethibitishwa 📦",
+      reply: null
+    },
+    {
+      q: (m: any) => `Nimerudisha mtaji wangu wa 14,500/= ndani ya masaa 4 tu ya kwanza! Sasa hivi nakula faida tu kila nikithibitisha oda mpya.`,
+      tag: "Mtaji Umerudi Haraka ⚡",
+      reply: null
+    },
+
+    // 3. Hamasa & Ushauri wa Kujituma (Motivation & Encouragement)
+    {
+      q: () => `Watu wengi wanaogopa kuchukua hatua wanabaki kulalamika maisha magumu. Mtaji wa 14,500/= hauwezi kukufanya ufilisike ila unaweza kubadilisha maisha yako kabisa!`,
+      tag: "Neno la Hamasa 🔥",
+      reply: () => ({
+        name: "Admin Zuhura",
+        text: `Ukweli mtupu! Wale wanaochukua hatua leo ndio wanaofurahia matunda kila siku.`,
+        avatar: "https://i.pravatar.cc/150?img=1"
+      })
+    },
+    {
+      q: () => `Fursa haingoji mtu anayesitasita! Mimi nilianza juzi leo hii nishatengeneza zaidi ya laki moja. Acheni uoga jitoeni kimasomaso ndugu zangu!`,
+      tag: "Neno la Hamasa 🔥",
+      reply: null
+    },
+    {
+      q: () => `Ukiwa na smartphone usiitumie kuangalia video za udaku tu wakati wenzako wanapiga pesa kila dakika hapa. Tumia simu yako ikuingizie kipato!`,
+      tag: "Ushauri wa Kujituma 💡",
+      reply: null
+    },
+    {
+      q: () => `Kujituma ndio siri. Ukiamka asubuhi hakikisha unathibitisha order zote zilizopo kwenye orodha. Huwezi kujuta hata kidogo!`,
+      tag: "Neno la Hamasa 🔥",
+      reply: null
+    },
+    {
+      q: (m: any) => `Mimi ni mwalimu huku ${m.city}, muda wa mapumziko nathibitisha order 4 au 5 tayari nina elfu 25 mfukoni bila kuvuruga kazi zangu za kufundisha.`,
+      tag: "Kazi na Kipato 💼",
+      reply: null
+    },
+    {
+      q: () => `Amini katika kujaribu vitu vipya vyenye tija. Waliothubutu leo wanacheka, usisubiri hadi fursa ifungwe ndipo uanze kujilaumu.`,
+      tag: "Neno la Hamasa 🔥",
+      reply: null
+    },
+    {
+      q: () => `Kila mtu anastahili kupata kipato cha uhakika cha ziada. Simu yako ndio ofisi yako sasa, tumia fursa hii vizuri!`,
+      tag: "Ushauri wa Kujituma 💡",
+      reply: null
+    },
+    {
+      q: () => `Usiogope kuwekeza kwenye fursa halisi. Ukiona watu wanapokea pesa zao kila siku amka na wewe ufanye maamuzi sahihi sasa hivi.`,
+      tag: "Neno la Hamasa 🔥",
+      reply: null
+    },
+    {
+      q: () => `Nawatia moyo wote mliojiunga leo: fuateni maelekezo ya kujisajili kwa utulivu na mtapata matokeo mazuri kama sisi tulioanza mwanzo.`,
+      tag: "Hamasa kwa Wageni 🌟",
+      reply: () => ({
+        name: "Agent Jackson (Huduma)",
+        text: `Ushauri mzuri sana ndugu yetu! Tuko hapa kuhakikisha kila mwanachama anafanikiwa kupata haki yake.`,
+        avatar: "https://i.pravatar.cc/150?img=60"
+      })
+    },
+    {
+      q: () => `Nilikuwa sina hata elfu 5 mfukoni wiki iliyopita, nilipojibana nikapata 14,500 ya kuanza leo hii naona amani na nafurahia sana maamuzi yangu!`,
+      tag: "Ushuhuda Halisi ✨",
+      reply: null
+    },
+    {
+      q: () => `Hakuna mafanikio bila kuanza. Mimi nilianza nikiwa na hofu kubwa sana lakini leo najivunia kuwa mwanachama wa OrderVerify.`,
+      tag: "Neno la Hamasa 🔥",
+      reply: null
+    },
+    {
+      q: () => `Watu wataongea mengi lakini mwisho wa siku bili zitalipwa na wewe mwenyewe. Jiamini na uchukue hatua leo, hutojuta!`,
+      tag: "Neno la Hamasa 🔥",
+      reply: null
+    },
+    {
+      q: (m: any, p: string) => `Mteja wa ${m.city} nimethibitisha oda yake ya ${p} sekunde kadhaa zilizopita. Mfumo uko fasta mno hauna usumbufu kabisa!`,
+      tag: "Oda Imethibitishwa 📦",
+      reply: null
+    },
+    {
+      q: (m: any) => `Malipo yangu ya tatu ya wiki hii yameingia sekunde hii kwenye M-Pesa TZS ${(29000 + Math.floor(rnd() * 40) * 1000).toLocaleString()}. Asanteni sana OrderVerify kwa kutimiza ahadi zenu!`,
+      tag: "Malipo Yamepokelewa 💰",
+      reply: null
+    },
+    {
+      q: () => `Kila dakika unayopoteza kuna oda inathibitishwa na mwanachama mwingine. Jiunge sasa hivi uanze kupokea pesa zako!`,
+      tag: "Neno la Hamasa 🔥",
+      reply: null
+    }
+  ];
+
+  // Map to generate 50+ rich comments with varied timestamps & human touch
+  const comments = members.map((member, idx) => {
+    const prod = sampleProducts[Math.floor(rnd() * sampleProducts.length)];
+    const tmpl = commentTemplates[idx % commentTemplates.length];
+    const text = tmpl.q(member, prod);
+    const tag = tmpl.tag;
+    
+    // Dynamic minutes ago (1 to 58 minutes)
+    const minutesAgo = (idx * 3 + Math.floor(rnd() * 5)) % 60 + 2;
+    const timeStr = minutesAgo <= 3 
+      ? "Sasa hivi" 
+      : minutesAgo < 60 
+        ? `Dakika ${minutesAgo} zilizopita` 
+        : "Saa 1 lililopita";
+
+    const replyObj = tmpl.reply ? tmpl.reply(member) : null;
+
+    return {
+      id: 2000 + (epoch * 200) + idx,
+      name: member.name,
+      location: `${member.city}, ${member.country}`,
+      text,
+      tag,
+      avatar: `https://i.pravatar.cc/150?img=${((idx * 5 + epoch * 3) % 70) + 1}`,
+      time: timeStr,
+      replies: replyObj ? [{
+        id: 7000 + (epoch * 100) + idx,
+        name: replyObj.name,
+        text: replyObj.text,
+        avatar: replyObj.avatar,
+        time: "Muda huu"
+      }] : []
+    };
   });
 
-  return {
-    ...c,
-    time: `${timeVal} ${timeUnit}`,
-    replies
-  };
-});
+  return comments;
+};
+
+export const initialComments = generate12HourComments();
+
+
