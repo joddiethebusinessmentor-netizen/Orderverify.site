@@ -361,8 +361,13 @@ export function TutorialVideoSection({
 
         {/* Video Player Frame - Portrait Ratio 9:16 Halisi, katikati ya screen, object-fit: contain bila kukatwa */}
         <div className="relative w-full max-w-[380px] sm:max-w-[400px] aspect-[9/16] max-h-[85vh] sm:max-h-[88vh] flex items-center justify-center rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.95)] bg-black border border-slate-800 mx-auto">
-          {/* Kizuizi cha juu cha kuzuia YouTube channel name & avatar zisionekane */}
-          <div className="absolute top-0 left-0 right-0 h-14 bg-black z-20 pointer-events-none" />
+          {/* Vizuizi vya kuficha taarifa za YouTube kabisa (Title, Channel Name, nk) */}
+          {/* 1. Kizuizi cha Juu - Kuficha jina la channel na title (Taller & stronger gradient) */}
+          <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black via-black/90 to-transparent z-20 pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-16 bg-black z-20 pointer-events-none" />
+
+          {/* 2. Kizuizi cha Chini - Kuficha logo za YouTube au links zinazoweza kutokea */}
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black via-black/90 to-transparent z-20 pointer-events-none" />
 
           {/* YouTube IFrame Player Instance */}
           <div className="w-full h-full flex items-center justify-center bg-black">

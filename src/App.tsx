@@ -559,26 +559,15 @@ function Dashboard() {
                       </div>
                     </div>
                   )}
-                  {!isVerified && (
-                    <div className="absolute top-2 right-2 bg-black/85 backdrop-blur text-white text-[9px] font-bold px-1.5 py-0.5 rounded border border-slate-700/80 shadow-md">
-                      {order.flag} {order.country}
-                    </div>
-                  )}
                 </div>
                 
                 <div className="p-2.5 flex-1 flex flex-col">
                   
                   {/* User Profile */}
                   <div className="flex items-center gap-2 mb-2">
-                    <img 
-                      src={order.avatar} 
-                      alt={order.name} 
-                      className="w-7 h-7 rounded-full border border-slate-700/90 object-cover shrink-0" 
-                      referrerPolicy="no-referrer"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(order.name)}&background=141624&color=00E676&bold=true`;
-                      }}
-                    />
+                    <div className="bg-black/85 text-white text-[9px] font-bold px-1.5 py-1 rounded border border-slate-700/80 shadow-md shrink-0">
+                      {order.flag} {order.country}
+                    </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-bold text-[11px] truncate text-slate-200">{order.name}</h4>
                       <p className="text-[9px] text-slate-400 truncate">Mteja wa {order.country}</p>

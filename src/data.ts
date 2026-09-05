@@ -45,7 +45,7 @@ const baseOrderData = [
     product: "Luxury Velvet Sofa",
     productValue: 450000,
     payout: 22500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Dieudonné Bakole")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/sofa,furniture?lock=101"
   },
   {
@@ -58,7 +58,7 @@ const baseOrderData = [
     product: "Designer Men's Suit",
     productValue: 350000,
     payout: 17500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Upendo Mkumbo")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/suit,menswear?lock=102"
   },
   {
@@ -71,7 +71,7 @@ const baseOrderData = [
     product: "Modern Dining Table",
     productValue: 480000,
     payout: 24000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Brian Wanyama")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/table,dining?lock=103"
   },
   {
@@ -84,7 +84,7 @@ const baseOrderData = [
     product: "Apple MacBook Air M1",
     productValue: 550000,
     payout: 27500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Jessica Miller")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/macbook,laptop?lock=104"
   },
   {
@@ -97,7 +97,7 @@ const baseOrderData = [
     product: "Laser Level Tool",
     productValue: 180000,
     payout: 9000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Chen Jian")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/laser,tool?lock=105"
   },
   {
@@ -110,7 +110,7 @@ const baseOrderData = [
     product: "Digital X-Ray Panel",
     productValue: 590000,
     payout: 29500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Charlotte Hughes")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/xray,medical?lock=106"
   },
   {
@@ -123,7 +123,7 @@ const baseOrderData = [
     product: "Coffee Table Set",
     productValue: 150000,
     payout: 7500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Moses Byaruhanga")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/table,coffee?lock=107"
   },
   {
@@ -136,7 +136,7 @@ const baseOrderData = [
     product: "Pro Ultrasound Scanner",
     productValue: 580000,
     payout: 29000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Fatima Al-Sayed")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1564564244659-45037d45e4d7?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/ultrasound,scanner?lock=108"
   },
   {
@@ -149,7 +149,7 @@ const baseOrderData = [
     product: "Canon DSLR Camera",
     productValue: 510000,
     payout: 25500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Lukas Weber")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1500688160051-15e52662cece?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/camera,dslr?lock=109"
   },
   {
@@ -162,7 +162,7 @@ const baseOrderData = [
     product: "Recliner Armchair",
     productValue: 380000,
     payout: 19000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Diane Uwase")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1bf98c?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/armchair,furniture?lock=110"
   },
   {
@@ -175,7 +175,7 @@ const baseOrderData = [
     product: "Professional Chainsaw",
     productValue: 330000,
     payout: 16500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Kenji Sato")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1542178243-bc20204b769f?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/chainsaw,tools?lock=111"
   },
   {
@@ -188,7 +188,7 @@ const baseOrderData = [
     product: "Commercial Greenhouse",
     productValue: 490000,
     payout: 24500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Thandiwe Ndlovu")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1548142813-c348350df52b?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/greenhouse,garden?lock=112"
   },
 
@@ -203,7 +203,7 @@ const baseOrderData = [
     product: "Dell XPS 13 Ultrabook",
     productValue: 540000,
     payout: 27000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Jean Dupont")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/ultrabook,laptop?lock=201"
   },
   {
@@ -216,7 +216,7 @@ const baseOrderData = [
     product: "Wooden Wardrobe",
     productValue: 320000,
     payout: 16000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Espérance Mwamba")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/wardrobe,closet?lock=202"
   },
   {
@@ -229,7 +229,7 @@ const baseOrderData = [
     product: "Sony PlayStation 5",
     productValue: 520000,
     payout: 26000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Tariq Al-Harbi")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1512484776495-a098c83f3e1b?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/playstation,console?lock=203"
   },
   {
@@ -242,7 +242,7 @@ const baseOrderData = [
     product: "Queen Size Bed",
     productValue: 500000,
     payout: 25000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Zuberi Mwinyi")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1523825036634-ab6be0592236?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/bed,furniture?lock=204"
   },
   {
@@ -255,7 +255,7 @@ const baseOrderData = [
     product: "High Pressure Washer",
     productValue: 250000,
     payout: 12500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Priya Sharma")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1546961329-78bef0414d7c?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/washer,tools?lock=205"
   },
   {
@@ -268,7 +268,7 @@ const baseOrderData = [
     product: "Bridal Wedding Gown",
     productValue: 400000,
     payout: 20000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Grace Chebet")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/wedding,dress?lock=206"
   },
   {
@@ -281,7 +281,7 @@ const baseOrderData = [
     product: "Industrial Wheelbarrow",
     productValue: 100000,
     payout: 5000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Carlos Silva")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/wheelbarrow,tools?lock=207"
   },
   {
@@ -294,7 +294,7 @@ const baseOrderData = [
     product: "Heavy Duty Cordless Drill",
     productValue: 220000,
     payout: 11000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("David Reynolds")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/drill,tools?lock=208"
   },
   {
@@ -307,7 +307,7 @@ const baseOrderData = [
     product: "Gold Plated Watch",
     productValue: 250000,
     payout: 12500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Nadine Nizigiyimana")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1541260894924-7ce05c5ce6fc?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/watch,gold?lock=209"
   },
   {
@@ -320,7 +320,7 @@ const baseOrderData = [
     product: "Commercial Bread Oven",
     productValue: 420000,
     payout: 21000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Zhang Min")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/oven,kitchen?lock=210"
   },
   {
@@ -333,7 +333,7 @@ const baseOrderData = [
     product: "Portable Dental X-Ray",
     productValue: 550000,
     payout: 27500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("James Taylor")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/dental,medical?lock=211"
   },
   {
@@ -346,7 +346,7 @@ const baseOrderData = [
     product: "Drip Irrigation System",
     productValue: 150000,
     payout: 7500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Proscovia Akello")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1521252659862-eec69941b071?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/irrigation,agriculture?lock=212"
   },
 
@@ -361,7 +361,7 @@ const baseOrderData = [
     product: "Samsung 55' 4K Smart TV",
     productValue: 600000,
     payout: 30000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Ahmed Al-Mansoor")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/tv,samsung?lock=301"
   },
   {
@@ -374,7 +374,7 @@ const baseOrderData = [
     product: "Authentic Leather Jacket",
     productValue: 200000,
     payout: 10000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Claude Hakizimana")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/jacket,leather?lock=302"
   },
   {
@@ -387,7 +387,7 @@ const baseOrderData = [
     product: "Automated CPR Machine",
     productValue: 560000,
     payout: 28000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Julia Becker")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/cpr,medical?lock=303"
   },
   {
@@ -400,7 +400,7 @@ const baseOrderData = [
     product: "Solar Water Pump",
     productValue: 450000,
     payout: 22500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Sipho Khumalo")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/solar,pump?lock=304"
   },
   {
@@ -413,7 +413,7 @@ const baseOrderData = [
     product: "Soil Testing Drone",
     productValue: 470000,
     payout: 23500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Yuki Tanaka")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1546961329-78bef0414d7c?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/drone,technology?lock=305"
   },
   {
@@ -426,7 +426,7 @@ const baseOrderData = [
     product: "Women's Evening Dress",
     productValue: 120000,
     payout: 6000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Halima Kibwana")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/dress,fashion?lock=306"
   },
   {
@@ -439,7 +439,7 @@ const baseOrderData = [
     product: "Patient Monitor System",
     productValue: 600000,
     payout: 30000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Camille Martin")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/monitor,medical?lock=307"
   },
   {
@@ -452,7 +452,7 @@ const baseOrderData = [
     product: "Leather Office Shoes",
     productValue: 110000,
     payout: 5500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Alain Kasongo")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/shoes,leather?lock=308"
   },
   {
@@ -465,7 +465,7 @@ const baseOrderData = [
     product: "Oxygen Concentrator Pro",
     productValue: 570000,
     payout: 28500,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Noura Al-Otaibi")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1502323777036-f40e35183424?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/oxygen,medical?lock=309"
   },
   {
@@ -478,7 +478,7 @@ const baseOrderData = [
     product: "Motorized Farm Sprayer",
     productValue: 120000,
     payout: 6000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Kelvin Kiprop")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1506803682981-6e718a9dd3ee?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/sprayer,farm?lock=310"
   },
   {
@@ -491,7 +491,7 @@ const baseOrderData = [
     product: "Concrete Mixer Engine",
     productValue: 500000,
     payout: 25000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Rajesh Patel")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/mixer,engine?lock=311"
   },
   {
@@ -504,7 +504,7 @@ const baseOrderData = [
     product: "Welding Machine Pro",
     productValue: 400000,
     payout: 20000,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent("Isabella Santos")}&background=141624&color=00E676&bold=true`,
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face",
     productImage: "https://loremflickr.com/500/500/welding,machine?lock=312"
   }
 ];
