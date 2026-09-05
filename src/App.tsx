@@ -29,6 +29,17 @@ function Toast({ message, visible }: { message: string, visible: boolean }) {
   );
 }
 
+// Function to generate name initials (e.g. Juma Hamisi -> JH)
+function getInitials(name: string): string {
+  if (!name) return "OV";
+  // Remove content in brackets/parentheses like "(Afisa wa Huduma)", "(Mwanachama)", "(Dar es Salaam)"
+  const clean = name.replace(/\(.*?\)/g, "").replace(/[^a-zA-Z\s]/g, "").trim();
+  const parts = clean.split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "OV";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
 // --- Age Verification / Welcome Gateway Screen ---
 function AgeVerification({ onVerify }: { onVerify: () => void }) {
   const [isChecked, setIsChecked] = useState(false);
@@ -147,56 +158,52 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
 }
 
 function TopPopupTicker() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentMemberIndex, setCurrentMemberIndex] = useState(() => Math.floor(Math.random() * livePayouts.length));
+  const [displayCount, setDisplayCount] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
+    // Taarifa hubadilika kila baada ya sekunde 15 (15000ms)
     const interval = setInterval(() => {
       setIsVisible(false);
       setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % livePayouts.length);
+        // Chagua mwanachama mwingine wa nasibu (bila kurudia aliyepita mara moja)
+        setCurrentMemberIndex((prev) => {
+          let next;
+          do {
+            next = Math.floor(Math.random() * livePayouts.length);
+          } while (next === prev && livePayouts.length > 1);
+          return next;
+        });
+
+        setDisplayCount((c) => c + 1);
         setIsVisible(true);
-      }, 500);
-    }, 4500);
+      }, 400);
+    }, 15000);
     return () => clearInterval(interval);
   }, []);
 
-  const currentPayout = livePayouts[currentIndex];
-  
-  const actionType = currentIndex % 3; 
-  let text = "";
-  let highlight = "";
-  
-  if (actionType === 0) {
-    text = "amefungua akaunti mpya";
-    highlight = "Hongera!";
-  } else if (actionType === 1) {
-    text = "amelipia ada ya usajili";
-    highlight = "Tayari!";
-  } else {
-    text = `amelipwa ${currentPayout.amountStr} kwa kuthibitisha order`;
-    highlight = "Malipo!";
-  }
+  const currentPayout = livePayouts[currentMemberIndex] || livePayouts[0];
+  // Ondoa jina la mkoa kabisa, libaki jina la mwanachama pekee
+  const cleanName = (currentPayout.name || "").replace(/\(.*?\)/g, "").trim();
 
   return (
-    <div className="absolute inset-0 z-40 pointer-events-none flex justify-center items-center px-4">
-      <AnimatePresence>
+    <div className="w-full flex justify-center items-center px-2 sm:px-4 pointer-events-none">
+      <AnimatePresence mode="wait">
         {isVisible && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="bg-slate-900/95 backdrop-blur-md border border-slate-700 rounded-full py-2 px-4 shadow-2xl flex items-center gap-3 text-xs sm:text-sm text-white max-w-md w-full justify-between pointer-events-auto"
+            key={displayCount}
+            initial={{ opacity: 0, y: 8, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.96 }}
+            transition={{ duration: 0.35 }}
+            className="bg-slate-900/95 backdrop-blur-md border border-slate-700/80 rounded-2xl sm:rounded-full py-2.5 px-4 sm:px-6 shadow-2xl flex items-center justify-center gap-2.5 text-xs sm:text-sm text-white max-w-xl w-auto text-center pointer-events-auto"
           >
-            <div className="flex items-center gap-2">
-              <div className={`w-2 h-2 rounded-full animate-pulse ${actionType === 2 ? 'bg-[#00E676]' : actionType === 0 ? 'bg-indigo-500' : 'bg-[#FFC107]'}`} />
-              <p>
-                <strong className="font-black">{currentPayout.name}</strong> {text}
-              </p>
-            </div>
-            <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full whitespace-nowrap ${actionType === 2 ? 'bg-[#00E676]/20 text-[#00E676]' : actionType === 0 ? 'bg-indigo-500/20 text-indigo-400' : 'bg-[#FFC107]/20 text-[#FFC107]'}`}>
-              {highlight}
-            </span>
+            <div className="w-2.5 h-2.5 rounded-full shrink-0 animate-pulse bg-[#00E676] shadow-[0_0_8px_#00E676]" />
+            <p className="leading-snug text-slate-200 text-center font-medium">
+              Hongera <strong className="font-black text-white">{cleanName}</strong> kwa kulipwa{" "}
+              <span className="font-black text-[#00E676]">{currentPayout.amountStr}</span> kwa kuthibitisha order
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -497,7 +504,7 @@ function Dashboard() {
         </div>
 
         {/* Ticker between welcome and slider */}
-        <div className="relative h-14 flex justify-center items-center my-2 w-full z-30">
+        <div className="relative min-h-[52px] sm:min-h-[56px] flex justify-center items-center my-2 w-full z-30">
           <TopPopupTicker />
         </div>
 
@@ -563,7 +570,15 @@ function Dashboard() {
                   
                   {/* User Profile */}
                   <div className="flex items-center gap-2 mb-2">
-                    <img src={order.avatar} alt={order.name} className="w-7 h-7 rounded-full border border-slate-700/90 object-cover shrink-0" />
+                    <img 
+                      src={order.avatar} 
+                      alt={order.name} 
+                      className="w-7 h-7 rounded-full border border-slate-700/90 object-cover shrink-0" 
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(order.name)}&background=141624&color=00E676&bold=true`;
+                      }}
+                    />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-bold text-[11px] truncate text-slate-200">{order.name}</h4>
                       <p className="text-[9px] text-slate-400 truncate">Mteja wa {order.country}</p>
@@ -724,11 +739,12 @@ function Dashboard() {
                   className="flex flex-col gap-3 bg-[#0D0E16] p-4 sm:p-5 rounded-2xl border border-slate-800/90 shadow-xl w-full"
                 >
                   <div className="flex gap-3 items-start">
-                    <img 
-                      src={currentLiveComment.avatar} 
-                      alt={currentLiveComment.name} 
-                      className="w-10 h-10 rounded-full border border-[#00E676]/40 object-cover shrink-0 mt-0.5" 
-                    />
+                    <div 
+                      aria-label={currentLiveComment.name}
+                      className="w-10 h-10 rounded-full bg-[#1C1F30] border-2 border-[#00E676]/60 text-[#00E676] font-black text-sm flex items-center justify-center shrink-0 mt-0.5 shadow-md select-none uppercase tracking-wider"
+                    >
+                      {getInitials(currentLiveComment.name)}
+                    </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
                         <h4 className="font-bold text-sm text-white">{currentLiveComment.name}</h4>
@@ -742,7 +758,12 @@ function Dashboard() {
                     <div className="ml-4 sm:ml-8 mt-1 space-y-2 border-l-2 border-[#00E676]/40 pl-3 py-1.5 bg-[#141624] rounded-r-xl pr-3">
                       {currentLiveComment.replies.map((reply: any) => (
                         <div key={reply.id} className="flex gap-2.5 items-start">
-                          <img src={reply.avatar} alt={reply.name} className="w-7 h-7 rounded-full border border-emerald-500/60 object-cover shrink-0 mt-0.5" />
+                          <div 
+                            aria-label={reply.name}
+                            className="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/50 text-[#00E676] font-black text-[10px] flex items-center justify-center shrink-0 mt-0.5 select-none uppercase tracking-wider"
+                          >
+                            {getInitials(reply.name)}
+                          </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-1.5 flex-wrap">
                               <h5 className="font-black text-xs text-[#00E676]">{reply.name}</h5>
@@ -796,22 +817,22 @@ function Dashboard() {
 
       </div>
 
-      {/* Fixed Bottom Action Bar - Ishushe chini kidogo, ipunguze ukubwa na iweke mfumo wa kuwaka waka */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#0B0C10]/95 backdrop-blur-md border-t border-slate-800/80 px-3 py-1.5 pb-1.5 sm:pb-2 shadow-[0_-8px_25px_rgba(0,0,0,0.8)]">
-        <div className="max-w-md mx-auto flex items-center justify-between gap-2.5">
-          {/* 1. Kitufe cha Install App - Kimewashwa kuwaka waka na kimepunguzwa ukubwa kidogo */}
+      {/* Fixed Bottom Action Bar - Imepandishwa kwa juu kidogo tu kama ilivyoagizwa */}
+      <div className="fixed bottom-3.5 sm:bottom-4 left-3 right-3 max-w-md mx-auto z-40 bg-[#0B0C10]/95 backdrop-blur-md border border-slate-700/80 p-1.5 sm:p-2 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.85)]">
+        <div className="flex items-center justify-between gap-2">
+          {/* 1. Kitufe cha Install App */}
           <button
             onClick={() => setShowInstallAppModal(true)}
-            className="flex-1 bg-[#00A859] hover:bg-[#00924c] text-white font-extrabold text-[11px] sm:text-xs py-2 px-3 rounded-full shadow-[0_0_12px_rgba(0,168,89,0.45)] animate-pulse flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer whitespace-nowrap"
+            className="flex-1 bg-[#00A859] hover:bg-[#00924c] text-white font-extrabold text-[11px] sm:text-xs py-2 sm:py-2.5 px-3 rounded-xl shadow-[0_0_12px_rgba(0,168,89,0.45)] animate-pulse flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer whitespace-nowrap"
           >
             <Smartphone className="w-3.5 h-3.5 shrink-0" />
             <span>Install App</span>
           </button>
 
-          {/* 2. Kitufe cha Wasiliana na Wakala - Normal SMS text message kwenda 0740 463 671 na maneno aliyoagiza */}
+          {/* 2. Kitufe cha Wasiliana na Wakala - SMS text message */}
           <a
             href="sms:0740463671?body=Habari%20Naomba%20unielekeze%20zaidi%20kuhusu%20kuthibitisha%20order%20za%20wateja%20na%20kulipwa"
-            className="flex-1 bg-[#0A0C14] hover:bg-[#151722] text-white border border-[#00E676] font-extrabold text-[11px] sm:text-xs py-2 px-3 rounded-full shadow-[0_0_12px_rgba(0,230,118,0.4)] animate-pulse flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer whitespace-nowrap"
+            className="flex-1 bg-[#0A0C14] hover:bg-[#151722] text-white border border-[#00E676] font-extrabold text-[11px] sm:text-xs py-2 sm:py-2.5 px-3 rounded-xl shadow-[0_0_12px_rgba(0,230,118,0.4)] animate-pulse flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer whitespace-nowrap"
           >
             <MessageSquare className="w-3.5 h-3.5 text-[#00E676] shrink-0" />
             <span>Wasiliana na Wakala</span>
@@ -1265,7 +1286,15 @@ function Dashboard() {
                     <X className="w-5 h-5" />
                   </button>
                   
-                  <img src={activeVerification.avatar} className="w-16 h-16 rounded-full mx-auto mb-2 border-2 border-[#00E676] object-cover" />
+                  <img 
+                    src={activeVerification.avatar} 
+                    alt={activeVerification.name}
+                    className="w-16 h-16 rounded-full mx-auto mb-2 border-2 border-[#00E676] object-cover" 
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(activeVerification.name)}&background=141624&color=00E676&bold=true`;
+                    }}
+                  />
                   <h3 className="font-bold text-lg mb-1 text-slate-800">{activeVerification.name}</h3>
                   <p className="text-slate-500 text-xs mb-5 uppercase tracking-wide">Mteja wa {activeVerification.country}</p>
                   
@@ -1322,7 +1351,15 @@ function Dashboard() {
                   <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/20 to-slate-900 pointer-events-none"></div>
                   <div className="relative z-10">
                     <div className="relative w-28 h-28 mx-auto mb-6">
-                      <img src={activeVerification.avatar} className="w-full h-full rounded-full border-4 border-[#00E676] object-cover relative z-10" />
+                      <img 
+                        src={activeVerification.avatar} 
+                        alt={activeVerification.name}
+                        className="w-full h-full rounded-full border-4 border-[#00E676] object-cover relative z-10" 
+                        referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(activeVerification.name)}&background=141624&color=00E676&bold=true`;
+                        }}
+                      />
                       <div className="absolute inset-0 rounded-full border-4 border-[#00E676] animate-ping opacity-75"></div>
                       <div className="absolute inset-[-10px] rounded-full border-2 border-[#00E676]/30 animate-ping opacity-50" style={{ animationDelay: '200ms' }}></div>
                     </div>
@@ -1353,6 +1390,19 @@ function Dashboard() {
 
 export default function App() {
   const [isAgeVerified, setIsAgeVerified] = useState(false);
+
+  React.useEffect(() => {
+    // Save the initial epoch when the app loads
+    const initialEpoch = Math.floor(Date.now() / (12 * 60 * 60 * 1000));
+    // Check every minute if the 12-hour window has passed
+    const interval = setInterval(() => {
+      const currentEpoch = Math.floor(Date.now() / (12 * 60 * 60 * 1000));
+      if (currentEpoch !== initialEpoch) {
+        window.location.reload(); // Automatically refresh everything for the new 12-hour cycle
+      }
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   if (!isAgeVerified) {
     return <AgeVerification onVerify={() => setIsAgeVerified(true)} />;
