@@ -5,7 +5,7 @@ import { CheckCircle2, AlertCircle, Wallet,
   Activity, ChevronRight, ChevronLeft, Smartphone, Users, ArrowDownToLine, ChevronDown, PhoneCall,
   Video, Phone, Mic, PhoneOff, CreditCard, ShieldCheck
 } from 'lucide-react';
-import { orderData, livePayouts, initialComments, generate12HourComments, formatLocalCurrency } from './data';
+import { orderData, livePayouts, initialComments, generate6HourComments, formatLocalCurrency, update6HourDataIfChanged } from './data';
 import { TutorialVideoSection } from './components/TutorialVideoSection';
 
 // --- Toast Component ---
@@ -216,7 +216,7 @@ function LiveClock() {
   const [time, setTime] = React.useState(new Date());
 
   React.useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000);
+    const timer = setInterval(() => { setTime(new Date()); update6HourDataIfChanged(); }, 1000);
     return () => clearInterval(timer);
   }, []);
 
@@ -331,17 +331,26 @@ function Dashboard() {
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
   const currentOrders = orderData.slice(indexOfFirstOrder, indexOfLastOrder);
 
-  // Comments State - Generated dynamically from 12-hour epoch pool (45+ items)
-  const [allComments, setAllComments] = useState<any[]>(() => generate12HourComments());
+  // Comments State - Generated dynamically from 16-hour epoch pool (45+ items)
+  const [allComments, setAllComments] = useState<any[]>(() => generate6HourComments());
   const [currentCommentIndex, setCurrentCommentIndex] = useState(0);
 
-  // Rotate comments and sync with 12-hour refresh
+  // Rotate comments and sync with 6-hour refresh
   useEffect(() => {
-    const dynamicComments = generate12HourComments();
+    let lastEpoch = Math.floor(Date.now() / (6 * 60 * 60 * 1000));
+    let dynamicComments = generate6HourComments();
     setAllComments(dynamicComments);
 
     const interval = setInterval(() => {
-      setCurrentCommentIndex(prev => (prev + 1) % dynamicComments.length);
+      const currentEpoch = Math.floor(Date.now() / (6 * 60 * 60 * 1000));
+      if (currentEpoch !== lastEpoch) {
+        lastEpoch = currentEpoch;
+        dynamicComments = generate6HourComments();
+        setAllComments(dynamicComments);
+        setCurrentCommentIndex(0);
+      } else {
+        setCurrentCommentIndex(prev => (prev + 1) % dynamicComments.length);
+      }
     }, 13000); // 13 seconds per comment so user can read comfortably before it changes
     
     return () => clearInterval(interval);
@@ -1502,12 +1511,12 @@ export default function App() {
 
   React.useEffect(() => {
     // Save the initial epoch when the app loads
-    const initialEpoch = Math.floor(Date.now() / (12 * 60 * 60 * 1000));
-    // Check every minute if the 12-hour window has passed
+    const initialEpoch = Math.floor(Date.now() / (16 * 60 * 60 * 1000));
+    // Check every minute if the 16-hour window has passed
     const interval = setInterval(() => {
-      const currentEpoch = Math.floor(Date.now() / (12 * 60 * 60 * 1000));
+      const currentEpoch = Math.floor(Date.now() / (16 * 60 * 60 * 1000));
       if (currentEpoch !== initialEpoch) {
-        window.location.reload(); // Automatically refresh everything for the new 12-hour cycle
+        window.location.reload(); // Automatically refresh everything for the new 16-hour cycle
       }
     }, 60000);
     return () => clearInterval(interval);

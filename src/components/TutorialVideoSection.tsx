@@ -113,6 +113,7 @@ export function TutorialVideoSection({
             controls
             playsInline
             preload="metadata"
+            onEnded={handleCloseFullscreen}
             className="w-full h-full object-contain"
           >
             <source src="/Muongozo.mp4" type="video/mp4" />

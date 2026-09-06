@@ -516,17 +516,17 @@ const tanzanianMembersList = [
   { name: "Asha Omary", city: "Mwanza" },
   { name: "Juma Hamisi", city: "Dar es Salaam" },
   { name: "Neema Mushi", city: "Moshi" },
-  { name: "Kelvin Shirima", city: "Mbeya" },
+  { name: "Zack Shirima", city: "Mbeya" },
   { name: "Fatma Juma", city: "Zanzibar" },
   { name: "Emmanuel Mrema", city: "Dodoma" },
   { name: "Zuhura Salum", city: "Morogoro" },
-  { name: "David Mwamba", city: "Tanga" },
+  { name: "Xavier Mwamba", city: "Tanga" },
   { name: "Mariamu Bakari", city: "Iringa" },
   { name: "Rashidi Kassim", city: "Tabora" },
-  { name: "Grace Lyimo", city: "Mtwara" },
+  { name: "Vincent Lyimo", city: "Mtwara" },
   { name: "Joseph Kimaro", city: "Kigoma" },
   { name: "Rehema Chale", city: "Singida" },
-  { name: "Brian Tarimo", city: "Bukoba" },
+  { name: "Ulysses Tarimo", city: "Bukoba" },
   { name: "Amina Ally", city: "Musoma" },
   { name: "Hassan Msechu", city: "Shinyanga" },
   { name: "Faraja Kavishe", city: "Njombe" },
@@ -547,7 +547,7 @@ const tanzanianMembersList = [
   { name: "Alex Kaaya", city: "Arusha" },
   { name: "Judith Mwita", city: "Musoma" },
   { name: "Festo Malecela", city: "Dodoma" },
-  { name: "Asha Bakari", city: "Zanzibar" },
+  { name: "Tim Bakari", city: "Zanzibar" },
   { name: "Victor Nchimbi", city: "Songea" },
   { name: "Christine Mallya", city: "Moshi" },
   { name: "Sadiki Mbaruku", city: "Lindi" },
@@ -562,16 +562,16 @@ const tanzanianMembersList = [
   { name: "Ester Mboya", city: "Arusha" },
   { name: "Charles Lubuva", city: "Singida" },
   { name: "Mwajuma Hatibu", city: "Mtwara" },
-  { name: "Festo Ndaki", city: "Geita" },
-  { name: "Grace Mwashitete", city: "Songwe" },
+  { name: "Steve Ndaki", city: "Geita" },
+  { name: "Richard Mwashitete", city: "Songwe" },
   { name: "Said Ally", city: "Kigoma" },
   { name: "Tumaini Mgeni", city: "Sumbawanga" },
   { name: "Anitha Marandu", city: "Moshi" },
   { name: "Jackson Mrema", city: "Dar es Salaam" },
   { name: "Pendo Haule", city: "Songea" },
   { name: "Michael Mollel", city: "Babati" },
-  { name: "Halima Nassor", city: "Pemba" },
-  { name: "Kelvin Mahundi", city: "Mbeya" },
+  { name: "Quincy Nassor", city: "Pemba" },
+  { name: "Paul Mahundi", city: "Mbeya" },
   { name: "Dorice Lyimo", city: "Arusha" },
   { name: "Omari Khalfan", city: "Tanga" },
   { name: "Stella Mshana", city: "Kilimanjaro" },
@@ -591,7 +591,7 @@ const baseLivePayouts = (() => {
   const payouts = [];
   
   // Create 500 unique names deterministically based on epoch
-  const epoch = Math.floor(Date.now() / (12 * 60 * 60 * 1000));
+  const epoch = Math.floor(Date.now() / (6 * 60 * 60 * 1000));
   let s = epoch * 777 + 333;
   const rnd = () => {
     const x = Math.sin(s++) * 10000;
@@ -614,8 +614,8 @@ const baseLivePayouts = (() => {
 })();
 
 // Dynamic Generators based on 12-hour epoch
-export const get12HourData = () => {
-  const epoch = Math.floor(Date.now() / (12 * 60 * 60 * 1000));
+export const get6HourData = () => {
+  const epoch = Math.floor(Date.now() / (6 * 60 * 60 * 1000));
   let s = epoch * 999 + 123;
   const rnd = () => {
     const x = Math.sin(s++) * 10000;
@@ -675,14 +675,13 @@ export const get12HourData = () => {
     };
   });
 
-  // --- 2. Generate dynamic livePayouts perfectly proportional to actual products ---
-  const firstNames = tanzanianMembersList.map(m => m.name.split(" ")[0]);
-  const lastNames = tanzanianMembersList.map(m => m.name.split(" ")[1]);
+  // --- 2. Generate dynamic livePayouts without mixing names to guarantee 100% uniqueness ---
   const dynamicPayouts = [];
+  const payoutMembers = [...tanzanianMembersList];
+  shuffle(payoutMembers); // Shuffle them so they appear differently every 2 hours
   
-  for (let i = 0; i < 500; i++) {
-    const fn = firstNames[Math.floor(rnd() * firstNames.length)];
-    const ln = lastNames[Math.floor(rnd() * lastNames.length)];
+  for (let i = 0; i < payoutMembers.length; i++) {
+    const member = payoutMembers[i];
     const randomProduct = products[Math.floor(rnd() * products.length)];
     
     // Exactly 5% of the product value
@@ -690,7 +689,7 @@ export const get12HourData = () => {
     
     dynamicPayouts.push({
       id: i + 1,
-      name: `${fn} ${ln}`,
+      name: member.name,
       rawTzsAmount,
       amountStr: `TZS ${rawTzsAmount.toLocaleString()}`,
       tzsStr: `TZS ${rawTzsAmount.toLocaleString()}`
@@ -703,18 +702,18 @@ export const get12HourData = () => {
   };
 };
 
-const generated12HourData = get12HourData();
-export let orderData = generated12HourData.orderData;
-export let livePayouts = generated12HourData.livePayouts;
+const generated6HourData = get6HourData();
+export let orderData = generated6HourData.orderData;
+export let livePayouts = generated6HourData.livePayouts;
 
-export const update12HourDataIfChanged = () => {
-  const freshData = get12HourData();
+export const update6HourDataIfChanged = () => {
+  const freshData = get6HourData();
   orderData = freshData.orderData;
   livePayouts = freshData.livePayouts;
 };
 
-export const generate12HourComments = () => {
-  const epoch = Math.floor(Date.now() / (12 * 60 * 60 * 1000));
+export const generate6HourComments = () => {
+  const epoch = Math.floor(Date.now() / (6 * 60 * 60 * 1000));
   let s = epoch * 181 + 109;
   const rnd = () => {
     const x = Math.sin(s++) * 10000;
@@ -732,7 +731,7 @@ export const generate12HourComments = () => {
   // 35 Wanachama wa Kitanzania wa maoni - majina yao ni ya kipekee kabisa
   // Hayajawahi kutumika kwenye orders wala live notifications!
   const commentMembers = [
-    { name: "Amina Muro", city: "Moshi", country: "Tanzania" },
+    { name: "Omar Muro", city: "Moshi", country: "Tanzania" },
     { name: "Selemani Kondo", city: "Dar es Salaam", country: "Tanzania" },
     { name: "Teddy Mlay", city: "Arusha", country: "Tanzania" },
     { name: "Ally Mgunda", city: "Singida", country: "Tanzania" },
@@ -757,7 +756,7 @@ export const generate12HourComments = () => {
     { name: "Happy Mlowe", city: "Mbeya", country: "Tanzania" },
     { name: "Bakari Msangi", city: "Dar es Salaam", country: "Tanzania" },
     { name: "Zawadi Lugendo", city: "Songea", country: "Tanzania" },
-    { name: "Moses Mkali", city: "Tabora", country: "Tanzania" },
+    { name: "Nolan Mkali", city: "Tabora", country: "Tanzania" },
     { name: "Lilian Macha", city: "Arusha", country: "Tanzania" },
     { name: "Geoffrey Ndunguru", city: "Songea", country: "Tanzania" },
     { name: "Jackline Mrosso", city: "Moshi", country: "Tanzania" },
@@ -1025,4 +1024,4 @@ export const generate12HourComments = () => {
   return comments;
 };
 
-export const initialComments = generate12HourComments();
+export const initialComments = generate6HourComments();
