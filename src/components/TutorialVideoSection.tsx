@@ -31,6 +31,11 @@ export function TutorialVideoSection({
 
   return (
     <div className="w-full mt-4">
+      <div className="mb-3 text-center">
+        <p className="text-[#00E676] font-bold text-sm sm:text-base uppercase tracking-wide drop-shadow-md">
+          ANGALIA HII VIDEO ILI UJIFUNZE NAMNA YA KUTUMIA AKAUNTI YA ORDERVERIFY
+        </p>
+      </div>
       {/* 1. SEHEMU YA KWANZA: Banner (Thumbnail) inayovutia kwenye ukurasa */}
       <div 
         onClick={handleOpenFullscreen}
