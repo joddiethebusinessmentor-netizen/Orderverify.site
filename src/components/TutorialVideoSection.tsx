@@ -43,7 +43,7 @@ export function TutorialVideoSection({
           
           {/* Tumia video kama background kwa ukimya ili iweze kuonyesha picha (poster frame) */}
           <video 
-            src="/Joddie.mp4" 
+            src="/Muongozo.mp4" 
             className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-20 transition-opacity duration-300 group-hover:scale-105 pointer-events-none"
             preload="metadata"
             muted
@@ -109,13 +109,13 @@ export function TutorialVideoSection({
           {/* Render the video element directly. Native controls bypass in-app browser restrictions */}
           <video
             ref={videoRef}
-            src="/Joddie.mp4"
+            src="/Muongozo.mp4"
             controls
             playsInline
             preload="metadata"
             className="w-full h-full object-contain"
           >
-            <source src="/Joddie.mp4" type="video/mp4" />
+            <source src="/Muongozo.mp4" type="video/mp4" />
             Samahani, kivinjari chako hakikubali kucheza video hii.
           </video>
         </div>
