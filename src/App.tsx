@@ -84,7 +84,7 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
           </div>
 
           <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white uppercase leading-snug">
-            JIINGIZIE KIPATO CHA UHAKIKA KUPITIA <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E676] to-[#00C853]">ORDERVERIFY</span>
+            JIINGIZIE KIPATO KUPITIA <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E676] to-[#00C853]">ORDERVERIFY</span>
           </h1>
         </div>
 
@@ -273,6 +273,7 @@ function Dashboard() {
 
   const [authModalState, setAuthModalState] = useState<{show: boolean, type: 'register' | 'payment', message: string}>({show: false, type: 'register', message: ''});
   const [showWithdrawModal, setShowWithdrawModal] = useState(false);
+  const [showPaymentGuide, setShowPaymentGuide] = useState(false);
   const [showRegisterConfirmModal, setShowRegisterConfirmModal] = useState(false);
   const [registerModalStep, setRegisterModalStep] = useState<'confirm' | 'instructions'>('confirm');
   const [showInstallAppModal, setShowInstallAppModal] = useState(false);
@@ -497,13 +498,7 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* Welcome Text */}
-        <div className="text-center">
-          <h2 className="text-2xl font-black text-white tracking-tight">Karibu <span className="text-[#00E676]">OrderVerify</span></h2>
-          <p className="text-sm text-slate-400 font-medium">Thibitisha Oda • Ingiza Kipato Moja kwa Moja</p>
-        </div>
-
-        {/* Ticker between welcome and slider */}
+        {/* Ticker between header and video */}
         <div className="relative min-h-[52px] sm:min-h-[56px] flex justify-center items-center my-2 w-full z-30">
           <TopPopupTicker />
         </div>
@@ -670,19 +665,28 @@ function Dashboard() {
           <div className="w-14 h-14 rounded-2xl bg-red-600/20 border border-red-500/50 flex items-center justify-center mx-auto mb-3 text-red-500 shadow-[0_0_25px_rgba(239,68,68,0.35)] animate-pulse">
             <UserPlus className="w-7 h-7 stroke-[2.2]" />
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wide mb-2">
-            Jiunge Na OrderVerify Sasa
+          <h2 className="text-sm sm:text-base font-black text-white uppercase tracking-wide mb-5">
+            Fungua akaunti yako ya ORDERVERIFY kwa kubonyeza hapa 👇👇
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto mb-5 leading-relaxed font-medium">
-            Fungua akaunti yako sasa ili uweze kuthibitisha oda zote na kutoa pesa zako moja kwa moja kwenye simu yako.
-          </p>
           <button
             type="button"
             onClick={openRegisterModal}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black px-8 py-3.5 rounded-2xl text-sm sm:text-base shadow-[0_0_28px_rgba(239,68,68,0.85)] border border-red-400/60 animate-pulse transition-all cursor-pointer uppercase tracking-wider"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black px-8 py-3.5 rounded-2xl text-sm sm:text-base shadow-[0_0_28px_rgba(239,68,68,0.85)] border border-red-400/60 animate-pulse transition-all cursor-pointer uppercase tracking-wider mb-5"
           >
             <UserPlus className="w-5 h-5 stroke-[2.5]" />
             <span>Jisajili Hapa</span>
+          </button>
+          
+          <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto mb-3 leading-relaxed font-medium">
+            Ukimaliza kujisajili na ukashindwa kulipia bonyeza hapa ili kupata muongozo wa kulipia akaunti yako,,
+          </p>
+          <button
+            type="button"
+            onClick={() => setShowPaymentGuide(true)}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:brightness-110 active:scale-95 text-white font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-[0_0_15px_rgba(0,230,118,0.3)] border border-emerald-400/50 transition-all cursor-pointer"
+          >
+            <CreditCard className="w-4 h-4" />
+            <span>Muongozo wa Kulipia</span>
           </button>
         </div>
 
@@ -1372,6 +1376,122 @@ function Dashboard() {
         )}
       </AnimatePresence>
 
+      {/* Payment Guide Modal */}
+      <AnimatePresence>
+        {showPaymentGuide && (
+          <div 
+            onClick={() => setShowPaymentGuide(false)}
+            className="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-4 bg-[#0B0C10]/95 backdrop-blur-md overflow-y-auto"
+          >
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-[#141624] w-full max-w-lg rounded-[32px] overflow-hidden shadow-2xl border border-emerald-500/30 relative flex flex-col max-h-[90vh]"
+            >
+              <div className="bg-gradient-to-br from-emerald-600 to-[#00E676] p-6 text-center relative shrink-0">
+                <button 
+                  onClick={() => setShowPaymentGuide(false)}
+                  className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 text-white transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-3 backdrop-blur-sm">
+                  <CreditCard className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="font-black text-xl text-white uppercase tracking-wider">Muongozo wa Kulipia</h3>
+              </div>
+
+              <div className="p-5 sm:p-6 text-slate-300 text-sm sm:text-base leading-relaxed overflow-y-auto custom-scrollbar">
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-[#00E676] font-bold text-lg flex items-center gap-2 mb-2"><span className="text-xl">📌</span> JINSI YA KULIPIA ORDERVERIFY KUTUMIA AIRTEL MONEY</h4>
+                    <ul className="space-y-1 pl-4">
+                      <li>1️⃣ Bonyeza *150*60#</li>
+                      <li>2️⃣ Chagua LIPIA BILL</li>
+                      <li>3️⃣ Chagua LIPA KWA SIMU (MITANDAO YOTE)</li>
+                      <li>4️⃣ Chagua LIPA KWA VODA LIPA</li>
+                      <li>5️⃣ Weka kiasi: 14,500 TZS</li>
+                      <li>6️⃣ Ingiza kumbukumbu ya malipo: 51330974</li>
+                      <li>7️⃣ Majina: MOSSES TECHNOLOGY HELP COMPANY LIMITED</li>
+                      <li>8️⃣ Ingiza namba ya siri yako</li>
+                    </ul>
+                    <p className="mt-2 text-white font-medium bg-emerald-500/10 p-2 rounded-lg border border-emerald-500/20">✅ Malipo yameandaliwa vizuri, fuata hatua hizi na utakuwa umefanikiwa.</p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-blue-400 font-bold text-lg flex items-center gap-2 mb-2"><span className="text-xl">📌</span> JINSI YA KULIPIA ORDERVERIFY KUTUMIA TIGOPESA/YAS</h4>
+                    <ul className="space-y-1 pl-4">
+                      <li>1️⃣ Bonyeza *150*01#</li>
+                      <li>2️⃣ Chagua LIPA KWA SIMU</li>
+                      <li>3️⃣ Chagua KWENDA MITANDAO MINGINE</li>
+                      <li>4️⃣ Chagua M-PESA</li>
+                      <li>5️⃣ Weka namba ya malipo: 51330974<br/><span className="pl-6 text-xs text-slate-400">(MOSSES TECHNOLOGY HELP COMPANY LIMITED)</span></li>
+                      <li>6️⃣ Weka kiasi: 14,500 TZS</li>
+                      <li>7️⃣ Ingiza namba yako ya siri</li>
+                    </ul>
+                    <p className="mt-2 text-white font-medium bg-emerald-500/10 p-2 rounded-lg border border-emerald-500/20">✅ Malipo yako tayari! Fuata hatua hizi na account yako ita-activate haraka.</p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-red-500 font-bold text-lg flex items-center gap-2 mb-2"><span className="text-xl">📌</span> JINSI YA KULIPIA ORDERVERIFY KUTUMIA VODACOM</h4>
+                    <ul className="space-y-1 pl-4">
+                      <li>1️⃣ Bonyeza *150*00#</li>
+                      <li>2️⃣ Chagua LIPA KWA M-PESA</li>
+                      <li>3️⃣ Chagua LIPA KWA SIMU</li>
+                      <li>4️⃣ Weka namba ya malipo: 51330974<br/><span className="pl-6 text-xs text-slate-400">(MOSSES TECHNOLOGY HELP COMPANY LIMITED)</span></li>
+                      <li>5️⃣ Weka kiasi: 14,500 TZS</li>
+                      <li>6️⃣ Ingiza namba yako ya siri</li>
+                    </ul>
+                    <p className="mt-2 text-white font-medium bg-emerald-500/10 p-2 rounded-lg border border-emerald-500/20">✅ Malipo yako yameandaliwa vizuri, fuata hatua hizi na account yako ita-activate haraka.</p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-orange-500 font-bold text-lg flex items-center gap-2 mb-2"><span className="text-xl">📌</span> JINSI YA KULIPIA ORDERVERIFY KUTUMIA HALOPESA</h4>
+                    <ul className="space-y-1 pl-4">
+                      <li>1️⃣ Bonyeza *150*88#</li>
+                      <li>2️⃣ Chagua LIPIA BIDHAA</li>
+                      <li>3️⃣ Chagua MPESA LIPA HAPA</li>
+                      <li>4️⃣ Weka namba ya malipo: 51330974<br/><span className="pl-6 text-xs text-slate-400">(MOSSES TECHNOLOGY HELP COMPANY LIMITED)</span></li>
+                      <li>5️⃣ Weka kiasi: 14,500 TZS</li>
+                      <li>6️⃣ Ingiza namba yako ya siri</li>
+                    </ul>
+                    <p className="mt-2 text-white font-medium bg-emerald-500/10 p-2 rounded-lg border border-emerald-500/20">✅ Fuata hatua hizi na account yako ita-activate haraka.</p>
+                  </div>
+
+                  <div className="bg-[#1C1F30] p-4 rounded-xl border border-slate-700/80 text-center">
+                    <p className="font-bold text-slate-300 text-sm mb-1 tracking-widest">▬▬▬▬▬▬▬▬▬▬▬</p>
+                    <h4 className="text-[#00E676] font-black uppercase text-base sm:text-lg mb-1">*ORDERVERIFY MALIPO KAMA LIPA NAMBA IMEGOMA*</h4>
+                    <p className="font-bold text-slate-300 text-sm mb-3 tracking-widest">▬▬▬▬▬▬▬▬▬▬▬▬▬</p>
+                    <p className="text-white font-bold mb-3">TUMA PESA KWENDA NAMBA YA M-PESA NAMBA <span className="text-xl text-[#00E676] block mt-1">0757303605</span></p>
+                    <p className="text-slate-300 text-sm mb-4">MAJINA YATATOKEA <span className="font-bold text-white">*MUSA MOFUGA*</span> (ndiye CEO wa platform)</p>
+                    <p className="font-bold text-slate-300 text-sm mb-1 tracking-widest">▬▬▬▬▬▬✅▬▬▬▬▬▬</p>
+                    <p className="text-slate-400 text-xs">BY CEO</p>
+                    <p className="text-white font-bold">Jina MUSA WILLIAM MOFUGA</p>
+                    <p className="font-bold text-slate-300 text-sm mt-1 mb-1 tracking-widest">▬▬▬▬▬▬▬▬▬▬</p>
+                    <p className="text-[#00E676] font-bold text-xs uppercase tracking-wide">NDIO CEO WA PLATFORM</p>
+                    <p className="text-slate-400 text-xs mt-3">Info!</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="p-4 sm:p-5 border-t border-slate-800 bg-[#0B0C12] shrink-0">
+                <p className="text-xs sm:text-sm text-center text-slate-300 mb-3">
+                  Ukimaliza kulipia au ukishindwa kulipia wasiliana na wakala wetu kwa kubonyeza hapa👇
+                </p>
+                <a 
+                  href="sms:+255740463671?body=Habari%20nimesha%20fika%20kwenye%20malipo%20ya%20Orderverify%20naomba%20ushirikiano%20wako"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:brightness-110 text-white font-bold px-6 py-3.5 rounded-xl text-sm transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+                >
+                  <MessageSquare className="w-5 h-5" />
+                  <span>Wasiliana na Wakala</span>
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
