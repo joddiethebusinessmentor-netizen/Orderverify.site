@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Play, Users, X } from 'lucide-react';
 
 interface TutorialVideoSectionProps {
@@ -8,15 +8,25 @@ interface TutorialVideoSectionProps {
 export function TutorialVideoSection({
   whatsappUrl = "https://chat.whatsapp.com/D1b8NV1tkMo0uPGHdE4rjR?s=cl&p=a&mlu=4&ilr=4"
 }: TutorialVideoSectionProps) {
-  const videoId = "Hd_hXPYPIKk";
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleOpenFullscreen = () => {
     setIsFullscreen(true);
+    // Optional: play the video when the modal opens if allowed by the browser
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay might be blocked if not triggered directly by a user click event in some strict in-app browsers, 
+        // the user can still use the native controls.
+      });
+    }
   };
 
   const handleCloseFullscreen = () => {
     setIsFullscreen(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
   };
 
   return (
@@ -27,20 +37,22 @@ export function TutorialVideoSection({
         className="relative w-full aspect-[21/9] sm:aspect-[21/9] rounded-2xl sm:rounded-3xl overflow-hidden group shadow-2xl border border-slate-800/80 cursor-pointer bg-slate-900"
       >
         {/* Picha ya Nyuma (Thumbnail Simulation) */}
-        <div className="absolute inset-0 w-full h-full">
-          <img 
-            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-            alt="Jifunze Jinsi ya Kufanya Kazi"
-            className="w-full h-full object-cover opacity-70 group-hover:opacity-60 transition-opacity duration-300 group-hover:scale-105"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-            }}
+        <div className="absolute inset-0 w-full h-full bg-[#181A26] flex items-center justify-center">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
+          <div className="w-full h-full opacity-40 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900/40 via-[#0B0C10] to-[#0B0C10]"></div>
+          
+          {/* Tumia video kama background kwa ukimya ili iweze kuonyesha picha (poster frame) */}
+          <video 
+            src="/Muongozo.mp4" 
+            className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-20 transition-opacity duration-300 group-hover:scale-105 pointer-events-none"
+            preload="metadata"
+            muted
+            playsInline
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
         </div>
 
         {/* Maandishi na Kitufe cha Play */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-4">
           <button 
             type="button"
             className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#00E676] hover:bg-[#00c853] text-black flex items-center justify-center shadow-[0_0_35px_rgba(0,230,118,0.7)] transform transition-transform group-hover:scale-110 active:scale-95 cursor-pointer"
@@ -92,18 +104,20 @@ export function TutorialVideoSection({
           </button>
         </div>
 
-        {/* Video Player Frame - Standard Iframe to support all browsers/webviews safely */}
+        {/* Video Player Frame - Local HTML5 Video (Mobile & In-App Browser Compatible) */}
         <div className="relative w-full max-w-[380px] sm:max-w-[400px] aspect-[9/16] max-h-[85vh] sm:max-h-[88vh] flex items-center justify-center rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.95)] bg-black border border-slate-800 mx-auto mt-12">
-          {isFullscreen && (
-            <iframe
-              src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&rel=0&playsinline=1&modestbranding=1`}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full"
-            ></iframe>
-          )}
+          {/* Render the video element directly. Native controls bypass in-app browser restrictions */}
+          <video
+            ref={videoRef}
+            src="/Muongozo.mp4"
+            controls
+            playsInline
+            preload="metadata"
+            className="w-full h-full object-contain"
+          >
+            <source src="/Muongozo.mp4" type="video/mp4" />
+            Samahani, kivinjari chako hakikubali kucheza video hii.
+          </video>
         </div>
         
         <div className="mt-6 text-center w-full">
