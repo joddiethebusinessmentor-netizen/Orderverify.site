@@ -1517,15 +1517,19 @@ function GlobalAudioPlayer() {
   const [showControls, setShowControls] = useState(false);
   const [hasAttemptedAutoplay, setHasAttemptedAutoplay] = useState(false);
 
+  const autoplaySuccess = React.useRef(false);
+
   useEffect(() => {
     let isMounted = true;
     
     const tryPlay = () => {
-      if (!isMounted || !audioRef.current || isPlaying) return;
-      audioRef.current.volume = volume;
+      // Kama ishafanikiwa ku-play, isijaribu tena (inazuia kujirudia na scratchy sounds)
+      if (!isMounted || !audioRef.current || autoplaySuccess.current) return;
+      
       const playPromise = audioRef.current.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
+          autoplaySuccess.current = true;
           if (isMounted) setIsPlaying(true);
           ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => document.removeEventListener(evt, tryPlay));
         }).catch((error) => {
@@ -1537,7 +1541,7 @@ function GlobalAudioPlayer() {
     // Try immediately on mount
     tryPlay();
 
-    // If blocked, listen to ANY first user interaction across the entire document
+    // If blocked, listen to user interaction
     ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => 
       document.addEventListener(evt, tryPlay, { passive: true, once: true })
     );
@@ -1546,7 +1550,14 @@ function GlobalAudioPlayer() {
       isMounted = false;
       ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => document.removeEventListener(evt, tryPlay));
     };
-  }, [volume, isPlaying]);
+  }, []); // Empty dependency array prevents re-running
+
+  // Separate effect for volume to prevent restarting audio
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
