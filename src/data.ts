@@ -444,11 +444,11 @@ const baseOrderData = [
     country: "USA",
     flag: "🇺🇸",
     city: "Los Angeles",
-    product: "Electric Toothbrush",
+    product: "Bluetooth Soundbar",
     productValue: 135000,
     payout: 6750,
     avatar: "https://randomuser.me/api/portraits/women/14.jpg",
-    productImage: "https://images.unsplash.com/photo-1520624021290-7667232230da?w=500&q=80"
+    productImage: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500&q=80"
   },
   {
     id: 33,
@@ -587,7 +587,7 @@ const baseLivePayouts = (() => {
   
   // Create 500 unique names deterministically based on epoch
   const epoch = Math.floor(Date.now() / (6 * 60 * 60 * 1000));
-  let s = epoch * 9999 + 8888;
+  let s = epoch * 5555 + 6666;
   const rnd = () => {
     const x = Math.sin(s++) * 10000;
     return x - Math.floor(x);

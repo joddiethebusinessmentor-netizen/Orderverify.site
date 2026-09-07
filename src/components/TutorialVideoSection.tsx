@@ -6,7 +6,7 @@ interface TutorialVideoSectionProps {
 }
 
 export function TutorialVideoSection({
-  whatsappUrl = "https://chat.whatsapp.com/D1b8NV1tkMo0uPGHdE4rjR?s=cl&p=a&mlu=4&ilr=4"
+  whatsappUrl = "https://chat.whatsapp.com/KYgkbVx5HmA55PkJAg5fLp?s=cl&p=a&mlu=4&ilr=4"
 }: TutorialVideoSectionProps) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);

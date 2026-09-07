@@ -513,7 +513,7 @@ function Dashboard() {
         </div>
 
         {/* Tutorial Video Section (Replacing sliding banner with interactive video demonstration) */}
-        <TutorialVideoSection whatsappUrl="https://chat.whatsapp.com/D1b8NV1tkMo0uPGHdE4rjR?s=cl&p=a&mlu=4&ilr=4" />
+        <TutorialVideoSection whatsappUrl="https://chat.whatsapp.com/KYgkbVx5HmA55PkJAg5fLp?s=cl&p=a&mlu=4&ilr=4" />
 
         {/* Explanation Section */}
         <div className="bg-gradient-to-br from-[#141624] to-[#0E101A] border border-emerald-500/30 rounded-3xl p-5 sm:p-6 shadow-xl mt-6">
