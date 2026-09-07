@@ -1518,24 +1518,35 @@ function GlobalAudioPlayer() {
   const [hasAttemptedAutoplay, setHasAttemptedAutoplay] = useState(false);
 
   useEffect(() => {
-    if (hasAttemptedAutoplay) return;
+    let isMounted = true;
     
-    // Attempt autoplay
-    if (audioRef.current) {
+    const tryPlay = () => {
+      if (!isMounted || !audioRef.current || isPlaying) return;
       audioRef.current.volume = volume;
       const playPromise = audioRef.current.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
-          setIsPlaying(true);
-          setHasAttemptedAutoplay(true);
+          if (isMounted) setIsPlaying(true);
+          ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => document.removeEventListener(evt, tryPlay));
         }).catch((error) => {
           console.log("Autoplay prevented:", error);
-          setIsPlaying(false);
-          setHasAttemptedAutoplay(true);
         });
       }
-    }
-  }, [hasAttemptedAutoplay, volume]);
+    };
+
+    // Try immediately on mount
+    tryPlay();
+
+    // If blocked, listen to ANY first user interaction across the entire document
+    ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => 
+      document.addEventListener(evt, tryPlay, { passive: true, once: true })
+    );
+
+    return () => {
+      isMounted = false;
+      ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => document.removeEventListener(evt, tryPlay));
+    };
+  }, [volume, isPlaying]);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -1565,7 +1576,9 @@ function GlobalAudioPlayer() {
     <div className="fixed bottom-32 sm:bottom-28 right-4 z-[150] flex flex-col items-end gap-2 pointer-events-none">
       <audio 
         ref={audioRef} 
-        src="/Jodef.mp3" 
+        src="/Jodef.mp3"
+        playsInline
+        preload="auto" 
         onEnded={() => setIsPlaying(false)} 
         onPause={() => setIsPlaying(false)}
         onPlay={() => setIsPlaying(true)}
@@ -1665,12 +1678,7 @@ export default function App() {
 
 
   if (!isAgeVerified) {
-    return (
-      <>
-        <AgeVerification onVerify={() => setIsAgeVerified(true)} />
-        <GlobalAudioPlayer />
-      </>
-    );
+    return <AgeVerification onVerify={() => setIsAgeVerified(true)} />;
   }
 
   return (
