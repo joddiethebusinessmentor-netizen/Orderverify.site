@@ -1289,12 +1289,13 @@ function Dashboard() {
                   </button>
                   
                   <img 
-                    src={activeVerification.avatar} 
-                    alt={activeVerification.name}
-                    className="w-16 h-16 rounded-full mx-auto mb-2 border-2 border-[#00E676] object-cover" 
+                    src={activeVerification.productImage} 
+                    alt={activeVerification.product}
+                    className="w-20 h-20 rounded-2xl mx-auto mb-3 border-2 border-[#00E676] object-cover shadow-lg" 
                     referrerPolicy="no-referrer"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(activeVerification.name)}&background=141624&color=00E676&bold=true`;
+                      (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80";
+                      e.currentTarget.onerror = null;
                     }}
                   />
                   <h3 className="font-bold text-lg mb-1 text-slate-800">{activeVerification.name}</h3>
@@ -1354,16 +1355,17 @@ function Dashboard() {
                   <div className="relative z-10">
                     <div className="relative w-28 h-28 mx-auto mb-6">
                       <img 
-                        src={activeVerification.avatar} 
-                        alt={activeVerification.name}
-                        className="w-full h-full rounded-full border-4 border-[#00E676] object-cover relative z-10" 
+                        src={activeVerification.productImage} 
+                        alt={activeVerification.product}
+                        className="w-full h-full rounded-3xl border-4 border-[#00E676] object-cover relative z-10 bg-slate-800" 
                         referrerPolicy="no-referrer"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(activeVerification.name)}&background=141624&color=00E676&bold=true`;
+                          (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80";
+                          e.currentTarget.onerror = null;
                         }}
                       />
-                      <div className="absolute inset-0 rounded-full border-4 border-[#00E676] animate-ping opacity-75"></div>
-                      <div className="absolute inset-[-10px] rounded-full border-2 border-[#00E676]/30 animate-ping opacity-50" style={{ animationDelay: '200ms' }}></div>
+                      <div className="absolute inset-0 rounded-3xl border-4 border-[#00E676] animate-ping opacity-75"></div>
+                      <div className="absolute inset-[-10px] rounded-3xl border-2 border-[#00E676]/30 animate-ping opacity-50" style={{ animationDelay: '200ms' }}></div>
                     </div>
                     
                     <h3 className="text-2xl font-black text-white mb-2">{activeVerification.name}</h3>
