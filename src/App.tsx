@@ -1565,7 +1565,7 @@ function GlobalAudioPlayer() {
     <div className="fixed bottom-32 sm:bottom-28 right-4 z-[150] flex flex-col items-end gap-2 pointer-events-none">
       <audio 
         ref={audioRef} 
-        src="/AUD-20260907-WA0024.opus" 
+        src="/Jodef.mp3" 
         onEnded={() => setIsPlaying(false)} 
         onPause={() => setIsPlaying(false)}
         onPlay={() => setIsPlaying(true)}
@@ -1637,7 +1637,7 @@ function GlobalAudioPlayer() {
           ) : (
             <>
               <Volume2 className="w-4 h-4 shrink-0" />
-              <span className="text-xs font-black uppercase tracking-wide">Washa Sauti</span>
+              <span className="text-xs font-black uppercase tracking-wide">BONYEZA KUSIKILIZA</span>
             </>
           )}
         </button>
