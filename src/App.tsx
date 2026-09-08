@@ -1587,7 +1587,7 @@ function GlobalAudioPlayer() {
     <div className="fixed bottom-48 sm:bottom-40 right-4 z-[150] flex flex-col items-end gap-2 pointer-events-none">
       <audio 
         ref={audioRef} 
-        src="/Jodef.mp3"
+        src="/Joddie.mp3"
         playsInline
         preload="auto" 
         onEnded={() => setIsPlaying(false)} 
