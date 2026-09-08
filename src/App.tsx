@@ -1584,7 +1584,7 @@ function GlobalAudioPlayer() {
   };
 
   return (
-    <div className="fixed bottom-32 sm:bottom-28 right-4 z-[150] flex flex-col items-end gap-2 pointer-events-none">
+    <div className="fixed bottom-48 sm:bottom-40 right-4 z-[150] flex flex-col items-end gap-2 pointer-events-none">
       <audio 
         ref={audioRef} 
         src="/Jodef.mp3"
