@@ -153,6 +153,11 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
           <span>🔒 Tovuti Salama • Malipo ya Papo Hapo M-Pesa, Airtel, Tigo & HaloPesa</span>
         </div>
       </motion.div>
+      
+
+
+      
+
     </div>
   );
 }
@@ -277,6 +282,7 @@ function Dashboard() {
   const [showRegisterConfirmModal, setShowRegisterConfirmModal] = useState(false);
   const [registerModalStep, setRegisterModalStep] = useState<'confirm' | 'instructions'>('confirm');
   const [showInstallAppModal, setShowInstallAppModal] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
 
   const openRegisterModal = () => {
     setShowTopNotification(false);
@@ -329,7 +335,12 @@ function Dashboard() {
   const totalPages = 3;
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-  const currentOrders = orderData.slice(indexOfFirstOrder, indexOfLastOrder);
+  const [orders, setOrders] = useState(() => orderData);
+  const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
+
+  useEffect(() => {
+    setOrders(orderData);
+  }, []);
 
   // Comments State - Generated dynamically from 16-hour epoch pool (45+ items)
   const [allComments, setAllComments] = useState<any[]>(() => generate6HourComments());
@@ -365,11 +376,8 @@ function Dashboard() {
     const newCommentObj = {
       id: Date.now(),
       name: "Wewe (Mwanachama)",
-      location: "Tanzania 🇹🇿",
-      type: "Maoni Mapya ✍️",
       text: newCommentText,
       time: "Sasa hivi",
-      avatar: "https://i.pravatar.cc/150?img=32",
       replies: []
     };
     // Insert right after current so they see it next
@@ -554,7 +562,7 @@ function Dashboard() {
             return (
               <div key={order.id} className={`bg-[#141624] text-white rounded-2xl overflow-hidden flex flex-col shadow-xl border ${isVerified ? 'border-slate-800/80 opacity-60' : 'border-slate-800 hover:border-emerald-500/50 hover:shadow-[0_8px_25px_rgba(0,230,118,0.12)] transition-all duration-200'}`}>
                 {/* Product Image Top */}
-                <div className="h-24 bg-slate-900 relative">
+                <div className="h-28 bg-slate-900 relative">
                   <img src={order.productImage} alt={order.product} referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80"; e.currentTarget.onerror = null; }} className={`w-full h-full object-cover ${isVerified ? 'grayscale' : ''}`} />
                   {isVerified && (
                     <div className="absolute inset-0 bg-black/75 flex flex-col items-center justify-center backdrop-blur-[1px]">
@@ -574,14 +582,17 @@ function Dashboard() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-bold text-[11px] truncate text-slate-200">{order.name}</h4>
-                      <p className="text-[9px] text-slate-400 truncate">Mteja wa {order.country}</p>
+                      <p className="text-[9px] text-slate-400 truncate">Mteja wa {order.city}, {order.country}</p>
                     </div>
                   </div>
                   
                   {/* Product Details */}
                   <div className="mb-2 space-y-1">
                     <p className="font-bold text-xs text-white leading-tight line-clamp-1">{order.product}</p>
-                    <div className="flex justify-between items-center text-[10px]">
+                    {order.productDescription && (
+                      <p className="text-[9px] text-slate-400 line-clamp-2 leading-snug">{order.productDescription}</p>
+                    )}
+                    <div className="flex justify-between items-center text-[10px] pt-1">
                       <span className="text-slate-400">Thamani:</span>
                       <span className="font-bold text-white">{formatLocalCurrency(order.productValue, order.country)}</span>
                     </div>
@@ -748,7 +759,7 @@ function Dashboard() {
                       {getInitials(currentLiveComment.name)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center justify-between gap-2 flex-wrap mb-1">
                         <h4 className="font-bold text-sm text-white">{currentLiveComment.name}</h4>
                       </div>
                       <p className="text-xs sm:text-[13px] text-slate-200 leading-relaxed mt-1">{currentLiveComment.text}</p>
@@ -767,13 +778,13 @@ function Dashboard() {
                             {getInitials(reply.name)}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-1.5 flex-wrap">
+                            <div className="flex items-center gap-1.5 mb-0.5">
                               <h5 className="font-black text-xs text-[#00E676]">{reply.name}</h5>
-                              <span className="text-[9px] bg-emerald-500/20 text-[#00E676] font-bold px-1.5 py-0.2 rounded border border-emerald-500/35">
+                              <span className="text-[9px] bg-emerald-500/20 text-[#00E676] font-bold px-1.5 py-0.5 rounded border border-emerald-500/35">
                                 Afisa wa Huduma
                               </span>
                             </div>
-                            <p className="text-xs text-slate-200 mt-1 leading-relaxed">{reply.text}</p>
+                            <p className="text-xs text-slate-200 mt-0.5 leading-relaxed">{reply.text}</p>
                           </div>
                         </div>
                       ))}
@@ -832,14 +843,14 @@ function Dashboard() {
           </button>
 
           {/* 2. Kitufe cha Wasiliana na Wakala - SMS text message */}
-          <a
-            href="sms:0740463671?body=Habari%20Naomba%20unielekeze%20zaidi%20kuhusu%20kuthibitisha%20order%20za%20wateja%20na%20kulipwa"
+          <button
+            onClick={() => setShowContactModal(true)}
             className="flex-1 bg-[#0A0C14] hover:bg-[#151722] text-white border border-[#00E676] font-extrabold text-[11px] sm:text-xs py-2 sm:py-2.5 px-3 rounded-xl shadow-[0_0_12px_rgba(0,230,118,0.4)] animate-pulse flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer whitespace-nowrap"
           >
             <MessageSquare className="w-3.5 h-3.5 text-[#00E676] shrink-0" />
             <span>Wasiliana na Wakala</span>
             <span className="text-xs sm:text-sm leading-none">🇹🇿</span>
-          </a>
+          </button>
         </div>
       </div>
 
@@ -1273,52 +1284,61 @@ function Dashboard() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className={`rounded-3xl max-w-sm w-full shadow-2xl relative text-center overflow-hidden border-t-8 ${callStatus === 'idle' ? 'bg-white border-[#00E676]' : 'bg-slate-900 border-transparent text-white'}`}
+              className={`rounded-3xl max-w-sm w-full shadow-2xl relative text-center overflow-hidden border-t-8 max-h-[92vh] overflow-y-auto ${callStatus === 'idle' ? 'bg-white border-[#00E676]' : 'bg-slate-900 border-transparent text-white'}`}
             >
               {callStatus === 'idle' ? (
-                <div className="p-6">
+                <div className="p-5 sm:p-6">
                   <button 
                     onPointerDown={() => setShowTopNotification(false)}
                     onClick={() => {
                       setShowTopNotification(false);
                       setActiveVerification(null);
                     }}
-                    className="absolute top-4 right-4 text-slate-400 hover:text-black bg-slate-100 rounded-full p-1"
+                    className="absolute top-4 right-4 text-slate-400 hover:text-black bg-slate-100 hover:bg-slate-200 rounded-full p-1.5 transition-colors z-20"
                   >
                     <X className="w-5 h-5" />
                   </button>
+
+                  {/* Picha ya Bidhaa */}
+                  <div className="relative mb-3 pt-1">
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 mx-auto relative rounded-2xl overflow-hidden border-2 border-[#00E676] shadow-md bg-slate-100">
+                      <img 
+                        src={activeVerification.productImage} 
+                        alt={activeVerification.product}
+                        className="w-full h-full object-cover" 
+                        referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80";
+                          e.currentTarget.onerror = null;
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Jina na Nchi ya Mteja */}
+                  <div className="bg-slate-50 px-3.5 py-2.5 rounded-xl border border-slate-200 mb-3 text-left">
+                    <p className="text-xs font-bold text-slate-800 leading-tight">{activeVerification.name}</p>
+                    <p className="text-[10px] text-slate-500 mt-0.5">{activeVerification.flag} Mteja wa {activeVerification.city}, {activeVerification.country}</p>
+                  </div>
                   
-                  <img 
-                    src={activeVerification.productImage} 
-                    alt={activeVerification.product}
-                    className="w-20 h-20 rounded-2xl mx-auto mb-3 border-2 border-[#00E676] object-cover shadow-lg" 
-                    referrerPolicy="no-referrer"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80";
-                      e.currentTarget.onerror = null;
-                    }}
-                  />
-                  <h3 className="font-bold text-lg mb-1 text-slate-800">{activeVerification.name}</h3>
-                  <p className="text-slate-500 text-xs mb-5 uppercase tracking-wide">Mteja wa {activeVerification.country}</p>
-                  
-                  <div className="bg-blue-50 border border-blue-100 rounded-2xl p-3 mb-5 text-left shadow-sm">
-                    <p className="text-xs font-black text-blue-900 mb-1.5 uppercase">Maelekezo Muhimu:</p>
+                  <div className="bg-blue-50 border border-blue-100 rounded-2xl p-3.5 mb-4 text-left shadow-sm">
+                    <p className="text-xs font-black text-blue-900 mb-1.5 uppercase">Maelekezo ya Wakala:</p>
                     <ul className="text-[11px] text-blue-800 list-disc pl-4 space-y-1.5 font-medium">
                       <li>Kumbuka: Hakikisha unatoka nchi moja na <strong className="font-bold">mteja</strong> ndo uweze kumpigia simu. Vinginevyo bofya tu SEND ORDER.</li>
                       <li><span className="font-bold text-blue-950">Ukipiga sema:</span> <span className="italic">"Halo, mimi ni wakala kutoka OrderVerify. Nakupigia kukuelekeza kuwa ofisi zetu zipo {activeVerification.city} utaenda kuchukua order yako ya {activeVerification.product}."</span></li>
                     </ul>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-3 mb-6">
+                  <div className="grid grid-cols-2 gap-2.5 mb-4">
                     <button 
                       onPointerDown={() => setShowTopNotification(false)}
                       onClick={() => {
                         setShowTopNotification(false);
                         runWithLoader(() => simulateCall('calling-video'));
                       }} 
-                      className="bg-white border border-slate-200 rounded-2xl py-4 flex flex-col items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors shadow-sm"
+                      className="bg-white border border-slate-200 rounded-2xl py-3 flex flex-col items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors shadow-sm"
                     >
-                      <Video className="w-6 h-6 mb-1 text-indigo-500" />
+                      <Video className="w-5 h-5 mb-1 text-indigo-500" />
                       <span className="text-[10px] font-black uppercase tracking-wide">Video Call</span>
                     </button>
                     <button 
@@ -1327,9 +1347,9 @@ function Dashboard() {
                         setShowTopNotification(false);
                         runWithLoader(() => simulateCall('calling-voice'));
                       }} 
-                      className="bg-white border border-slate-200 rounded-2xl py-4 flex flex-col items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors shadow-sm"
+                      className="bg-white border border-slate-200 rounded-2xl py-3 flex flex-col items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors shadow-sm"
                     >
-                      <Phone className="w-6 h-6 mb-1 text-emerald-500" />
+                      <Phone className="w-5 h-5 mb-1 text-emerald-500" />
                       <span className="text-[10px] font-black uppercase tracking-wide">Voice Call</span>
                     </button>
                   </div>
@@ -1342,42 +1362,45 @@ function Dashboard() {
                         handleConfirmAction(activeVerification.id, activeVerification.payout);
                       });
                     }}
-                    animate={{ rotate: [-2, 2, -2, 2, 0], scale: [1, 1.02, 1] }}
-                    transition={{ repeat: Infinity, duration: 1 }}
-                    className="w-full bg-[#00E676] text-black font-black px-5 py-4 rounded-2xl hover:bg-[#00C260] shadow-[0_5px_15px_rgba(0,230,118,0.3)] flex items-center justify-center gap-2 text-sm uppercase tracking-wider cursor-pointer"
+                    animate={{ rotate: [-1.5, 1.5, -1.5, 1.5, 0], scale: [1, 1.02, 1] }}
+                    transition={{ repeat: Infinity, duration: 1.2 }}
+                    className="w-full bg-[#00E676] text-black font-black px-5 py-3.5 rounded-2xl hover:bg-[#00C260] shadow-[0_5px_15px_rgba(0,230,118,0.3)] flex items-center justify-center gap-2 text-sm uppercase tracking-wider cursor-pointer"
                   >
                     <Send className="w-5 h-5" /> SEND ORDER
                   </motion.button>
                 </div>
               ) : (
-                <div className="p-8 py-12 relative overflow-hidden">
+                <div className="p-8 py-10 relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/20 to-slate-900 pointer-events-none"></div>
                   <div className="relative z-10">
-                    <div className="relative w-28 h-28 mx-auto mb-6">
+                    <div className="relative w-24 h-24 mx-auto mb-4">
                       <img 
-                        src={activeVerification.productImage} 
-                        alt={activeVerification.product}
-                        className="w-full h-full rounded-3xl border-4 border-[#00E676] object-cover relative z-10 bg-slate-800" 
+                        src={activeVerification.avatar} 
+                        alt={activeVerification.name}
+                        className="w-full h-full rounded-full border-4 border-[#00E676] object-cover relative z-10 bg-slate-800 shadow-xl" 
                         referrerPolicy="no-referrer"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80";
-                          e.currentTarget.onerror = null;
-                        }}
                       />
-                      <div className="absolute inset-0 rounded-3xl border-4 border-[#00E676] animate-ping opacity-75"></div>
-                      <div className="absolute inset-[-10px] rounded-3xl border-2 border-[#00E676]/30 animate-ping opacity-50" style={{ animationDelay: '200ms' }}></div>
+                      <div className="absolute inset-0 rounded-full border-4 border-[#00E676] animate-ping opacity-75"></div>
+                      <div className="absolute inset-[-8px] rounded-full border-2 border-[#00E676]/30 animate-ping opacity-50" style={{ animationDelay: '200ms' }}></div>
                     </div>
                     
-                    <h3 className="text-2xl font-black text-white mb-2">{activeVerification.name}</h3>
+                    <h3 className="text-xl font-black text-white mb-0.5">{activeVerification.name}</h3>
+                    <p className="text-xs text-slate-400 mb-2">{activeVerification.flag} {activeVerification.city}, {activeVerification.country}</p>
+                    
+                    <div className="inline-flex items-center gap-1.5 bg-slate-800/80 border border-slate-700 px-3 py-1 rounded-full mb-4">
+                      <span className="text-[10px] text-slate-400">Kuhusu Agizo:</span>
+                      <span className="text-[10px] font-bold text-emerald-400 truncate max-w-[200px]">{activeVerification.product}</span>
+                    </div>
+
                     <p className="text-[#00E676] text-sm animate-pulse font-bold tracking-widest uppercase">
                       {callStatus === 'calling-video' ? 'Inapiga Video...' : 'Inapiga Simu...'}
                     </p>
                     
                     <button 
                       onClick={() => setCallStatus('idle')}
-                      className="mt-12 bg-red-500 text-white w-14 h-14 rounded-full flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(239,68,68,0.5)] hover:bg-red-600 transition-transform hover:scale-110"
+                      className="mt-8 bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(239,68,68,0.5)] hover:bg-red-600 transition-transform hover:scale-110 cursor-pointer"
                     >
-                      <PhoneOff className="w-6 h-6" />
+                      <PhoneOff className="w-5 h-5" />
                     </button>
                   </div>
                 </div>
@@ -1491,16 +1514,81 @@ function Dashboard() {
                 <p className="text-xs sm:text-sm text-center text-slate-300 mb-3">
                   Ukimaliza kulipia au ukishindwa kulipia wasiliana na wakala wetu kwa kubonyeza hapa👇
                 </p>
-                <a 
-                  href="sms:+255740463671?body=Habari%20nimesha%20fika%20kwenye%20malipo%20ya%20Orderverify%20naomba%20ushirikiano%20wako"
+                <button
+                  onClick={() => setShowContactModal(true)}
                   className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:brightness-110 text-white font-bold px-6 py-3.5 rounded-xl text-sm transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)]"
                 >
                   <MessageSquare className="w-5 h-5" />
                   <span>Wasiliana na Wakala</span>
-                </a>
+                </button>
               </div>
             </motion.div>
           </div>
+        )}
+      </AnimatePresence>
+
+      {/* Contact Options Modal */}
+      <AnimatePresence>
+        {showContactModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0B0C10]/80 backdrop-blur-sm p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="bg-[#1C1D24] border border-slate-800 rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl flex flex-col"
+            >
+              <div className="p-6 relative flex flex-col items-center text-center">
+                <button
+                  onClick={() => setShowContactModal(false)}
+                  className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors bg-slate-800/50 p-2 rounded-full"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <div className="w-16 h-16 bg-[#0B0C10] border-2 border-slate-800 rounded-full flex items-center justify-center mb-4 text-[#00E676] shadow-inner">
+                  <PhoneCall className="w-8 h-8" />
+                </div>
+                <h3 className="text-xl font-extrabold text-white mb-2">Chagua Njia ya Mawasiliano</h3>
+                <p className="text-slate-400 text-sm mb-8">Wasiliana na wakala wetu kupitia WhatsApp au Tuma Meseji (SMS) kwa msaada zaidi.</p>
+                
+                <div className="flex flex-col gap-3 w-full">
+                  <a
+                    href="https://wa.me/255689912898?text=Habari%20Naomba%20kujiunga%20na%20OrderVerify"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full flex items-center justify-between bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 text-[#25D366] font-bold px-5 py-4 rounded-xl transition-all"
+                  >
+                    <div className="flex items-center gap-3">
+                      <MessageCircle className="w-6 h-6" />
+                      <div className="flex flex-col items-start">
+                        <span className="text-base">WhatsApp</span>
+                        <span className="text-xs opacity-80">+255 689 912 898</span>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-5 h-5 opacity-70" />
+                  </a>
+
+                  <a
+                    href="sms:0740463671?body=Habari%20Naomba%20kujiunga%20na%20OrderVerify"
+                    className="w-full flex items-center justify-between bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-400 font-bold px-5 py-4 rounded-xl transition-all"
+                  >
+                    <div className="flex items-center gap-3">
+                      <MessageSquare className="w-6 h-6" />
+                      <div className="flex flex-col items-start">
+                        <span className="text-base">Tuma Meseji (SMS)</span>
+                        <span className="text-xs opacity-80">0740 463 671</span>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-5 h-5 opacity-70" />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
 
