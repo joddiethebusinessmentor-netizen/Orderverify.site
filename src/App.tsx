@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { CheckCircle2, Volume2, VolumeX, Play, Pause, AlertCircle, Wallet, 
+import { UserCheck, CheckCircle2, Volume2, VolumeX, Play, Pause, AlertCircle, Wallet, 
   UserPlus, MessageCircle, Send, Globe, MessageSquare, X, Loader2,
   Activity, ChevronRight, ChevronLeft, Smartphone, Users, ArrowDownToLine, ChevronDown, PhoneCall,
   Video, Phone, Mic, PhoneOff, CreditCard, ShieldCheck
@@ -289,6 +289,7 @@ function Dashboard() {
   const [authModalState, setAuthModalState] = useState<{show: boolean, type: 'register' | 'payment', message: string}>({show: false, type: 'register', message: ''});
   const [showWithdrawModal, setShowWithdrawModal] = useState(false);
   const [showPaymentGuide, setShowPaymentGuide] = useState(false);
+  const [showAlreadyRegisteredModal, setShowAlreadyRegisteredModal] = useState(false);
   const [showRegisterConfirmModal, setShowRegisterConfirmModal] = useState(false);
   const [registerModalStep, setRegisterModalStep] = useState<'confirm' | 'instructions'>('confirm');
   const [showInstallAppModal, setShowInstallAppModal] = useState(false);
@@ -296,8 +297,12 @@ function Dashboard() {
 
   const openRegisterModal = () => {
     setShowTopNotification(false);
-    setRegisterModalStep('confirm');
-    setShowRegisterConfirmModal(true);
+    if (userStatus === 'registered') {
+      setShowAlreadyRegisteredModal(true);
+    } else {
+      setRegisterModalStep('confirm');
+      setShowRegisterConfirmModal(true);
+    }
   };
   const [selectedNetwork, setSelectedNetwork] = useState<string | null>(null);
   
@@ -420,7 +425,11 @@ function Dashboard() {
   };
 
   const handleActionRequiresAuth = (message: string) => {
-    setShowRegisterConfirmModal(true);
+    if (userStatus === 'registered') {
+      setShowAlreadyRegisteredModal(true);
+    } else {
+      setShowRegisterConfirmModal(true);
+    }
   };
 
 
@@ -1005,7 +1014,11 @@ function Dashboard() {
                     setTimeout(() => setShowToast(false), 2500);
                     setTimeout(() => {
                       triggerMotivation("Ili kuruhusiwa kutoa pesa zote kwenda kwenye namba yako, tafadhali jisajili kisha ulipie mtaji wa 14,500/=.", 7);
-                      setShowRegisterConfirmModal(true);
+                      if (userStatus === 'registered') {
+                        setShowAlreadyRegisteredModal(true);
+                      } else {
+                        setShowRegisterConfirmModal(true);
+                      }
                     }, 1800);
                   });
                 }}
@@ -1186,6 +1199,7 @@ function Dashboard() {
                     type="button"
                     onClick={() => {
                       setShowRegisterConfirmModal(false);
+                      setUserStatus('registered');
                       window.open("https://adsblog.app/page/reg.php?reg=Joddie", "_blank");
                     }}
                     className="w-full bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black py-3.5 px-4 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(239,68,68,0.8)] border border-red-400/50 animate-pulse cursor-pointer"
@@ -1273,8 +1287,12 @@ function Dashboard() {
                   type="button"
                   onClick={() => {
                     setShowInstallAppModal(false);
-                    setRegisterModalStep('instructions');
-                    setShowRegisterConfirmModal(true);
+                    if (userStatus === 'registered') {
+                      setShowAlreadyRegisteredModal(true);
+                    } else {
+                      setRegisterModalStep('instructions');
+                      setShowRegisterConfirmModal(true);
+                    }
                   }}
                   className="w-full bg-gradient-to-r from-[#00E676] to-[#00C853] hover:brightness-110 active:scale-95 text-black font-black py-3.5 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#00E676]/30 cursor-pointer"
                 >
@@ -1424,6 +1442,57 @@ function Dashboard() {
                   </div>
                 </div>
               )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+            {/* Already Registered Modal */}
+      <AnimatePresence>
+        {showAlreadyRegisteredModal && (
+          <div 
+            onClick={() => setShowAlreadyRegisteredModal(false)}
+            className="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-4 bg-[#0B0C10]/95 backdrop-blur-md overflow-y-auto"
+          >
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-[#141624] border-2 border-[#00E676] w-full max-w-sm rounded-3xl p-6 shadow-2xl relative text-center my-auto"
+            >
+              <button 
+                type="button"
+                onClick={() => setShowAlreadyRegisteredModal(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800/80 hover:bg-slate-700 rounded-full p-1.5 transition-colors cursor-pointer"
+                aria-label="Funga"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              
+              <div className="w-16 h-16 rounded-full bg-[#00E676]/20 border border-[#00E676]/50 flex items-center justify-center mx-auto mb-4 text-[#00E676] shadow-[0_0_25px_rgba(0,230,118,0.35)]">
+                <UserCheck className="w-8 h-8 stroke-[2.2]" />
+              </div>
+              
+              <h2 className="text-lg sm:text-xl font-black text-white uppercase tracking-wide mb-3">
+                TAARIFA
+              </h2>
+              
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 font-medium">
+                Tayari wewe umesha jisajili, fuata haya maelekezo ili uweze kulipia.
+              </p>
+              
+              <button 
+                type="button"
+                onClick={() => {
+                  setShowAlreadyRegisteredModal(false);
+                  setShowPaymentGuide(true);
+                }}
+                className="w-full inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#00E676] via-[#00C853] to-[#00963F] hover:brightness-110 active:scale-95 text-black font-black px-6 py-3.5 rounded-2xl text-sm shadow-[0_0_25px_rgba(0,230,118,0.4)] transition-all cursor-pointer uppercase tracking-wider"
+              >
+                <CreditCard className="w-5 h-5" />
+                <span>Njia Za Malipo</span>
+              </button>
             </motion.div>
           </div>
         )}
