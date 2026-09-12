@@ -4,6 +4,7 @@ import { CheckCircle2, Volume2, VolumeX, Play, Pause, AlertCircle, Wallet,
   UserPlus, MessageCircle, Send, Globe, MessageSquare, X, Loader2,
   Activity, ChevronRight, ChevronLeft, Smartphone, Users, ArrowDownToLine, ChevronDown, PhoneCall,
   Video, Phone, Mic, PhoneOff, CreditCard, ShieldCheck
+  , ShoppingBag
 } from 'lucide-react';
 import { orderData, livePayouts, initialComments, generate6HourComments, formatLocalCurrency, update6HourDataIfChanged } from './data';
 import { TutorialVideoSection } from './components/TutorialVideoSection';
@@ -229,10 +230,18 @@ function LiveClock() {
   const timeString = time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
 
   return (
-    <div className="bg-[#1C1D24] border border-slate-800 rounded-2xl p-4 mb-2 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div className="bg-[#1C1D24] border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 relative z-0">
       <div className="flex items-center gap-3 w-full sm:w-auto">
-        <div className="bg-[#00E676]/20 p-2 rounded-lg">
-          <Activity className="w-5 h-5 text-[#00E676] animate-pulse" />
+        <div className="bg-[#00E676]/20 p-2 rounded-lg shrink-0">
+          <ShoppingBag className="w-5 h-5 text-[#00E676] animate-bounce" />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-white font-extrabold text-sm leading-tight">
+            Order <span className="text-[#00E676]">36</span> za wateja wetu ziko live sasa
+          </span>
+          <span className="text-slate-400 text-[11px] sm:text-xs mt-0.5 font-medium leading-snug">
+            Thibitisha ili tukulipe sasa hivi
+          </span>
         </div>
       </div>
       <div className="flex gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
@@ -482,7 +491,7 @@ function Dashboard() {
       </header>
 
       <div className="p-4 max-w-4xl mx-auto space-y-6 pb-28 sm:pb-32">
-        <LiveClock />
+                <LiveClock />
 
         {/* 3 Top Cards */}
         <div className="grid grid-cols-3 gap-3">

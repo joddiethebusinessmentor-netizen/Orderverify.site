@@ -191,7 +191,7 @@ function saveStoredSet(key: string, set: Set<string>): void {
   } catch (e) {}
 }
 
-const STORAGE_VERSION_TAG = "ov_v18_replace_coffee_thermo";
+const STORAGE_VERSION_TAG = "ov_v21_inline_banner";
 const STORAGE_KEY_VERSION = "orderverify_app_version";
 const STORAGE_KEY_USED_PRODUCTS = "orderverify_used_products";
 const STORAGE_KEY_USED_NAMES = "orderverify_used_customer_names";
@@ -1029,8 +1029,8 @@ export function validateSystemData(data: { orders: Order[]; notifications: LiveP
   });
 
   data.orders.forEach((o, idx) => {
-    if (o.productValue < 100000 || o.productValue > 500000) {
-      errors.push(`Order #${idx+1} value ${o.productValue} out of 100k-500k bounds.`);
+    if (o.productValue < 80000 || o.productValue > 700000) {
+      errors.push(`Order #${idx+1} value ${o.productValue} out of 80k-700k bounds.`);
     }
     const expectedPayout = Math.round(o.productValue * 0.05);
     if (Math.abs(o.payout - expectedPayout) > 1) {
