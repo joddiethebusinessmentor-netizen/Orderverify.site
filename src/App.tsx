@@ -237,10 +237,10 @@ function LiveClock() {
         </div>
         <div className="flex flex-col">
           <span className="text-white font-extrabold text-sm leading-tight">
-            Order <span className="text-[#00E676]">36</span> za wateja wetu ziko live sasa
+            Tunawatakia JUMAPILI njema,, pia order zipo leo za kutosha
           </span>
           <span className="text-slate-400 text-[11px] sm:text-xs mt-0.5 font-medium leading-snug">
-            Thibitisha ili tukulipe sasa hivi
+            Thibitisha utengeneze kipato
           </span>
         </div>
       </div>
@@ -385,7 +385,7 @@ function Dashboard() {
     if (!newCommentText.trim()) return;
     const newCommentObj = {
       id: Date.now(),
-      name: "Wewe (Mwanachama)",
+      name: "Wewe",
       text: newCommentText,
       time: "Sasa hivi",
       replies: []

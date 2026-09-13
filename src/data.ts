@@ -27,6 +27,15 @@ import wifiRouterImg from "./assets/images/wifi_router_1789046584997.jpg";
 import wirelessChargerImg from "./assets/images/wireless_charger_1789046617340.jpg";
 import airCompressorImg from "./assets/images/air_compressor_tank_1789028891849.jpg";
 import demolitionHammerImg from "./assets/images/demolition_jackhammer_1789028939535.jpg";
+import shapewearBrasImg from "./assets/images/shapewear_bras_1789290994990.jpg";
+import phoneCaseRingImg from "./assets/images/phone_case_ring_1789291007947.jpg";
+import facialKitImg from "./assets/images/facial_kit_1789291018164.jpg";
+import butterflyWatchSetImg from "./assets/images/butterfly_watch_set_1789291028718.jpg";
+import pressOnNailsImg from "./assets/images/press_on_nails_1789291049824.jpg";
+import batanaOilImg from "./assets/images/batana_oil_1789291060745.jpg";
+import makeupBrushSet13pcsImg from "./assets/images/makeup_brush_set_13pcs_1789291072315.jpg";
+import phoneTripodImg from "./assets/images/phone_tripod_stand_1789290638423.jpg";
+import cameraMugImg from "./assets/images/camera_lens_mug_1789290655544.jpg";
 import floorScrubberImg from "./assets/images/floor_scrubber_1789028954800.jpg";
 import metalGrindingMachineImg from "./assets/images/metal_grinding_machine_1789028825448.jpg";
 import oilPressMachineImg from "./assets/images/oil_press_machine_1789028847105.jpg";
@@ -191,7 +200,7 @@ function saveStoredSet(key: string, set: Set<string>): void {
   } catch (e) {}
 }
 
-const STORAGE_VERSION_TAG = "ov_v21_inline_banner";
+const STORAGE_VERSION_TAG = "ov_v41_final_no_mwanachama";
 const STORAGE_KEY_VERSION = "orderverify_app_version";
 const STORAGE_KEY_USED_PRODUCTS = "orderverify_used_products";
 const STORAGE_KEY_USED_NAMES = "orderverify_used_customer_names";
@@ -256,66 +265,61 @@ export interface ProductTemplate {
 
 // PAGE 1: Home & Kitchen Appliances (Majumbani) - ALL NEW & VERIFIED
 export const masterHomeProducts: ProductTemplate[] = [
-  { name: "Air Purifier", price: 340000, image: airPurifierImg, description: "Air Purifier" },
-  { name: "Bread Oven", price: 395000, image: breadOvenImg, description: "Bread Oven" },
-  { name: "Breakfast Griddle", price: 165000, image: breakfastGriddleImg, description: "Breakfast Griddle" },
-  { name: "Cast Iron Grill", price: 215000, image: castIronGrillImg, description: "Cast Iron Grill" },
-  { name: "Ceramic Dishes", price: 175000, image: ceramicDishesImg, description: "Ceramic Dishes" },
-  { name: "Frying Pan", price: 230000, image: fryingPanImg, description: "Frying Pan" },
-  { name: "Ice Cream Maker", price: 260000, image: iceCreamMakerImg, description: "Ice Cream Maker" },
-  { name: "Kitchen Scale", price: 145000, image: kitchenScaleImg, description: "Kitchen Scale" },
-  { name: "Tabletop Stove", price: 285000, image: tabletopStoveImg, description: "Tabletop Stove" },
-  { name: "Water Boiler", price: 195000, image: waterBoilerImg, description: "Water Boiler" },
-  { name: "Electric Blender", price: 185000, image: "https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=400&q=80", description: "Electric Blender" },
-  { name: "Smart TV", price: 650000, image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=400&q=80", description: "Smart TV" }
+  { name: "Mini Bluetooth Speaker (Jumla Pcs 10)", price: 150000, image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400", description: "Mini Bluetooth Speaker (Jumla Pcs 10)" },
+  { name: "Gaming Wireless Earbuds (Seti)", price: 120000, image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400", description: "Gaming Wireless Earbuds (Seti)" },
+  { name: "Sport Smartwatch Braided (Pcs 5)", price: 250000, image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400", description: "Sport Smartwatch Braided (Pcs 5)" },
+  { name: "LED Strip Lights Room Decor (Seti)", price: 110000, image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400", description: "LED Strip Lights Room Decor (Seti)" },
+  { name: "Mini WiFi Spy Camera (Pcs 3)", price: 180000, image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400", description: "Mini WiFi Spy Camera (Pcs 3)" },
+  { name: "Oruss Men's Luxury Watch", price: 320000, image: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400", description: "Oruss Men's Luxury Watch" },
+  { name: "Bone Conduction Earphones", price: 145000, image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400", description: "Bone Conduction Earphones" },
+  { name: "Starry Sky Projector Light", price: 115000, image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=400", description: "Starry Sky Projector Light" },
+  { name: "Wooden Phone Stand (Jumla Pcs 20)", price: 105000, image: "https://images.unsplash.com/photo-1586105251261-72a756497a11?w=400", description: "Wooden Phone Stand (Jumla Pcs 20)" },
+  { name: "Blue Dial Stainless Watch (Seti)", price: 210000, image: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=400", description: "Blue Dial Stainless Watch (Seti)" },
+  { name: "Camera Lens Coffee Mug (Seti)", price: 100000, image: cameraMugImg, description: "Camera Lens Coffee Mug (Seti)" },
+  { name: "Phone Tripod Stand (Jumla)", price: 160000, image: phoneTripodImg, description: "Phone Tripod Stand (Jumla)" }
 ];
 
 // PAGE 2: Consumer Tech & Gadgets (Kielektroniki) - ALL NEW & VERIFIED
 export const masterTechProducts: ProductTemplate[] = [
-  { name: "Bluetooth Speaker", price: 195000, image: bluetoothSpeakerImg, description: "Bluetooth Speaker" },
-  { name: "Digital Tablet", price: 470000, image: digitalTabletImg, description: "Digital Tablet" },
-  { name: "DSLR Camera", price: 345000, image: dslrCameraImg, description: "DSLR Camera" },
-  { name: "Game Console", price: 320000, image: gameConsoleImg, description: "Game Console" },
-  { name: "Projector", price: 460000, image: projectorImg, description: "Projector" },
-  { name: "Smartwatch", price: 290000, image: smartwatchImg, description: "Smartwatch" },
-  { name: "Studio Microphone", price: 215000, image: studioMicImg, description: "Studio Microphone" },
-  { name: "VR Headset", price: 380000, image: vrHeadsetImg, description: "VR Headset" },
-  { name: "Wi-Fi Router", price: 285000, image: wifiRouterImg, description: "Wi-Fi Router" },
-  { name: "Wireless Charger", price: 125000, image: wirelessChargerImg, description: "Wireless Charger" },
-  { name: "Wireless Earbuds", price: 85000, image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=400&q=80", description: "Wireless Earbuds" },
-  { name: "Kinanda (Piano)", price: 420000, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=400&q=80", description: "Kinanda (Digital Piano)" }
+  { name: "13Pcs Makeup Brush Set (Jumla)", price: 110000, image: makeupBrushSet13pcsImg, description: "13Pcs Makeup Brush Set (Jumla)" },
+  { name: "Batana Hair Growth Oil (Seti 5)", price: 125000, image: batanaOilImg, description: "Batana Hair Growth Oil (Seti 5)" },
+  { name: "Hip-Lift Massage Cream (Box)", price: 140000, image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400", description: "Hip-Lift Massage Cream (Box)" },
+  { name: "Luxury Press-on Nails (Seti 10)", price: 105000, image: pressOnNailsImg, description: "Luxury Press-on Nails (Seti 10)" },
+  { name: "Blue Crystal Watch & Jewelry Set", price: 190000, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400", description: "Blue Crystal Watch & Jewelry Set" },
+  { name: "Butterfly Watch & Necklace Set", price: 180000, image: butterflyWatchSetImg, description: "Butterfly Watch & Necklace Set" },
+  { name: "Gold Plated Women's Watch Set", price: 220000, image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400", description: "Gold Plated Women's Watch Set" },
+  { name: "Yin-Yang Beaded Bracelets (Jumla)", price: 100000, image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400", description: "Yin-Yang Beaded Bracelets (Jumla)" },
+  { name: "Anti-Blue Light Glasses (Seti)", price: 115000, image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400", description: "Anti-Blue Light Glasses (Seti)" },
+  { name: "Weight Loss Slimming Patch", price: 130000, image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400", description: "Weight Loss Slimming Patch" },
+  { name: "Skin Brightening Toner Set", price: 150000, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400", description: "Skin Brightening Toner Set" },
+  { name: "Professional Facial Kit", price: 170000, image: facialKitImg, description: "Professional Facial Kit" }
 ];
 
 // PAGE 3: Industrial & Workshop Equipment (Viwandani) - ALL NEW & VERIFIED
 
-export const masterClothingProducts: ProductTemplate[] = [
-  { name: "Men's Suit", price: 180000, image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=400&q=80", description: "Men's Suit" },
-  { name: "Designer Dress", price: 150000, image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=400&q=80", description: "Designer Dress" },
-  { name: "Denim Jacket", price: 120000, image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=400&q=80", description: "Denim Jacket" },
-  { name: "Leather Shoes", price: 200000, image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=400&q=80", description: "Leather Shoes" },
-  { name: "Summer Blouse", price: 110000, image: "https://images.unsplash.com/photo-1564257631407-4deec8caa40d?auto=format&fit=crop&w=400&q=80", description: "Summer Blouse" },
-  { name: "Sports Sneakers", price: 160000, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80", description: "Sports Sneakers" }
-];
+export const masterClothingProducts: ProductTemplate[] = [];
 
 export const masterIndustrialProducts: ProductTemplate[] = [
-  { name: "Air Compressor", price: 470000, image: airCompressorImg, description: "Air Compressor" },
-  { name: "Demolition Hammer", price: 465000, image: demolitionHammerImg, description: "Demolition Hammer" },
-  { name: "Floor Scrubber", price: 485000, image: floorScrubberImg, description: "Floor Scrubber" },
-  { name: "Laser Temp Gun", price: 220000, image: laserTempGunImg, description: "Laser Temp Gun" },
-  { name: "Mechanic Toolbox", price: 345000, image: mechanicToolboxImg, description: "Mechanic Toolbox" },
-  { name: "Metal Cut Saw", price: 440000, image: metalCutSawImg, description: "Metal Cut Saw" },
-  { name: "Metal Grinder", price: 310000, image: metalGrindingMachineImg, description: "Metal Grinder" },
-  { name: "Microscope", price: 395000, image: microscopeImg, description: "Microscope" },
-  { name: "Multimeter", price: 195000, image: multimeterImg, description: "Multimeter" },
-  { name: "Oil Press Machine", price: 420000, image: oilPressMachineImg, description: "Oil Press Machine" }
+  { name: "Sleeveless Hoodie Vest (Seti 4)", price: 140000, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400", description: "Sleeveless Hoodie Vest (Seti 4)" },
+  { name: "Shockproof Phone Case with Ring", price: 120000, image: phoneCaseRingImg, description: "Shockproof Phone Case with Ring" },
+  { name: "Zmistuo Platform Slides (Pea 5)", price: 160000, image: "https://images.unsplash.com/photo-1562183241-b937e95585b6?w=400", description: "Zmistuo Platform Slides (Pea 5)" },
+  { name: "Seamless Shapewear Bras (Seti)", price: 135000, image: shapewearBrasImg, description: "Seamless Shapewear Bras (Seti)" },
+  { name: "Colorful iPhone Cases (Jumla)", price: 110000, image: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=400", description: "Colorful iPhone Cases (Jumla)" },
+  { name: "Retro Leather Wallet Set", price: 125000, image: "https://images.unsplash.com/photo-1627042633145-b780d842ba45?w=400", description: "Retro Leather Wallet Set" },
+  { name: "Men's Casual Sneakers (Premium)", price: 180000, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400", description: "Men's Casual Sneakers (Premium)" },
+  { name: "Women's Crossbody Bag", price: 150000, image: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=400", description: "Women's Crossbody Bag" },
+  { name: "Designer Sunglasses Set", price: 115000, image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400", description: "Designer Sunglasses Set" },
+  { name: "Orthopedic Walking Shoes", price: 190000, image: "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?w=400", description: "Orthopedic Walking Shoes" },
+  { name: "Cotton T-Shirts Bundle", price: 105000, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400", description: "Cotton T-Shirts Bundle" },
+  { name: "Leather Belt & Accessories", price: 130000, image: "https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=400", description: "Leather Belt & Accessories" }
 ];
 
 // Procedural generator for infinite continuous rotations (NEVER uses old products)
 let proceduralCounter = 50;
 export function generateFreshProceduralProduct(category: "home" | "tech" | "industrial", usedKeys: Set<string>): ProductTemplate {
-  const homeBases = ["Air Purifier", "Bread Oven", "Breakfast Griddle", "Cast Iron Grill", "Ceramic Dishes", "Frying Pan", "Ice Cream Maker", "Kitchen Scale", "Tabletop Stove", "Water Boiler"];
-  const techBases = ["Bluetooth Speaker", "Digital Tablet", "DSLR Camera", "Game Console", "Projector", "Smartwatch", "Studio Microphone", "VR Headset", "Wi-Fi Router", "Wireless Charger"];
-  const industrialBases = ["Air Compressor", "Demolition Hammer", "Floor Scrubber", "Laser Temp Gun", "Mechanic Toolbox", "Metal Cut Saw", "Metal Grinder", "Microscope", "Multimeter", "Oil Press Machine", "Water Pump", "Welding Machine"];
+  const homeBases = ["Bluetooth Speaker", "Wireless Earbuds", "Smartwatch", "LED Lights", "Spy Camera", "Luxury Watch"];
+const techBases = ["Makeup Brush", "Hair Oil", "Massage Cream", "Press-on Nails", "Jewelry Set", "Yin-Yang Bracelet"];
+const industrialBases = ["Hoodie Vest", "Phone Case", "Platform Slides", "Shapewear Bra", "Leather Wallet", "Sneakers"];
 
   const modifiers = ["Pro", "Max", "Plus", "Ultra", "Elite", "Premium", "HD"];
 
@@ -364,270 +368,118 @@ export interface CustomerTemplate {
 }
 
 const RAW_FIRST_NAMES_DB: { first: string; gender: "male" | "female"; country: string; flag: string; city: string }[] = [
-  // --- KENYA MALES ---
-  { first: "Kiprono", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Eldoret" },
-  { first: "Ochieng", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Nakuru" },
-  { first: "Kamau", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Kiambu" },
+  { first: "Kwame", gender: "male", country: "Ghana", flag: "🇬🇭", city: "Accra" },
+  { first: "Abena", gender: "female", country: "Ghana", flag: "🇬🇭", city: "Kumasi" },
+  { first: "Amadou", gender: "male", country: "Senegal", flag: "🇸🇳", city: "Dakar" },
+  { first: "Fatou", gender: "female", country: "Senegal", flag: "🇸🇳", city: "Thiès" },
+  { first: "Abebe", gender: "male", country: "Ethiopia", flag: "🇪🇹", city: "Addis Ababa" },
+  { first: "Chala", gender: "male", country: "Ethiopia", flag: "🇪🇹", city: "Dire Dawa" },
+  { first: "Tendai", gender: "male", country: "Zimbabwe", flag: "🇿🇼", city: "Harare" },
+  { first: "Nyasha", gender: "female", country: "Zimbabwe", flag: "🇿🇼", city: "Bulawayo" },
+  { first: "Kagiso", gender: "male", country: "Botswana", flag: "🇧🇼", city: "Gaborone" },
+  { first: "Tshepo", gender: "male", country: "Botswana", flag: "🇧🇼", city: "Francistown" },
+  { first: "Joao", gender: "male", country: "Mozambique", flag: "🇲🇿", city: "Maputo" },
+  { first: "Maria", gender: "female", country: "Mozambique", flag: "🇲🇿", city: "Beira" },
+  { first: "Ahmed", gender: "male", country: "Egypt", flag: "🇪🇬", city: "Cairo" },
+  { first: "Nour", gender: "female", country: "Egypt", flag: "🇪🇬", city: "Alexandria" },
+  { first: "Youssef", gender: "male", country: "Morocco", flag: "🇲🇦", city: "Casablanca" },
+  { first: "Amina", gender: "female", country: "Morocco", flag: "🇲🇦", city: "Rabat" },
+  { first: "Alain", gender: "male", country: "Cameroon", flag: "🇨🇲", city: "Yaoundé" },
+  { first: "Marie", gender: "female", country: "Cameroon", flag: "🇨🇲", city: "Douala" },
+  { first: "Andry", gender: "male", country: "Madagascar", flag: "🇲🇬", city: "Antananarivo" },
+  { first: "Nirina", gender: "female", country: "Madagascar", flag: "🇲🇬", city: "Toamasina" },
+  { first: "Kouassi", gender: "male", country: "Ivory Coast", flag: "🇨🇮", city: "Abidjan" },
+  { first: "Aya", gender: "female", country: "Ivory Coast", flag: "🇨🇮", city: "Bouaké" },
+  { first: "Moussa", gender: "male", country: "Mali", flag: "🇲🇱", city: "Bamako" },
+  { first: "Oumou", gender: "female", country: "Mali", flag: "🇲🇱", city: "Sikasso" },
+  { first: "Chuka", gender: "male", country: "Nigeria", flag: "🇳🇬", city: "Lagos" },
+  { first: "Ngozi", gender: "female", country: "Nigeria", flag: "🇳🇬", city: "Abuja" },
   { first: "Mwangi", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Nairobi" },
-  { first: "Karanja", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Thika" },
-  { first: "Otieno", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Kisumu" },
-  { first: "Koech", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Kericho" },
-  { first: "Kimutai", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Eldoret" },
-  { first: "Juma", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Mombasa" },
-  { first: "Barasa", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Kakamega" },
-  { first: "Kipchoge", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Kapsabet" },
-  { first: "Njoroge", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Naivasha" },
-  { first: "Omondi", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Kisumu" },
-  { first: "Maina", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Muranga" },
-
-  // --- KENYA FEMALES ---
-  { first: "Wangari", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Nairobi" },
-  { first: "Achieng", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Kisumu" },
-  { first: "Wanjiku", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Nyeri" },
-  { first: "Muthoni", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Meru" },
-  { first: "Wambui", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Embu" },
-  { first: "Chebet", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Nakuru" },
-  { first: "Nafula", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Bungoma" },
-  { first: "Nyambura", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Nairobi" },
-  { first: "Akinyi", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Siaya" },
-  { first: "Moraa", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Kisii" },
-
-  // --- UGANDA MALES ---
-  { first: "Mukasa", gender: "male", country: "Uganda", flag: "🇺🇬", city: "Jinja" },
+  { first: "Njeri", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Mombasa" },
   { first: "Kato", gender: "male", country: "Uganda", flag: "🇺🇬", city: "Kampala" },
-  { first: "Kigozi", gender: "male", country: "Uganda", flag: "🇺🇬", city: "Masaka" },
-  { first: "Okello", gender: "male", country: "Uganda", flag: "🇺🇬", city: "Gulu" },
-  { first: "Ssentongo", gender: "male", country: "Uganda", flag: "🇺🇬", city: "Entebbe" },
-  { first: "Kintu", gender: "male", country: "Uganda", flag: "🇺🇬", city: "Mukono" },
-  { first: "Wasswa", gender: "male", country: "Uganda", flag: "🇺🇬", city: "Mbarara" },
-  { first: "Ronald", gender: "male", country: "Uganda", flag: "🇺🇬", city: "Kampala" },
-  { first: "Brian", gender: "male", country: "Uganda", flag: "🇺🇬", city: "Entebbe" },
-
-  // --- UGANDA FEMALES ---
-  { first: "Nakato", gender: "female", country: "Uganda", flag: "🇺🇬", city: "Kampala" },
   { first: "Babirye", gender: "female", country: "Uganda", flag: "🇺🇬", city: "Entebbe" },
-  { first: "Namaganda", gender: "female", country: "Uganda", flag: "🇺🇬", city: "Jinja" },
-  { first: "Nalubega", gender: "female", country: "Uganda", flag: "🇺🇬", city: "Masaka" },
-  { first: "Akello", gender: "female", country: "Uganda", flag: "🇺🇬", city: "Lira" },
-  { first: "Nabirye", gender: "female", country: "Uganda", flag: "🇺🇬", city: "Kampala" },
-
-  // --- RWANDA MALES ---
-  { first: "Thierry", gender: "male", country: "Rwanda", flag: "🇷🇼", city: "Huye" },
-  { first: "Habimana", gender: "male", country: "Rwanda", flag: "🇷🇼", city: "Kigali" },
-  { first: "Mugisha", gender: "male", country: "Rwanda", flag: "🇷🇼", city: "Musanze" },
-  { first: "Manzi", gender: "male", country: "Rwanda", flag: "🇷🇼", city: "Rubavu" },
-  { first: "Kalisa", gender: "male", country: "Rwanda", flag: "🇷🇼", city: "Kigali" },
-  { first: "Bosco", gender: "male", country: "Rwanda", flag: "🇷🇼", city: "Muhanga" },
-
-  // --- RWANDA FEMALES ---
-  { first: "Diane", gender: "female", country: "Rwanda", flag: "🇷🇼", city: "Kigali" },
-  { first: "Uwase", gender: "female", country: "Rwanda", flag: "🇷🇼", city: "Gisenyi" },
-  { first: "Ingabire", gender: "female", country: "Rwanda", flag: "🇷🇼", city: "Kigali" },
-  { first: "Keza", gender: "female", country: "Rwanda", flag: "🇷🇼", city: "Musanze" },
-  { first: "Aline", gender: "female", country: "Rwanda", flag: "🇷🇼", city: "Huye" },
-
-  // --- BURUNDI MALES ---
-  { first: "Alain", gender: "male", country: "Burundi", flag: "🇧🇮", city: "Gitega" },
-  { first: "Nkurunziza", gender: "male", country: "Burundi", flag: "🇧🇮", city: "Bujumbura" },
-  { first: "Ndikumana", gender: "male", country: "Burundi", flag: "🇧🇮", city: "Ngozi" },
-  { first: "Clovis", gender: "male", country: "Burundi", flag: "🇧🇮", city: "Bujumbura" },
-  { first: "Pacifique", gender: "male", country: "Burundi", flag: "🇧🇮", city: "Kayanza" },
-
-  // --- BURUNDI FEMALES ---
-  { first: "Bella", gender: "female", country: "Burundi", flag: "🇧🇮", city: "Bujumbura" },
-  { first: "Irakoze", gender: "female", country: "Burundi", flag: "🇧🇮", city: "Gitega" },
-  { first: "Esperance", gender: "female", country: "Burundi", flag: "🇧🇮", city: "Ngozi" },
-  { first: "Divine", gender: "female", country: "Burundi", flag: "🇧🇮", city: "Bujumbura" },
-
-  // --- DR CONGO MALES ---
-  { first: "Espoir", gender: "male", country: "DR Congo", flag: "🇨🇩", city: "Goma" },
-  { first: "Kasongo", gender: "male", country: "DR Congo", flag: "🇨🇩", city: "Kinshasa" },
-  { first: "Mulamba", gender: "male", country: "DR Congo", flag: "🇨🇩", city: "Lubumbashi" },
-  { first: "Fally", gender: "male", country: "DR Congo", flag: "🇨🇩", city: "Bukavu" },
-  { first: "Dieudonne", gender: "male", country: "DR Congo", flag: "🇨🇩", city: "Kisangani" },
-  { first: "Serge", gender: "male", country: "DR Congo", flag: "🇨🇩", city: "Goma" },
-
-  // --- DR CONGO FEMALES ---
-  { first: "Mireille", gender: "female", country: "DR Congo", flag: "🇨🇩", city: "Kinshasa" },
-  { first: "Bijou", gender: "female", country: "DR Congo", flag: "🇨🇩", city: "Goma" },
-  { first: "Dorcas", gender: "female", country: "DR Congo", flag: "🇨🇩", city: "Lubumbashi" },
-  { first: "Sephora", gender: "female", country: "DR Congo", flag: "🇨🇩", city: "Kinshasa" },
-
-  // --- SOUTH AFRICA MALES ---
-  { first: "Bongani", gender: "male", country: "South Africa", flag: "🇿🇦", city: "Johannesburg" },
-  { first: "Sipho", gender: "male", country: "South Africa", flag: "🇿🇦", city: "Durban" },
-  { first: "Thabo", gender: "male", country: "South Africa", flag: "🇿🇦", city: "Pretoria" },
-  { first: "Mandla", gender: "male", country: "South Africa", flag: "🇿🇦", city: "Soweto" },
-
-  // --- SOUTH AFRICA FEMALES ---
-  { first: "Zanele", gender: "female", country: "South Africa", flag: "🇿🇦", city: "Cape Town" },
-  { first: "Busisiwe", gender: "female", country: "South Africa", flag: "🇿🇦", city: "Durban" },
-  { first: "Lerato", gender: "female", country: "South Africa", flag: "🇿🇦", city: "Johannesburg" },
-  { first: "Nandi", gender: "female", country: "South Africa", flag: "🇿🇦", city: "Port Elizabeth" },
-
-  // --- NIGERIA MALES ---
-  { first: "Chidi", gender: "male", country: "Nigeria", flag: "🇳🇬", city: "Lagos" },
-  { first: "Emeka", gender: "male", country: "Nigeria", flag: "🇳🇬", city: "Abuja" },
-  { first: "Babatunde", gender: "male", country: "Nigeria", flag: "🇳🇬", city: "Ibadan" },
-
-  // --- NIGERIA FEMALES ---
-  { first: "Folake", gender: "female", country: "Nigeria", flag: "🇳🇬", city: "Abuja" },
-  { first: "Ngozi", gender: "female", country: "Nigeria", flag: "🇳🇬", city: "Lagos" },
-  { first: "Amaka", gender: "female", country: "Nigeria", flag: "🇳🇬", city: "Port Harcourt" },
-
-  // --- ZAMBIA ---
-  { first: "Dalitso", gender: "male", country: "Zambia", flag: "🇿🇲", city: "Lusaka" },
-  { first: "Kondwani", gender: "male", country: "Zambia", flag: "🇿🇲", city: "Kitwe" },
-  { first: "Natasha", gender: "female", country: "Zambia", flag: "🇿🇲", city: "Ndola" },
-
-  // --- MALAWI ---
-  { first: "Chisomo", gender: "male", country: "Malawi", flag: "🇲🇼", city: "Lilongwe" },
-  { first: "Blessings", gender: "male", country: "Malawi", flag: "🇲🇼", city: "Blantyre" },
-  { first: "Tadala", gender: "female", country: "Malawi", flag: "🇲🇼", city: "Mzuzu" },
-
-  // --- UAE & MIDDLE EAST ---
-  { first: "Mansoor", gender: "male", country: "UAE", flag: "🇦🇪", city: "Abu Dhabi" },
-  { first: "Rashid", gender: "male", country: "UAE", flag: "🇦🇪", city: "Dubai" },
-  { first: "Latifa", gender: "female", country: "UAE", flag: "🇦🇪", city: "Dubai" },
-  { first: "Fahat", gender: "male", country: "Saudi Arabia", flag: "🇸🇦", city: "Riyadh" },
-  { first: "Reem", gender: "female", country: "Saudi Arabia", flag: "🇸🇦", city: "Jeddah" },
-
-  // --- TANZANIA MALES ---
-  { first: "Hamis", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Dar es Salaam" },
-  { first: "Bakari", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Tanga" },
-  { first: "Charles", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Mwanza" },
-  { first: "Damian", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Kilimanjaro" },
-  { first: "Denis", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Iringa" },
-  { first: "Edward", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Arusha" },
-  { first: "Ezra", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Songea" },
-  { first: "Fadhili", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Lindi" },
-  { first: "Gabriel", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Njombe" },
-  { first: "Haruna", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Dar es Salaam" },
-  { first: "Idd", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Bukoba" },
-  { first: "Isaac", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Arusha" },
-  { first: "Jacob", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Mtwara" },
-  { first: "Joel", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Songwe" },
-  { first: "Joshua", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Moshi" },
-  { first: "Justine", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Dar es Salaam" },
-  { first: "Ladislaus", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Songea" },
-  { first: "Lucas", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Pemba" },
-  { first: "Meshack", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Tanga" },
-  { first: "Mohamed", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Dar es Salaam" },
-  { first: "Moses", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Tanga" },
-  { first: "Mwita", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Musoma" },
-  { first: "Nathan", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Shinyanga" },
-  { first: "Nelson", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Dar es Salaam" },
-  { first: "Noel", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Tabora" },
-  { first: "Patrick", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Arusha" },
-  { first: "Paul", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Songea" },
-  { first: "Peter", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Kigoma" },
-  { first: "Zuberi", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Zanzibar" },
-  { first: "Reagan", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Dar es Salaam" },
-  { first: "Samson", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Arusha" },
-  { first: "Shadrack", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Dar es Salaam" },
-  { first: "Stephen", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Singida" },
-  { first: "Thomas", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Mwanza" },
-  { first: "Victor", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Zanzibar" },
-  { first: "William", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Moshi" },
-  { first: "Baraka", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Mbeya" },
-  { first: "Jafari", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Mwanza" },
-  { first: "Daudi", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Dodoma" },
-  { first: "Musa", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Mbeya" },
-  { first: "Kassim", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Iringa" },
-  { first: "Yusuph", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Singida" },
-  { first: "Sadiki", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Songea" },
-  { first: "Omari", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Tabora" },
-  { first: "Godfrey", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Njombe" },
-  { first: "Rajabu", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Dar es Salaam" },
-  { first: "Hussein", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Shinyanga" },
-  { first: "Abubakar", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Kigoma" },
-  { first: "Elias", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Geita" },
-  { first: "Frank", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Kagera" },
-  { first: "George", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Dar es Salaam" },
-  { first: "Kelvin", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Musoma" },
-  { first: "Jackson", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Dodoma" },
-  { first: "Gaston", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Morogoro" },
-  { first: "Festo", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Mbeya" },
-  { first: "Rashidi", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Tanga" },
-  { first: "Selemani", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Mtwara" },
-  { first: "Athumani", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Dar es Salaam" },
-  { first: "Boniface", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Mara" },
-  { first: "Cosmas", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Ruvuma" },
-  { first: "Emanuel", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Arusha" },
-  { first: "Geoffrey", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Moshi" },
-  { first: "Innocent", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Rombo" },
-  { first: "Ally", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Arusha" },
-  { first: "Kheri", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Kigoma" },
-  { first: "Salum", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Tanga" },
-
-  // --- TANZANIA FEMALES ---
-  { first: "Asha", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Arusha" },
-  { first: "Subira", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Dodoma" },
-  { first: "Asumpta", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Moshi" },
-  { first: "Blandina", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Mbeya" },
-  { first: "Clara", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Dodoma" },
-  { first: "Debora", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Singida" },
-  { first: "Doreen", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Dar es Salaam" },
-  { first: "Elizabeth", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Dodoma" },
-  { first: "Faraja", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Moshi" },
-  { first: "Flora", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Shinyanga" },
-  { first: "Grace", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Morogoro" },
-  { first: "Hellen", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Moshi" },
-  { first: "Irene", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Mwanza" },
-  { first: "Jackline", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Singida" },
-  { first: "Janeth", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Geita" },
-  { first: "Josephine", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Sumbawanga" },
-  { first: "Lilian", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Babati" },
-  { first: "Lucy", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Mbeya" },
-  { first: "Magreth", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Arusha" },
-  { first: "Miriam", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Kilimanjaro" },
-  { first: "Monika", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Dodoma" },
-  { first: "Nancy", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Lindi" },
-  { first: "Neema", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Mbeya" },
-  { first: "Nice", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Songea" },
-  { first: "Penina", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Moshi" },
-  { first: "Rachel", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Kilimanjaro" },
-  { first: "Rosemary", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Mbeya" },
-  { first: "Sarah", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Moshi" },
-  { first: "Stella", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Arusha" },
-  { first: "Sylvia", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Tanga" },
-  { first: "Veronica", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Mbeya" },
-  { first: "Halima", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Tanga" },
-  { first: "Zainabu", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Morogoro" },
-  { first: "Leila", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Arusha" },
-  { first: "Sikudhani", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Moshi" },
-  { first: "Khadija", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Zanzibar" },
-  { first: "Beatrice", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Kilimanjaro" },
-  { first: "Mwanaidi", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Lindi" },
-  { first: "Mwajuma", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Mtwara" },
-  { first: "Nuru", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Moshi" },
-  { first: "Happiness", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Bukoba" },
-  { first: "Amina", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Mbeya" },
-  { first: "Joyce", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Iringa" },
-  { first: "Salma", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Morogoro" },
-  { first: "Winfrida", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Arusha" },
-  { first: "Tumaini", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Tanga" },
-  { first: "Upendo", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Moshi" },
-  { first: "Saada", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Bagamoyo" },
-  { first: "Fatuma", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Morogoro" },
-  { first: "Mariam", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Iringa" }
+  { first: "Bosco", gender: "male", country: "Rwanda", flag: "🇷🇼", city: "Kigali" },
+  { first: "Chantal", gender: "female", country: "Rwanda", flag: "🇷🇼", city: "Butare" },
+  { first: "Sipho", gender: "male", country: "South Africa", flag: "🇿🇦", city: "Johannesburg" },
+  { first: "Thandi", gender: "female", country: "South Africa", flag: "🇿🇦", city: "Cape Town" },
+  { first: "Mulenga", gender: "male", country: "Zambia", flag: "🇿🇲", city: "Lusaka" },
+  { first: "Mutale", gender: "female", country: "Zambia", flag: "🇿🇲", city: "Ndola" },
+  { first: "Yamikani", gender: "male", country: "Malawi", flag: "🇲🇼", city: "Lilongwe" },
+  { first: "Chisomo", gender: "female", country: "Malawi", flag: "🇲🇼", city: "Blantyre" },
+  { first: "Jose", gender: "male", country: "Angola", flag: "🇦🇴", city: "Luanda" },
+  { first: "Ana", gender: "female", country: "Angola", flag: "🇦🇴", city: "Huambo" },
+  { first: "Johannes", gender: "male", country: "Namibia", flag: "🇳🇦", city: "Windhoek" },
+  { first: "Ndeshi", gender: "female", country: "Namibia", flag: "🇳🇦", city: "Swakopmund" },
+  { first: "Karim", gender: "male", country: "Algeria", flag: "🇩🇿", city: "Algiers" },
+  { first: "Farida", gender: "female", country: "Algeria", flag: "🇩🇿", city: "Oran" },
+  { first: "Walid", gender: "male", country: "Tunisia", flag: "🇹🇳", city: "Tunis" },
+  { first: "Meriem", gender: "female", country: "Tunisia", flag: "🇹🇳", city: "Sousse" },
+  { first: "Omer", gender: "male", country: "Sudan", flag: "🇸🇩", city: "Khartoum" },
+  { first: "Fatima", gender: "female", country: "Sudan", flag: "🇸🇩", city: "Omdurman" },
+  { first: "Abdi", gender: "male", country: "Somalia", flag: "🇸🇴", city: "Mogadishu" },
+  { first: "Halima", gender: "female", country: "Somalia", flag: "🇸🇴", city: "Hargeisa" },
+  { first: "George", gender: "male", country: "Liberia", flag: "🇱🇷", city: "Monrovia" },
+  { first: "Ellen", gender: "female", country: "Liberia", flag: "🇱🇷", city: "Gbarnga" },
+  { first: "Julius", gender: "male", country: "Sierra Leone", flag: "🇸🇱", city: "Freetown" },
+  { first: "Fatima", gender: "female", country: "Sierra Leone", flag: "🇸🇱", city: "Bo" },
+  { first: "Faure", gender: "male", country: "Togo", flag: "🇹🇬", city: "Lomé" },
+  { first: "Komi", gender: "female", country: "Togo", flag: "🇹🇬", city: "Sokodé" },
+  { first: "Patrice", gender: "male", country: "Benin", flag: "🇧🇯", city: "Porto-Novo" },
+  { first: "Angélique", gender: "female", country: "Benin", flag: "🇧🇯", city: "Cotonou" },
+  { first: "Alpha", gender: "male", country: "Guinea", flag: "🇬🇳", city: "Conakry" },
+  { first: "Binta", gender: "female", country: "Guinea", flag: "🇬🇳", city: "Kankan" },
+  { first: "Blaise", gender: "male", country: "Burkina Faso", flag: "🇧🇫", city: "Ouagadougou" },
+  { first: "Awa", gender: "female", country: "Burkina Faso", flag: "🇧🇫", city: "Bobo-Dioulasso" },
+  { first: "Mahamadou", gender: "male", country: "Niger", flag: "🇳🇪", city: "Niamey" },
+  { first: "Aicha", gender: "female", country: "Niger", flag: "🇳🇪", city: "Zinder" },
+  { first: "Idriss", gender: "male", country: "Chad", flag: "🇹🇩", city: "N'Djamena" },
+  { first: "Hinda", gender: "female", country: "Chad", flag: "🇹🇩", city: "Moundou" },
+  { first: "Pierre", gender: "male", country: "Burundi", flag: "🇧🇮", city: "Bujumbura" },
+  { first: "Francine", gender: "female", country: "Burundi", flag: "🇧🇮", city: "Gitega" },
+  { first: "Letsie", gender: "male", country: "Lesotho", flag: "🇱🇸", city: "Maseru" },
+  { first: "Masenate", gender: "female", country: "Lesotho", flag: "🇱🇸", city: "Leribe" },
+  { first: "Mswati", gender: "male", country: "Eswatini", flag: "🇸🇿", city: "Mbabane" },
+  { first: "Sibonelo", gender: "female", country: "Eswatini", flag: "🇸🇿", city: "Manzini" }
 ];
 
 const SURNAME_MAP: Record<string, string[]> = {
-  "Tanzania": ["Mrope", "Mwinyi", "Matiko", "Msuya", "Mwalongo", "Kaaya", "Nchimbi", "Mbaruku", "Sanga", "Sembagule", "Mboya", "Hatibu", "Marandu", "Mrema", "Haule", "Temu", "Seif", "Temba", "Msangi", "Mkali", "Macha", "Kessy", "Kondo", "Mgunda", "Makonda", "Athumani", "Swai", "Mwakipesile", "Kiswaga", "Msafiri", "Kipengele", "Mgimwa", "Kitururu", "Ngonyani", "Mwenda", "Mlowe", "Kiwango", "Luhende", "Masalu", "Ndibalema", "Mwalimu", "Malima", "Kibiki", "Mkude", "Chilongola", "Kibao", "Matola", "Mnyika", "Chacha", "Mhagama", "Mollel", "Lyimo", "Shirima", "Kavishe", "Mwakyusa", "Tarimo", "Mushi", "Mallya", "Masanja", "Kipingu", "Shayo", "Ngassa", "Lubuva", "Ndaki", "Mgeni", "Mahundi", "Mshana", "Mussa", "Lugendo", "Mrosso", "Mwangomale", "Muro", "Mlay", "Kibwana", "Mwakangata", "Kivumbi", "Lugome", "Sengondo", "Mwambapa", "Mchome", "Kimario", "Mapunda", "Mfinanga", "Rutahindurwa", "Kibona", "Mwanyalu", "Kiponda", "Mtulia", "Lyatuu", "Mgaza", "Msigwa", "Shomari", "Mbise", "Kweka", "Kilonzo"],
-  "Kenya": ["Muthoni", "Rotich", "Omondi", "Otieno", "Karanja", "Mwangi", "Kariuki", "Koech", "Ouma", "Wambui", "Kimani", "Njoroge", "Githinji", "Kipchoge", "Wafula", "Kiprono"],
-  "Saudi Arabia": ["Al-Otaibi", "Al-Zahrani", "Al-Mansoor", "Al-Ghamdi", "Al-Shehri"],
-  "UAE": ["Al-Nuaimi", "Al-Ketbi", "Al-Falasi", "Al-Maktoum", "Al-Mazrouei", "Al-Suwaidi"],
-  "Uganda": ["Babirye", "Kigozi", "Mukasa", "Namaganda", "Kato", "Ssentongo", "Okello", "Byaruhanga", "Nabirye"],
-  "UK": ["Campbell", "Harrison", "Bennett", "Davies", "Wilson", "Smith"],
-  "USA": ["Reynolds", "Anderson", "Miller", "Taylor", "Johnson", "Davis"],
-  "Rwanda": ["Uwase", "Habimana", "Mugisha", "Ingabire", "Kalisa", "Niyonzima", "Manzi", "Keza"],
-  "Burundi": ["Nkurunziza", "Ndikumana", "Ndayishimiye", "Irakoze", "Niyongabo", "Hakizimana"],
-  "South Africa": ["Dlamini", "Nkosi", "Khumalo", "Ndlovu", "Mthembu", "Sithole", "Mokoena", "Van der Merwe"],
-  "DR Congo": ["Kasongo", "Mulamba", "Ilunga", "Tshilombo", "Kabasele", "Mwamba", "Kabila"],
-  "Nigeria": ["Okafor", "Adeyemi", "Balogun", "Eze", "Okonkwo", "Adeniyi", "Chukwu"],
-  "Zambia": ["Banda", "Phiri", "Mwanza", "Lungu", "Chanda", "Tembo"],
-  "Malawi": ["Chirwa", "Banda", "Phiri", "Moyo", "Phiri", "Kaunda"]
+  "Tanzania": ["Mushi", "Shirima", "Massawe", "Swai", "Kapinga", "Mrope", "Kileo", "Kimaro", "Lema", "Mbowe", "Makamba", "Mwinyi", "Kikwete", "Magufuli", "Suluhu", "Majaliwa", "Mwalimu", "Nyerere", "Kariuki", "Kibao", "Masanja", "Komba", "Mwandosya", "Mwakyembe", "Mdee", "Bulaya", "Mrema", "Mnyika", "Zitto", "Kabwe", "Mabula", "Ndumbaro", "Mchengerwa", "Gwajima", "Mpango", "Mwigulu", "Nchemba", "Makonda", "Chalamila", "Mtaturu", "Mhagama", "Kairuki", "Ummy", "Mwalimu", "Ndalichako", "Masele", "Nyalandu", "Membe", "Mwandosya", "Pinda", "Sumaye", "Salim", "Kigwangalla", "Nape", "Nnauye", "Makamamba", "Makani", "Slaa", "Mtei", "Mbowe", "Mbatia", "Mkosamali", "Chegeni", "Mgeja", "Ngeleja", "Chenge", "Rostam", "Dewji", "Bakhresa", "Meng", "Manji", "Karamagi", "Yona", "Mramba", "Meghji", "Kimei", "Msuya", "Malecela", "Warioba", "Salim", "Kambona", "Kawawa", "Karume", "Jumbe", "Mwinyi", "Mkapa"],
+  "Ghana": ["Mensah", "Osei"],
+  "Senegal": ["Ndiaye", "Diop"],
+  "Ethiopia": ["Bekele", "Tadesse"],
+  "Zimbabwe": ["Moyo", "Sibanda"],
+  "Botswana": ["Molefe", "Gaborone"],
+  "Mozambique": ["Chissano", "Machel"],
+  "Egypt": ["Mahmoud", "Ali"],
+  "Morocco": ["Alaoui", "Bennani"],
+  "Cameroon": ["Biya", "Eto'o"],
+  "Madagascar": ["Rajoelina", "Ravalomanana"],
+  "Ivory Coast": ["Bédié", "Ouattara"],
+  "Mali": ["Keïta", "Touré"],
+  "Nigeria": ["Okafor", "Adeyemi"],
+  "Kenya": ["Karanja", "Kamau"],
+  "Uganda": ["Mukasa", "Kigozi"],
+  "Rwanda": ["Kagame", "Nizeyimana"],
+  "South Africa": ["Mandela", "Zuma"],
+  "Zambia": ["Banda", "Mwila"],
+  "Malawi": ["Phiri", "Banda"],
+  "Angola": ["Dos Santos", "Neto"],
+  "Namibia": ["Geingob", "Pohamba"],
+  "Algeria": ["Bouteflika", "Mahrez"],
+  "Tunisia": ["Trabelsi", "Jaziri"],
+  "Sudan": ["Al-Bashir", "Mahdi"],
+  "Somalia": ["Farah", "Warsame"],
+  "Liberia": ["Weah", "Johnson"],
+  "Sierra Leone": ["Bio", "Koroma"],
+  "Togo": ["Gnassingbé", "Adebayor"],
+  "Benin": ["Talon", "Kidjo"],
+  "Guinea": ["Condé", "Camara"],
+  "Burkina Faso": ["Compaoré", "Kaboré"],
+  "Niger": ["Issoufou", "Tandja"],
+  "Chad": ["Déby", "Habré"],
+  "Burundi": ["Nkurunziza", "Ndayishimiye"],
+  "Lesotho": ["Seeiso", "Thabane"],
+  "Eswatini": ["Dlamini", "Zwane"]
 };
 
 // Gender-faithful avatar resolver
@@ -750,17 +602,23 @@ export function generateDistinctCustomer(usedBaseNames: Set<string>, usedFullNam
 
   // Fallback unique procedural name
   const fallbackNum = proceduralCustomerSeed++;
-  const name = `Mwanachama-${fallbackNum} Mshirika`;
-  const base = `mwanachama${fallbackNum}`;
+  const tzSurnames = SURNAME_MAP["Tanzania"];
+  const tzFirsts = ["Juma", "Asha", "Baraka", "Neema", "John", "Mary", "Daudi", "Zuhura", "Emmanuel", "Grace", "Kelvin", "Rehema", "Jackson", "Fatuma", "Peter", "Salome", "Joseph", "Mariam", "Michael", "Amina", "David", "Zainab", "Frank", "Halima", "Charles", "Hawa"];
+  
+  const fName = tzFirsts[fallbackNum % tzFirsts.length];
+  const sName = tzSurnames[(fallbackNum * 3) % tzSurnames.length];
+  const name = `${fName} ${sName}`;
+  const base = fName.toLowerCase() + fallbackNum;
   usedBaseNames.add(base);
-  usedFullNames.add(name.toLowerCase());
+  usedFullNames.add(name.toLowerCase() + fallbackNum);
+  
   return {
     name,
-    gender: "male",
+    gender: fallbackNum % 2 === 0 ? "male" : "female",
     country: "Tanzania",
     flag: "🇹🇿",
-    city: "Dodoma",
-    avatar: resolveAvatar("male", fallbackNum)
+    city: "Dar es Salaam",
+    avatar: resolveAvatar(fallbackNum % 2 === 0 ? "male" : "female", fallbackNum)
   };
 }
 
@@ -769,154 +627,41 @@ export function generateDistinctCustomer(usedBaseNames: Set<string>, usedFullNam
 // ============================================================================
 
 export const rawSwahiliComments: { text: string; replies: { name: string; text: string; time: string }[] }[] = [
-  {
-    text: "Mwanzo nilikuwa na mashaka kidogo kabla sijaelewa kazi, lakini nilipopiga simu kwa mteja wa kwanza nikaona jinsi utaratibu ulivyo mwepesi na unaoeleweka. 🙏",
-    replies: [
-      { name: "Afisa wa Huduma", text: "Karibu sana mwanachama wetu! Ukipata changamoto yoyote tuko hapa kukusaidia wakati wowote. 😊", time: "Dakika 3 zilizopita" }
-    ]
-  },
-  {
-    text: "Ushauri wangu kwa wanaoanza, msikimbilie kuthibitisha bila kusoma maelezo ya mteja. Inasaidia sana mteja akiona unajua oda yake vizuri.",
-    replies: []
-  },
-  {
-    text: "Kupiga simu kwa mteja kunasaidia sana, leo nimeongea na mteja akathibitisha anachukua mzigo wake wa oveni kesho asubuhi. 👍",
-    replies: [
-      { name: "Bakari Ally", text: "Ni kweli, mteja anapopokea simu anapata amani na mzigo hautakataliwa.", time: "Dakika 6 zilizopita" }
-    ]
-  },
-  {
-    text: "Nimeanza kufanya kazi hapa juzi tu, napenda jinsi mfumo ulivyo wazi na hauna mambo mengi magumu.",
-    replies: []
-  },
-  {
-    text: "Leo nimepata oda tatu mfululizo za vifaa vya nyumbani, zote nimeongea na wateja na wamethibitisha vizuri.",
-    replies: []
-  },
-  {
-    text: "Kazi inafaa sana kwa sisi tulio nyumbani au wenye muda wa ziada jioni baada ya kazi za kawaida. 👏",
-    replies: []
-  },
-  {
-    text: "Ni vizuri kwamba maelezo ya kila bidhaa yanaonekana kwa undani, inasaidia kumjibu mteja kwa ufasaha anapouliza maswali.",
-    replies: []
-  },
-  {
-    text: "Nilipata tatizo la mtandao asubuhi wakati nikithibitisha oda, lakini niliporudia ukurasa kila kitu kilikamilika salama.",
-    replies: [
-      { name: "Afisa wa Huduma", text: "Pole kwa changamoto ya mtandao, kila unapokwama fanya refresh ya ukurasa na utaendelea vizuri. 🤝", time: "Dakika 12 zilizopita" }
-    ]
-  },
-  {
-    text: "Mteja wangu wa leo alitaka kujua kama kuna gharama ya ziada ya usafirishaji, nikamwelekeza vizuri kama maelekezo yanavyosema.",
-    replies: []
-  },
-  {
-    text: "Napenda jinsi oda zinavyobadilika kwenye kurasa tofauti, inafanya kazi isiwe ya kuchosha.",
-    replies: []
-  },
-  {
-    text: "Kwa upande wangu nimeona inasaidia kupata hela ya vocha na matumizi madogo madogo ya kila siku bila usumbufu. 👌",
-    replies: []
-  },
-  {
-    text: "Mimi nafanya kazi asubuhi sana kabla ya kuanza shughuli zangu za kawaida, mambo yanaenda kwa utulivu mkubwa.",
-    replies: []
-  },
-  {
-    text: "Simu niliyopiga mteja alikuwa mwenye haraka lakini alithibitisha oda yake bila ubishi wowote.",
-    replies: []
-  },
-  {
-    text: "Mfumo uko vizuri na unatumia Kiswahili kilicho wazi, mtu yeyote anaweza kuelewa bila kupata shida. ✨",
-    replies: []
-  },
-  {
-    text: "Kila hatua ya uthibitishaji inajieleza yenyewe, hakuna haja ya kuwa na wasiwasi unapofuata muongozo uliowekwa.",
-    replies: []
-  },
-  {
-    text: "Nilikuwa naulizia, je naweza kufanya uthibitishaji hata siku za mwisho wa wiki?",
-    replies: [
-      { name: "Afisa wa Huduma", text: "Ndio, mfumo unafanya kazi siku zote saba za wiki bila kusimama.", time: "Dakika 8 zilizopita" }
-    ]
-  },
-  {
-    text: "Mteja mmoja alinipigia baadaye kuniuliza kuhusu saa ya kufungua ofisi, nikamueleza kwa heshima kulingana na muongozo. 📞",
-    replies: []
-  },
-  {
-    text: "Kamisheni inaingia moja kwa moja kwenye salio pindi unapobofya kutuma oda, hii inaleta uwazi mzuri sana.",
-    replies: []
-  },
-  {
-    text: "Nawashauri wenzangu kuwa wasikivu mnapoongea na wateja, wengine huwa wana maswali ya ziada kuhusu bidhaa zao.",
-    replies: []
-  },
-  {
-    text: "Kazi hii hainichukulii muda mwingi, kwa dakika kumi tu nakuwa nimeshamaliza oda zilizopo kwenye ukurasa. ⏱️",
-    replies: []
-  },
-  {
-    text: "Nimependa uboreshaji wa picha za bidhaa, sasa zinaonekana halisi na zinasaidia kumuelezea mteja anapouliza.",
-    replies: []
-  },
-  {
-    text: "Nilijaribu video call na mteja leo, alifurahi kuona sura ya mtu anayeongea naye kabla ya kuthibitisha oda yake. 📱",
-    replies: []
-  },
-  {
-    text: "Nimefanya kazi wiki nzima bila kukwama, utaratibu unafuatwa vizuri sana.",
-    replies: []
-  },
-  {
-    text: "Kuna wakati wateja wengine wanakuwa na mashaka, lakini ukiwaeleza kwamba ofisi zipo mjini kwao wanapata amani mara moja.",
-    replies: []
-  },
-  {
-    text: "Leo nimefanikiwa kukamilisha oda za kurasa zote, nimeona maendeleo mazuri katika utendaji wangu. 💪",
-    replies: []
-  },
-  {
-    text: "Ni vyema kuwa na bando la uhakika unapoanza kufanya kazi ili simu na picha zisichelewe kufunguka.",
-    replies: []
-  },
-  {
-    text: "Asante kwa mwongozo wa sauti unaojitokeza, unasaidia kukumbusha hatua za kufuata bila kusahau chochote. 🔊",
-    replies: []
-  },
-  {
-    text: "Nilikuwa na wasiwasi mwanzoni kuhusu usalama wa taarifa zangu, lakini naona kila kitu kinafuata utaratibu mzuri.",
-    replies: []
-  },
-  {
-    text: "Oda ya mashine ya kusaga niliyothibitisha leo mteja alisema anaihitaji haraka kwa ajili ya karakana yake ndogo.",
-    replies: []
-  },
-  {
-    text: "Nafurahi kuona kwamba hata kwa simu ya kawaida bila kompyuta mtu anaweza kufanya kazi vizuri bila shida. 👍",
-    replies: []
-  },
-  {
-    text: "Kazi inajenga uzoefu mzuri wa mawasiliano na watu tofauti tofauti kila siku.",
-    replies: []
-  },
-  {
-    text: "Nimejifunza kuwa mvumilivu mteja anapochelewa kupokea simu, mara nyingi huwa wanapokea kwenye jaribio la pili.",
-    replies: []
-  },
-  {
-    text: "Mpangilio wa vifaa vya nyumbani na vya viwandani kwenye kurasa tofauti unasaidia sana kuchagua unachokielewa vizuri.",
-    replies: []
-  },
-  {
-    text: "Tuendelee kuwa waaminifu na kuzingatia maelekezo ili mfumo uendelee kuwa wa kuaminika kwa wote. 🤝",
-    replies: []
-  },
-  {
-    text: "Nawashukuru sana kwa mwongozo mliotoa, nimeelewa jinsi ya kumaliza hatua zote kwa wakati na kwa ufasaha. 🙏",
-    replies: []
-  }
+  { text: "Kiukweli mwanzoni nilikua siamini kama haya mambo ya mtandaoni yanalipa, lakini nilivyojiunga na kuanza kudhibitisha oda, nimetoa elfu 50 yangu ya kwanza leo asubuhi bila longolongo yoyote! 🙏🙏", replies: [] },
+  { text: "Inalipa sana aisee 🔥", replies: [] },
+  { text: "Hii fursa ni mkombozi kwa vijana wengi ambao hawana ajira mtaani. Pesa inaingia fasta tu ukifanya kazi yako kwa umakini.", replies: [] },
+  { text: "Asante sana kwa aliyenishirikisha hii kitu. Withdraw ziko very instant. Nimeomba kutoa pesa ndani ya dakika 3 imeingia kwenye M-pesa yangu.", replies: [] },
+  { text: "Daaah nilichelewa sana kujua hii platform 😭😭😭 nimepoteza muda mwingi sana. Sasa hivi ni kazi tu na kuvuna pesa.", replies: [{name: "Amina J.", text: "Bora umejua sasa 👏 fursa ndio hii.", time: "Dakika 4 zilizopita"}] },
+  { text: "Ni kweli inalipa?", replies: [{name: "Juma", text: "Ndio inalipa sana kaka, mimi nimeanza wiki iliyopita na nimeshatoa hela mara mbili.", time: "Dakika 10 zilizopita"}] },
+  { text: "Guys mimi nilikuwa naogopa matapeli, lakini hapa nimehakikisha asilimia 100 ni salama. Zile kamisheni za asilimia 5 zinasaidia sana kusogeza siku.", replies: [] },
+  { text: "Pesa nje nje 💸💸", replies: [] },
+  { text: "Kwa mtu yeyote anayehitaji side hustle, hii ndio yenyewe. Hutumii nguvu nyingi, wewe ni kudhibitisha oda tu na hela yako inaingia.", replies: [] },
+  { text: "Nimevuta laki 2 leo, weekend imeanza vizuri sana kwangu 🍻", replies: [] },
+  { text: "Nawezaje kujiunga jamani?", replies: [{name: "Zuhura", text: "Fuata maelekezo ya kujisajili hapo juu, ni rahisi sana dada.", time: "Saa 1 lililopita"}] },
+  { text: "Withdrawal zao hazina makato makubwa, ukitoa hela yako unapata karibu yote, hii kampuni iko fair sana kwa kweli.", replies: [] },
+  { text: "Hii ni legit 100% 🔥", replies: [] },
+  { text: "Jana usiku nilifanya kazi nikapata oda 15 mfululizo, asubuhi hii nimeamka nimekuta balance imesoma vizuri sana. Nimetuma withdrawal na imekubali chap.", replies: [] },
+  { text: "Nilikuwa na mashaka sana kama kweli wanatoa pesa, lakini leo nimethibitisha. Nimepokea ujumbe wa Tigo Pesa sasa hivi.", replies: [] },
+  { text: "Mambo ni motooo 🔥🔥🔥", replies: [] },
+  { text: "Kazi nyepesi, malipo ya uhakika. Hakuna stress ya kuamka asubuhi kuwahi daladala.", replies: [] },
+  { text: "Kuna aliyewahi kutoa zaidi ya laki 5 hapa?", replies: [{name: "Baraka", text: "Mimi nilitoa laki 6 wiki iliyopita, inategemea na juhudi yako tu.", time: "Masaa 2 yaliyopita"}] },
+  { text: "Ahsanteni sana, nimefanikiwa kutoa elfu 80 yangu ya kwanza. Hii system ni nzuri na haina complication yoyote.", replies: [] },
+  { text: "Nzuri sana hii! 👏", replies: [] },
+  { text: "Sijawahi kujutia kujiunga hapa, mwanzo niliweka mtaji mdogo sasa hivi napiga hela tu.", replies: [] },
+  { text: "Hii biashara iko salama sana, platform yao ina security nzuri na hela yako huwezi kupoteza.", replies: [] },
+  { text: "Pesa inaingia wakati wowote, yaani hata usiku wa manane ukiomba kutoa, inatoka tu. Safi sana uongozi 👏👏", replies: [] },
+  { text: "Nani mwingine amepata withdrawal asubuhi hii? Mimi nimepokea yangu tayari.", replies: [] },
+  { text: "Iko poa sana 💯", replies: [] },
+  { text: "Nimewashirikisha na marafiki zangu nao wameanza kutengeneza pesa. Hakuna kuficha fursa.", replies: [] },
+  { text: "Mfumo unasoma haraka, ukithibitisha tu oda, mzigo unasoma kwenye account balance papo hapo.", replies: [] },
+  { text: "Hii inasaidia sana hasa kwa sisi wanafunzi wa vyuo, tunapata hela ya kujikimu bila kuomba nyumbani kila siku.", replies: [] },
+  { text: "Kazi nzuri, malipo papo hapo ✅", replies: [] },
+  { text: "Kama bado unalaza damu unapitwa na mengi sana, amka uanze kazi ujionee tofauti.", replies: [] },
+  { text: "Ukweli mchungu ni kwamba fursa zipo, ila watu wanapenda kubet badala ya kufanya kazi za uhakika kama hizi.", replies: [] },
+  { text: "Nina siku tatu tangu nijiunge, nimesharudisha mtaji wangu na sasa natengeneza faida tupu. Mungu ibariki hii kampuni.", replies: [] },
+  { text: "Good job 👏", replies: [] },
+  { text: "Hakuna kiwango cha ukomo, ukiweza kudhibitisha oda 100 kwa siku ni wewe tu na speed yako.", replies: [] },
+  { text: "Nimeipenda sana hii, inakupa uhuru wa kufanya kazi ukiwa popote pale.", replies: [] }
 ];
 
 // Generate 35 unique Swahili comments with unique commenter names
@@ -929,7 +674,7 @@ export function buildCompliantComments(usedBaseNames: Set<string>, usedFullNames
 
   for (let i = 0; i < 35; i++) {
     const raw = rawSwahiliComments[i];
-    const customer = generateDistinctCustomer(usedBaseNames, usedFullNames);
+    const customer = generateDistinctCustomer(usedBaseNames, usedFullNames, "Tanzania");
     const time = times[i % times.length];
 
     result.push({
@@ -939,7 +684,7 @@ export function buildCompliantComments(usedBaseNames: Set<string>, usedFullNames
       time,
       replies: (raw.replies || []).map((r, rIdx) => ({
         id: (1000 + i) * 10 + rIdx,
-        name: r.name,
+        name: generateDistinctCustomer(usedBaseNames, usedFullNames, "Tanzania").name,
         text: r.text,
         time: r.time
       }))
@@ -961,7 +706,7 @@ export function buildCompliantLivePayouts(usedBaseNames: Set<string>, usedFullNa
   ];
 
   for (let i = 0; i < 65; i++) {
-    const customer = generateDistinctCustomer(usedBaseNames, usedFullNames);
+    const customer = generateDistinctCustomer(usedBaseNames, usedFullNames, "Tanzania");
     const amt = baseAmounts[i % baseAmounts.length] + ((i * 450) % 5000);
     payouts.push({
       id: 2000 + i,
@@ -1112,17 +857,9 @@ export function generateCompliantSystemData(epochSeed: number) {
 
   // Authentic distribution of East African & international countries for each page
   const targetCountryList: string[] = [
-    // Page 1 (12 orders)
-    "Tanzania", "Kenya", "Uganda", "Rwanda", "Tanzania", "Burundi",
-    "DR Congo", "Kenya", "South Africa", "Tanzania", "Nigeria", "UAE",
-
-    // Page 2 (12 orders)
-    "Kenya", "Tanzania", "Uganda", "Rwanda", "DR Congo", "Tanzania",
-    "Burundi", "Kenya", "South Africa", "Tanzania", "Zambia", "Malawi",
-
-    // Page 3 (12 orders)
-    "Tanzania", "Kenya", "Uganda", "DR Congo", "Tanzania", "Rwanda",
-    "Nigeria", "Burundi", "South Africa", "Tanzania", "UAE", "Kenya"
+    "Ghana", "Senegal", "Ethiopia", "Zimbabwe", "Botswana", "Mozambique", "Egypt", "Morocco", "Cameroon", "Madagascar", "Ivory Coast", "Mali",
+    "Nigeria", "Kenya", "Uganda", "Rwanda", "South Africa", "Zambia", "Malawi", "Angola", "Namibia", "Algeria", "Tunisia", "Sudan",
+    "Somalia", "Liberia", "Sierra Leone", "Togo", "Benin", "Guinea", "Burkina Faso", "Niger", "Chad", "Burundi", "Lesotho", "Eswatini"
   ];
 
   for (let i = 0; i < 36; i++) {
