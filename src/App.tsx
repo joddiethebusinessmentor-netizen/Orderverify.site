@@ -237,10 +237,10 @@ function LiveClock() {
         </div>
         <div className="flex flex-col">
           <span className="text-white font-extrabold text-sm leading-tight">
-            Tunawatakia JUMAPILI njema,, pia order zipo leo za kutosha
+            Usikae pending toa pesa zako automatic order za leo zimewekwa
           </span>
           <span className="text-slate-400 text-[11px] sm:text-xs mt-0.5 font-medium leading-snug">
-            Thibitisha utengeneze kipato
+            Thibitisha tukulipe ✅ UWE NA JUMATATU NJEMA
           </span>
         </div>
       </div>
