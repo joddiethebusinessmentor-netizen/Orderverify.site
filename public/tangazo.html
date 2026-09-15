@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tangazo Maker</title>
+    <style>
+        body {
+            /* Background inayofanana na picha ulizotuma */
+            background: linear-gradient(to bottom, #d5d5d5, #a3a3a3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .comment-container {
+            position: relative;
+            background-color: #ffffff;
+            border-radius: 24px;
+            padding: 24px 28px;
+            max-width: 90%;
+            width: 480px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex;
+            gap: 16px;
+            border-bottom-left-radius: 4px; 
+        }
+        
+        /* The little tail on the bottom left */
+        .tail {
+            position: absolute;
+            bottom: 0;
+            left: -14px;
+            width: 28px;
+            height: 24px;
+            background-color: #ffffff;
+            clip-path: polygon(100% 0, 100% 100%, 0 100%);
+            border-bottom-left-radius: 12px;
+        }
+
+        .avatar {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            margin-top: 10px;
+        }
+
+        .text-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reply-header {
+            font-size: 22px;
+            color: #797979;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.2;
+        }
+
+        .comment-text {
+            font-size: 25px;
+            color: #000000;
+            font-weight: 700;
+            line-height: 1.35;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="comment-container">
+        <div class="tail"></div>
+        <!-- Picha ya mteja (Random beautiful profile pic) -->
+        <img src="https://images.unsplash.com/photo-1531123897727-8f129e1b24ce?auto=format&fit=crop&w=150&h=150" alt="Avatar" class="avatar">
+        <div class="text-content">
+            <div class="reply-header">Reply to agent macrina's<br>comment</div>
+            <p class="comment-text">
+                Nina wiki mbili tu tangu nijiunge ila nimesha pata pesa ya kulipa Ada yangu ya chuo yote 🙏 ubarikiwe kipenz changu
+            </p>
+        </div>
+    </div>
+</body>
+</html>
