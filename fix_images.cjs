@@ -1,19 +1,13 @@
 const fs = require('fs');
-
 let content = fs.readFileSync('src/data.ts', 'utf8');
 
-// Add imports
-const imports = `import phoneTripodImg from "./assets/images/phone_tripod_stand_1789290638423.jpg";
-import cameraMugImg from "./assets/images/camera_lens_mug_1789290655544.jpg";`;
+// The procedural generator was still using homeBases (headphones, speakers) if there weren't enough products.
+// We have exactly 12 products in masterHomeProducts and masterTechProducts.
+// Let's make sure the procedural bases are updated to match the new themes just in case it falls back,
+// OR just rely on the version bump which should force it to use the new master arrays instead of cached local storage.
 
-content = content.replace('import floorScrubberImg', imports + '\nimport floorScrubberImg');
-
-// Replace usages
-content = content.replace(/"https:\/\/images\.unsplash\.com\/photo-1527581559868-e67c8be24eeb\?w=400"/, 'phoneTripodImg');
-content = content.replace(/"https:\/\/images\.unsplash\.com\/photo-1514846328220-4a81b22fb4d2\?w=400"/, 'cameraMugImg');
-
-// Bump version
-content = content.replace(/STORAGE_VERSION_TAG = "ov_v[0-9a-z_]+"/, 'STORAGE_VERSION_TAG = "ov_v34_kikuu_real_images"');
+// Let's also update the procedural bases just to be safe so it NEVER generates headphones again
+content = content.replace(/const homeBases = \["Bluetooth Speaker", "Wireless Earbuds", "Smartwatch", "LED Lights", "Spy Camera", "Luxury Watch"\];/, 'const homeBases = ["Tractor Part", "Water Hose", "Farm Tools", "Seed Pack", "Harvest Sack", "Irrigation Pipe"];');
+content = content.replace(/const techBases = \["Makeup Brush", "Hair Oil", "Massage Cream", "Press-on Nails", "Jewelry Set", "Yin-Yang Bracelet"\];/, 'const techBases = ["Solar Panel", "Solar Battery", "Solar Inverter", "Solar Light", "Solar Fan", "Solar Pump"];');
 
 fs.writeFileSync('src/data.ts', content);
-console.log("Images replaced");

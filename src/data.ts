@@ -1,4 +1,59 @@
 
+import imgLaptopGamingOffice from './assets/images/laptop_gaming_office.jpg';
+import imgTvCrystal50Inch from './assets/images/tv_crystal_50inch.jpg';
+import imgPhoneFlagshipProMax from './assets/images/phone_flagship_promax.jpg';
+import imgRadioSolarMultiBand from './assets/images/radio_solar_multiband.jpg';
+import imgRadioStudioHiFi from './assets/images/radio_studio_hifi.jpg';
+import imgComputerOledGaming from './assets/images/computer_oled_gaming.jpg';
+
+
+import imgSmartTvLed from './assets/images/smart_tv_led.jpg';
+import imgSmartphone5G from './assets/images/smartphone_5g.jpg';
+import imgRetroDigitalRadio from './assets/images/retro_digital_radio.jpg';
+import imgDesktopComputerPc from './assets/images/desktop_computer_pc.jpg';
+import imgUltrabookLaptop from './assets/images/ultrabook_laptop.jpg';
+import imgUltraHdTv from './assets/images/ultra_hd_tv.jpg';
+import imgFlagshipAndroidPhone from './assets/images/flagship_android_phone.jpg';
+import imgPortableBluetoothRadio from './assets/images/portable_bluetooth_radio.jpg';
+import imgAllInOneDesktop from './assets/images/all_in_one_desktop.jpg';
+import imgBusinessLaptop from './assets/images/business_laptop.jpg';
+import imgCurvedSmartTv from './assets/images/curved_smart_tv.jpg';
+import imgProDualSimPhone from './assets/images/pro_dual_sim_phone.jpg';
+
+
+
+
+import imgDap from './assets/images/dap_fertilizer_bag_1789537001954.jpg';
+import imgPump from './assets/images/irrigation_water_pump_1789537012954.jpg';
+import imgMaize from './assets/images/maize_seeds_bag_1789537024362.jpg';
+import imgSprayer from './assets/images/backpack_sprayer_1789537034152.jpg';
+import imgPoultry from './assets/images/poultry_feed_sack_1789537045322.jpg';
+import imgSunflowers from './assets/images/sunflower_seeds_1789537055135.jpg';
+import imgTarpaulin from './assets/images/blue_tarpaulin_1789537065716.jpg';
+import imgChaffCutter from './assets/images/chaff_cutter_1789537075638.jpg';
+import imgGrainBags from './assets/images/grain_storage_bags_1789537087191.jpg';
+import imgHerbicide from './assets/images/herbicide_jerrycan_1789537098028.jpg';
+import imgFarmTools from './assets/images/farming_tools_kit_1789537108300.jpg';
+import imgUrea from './assets/images/urea_fertilizer_sack_1789537119091.jpg';
+
+import imgSolar200W from './assets/images/solar_panel_200w_1789537129783.jpg';
+import imgSolarBattery from './assets/images/solar_battery_100ah_1789537140689.jpg';
+import imgSolarHeater from './assets/images/solar_water_heater_1789537151734.jpg';
+import imgSolarInverter from './assets/images/solar_inverter_1000w_1789537161233.jpg';
+import imgSolarStreet from './assets/images/solar_street_light_1789537172548.jpg';
+import imgSolarGarden from './assets/images/solar_garden_lights_1789537183127.jpg';
+import imgSolarGen from './assets/images/portable_solar_generator_1789537195320.jpg';
+import imgSolarMppt from './assets/images/mppt_charge_controller_1789537205902.jpg';
+import imgSolarFoldable from './assets/images/foldable_solar_panel_1789537216344.jpg';
+import imgSolarSubPump from './assets/images/submersible_solar_pump_1789537226900.jpg';
+import imgSolarCctv from './assets/images/solar_cctv_camera_1789537236789.jpg';
+import imgSolarFan from './assets/images/solar_standing_fan_1789537246446.jpg';
+
+// Re-map images in procedural generator just in case
+const genericFarmImg = imgFarmTools;
+const genericSolarImg = imgSolar200W;
+
+
 import airPurifierImg from "./assets/images/air_purifier_1789046401231.jpg";
 import bluetoothSpeakerImg from "./assets/images/bluetooth_speaker_1789046601734.jpg";
 import breadOvenImg from "./assets/images/bread_oven_1789046380485.jpg";
@@ -109,10 +164,29 @@ export const countryRates: Record<string, { curr: string; rate: number }> = {
   "Tanzania": { curr: "TZS", rate: 1 },
   "Kenya": { curr: "KES", rate: 0.05 },
   "Uganda": { curr: "UGX", rate: 1.45 },
+  "Congo (DRC)": { curr: "FC", rate: 1.15 },
   "Rwanda": { curr: "RWF", rate: 0.5 },
   "Burundi": { curr: "BIF", rate: 1.1 },
   "DR Congo": { curr: "CDF", rate: 1.15 },
   "South Africa": { curr: "ZAR", rate: 0.007 },
+  "Nigeria": { curr: "NGN", rate: 0.55 },
+  "Ghana": { curr: "GHS", rate: 0.0055 },
+  "Zambia": { curr: "ZMW", rate: 0.01 },
+  "Ivory Coast": { curr: "XOF", rate: 0.23 },
+  "Mozambique": { curr: "MZN", rate: 0.024 },
+  "Senegal": { curr: "XOF", rate: 0.23 },
+  "Mali": { curr: "XOF", rate: 0.23 },
+  "Cameroon": { curr: "XAF", rate: 0.23 },
+  "Egypt": { curr: "EGP", rate: 0.018 },
+  "Morocco": { curr: "MAD", rate: 0.0038 },
+  "Ethiopia": { curr: "ETB", rate: 0.045 },
+  "Zimbabwe": { curr: "USD", rate: 0.00038 },
+  "Botswana": { curr: "BWP", rate: 0.0052 },
+  "Angola": { curr: "AOA", rate: 0.35 },
+  "Namibia": { curr: "NAD", rate: 0.007 },
+  "Algeria": { curr: "DZD", rate: 0.051 },
+  "Tunisia": { curr: "TND", rate: 0.0012 },
+  "Malawi": { curr: "MWK", rate: 0.65 },
   "UK": { curr: "GBP", rate: 0.0003 },
   "UAE": { curr: "AED", rate: 0.0014 },
   "Germany": { curr: "EUR", rate: 0.00035 },
@@ -122,10 +196,7 @@ export const countryRates: Record<string, { curr: string; rate: number }> = {
   "China": { curr: "CNY", rate: 0.0027 },
   "Japan": { curr: "JPY", rate: 0.057 },
   "India": { curr: "INR", rate: 0.032 },
-  "Brazil": { curr: "BRL", rate: 0.0019 },
-  "Zambia": { curr: "ZMW", rate: 0.01 },
-  "Malawi": { curr: "MWK", rate: 0.65 },
-  "Nigeria": { curr: "NGN", rate: 0.55 }
+  "Brazil": { curr: "BRL", rate: 0.0019 }
 };
 
 export const formatLocalCurrency = (tzsAmount: number, countryName: string) => {
@@ -200,7 +271,7 @@ function saveStoredSet(key: string, set: Set<string>): void {
   } catch (e) {}
 }
 
-const STORAGE_VERSION_TAG = "ov_v41_final_no_mwanachama";
+const STORAGE_VERSION_TAG = "ov_v69_fresh_live_notifications_and_rich_comments";
 const STORAGE_KEY_VERSION = "orderverify_app_version";
 const STORAGE_KEY_USED_PRODUCTS = "orderverify_used_products";
 const STORAGE_KEY_USED_NAMES = "orderverify_used_customer_names";
@@ -265,61 +336,72 @@ export interface ProductTemplate {
 
 // PAGE 1: Home & Kitchen Appliances (Majumbani) - ALL NEW & VERIFIED
 export const masterHomeProducts: ProductTemplate[] = [
-  { name: "Mini Bluetooth Speaker (Jumla Pcs 10)", price: 150000, image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400", description: "Mini Bluetooth Speaker (Jumla Pcs 10)" },
-  { name: "Gaming Wireless Earbuds (Seti)", price: 120000, image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400", description: "Gaming Wireless Earbuds (Seti)" },
-  { name: "Sport Smartwatch Braided (Pcs 5)", price: 250000, image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400", description: "Sport Smartwatch Braided (Pcs 5)" },
-  { name: "LED Strip Lights Room Decor (Seti)", price: 110000, image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400", description: "LED Strip Lights Room Decor (Seti)" },
-  { name: "Mini WiFi Spy Camera (Pcs 3)", price: 180000, image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400", description: "Mini WiFi Spy Camera (Pcs 3)" },
-  { name: "Oruss Men's Luxury Watch", price: 320000, image: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400", description: "Oruss Men's Luxury Watch" },
-  { name: "Bone Conduction Earphones", price: 145000, image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400", description: "Bone Conduction Earphones" },
-  { name: "Starry Sky Projector Light", price: 115000, image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=400", description: "Starry Sky Projector Light" },
-  { name: "Wooden Phone Stand (Jumla Pcs 20)", price: 105000, image: "https://images.unsplash.com/photo-1586105251261-72a756497a11?w=400", description: "Wooden Phone Stand (Jumla Pcs 20)" },
-  { name: "Blue Dial Stainless Watch (Seti)", price: 210000, image: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=400", description: "Blue Dial Stainless Watch (Seti)" },
-  { name: "Camera Lens Coffee Mug (Seti)", price: 100000, image: cameraMugImg, description: "Camera Lens Coffee Mug (Seti)" },
-  { name: "Phone Tripod Stand (Jumla)", price: 160000, image: phoneTripodImg, description: "Phone Tripod Stand (Jumla)" }
+  { name: "DAP Fertilizer (5 Bags)", price: 450000, image: imgDap, description: "DAP Fertilizer (5 Bags)" },
+  { name: "Irrigation Water Pump", price: 550000, image: imgPump, description: "Irrigation Water Pump" },
+  { name: "Hybrid Maize Seeds (50kg)", price: 250000, image: imgMaize, description: "Hybrid Maize Seeds (50kg)" },
+  { name: "Pesticide Sprayer Pump (3 Pcs)", price: 210000, image: imgSprayer, description: "Pesticide Sprayer Pump (3 Pcs)" },
+  { name: "Poultry Feed (10 Bags)", price: 350000, image: imgPoultry, description: "Poultry Feed (10 Bags)" },
+  { name: "Sunflower Seeds (20kg)", price: 280000, image: imgSunflowers, description: "Sunflower Seeds (20kg)" },
+  { name: "Heavy Duty Drying Tarpaulin", price: 220000, image: imgTarpaulin, description: "Heavy Duty Drying Tarpaulin" },
+  { name: "Mini Chaff Cutter Machine", price: 580000, image: imgChaffCutter, description: "Mini Chaff Cutter Machine" },
+  { name: "Grain Storage Bags (50 Pcs)", price: 300000, image: imgGrainBags, description: "Grain Storage Bags (50 Pcs)" },
+  { name: "Herbicide Chemical (20 Liters)", price: 240000, image: imgHerbicide, description: "Herbicide Chemical (20 Liters)" },
+  { name: "Farming Tools Kit", price: 320000, image: imgFarmTools, description: "Farming Tools Kit" },
+  { name: "UREA Fertilizer (4 Bags)", price: 400000, image: imgUrea, description: "UREA Fertilizer (4 Bags)" }
 ];
 
 // PAGE 2: Consumer Tech & Gadgets (Kielektroniki) - ALL NEW & VERIFIED
 export const masterTechProducts: ProductTemplate[] = [
-  { name: "13Pcs Makeup Brush Set (Jumla)", price: 110000, image: makeupBrushSet13pcsImg, description: "13Pcs Makeup Brush Set (Jumla)" },
-  { name: "Batana Hair Growth Oil (Seti 5)", price: 125000, image: batanaOilImg, description: "Batana Hair Growth Oil (Seti 5)" },
-  { name: "Hip-Lift Massage Cream (Box)", price: 140000, image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400", description: "Hip-Lift Massage Cream (Box)" },
-  { name: "Luxury Press-on Nails (Seti 10)", price: 105000, image: pressOnNailsImg, description: "Luxury Press-on Nails (Seti 10)" },
-  { name: "Blue Crystal Watch & Jewelry Set", price: 190000, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400", description: "Blue Crystal Watch & Jewelry Set" },
-  { name: "Butterfly Watch & Necklace Set", price: 180000, image: butterflyWatchSetImg, description: "Butterfly Watch & Necklace Set" },
-  { name: "Gold Plated Women's Watch Set", price: 220000, image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400", description: "Gold Plated Women's Watch Set" },
-  { name: "Yin-Yang Beaded Bracelets (Jumla)", price: 100000, image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400", description: "Yin-Yang Beaded Bracelets (Jumla)" },
-  { name: "Anti-Blue Light Glasses (Seti)", price: 115000, image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400", description: "Anti-Blue Light Glasses (Seti)" },
-  { name: "Weight Loss Slimming Patch", price: 130000, image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400", description: "Weight Loss Slimming Patch" },
-  { name: "Skin Brightening Toner Set", price: 150000, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400", description: "Skin Brightening Toner Set" },
-  { name: "Professional Facial Kit", price: 170000, image: facialKitImg, description: "Professional Facial Kit" }
+  { name: "Complete Solar Panel System 200W", price: 450000, image: imgSolar200W, description: "Complete Solar Panel System 200W" },
+  { name: "Solar Battery 100Ah Deep Cycle", price: 350000, image: imgSolarBattery, description: "Solar Battery 100Ah Deep Cycle" },
+  { name: "Solar Water Heater 100L", price: 480000, image: imgSolarHeater, description: "Solar Water Heater 100L" },
+  { name: "Solar Inverter 1000W Pure Sine", price: 280000, image: imgSolarInverter, description: "Solar Inverter 1000W Pure Sine" },
+  { name: "Solar Street Light 300W (2 Pcs)", price: 220000, image: imgSolarStreet, description: "Solar Street Light 300W (2 Pcs)" },
+  { name: "Solar Garden Lights Set (10 Pcs)", price: 200000, image: imgSolarGarden, description: "Solar Garden Lights Set (10 Pcs)" },
+  { name: "Portable Solar Generator 500W", price: 500000, image: imgSolarGen, description: "Portable Solar Generator 500W" },
+  { name: "Solar Charge Controller 60A MPPT", price: 240000, image: imgSolarMppt, description: "Solar Charge Controller 60A MPPT" },
+  { name: "Foldable Solar Panel 120W (Camping)", price: 320000, image: imgSolarFoldable, description: "Foldable Solar Panel 120W (Camping)" },
+  { name: "Solar Powered Submersible Pump", price: 420000, image: imgSolarSubPump, description: "Solar Powered Submersible Pump" },
+  { name: "Solar CCTV Camera System", price: 380000, image: imgSolarCctv, description: "Solar CCTV Camera System" },
+  { name: "Solar Fan with LED & USB (2 Pcs)", price: 210000, image: imgSolarFan, description: "Solar Fan with LED & USB (2 Pcs)" }
 ];
 
-// PAGE 3: Industrial & Workshop Equipment (Viwandani) - ALL NEW & VERIFIED
-
+// PAGE 3: Electronics (TV, Simu, Radio, Computer, Laptop) - ALL VERIFIED & UNIQUE (200k - 500k TZS)
 export const masterClothingProducts: ProductTemplate[] = [];
 
 export const masterIndustrialProducts: ProductTemplate[] = [
-  { name: "Sleeveless Hoodie Vest (Seti 4)", price: 140000, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400", description: "Sleeveless Hoodie Vest (Seti 4)" },
-  { name: "Shockproof Phone Case with Ring", price: 120000, image: phoneCaseRingImg, description: "Shockproof Phone Case with Ring" },
-  { name: "Zmistuo Platform Slides (Pea 5)", price: 160000, image: "https://images.unsplash.com/photo-1562183241-b937e95585b6?w=400", description: "Zmistuo Platform Slides (Pea 5)" },
-  { name: "Seamless Shapewear Bras (Seti)", price: 135000, image: shapewearBrasImg, description: "Seamless Shapewear Bras (Seti)" },
-  { name: "Colorful iPhone Cases (Jumla)", price: 110000, image: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=400", description: "Colorful iPhone Cases (Jumla)" },
-  { name: "Retro Leather Wallet Set", price: 125000, image: "https://images.unsplash.com/photo-1627042633145-b780d842ba45?w=400", description: "Retro Leather Wallet Set" },
-  { name: "Men's Casual Sneakers (Premium)", price: 180000, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400", description: "Men's Casual Sneakers (Premium)" },
-  { name: "Women's Crossbody Bag", price: 150000, image: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=400", description: "Women's Crossbody Bag" },
-  { name: "Designer Sunglasses Set", price: 115000, image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400", description: "Designer Sunglasses Set" },
-  { name: "Orthopedic Walking Shoes", price: 190000, image: "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?w=400", description: "Orthopedic Walking Shoes" },
-  { name: "Cotton T-Shirts Bundle", price: 105000, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400", description: "Cotton T-Shirts Bundle" },
-  { name: "Leather Belt & Accessories", price: 130000, image: "https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=400", description: "Leather Belt & Accessories" }
+  // 1. Somalia (TV)
+  { name: "Smart LED TV 43-Inch 4K UHD", price: 460000, image: imgSmartTvLed, description: "Smart LED TV nchi 43 yenye picha angavu ya 4K Ultra HD, mfumo wa Android TV na Wi-Fi ya ndani." },
+  // 2. Liberia (Laptop) - Fresh replacement
+  { name: "Ultra-Thin 15.6\" Gaming & Office Laptop", price: 485000, image: imgLaptopGamingOffice, description: "Laptop ya kisasa ya kazi na michezo yenye kioo kikubwa cha 15.6\", SSD 512GB, RAM 16GB na betri imara." },
+  // 3. Sierra Leone (TV) - Fresh replacement
+  { name: "Crystal Ultra HD 50-Inch Smart TV", price: 495000, image: imgTvCrystal50Inch, description: "TV kubwa ya kifahari ya kioo cha Crystal UHD nchi 50, rangi angavu za HDR10+ na sauti yenye nguvu." },
+  // 4. Togo (Computer)
+  { name: "Desktop Computer PC Complete Set", price: 480000, image: imgDesktopComputerPc, description: "Seti kamili ya kompyuta ya mezani (PC Desktop) yenye kioo cha LED, CPU ya haraka, keyboard na mouse." },
+  // 5. Benin (Laptop)
+  { name: "Slim Ultrabook Laptop 14-Inch", price: 475000, image: imgUltrabookLaptop, description: "Laptop nyepesi na ya kisasa yenye processor yenye nguvu, SSD 256GB, RAM 8GB na betri inayodumu masaa 10." },
+  // 6. Guinea (Simu) - Fresh replacement
+  { name: "Pro Max 5G Flagship Smartphone 256GB", price: 410000, image: imgPhoneFlagshipProMax, description: "Simu janja ya kipekee ya Pro Max yenye mtandao wa 5G, kamera tatu zenye megapixel 108, na kioo cha OLED." },
+  // 7. Burkina Faso (Computer) - Fresh replacement
+  { name: "Curved OLED Gaming Desktop Computer", price: 465000, image: imgComputerOledGaming, description: "Kompyuta ya mezani yenye mnara wa kisasa, taa za RGB, kioo cha OLED na mfumo wa kupoza kwa maji." },
+  // 8. Niger (Radio) - Fresh replacement
+  { name: "Multi-Band Solar World Receiver Radio", price: 230000, image: imgRadioSolarMultiBand, description: "Radio ya mawimbi marefu (Shortwave/FM/AM) inayochajiwa kwa miale ya jua na umeme wa kawaida." },
+  // 9. Chad (Computer)
+  { name: "All-in-One Desktop Core i5 Computer", price: 470000, image: imgAllInOneDesktop, description: "Kompyuta ya kisasa ya All-in-One (kila kitu ndani ya kioo), safi na inayookoa nafasi ofisini na nyumbani." },
+  // 10. Burundi (Laptop)
+  { name: "High-Performance Business Laptop", price: 450000, image: imgBusinessLaptop, description: "Laptop imara ya kiofisi na biashara yenye ulinzi wa alama za vidole, kioo kisichoakisi na spidi kubwa." },
+  // 11. Lesotho (TV)
+  { name: "Curved Display Smart TV 43-Inch", price: 440000, image: imgCurvedSmartTv, description: "TV ya kioo kilichojipinda (Curved Smart TV) inayotoa muonekano halisi wa sinema na michezo ya mpira." },
+  // 12. Eswatini (Radio) - Fresh replacement
+  { name: "Studio Sound FM/AM Hi-Fi Radio Station", price: 240000, image: imgRadioStudioHiFi, description: "Radio ya mezani ya sauti ya juu ya Hi-Fi yenye mfumo wa studio, spika za mbao na Bluetooth." }
 ];
 
 // Procedural generator for infinite continuous rotations (NEVER uses old products)
 let proceduralCounter = 50;
 export function generateFreshProceduralProduct(category: "home" | "tech" | "industrial", usedKeys: Set<string>): ProductTemplate {
-  const homeBases = ["Bluetooth Speaker", "Wireless Earbuds", "Smartwatch", "LED Lights", "Spy Camera", "Luxury Watch"];
-const techBases = ["Makeup Brush", "Hair Oil", "Massage Cream", "Press-on Nails", "Jewelry Set", "Yin-Yang Bracelet"];
-const industrialBases = ["Hoodie Vest", "Phone Case", "Platform Slides", "Shapewear Bra", "Leather Wallet", "Sneakers"];
+  const homeBases = ["Tractor Part", "Water Hose", "Farm Tools", "Seed Pack", "Harvest Sack", "Irrigation Pipe"];
+const techBases = ["Solar Panel", "Solar Battery", "Solar Inverter", "Solar Light", "Solar Fan", "Solar Pump"];
+const industrialBases = ["Smart TV", "5G Smartphone", "Digital Radio", "Desktop PC", "Slim Laptop", "Ultra HD TV", "Android Phone", "Bluetooth Radio", "All-in-One PC", "Business Laptop"];
 
   const modifiers = ["Pro", "Max", "Plus", "Ultra", "Elite", "Premium", "HD"];
 
@@ -368,6 +450,11 @@ export interface CustomerTemplate {
 }
 
 const RAW_FIRST_NAMES_DB: { first: string; gender: "male" | "female"; country: string; flag: string; city: string }[] = [
+  { first: "Tresor", gender: "male", country: "Congo (DRC)", flag: "🇨🇩", city: "Kinshasa" },
+  { first: "Chantal", gender: "female", country: "Congo (DRC)", flag: "🇨🇩", city: "Lubumbashi" },
+  { first: "Fiston", gender: "male", country: "Congo (DRC)", flag: "🇨🇩", city: "Goma" },
+  { first: "Koffi", gender: "male", country: "Congo (DRC)", flag: "🇨🇩", city: "Boma" },
+  { first: "Salif", gender: "male", country: "Mali", flag: "🇲🇱", city: "Bamako" },
   { first: "Kwame", gender: "male", country: "Ghana", flag: "🇬🇭", city: "Accra" },
   { first: "Abena", gender: "female", country: "Ghana", flag: "🇬🇭", city: "Kumasi" },
   { first: "Amadou", gender: "male", country: "Senegal", flag: "🇸🇳", city: "Dakar" },
@@ -444,42 +531,42 @@ const RAW_FIRST_NAMES_DB: { first: string; gender: "male" | "female"; country: s
 
 const SURNAME_MAP: Record<string, string[]> = {
   "Tanzania": ["Mushi", "Shirima", "Massawe", "Swai", "Kapinga", "Mrope", "Kileo", "Kimaro", "Lema", "Mbowe", "Makamba", "Mwinyi", "Kikwete", "Magufuli", "Suluhu", "Majaliwa", "Mwalimu", "Nyerere", "Kariuki", "Kibao", "Masanja", "Komba", "Mwandosya", "Mwakyembe", "Mdee", "Bulaya", "Mrema", "Mnyika", "Zitto", "Kabwe", "Mabula", "Ndumbaro", "Mchengerwa", "Gwajima", "Mpango", "Mwigulu", "Nchemba", "Makonda", "Chalamila", "Mtaturu", "Mhagama", "Kairuki", "Ummy", "Mwalimu", "Ndalichako", "Masele", "Nyalandu", "Membe", "Mwandosya", "Pinda", "Sumaye", "Salim", "Kigwangalla", "Nape", "Nnauye", "Makamamba", "Makani", "Slaa", "Mtei", "Mbowe", "Mbatia", "Mkosamali", "Chegeni", "Mgeja", "Ngeleja", "Chenge", "Rostam", "Dewji", "Bakhresa", "Meng", "Manji", "Karamagi", "Yona", "Mramba", "Meghji", "Kimei", "Msuya", "Malecela", "Warioba", "Salim", "Kambona", "Kawawa", "Karume", "Jumbe", "Mwinyi", "Mkapa"],
-  "Ghana": ["Mensah", "Osei"],
-  "Senegal": ["Ndiaye", "Diop"],
-  "Ethiopia": ["Bekele", "Tadesse"],
-  "Zimbabwe": ["Moyo", "Sibanda"],
-  "Botswana": ["Molefe", "Gaborone"],
-  "Mozambique": ["Chissano", "Machel"],
-  "Egypt": ["Mahmoud", "Ali"],
-  "Morocco": ["Alaoui", "Bennani"],
-  "Cameroon": ["Biya", "Eto'o"],
+  "Congo (DRC)": ["Mwamba", "Mutombo", "Kabila", "Tshisekedi", "Lukaku", "Bolasie", "Mulumba", "Ilunga", "Kasongo", "Lumumba"],
+  "Kenya": ["Karanja", "Kamau", "Ochieng", "Kipchoge", "Waweru", "Otieno", "Kimani", "Kiprono"],
+  "Uganda": ["Mukasa", "Kigozi", "Ouma", "Kato", "Ssebaggala", "Nabirye", "Muwanga"],
+  "Rwanda": ["Kagame", "Nizeyimana", "Hakizimana", "Mugisha", "Uwimana", "Gasana"],
+  "Burundi": ["Nkurunziza", "Ndayishimiye", "Ndikumana", "Niyongabo", "Bizimana"],
+  "Nigeria": ["Okafor", "Adeyemi", "Balogun", "Eze", "Adeleke", "Okonkwo", "Chukwu"],
+  "Ghana": ["Mensah", "Osei", "Appiah", "Boateng", "Asante", "Agyemang"],
+  "South Africa": ["Mandela", "Zuma", "Mokoena", "Ndlovu", "Khoza", "Dlamini", "Buthelezi"],
+  "Zambia": ["Banda", "Mwila", "Chileshe", "Phiri", "Tembo", "Lungu", "Sata"],
+  "Ivory Coast": ["Bédié", "Ouattara", "Drogba", "Touré", "Kouamé", "Konan"],
+  "Mozambique": ["Chissano", "Machel", "Guebuza", "Mondlane", "Couto"],
+  "Senegal": ["Ndiaye", "Diop", "Sall", "Ba", "Sow", "Fall"],
+  "Ethiopia": ["Bekele", "Tadesse", "Haile", "Alemu", "Gebre"],
+  "Zimbabwe": ["Moyo", "Sibanda", "Ncube", "Chiwenga", "Mugabe"],
+  "Botswana": ["Molefe", "Gaborone", "Khama", "Masisi"],
+  "Egypt": ["Mahmoud", "Ali", "Hassan", "Ibrahim", "Mansour"],
+  "Morocco": ["Alaoui", "Bennani", "Idrissi", "Hakimi"],
+  "Cameroon": ["Biya", "Eto'o", "Milla", "Song"],
   "Madagascar": ["Rajoelina", "Ravalomanana"],
-  "Ivory Coast": ["Bédié", "Ouattara"],
-  "Mali": ["Keïta", "Touré"],
-  "Nigeria": ["Okafor", "Adeyemi"],
-  "Kenya": ["Karanja", "Kamau"],
-  "Uganda": ["Mukasa", "Kigozi"],
-  "Rwanda": ["Kagame", "Nizeyimana"],
-  "South Africa": ["Mandela", "Zuma"],
-  "Zambia": ["Banda", "Mwila"],
-  "Malawi": ["Phiri", "Banda"],
-  "Angola": ["Dos Santos", "Neto"],
-  "Namibia": ["Geingob", "Pohamba"],
-  "Algeria": ["Bouteflika", "Mahrez"],
-  "Tunisia": ["Trabelsi", "Jaziri"],
-  "Sudan": ["Al-Bashir", "Mahdi"],
-  "Somalia": ["Farah", "Warsame"],
-  "Liberia": ["Weah", "Johnson"],
-  "Sierra Leone": ["Bio", "Koroma"],
-  "Togo": ["Gnassingbé", "Adebayor"],
-  "Benin": ["Talon", "Kidjo"],
-  "Guinea": ["Condé", "Camara"],
-  "Burkina Faso": ["Compaoré", "Kaboré"],
-  "Niger": ["Issoufou", "Tandja"],
-  "Chad": ["Déby", "Habré"],
-  "Burundi": ["Nkurunziza", "Ndayishimiye"],
-  "Lesotho": ["Seeiso", "Thabane"],
-  "Eswatini": ["Dlamini", "Zwane"]
+  "Mali": ["Keïta", "Touré", "Traoré", "Coulibaly"],
+  "Angola": ["Dos Santos", "Neto", "Lourenço"],
+  "Namibia": ["Geingob", "Pohamba", "Nujoma"],
+  "Algeria": ["Bouteflika", "Mahrez", "Tebboune"],
+  "Tunisia": ["Trabelsi", "Jaziri", "Ben Ali"],
+  "Sudan": ["Al-Bashir", "Mahdi", "Burhan"],
+  "Somalia": ["Farah", "Warsame", "Hassan", "Gedi"],
+  "Liberia": ["Weah", "Johnson", "Sirleaf"],
+  "Sierra Leone": ["Bio", "Koroma", "Kabbah"],
+  "Togo": ["Gnassingbé", "Adebayor", "Olympio"],
+  "Benin": ["Talon", "Kidjo", "Yayi"],
+  "Guinea": ["Condé", "Camara", "Touré"],
+  "Burkina Faso": ["Compaoré", "Kaboré", "Sankara"],
+  "Niger": ["Issoufou", "Tandja", "Bazoum"],
+  "Chad": ["Déby", "Habré", "Malloum"],
+  "Lesotho": ["Seeiso", "Thabane", "Mosisili"],
+  "Eswatini": ["Dlamini", "Zwane", "Nxumalo"]
 };
 
 // Gender-faithful avatar resolver
@@ -626,96 +713,435 @@ export function generateDistinctCustomer(usedBaseNames: Set<string>, usedFullNam
 // NATURAL SWAHILI COMMUNITY COMMENTS (REALISTIC, GROUNDED HUMAN FEEDBACK)
 // ============================================================================
 
-export const rawSwahiliComments: { text: string; replies: { name: string; text: string; time: string }[] }[] = [
-  { text: "Kiukweli mwanzoni nilikua siamini kama haya mambo ya mtandaoni yanalipa, lakini nilivyojiunga na kuanza kudhibitisha oda, nimetoa elfu 50 yangu ya kwanza leo asubuhi bila longolongo yoyote! 🙏🙏", replies: [] },
-  { text: "Inalipa sana aisee 🔥", replies: [] },
-  { text: "Hii fursa ni mkombozi kwa vijana wengi ambao hawana ajira mtaani. Pesa inaingia fasta tu ukifanya kazi yako kwa umakini.", replies: [] },
-  { text: "Asante sana kwa aliyenishirikisha hii kitu. Withdraw ziko very instant. Nimeomba kutoa pesa ndani ya dakika 3 imeingia kwenye M-pesa yangu.", replies: [] },
-  { text: "Daaah nilichelewa sana kujua hii platform 😭😭😭 nimepoteza muda mwingi sana. Sasa hivi ni kazi tu na kuvuna pesa.", replies: [{name: "Amina J.", text: "Bora umejua sasa 👏 fursa ndio hii.", time: "Dakika 4 zilizopita"}] },
-  { text: "Ni kweli inalipa?", replies: [{name: "Juma", text: "Ndio inalipa sana kaka, mimi nimeanza wiki iliyopita na nimeshatoa hela mara mbili.", time: "Dakika 10 zilizopita"}] },
-  { text: "Guys mimi nilikuwa naogopa matapeli, lakini hapa nimehakikisha asilimia 100 ni salama. Zile kamisheni za asilimia 5 zinasaidia sana kusogeza siku.", replies: [] },
-  { text: "Pesa nje nje 💸💸", replies: [] },
-  { text: "Kwa mtu yeyote anayehitaji side hustle, hii ndio yenyewe. Hutumii nguvu nyingi, wewe ni kudhibitisha oda tu na hela yako inaingia.", replies: [] },
-  { text: "Nimevuta laki 2 leo, weekend imeanza vizuri sana kwangu 🍻", replies: [] },
-  { text: "Nawezaje kujiunga jamani?", replies: [{name: "Zuhura", text: "Fuata maelekezo ya kujisajili hapo juu, ni rahisi sana dada.", time: "Saa 1 lililopita"}] },
-  { text: "Withdrawal zao hazina makato makubwa, ukitoa hela yako unapata karibu yote, hii kampuni iko fair sana kwa kweli.", replies: [] },
-  { text: "Hii ni legit 100% 🔥", replies: [] },
-  { text: "Jana usiku nilifanya kazi nikapata oda 15 mfululizo, asubuhi hii nimeamka nimekuta balance imesoma vizuri sana. Nimetuma withdrawal na imekubali chap.", replies: [] },
-  { text: "Nilikuwa na mashaka sana kama kweli wanatoa pesa, lakini leo nimethibitisha. Nimepokea ujumbe wa Tigo Pesa sasa hivi.", replies: [] },
-  { text: "Mambo ni motooo 🔥🔥🔥", replies: [] },
-  { text: "Kazi nyepesi, malipo ya uhakika. Hakuna stress ya kuamka asubuhi kuwahi daladala.", replies: [] },
-  { text: "Kuna aliyewahi kutoa zaidi ya laki 5 hapa?", replies: [{name: "Baraka", text: "Mimi nilitoa laki 6 wiki iliyopita, inategemea na juhudi yako tu.", time: "Masaa 2 yaliyopita"}] },
-  { text: "Ahsanteni sana, nimefanikiwa kutoa elfu 80 yangu ya kwanza. Hii system ni nzuri na haina complication yoyote.", replies: [] },
-  { text: "Nzuri sana hii! 👏", replies: [] },
-  { text: "Sijawahi kujutia kujiunga hapa, mwanzo niliweka mtaji mdogo sasa hivi napiga hela tu.", replies: [] },
-  { text: "Hii biashara iko salama sana, platform yao ina security nzuri na hela yako huwezi kupoteza.", replies: [] },
-  { text: "Pesa inaingia wakati wowote, yaani hata usiku wa manane ukiomba kutoa, inatoka tu. Safi sana uongozi 👏👏", replies: [] },
-  { text: "Nani mwingine amepata withdrawal asubuhi hii? Mimi nimepokea yangu tayari.", replies: [] },
-  { text: "Iko poa sana 💯", replies: [] },
-  { text: "Nimewashirikisha na marafiki zangu nao wameanza kutengeneza pesa. Hakuna kuficha fursa.", replies: [] },
-  { text: "Mfumo unasoma haraka, ukithibitisha tu oda, mzigo unasoma kwenye account balance papo hapo.", replies: [] },
-  { text: "Hii inasaidia sana hasa kwa sisi wanafunzi wa vyuo, tunapata hela ya kujikimu bila kuomba nyumbani kila siku.", replies: [] },
-  { text: "Kazi nzuri, malipo papo hapo ✅", replies: [] },
-  { text: "Kama bado unalaza damu unapitwa na mengi sana, amka uanze kazi ujionee tofauti.", replies: [] },
-  { text: "Ukweli mchungu ni kwamba fursa zipo, ila watu wanapenda kubet badala ya kufanya kazi za uhakika kama hizi.", replies: [] },
-  { text: "Nina siku tatu tangu nijiunge, nimesharudisha mtaji wangu na sasa natengeneza faida tupu. Mungu ibariki hii kampuni.", replies: [] },
-  { text: "Good job 👏", replies: [] },
-  { text: "Hakuna kiwango cha ukomo, ukiweza kudhibitisha oda 100 kwa siku ni wewe tu na speed yako.", replies: [] },
-  { text: "Nimeipenda sana hii, inakupa uhuru wa kufanya kazi ukiwa popote pale.", replies: [] }
+export interface CommentTemplateDef {
+  name: string;
+  text: string;
+  time: string;
+  replies: { name: string; text: string; time: string }[];
+}
+
+export const rawSwahiliCommentsData: CommentTemplateDef[] = [
+  {
+    name: "Zuberi Mganga",
+    text: "Aiseee mwanzoni nilikua na hofu sana nikidhani utapeli kama kawaida ya mitandaoni, lakini nilipoingiza mtaji wangu wa 14,500/= na kuanza kuthibitisha oda, nimetoa faida yangu ya kwanza ya 78,000/= M-pesa asubuhi hii! Mungu awabariki sana 😭🙏",
+    time: "Dakika 2 zilizopita",
+    replies: [
+      { name: "Justus Kaaya", text: "Hongera sana ndugu, wengi wanaogopa lakini fursa ndio hii!", time: "Dakika 1 iliyopita" }
+    ]
+  },
+  {
+    name: "Consolata Temba",
+    text: "Hii kitu inalipa chap sana! 🔥💯",
+    time: "Dakika 4 zilizopita",
+    replies: []
+  },
+  {
+    name: "Geofrey Mbise",
+    text: "Kama wewe ni mwanafunzi na bado unalalamika huna hela ya kujikimu, unajichelewesha mwenyewe. Mimi nishalipa bili zote za chuo kupitia hapa bila kusumbua wazazi 🎓🙌",
+    time: "Dakika 7 zilizopita",
+    replies: []
+  },
+  {
+    name: "Upendo Lyimo",
+    text: "Baada ya kumaliza kazi zangu za mchana, usiku nachukua simu yangu natulia nazo oda zote. Leo nimevuta 45,000/= safi kabisa 💸",
+    time: "Dakika 11 zilizopita",
+    replies: []
+  },
+  {
+    name: "Selemani Ngatunga",
+    text: "Dakika mbili tu baada ya kubonyeza withdraw, meseji ya Airtel Money ikasoma. Hawa watu wako makini sana na muda ⏱️✅",
+    time: "Dakika 15 zilizopita",
+    replies: []
+  },
+  {
+    name: "Witness Kweka",
+    text: "Pesa inaingia bila chenga 🤝",
+    time: "Dakika 19 zilizopita",
+    replies: []
+  },
+  {
+    name: "Barnaba Maro",
+    text: "Nimemlipia mwanangu ada ya mtihani leo kupitia kamisheni nilizopata wiki hii. Nilikua sina tumaini kabisa. Asante sana uongozi wa mtandao huu ❤️🙏",
+    time: "Dakika 24 zilizopita",
+    replies: []
+  },
+  {
+    name: "Fausta Mallya",
+    text: "Oda za leo zimetema balaa! 💰🤑",
+    time: "Dakika 28 zilizopita",
+    replies: []
+  },
+  {
+    name: "Prosper Minja",
+    text: "Niliwaangalia rafiki zangu kwa jicho la mashaka kwa wiki nzima wakipokea pesa. Jana nikaamua kujaribu, leo natabasamu na faida yangu ya kwanza mfukoni. Usikubali kupitwa na fursa! 🚀",
+    time: "Dakika 33 zilizopita",
+    replies: [
+      { name: "Violeth Ayo", text: "Bora ulithubutu kaka, asiyekubali kujaribu hawezi kuona matunda 👏", time: "Dakika 20 zilizopita" }
+    ]
+  },
+  {
+    name: "Scholastica Mmbando",
+    text: "Hakuna longolongo hapa 👏",
+    time: "Dakika 39 zilizopita",
+    replies: []
+  },
+  {
+    name: "Anicet Shirima",
+    text: "Muhimu ni kuwa na subira na kuthibitisha kila oda kwa umakini. Usikimbilie kutaka mamilioni mara moja, faida inakua siku hadi siku.",
+    time: "Dakika 44 zilizopita",
+    replies: []
+  },
+  {
+    name: "Happy Mosha",
+    text: "Nishavuta 60k yangu ya leo asubuhi, weekend hii naitumia kwa amani kabisa 🍻🎉",
+    time: "Dakika 50 zilizopita",
+    replies: []
+  },
+  {
+    name: "Venance Mchome",
+    text: "Mtandao wao uko fasta sana hautikisiki hata ukiwa na mtandao wa kawaida wa simu 📶",
+    time: "Saa 1 lililopita",
+    replies: []
+  },
+  {
+    name: "Modesta Massawe",
+    text: "Legit platform kabisa hii 💯",
+    time: "Saa 1 lililopita",
+    replies: []
+  },
+  {
+    name: "Innocent Kimaro",
+    text: "Mwanzo nilikua sina imani, ila kwa mara ya kwanza nimeona mfumo ambao ukitoa pesa haukatwi makato ya ajabu. Mko vizuri mnooo 🙌",
+    time: "Saa 1 lililopita",
+    replies: []
+  },
+  {
+    name: "Devotha Swai",
+    text: "Safi sana, nimeridhika sana na huduma zenu 🤝",
+    time: "Saa 2 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Reginald Tarimo",
+    text: "Wale mnaouliza kama inalipa, jibu ni ndio inalipa tena kwa asilimia 100. Jaribu mwenyewe uone badala ya kusikiliza maneno ya watu wasiojaribu chochote maishani.",
+    time: "Saa 2 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Judith Urassa",
+    text: "Kazi kazi tu 🔥",
+    time: "Saa 2 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Stanislaus Kavishe",
+    text: "Nimemaliza kuthibitisha oda 12 za leo, kamisheni yangu imesoma vizuri. Tigo Pesa tayari imelia 🔔💵",
+    time: "Saa 2 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Flora Macha",
+    text: "Hakika hamjawahi kuniangusha tangu nimeanza ❤️",
+    time: "Saa 3 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Sylvester Mtui",
+    text: "Hii elfu 14,500 ya mtaji ndio uwekezaji bora zaidi nilioufanya mwezi huu. Nimesharudisha mtaji na nimebakiwa na faida kubwa sana 📈",
+    time: "Saa 3 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Editha Lyatuu",
+    text: "Hela ipo nje nje, pambana tu! 💸",
+    time: "Saa 3 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Clement Makule",
+    text: "Nilijua itachukua masaa mengi kupata pesa, ila haikuzidi hata dakika tano tayari notification ya muamala ilikuwa kwenye simu yangu 📱⚡",
+    time: "Saa 4 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Gaudensia Tesha",
+    text: "Asanteni sana kwa uaminifu wenu 🙏",
+    time: "Saa 4 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Deogratius Temu",
+    text: "Kila oda ina maelezo yaliyo wazi kabisa na kamisheni ya 5% inaingia papo hapo bila kuchelewa. Hii ndio biashara ya kisasa.",
+    time: "Saa 4 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Agatha Meela",
+    text: "Leo nimelaza 52k bila jasho 🛌💰",
+    time: "Saa 5 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Bonaventure Riwa",
+    text: "Ukishamaliza oda zako za siku usiache kutoa faida yako, inajenga moyo sana kuona hela inaingia kwenye laini yako ya simu kila jioni.",
+    time: "Saa 5 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Fortunata Shao",
+    text: "Hii ndio kiboko ya shida ndogo ndogo 🙌",
+    time: "Saa 5 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Aloyce Ndesanjo",
+    text: "Mimi ni mama wa watoto wawili niko nyumbani tu, ila kupitia hapa napata pesa ya mboga na matumizi bila kumsumbua mume wangu kila saa. Asanteni sana! 👩‍👧‍👦✨",
+    time: "Saa 6 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Rozalia Materu",
+    text: "Best earning site kwa sasa hapa Bongo 🇹🇿🔥",
+    time: "Saa 6 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Pancras Shayo",
+    text: "Nilipata changamoto kidogo kwenye mtandao nikahisi nimepoteza oda, lakini nilipofungua tena nikakuta kila kitu kipo salama na salio langu halikupungua. Mfumo wao una ulinzi mkubwa sana 🛡️",
+    time: "Saa 6 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Prisca Nkya",
+    text: "Inalipa tena kwa haraka sana ⚡",
+    time: "Saa 7 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Evarist Urio",
+    text: "Kaka yangu ndio aliyenivuta huku, leo nimeamka nimekuta nina elfu 38 ya faida. Nimenunua kifurushi cha mwezi mzima bila mawazo.",
+    time: "Saa 7 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Stellah Mlay",
+    text: "Tukutane kwenye withdrawals za jioni wadau 🏃‍♂️💨",
+    time: "Saa 7 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Hilary Munishi",
+    text: "Watu wengi wanaogopa kwa sababu wameshaliwa kwingine, lakini hapa ni tofauti kabisa. Mimi ni shahidi nimeshatoa zaidi ya mara nne bila tatizo lolote.",
+    time: "Saa 8 yaliyopita",
+    replies: [
+      { name: "Dominick Mollel", text: "Kweli kabisa Hilary, uaminifu wao ndio unawafanya watu waendelee hapa.", time: "Saa 6 yaliyopita" }
+    ]
+  },
+  {
+    name: "Vumilia Kisanga",
+    text: "Kamisheni safi kabisa 🌟",
+    time: "Saa 8 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Juvenal Ndosi",
+    text: "Jumamosi imeanza kivingine kabisa, nimeamka saa moja asubuhi nikaanza na oda za kwanza, sasa hivi niko zangu sokoni na faida yangu 🛒",
+    time: "Saa 8 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Secilia Mshana",
+    text: "Huduma bora kabisa 👏",
+    time: "Saa 9 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Method Assenga",
+    text: "Nilijisajili juzi kwa wasiwasi, ila leo nimevuta laki moja na elfu ishirini. Nimejionea mwenyewe, sio hadithi za kusimuliwa na watu wa vijiweni.",
+    time: "Saa 9 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Clara Kimambo",
+    text: "Uhakika asilimia mia moja! 💯",
+    time: "Saa 10 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Thobias Mbuya",
+    text: "Wiki mpya imeanza na mambo mazuri. Hakuna kitu kizuri kama kuanza wiki huku una uhakika wa kipato chako cha kila siku 🗓️✨",
+    time: "Saa 10 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Evelyn Kilewo",
+    text: "Nimepokea hela yangu sasa hivi kupitia Halopesa 🥳",
+    time: "Saa 11 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Nestory Msele",
+    text: "Hakuna kazi ngumu hapa, ni macho yako na vidole vyako tu. Ukiwa mtulivu unamaliza oda kwa dakika chache sana.",
+    time: "Saa 11 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Winfrida Mmary",
+    text: "Nalala na amani leo, salio limeshiba 😴💵",
+    time: "Saa 12 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Gaspar Nnko",
+    text: "Nawashukuru sana wahudumu kwa kunielekeza hatua kwa hatua nilipojiunga. Sasa hivi nimekuwa mzoefu na kazi inaendelea freshi kabisa 👍",
+    time: "Saa 12 yaliyopita",
+    replies: [
+      { name: "Glory Laizer", text: "Customer care yao iko makini sana kwa kila anayeomba msaada 🤝", time: "Saa 10 yaliyopita" }
+    ]
+  },
+  {
+    name: "Annamaria Pallangyo",
+    text: "Fursa ya ukweli 🔥",
+    time: "Saa 13 yaliyopita",
+    replies: []
+  }
 ];
 
-// Generate 35 unique Swahili comments with unique commenter names
+// Compatibility export
+export const rawSwahiliComments = rawSwahiliCommentsData.map(c => ({
+  text: c.text,
+  replies: c.replies
+}));
+
+// Generate 40+ unique Swahili comments with strictly unique commenter names
 export function buildCompliantComments(usedBaseNames: Set<string>, usedFullNames: Set<string>): CommentItem[] {
   const result: CommentItem[] = [];
-  const times = [
-    "Dakika 2 zilizopita", "Dakika 5 zilizopita", "Dakika 9 zilizopita", "Dakika 14 zilizopita",
-    "Dakika 22 zilizopita", "Dakika 35 zilizopita", "Saa 1 lililopita", "Masaa 2 yaliyopita"
-  ];
 
-  for (let i = 0; i < 35; i++) {
-    const raw = rawSwahiliComments[i];
-    const customer = generateDistinctCustomer(usedBaseNames, usedFullNames, "Tanzania");
-    const time = times[i % times.length];
+  rawSwahiliCommentsData.forEach((item, idx) => {
+    const fullKey = item.name.toLowerCase().trim();
+    const baseKey = extractBaseName(item.name);
+    usedFullNames.add(fullKey);
+    usedBaseNames.add(baseKey);
 
-    result.push({
-      id: 1000 + i,
-      name: customer.name,
-      text: raw.text,
-      time,
-      replies: (raw.replies || []).map((r, rIdx) => ({
-        id: (1000 + i) * 10 + rIdx,
-        name: generateDistinctCustomer(usedBaseNames, usedFullNames, "Tanzania").name,
+    const replies = item.replies.map((r, rIdx) => {
+      const rFull = r.name.toLowerCase().trim();
+      const rBase = extractBaseName(r.name);
+      usedFullNames.add(rFull);
+      usedBaseNames.add(rBase);
+      return {
+        id: (1000 + idx) * 10 + rIdx,
+        name: r.name,
         text: r.text,
         time: r.time
-      }))
+      };
     });
-  }
+
+    result.push({
+      id: 1000 + idx,
+      name: item.name,
+      text: item.text,
+      time: item.time,
+      replies
+    });
+  });
 
   return result;
 }
 
 // ============================================================================
-// LIVE PAYOUT NOTIFICATIONS (EXACTLY 65 UNIQUE ITEMS)
+// LIVE PAYOUT NOTIFICATIONS (60+ UNIQUE ITEMS WITH 100% DISTINCT NAMES)
 // ============================================================================
+
+export const RAW_LIVE_PAYOUT_MEMBERS: { name: string; amount: number }[] = [
+  { name: "Bakari Mwinyimvua", amount: 24500 },
+  { name: "Hadija Kitenge", amount: 18000 },
+  { name: "Khalfan Mtambo", amount: 31500 },
+  { name: "Rehema Kiswaga", amount: 16500 },
+  { name: "Denis Mkandawile", amount: 42000 },
+  { name: "Zubeda Mwambapa", amount: 21000 },
+  { name: "Elias Mwakalebela", amount: 36000 },
+  { name: "Asha Kibona", amount: 19500 },
+  { name: "Godfrey Tarimo", amount: 48000 },
+  { name: "Leila Msechu", amount: 27500 },
+  { name: "Ramadhani Kessy", amount: 33000 },
+  { name: "Sauda Mallya", amount: 22000 },
+  { name: "Rashid Mponda", amount: 51500 },
+  { name: "Neema Mushi", amount: 17500 },
+  { name: "Athuman Mrope", amount: 29000 },
+  { name: "Hawa Ndauka", amount: 25000 },
+  { name: "Omari Kileo", amount: 44500 },
+  { name: "Shamsa Kimaro", amount: 20000 },
+  { name: "Juma Lema", amount: 38500 },
+  { name: "Jackline Mbowe", amount: 23500 },
+  { name: "Said Makamba", amount: 46000 },
+  { name: "Fatuma Mwinyi", amount: 15500 },
+  { name: "Ali Kikwete", amount: 34500 },
+  { name: "Mariam Magufuli", amount: 28000 },
+  { name: "Suleiman Suluhu", amount: 56000 },
+  { name: "Zena Majaliwa", amount: 19000 },
+  { name: "Kassim Mwalimu", amount: 37500 },
+  { name: "Tatu Nyerere", amount: 26000 },
+  { name: "Hamisi Kariuki", amount: 49000 },
+  { name: "Maimuna Kibao", amount: 18500 },
+  { name: "Rajabu Masanja", amount: 32000 },
+  { name: "Shukuru Komba", amount: 22500 },
+  { name: "Nassoro Mwandosya", amount: 53000 },
+  { name: "Subira Mwakyembe", amount: 21500 },
+  { name: "Mustafa Mdee", amount: 39500 },
+  { name: "Pendo Bulaya", amount: 17000 },
+  { name: "Iddi Mrema", amount: 43000 },
+  { name: "Amina Mnyika", amount: 27000 },
+  { name: "Hussein Zitto", amount: 47000 },
+  { name: "Faraja Kabwe", amount: 20500 },
+  { name: "Yusuf Mabula", amount: 35500 },
+  { name: "Halima Ndumbaro", amount: 24000 },
+  { name: "Moses Mchengerwa", amount: 58000 },
+  { name: "Tumaini Gwajima", amount: 16000 },
+  { name: "Geoffrey Mpango", amount: 41000 },
+  { name: "Ruth Nchemba", amount: 23000 },
+  { name: "Wilson Makonda", amount: 50500 },
+  { name: "Doreen Chalamila", amount: 19500 },
+  { name: "Shaban Mtaturu", amount: 36500 },
+  { name: "Salma Mhagama", amount: 25500 },
+  { name: "Ezekiel Kairuki", amount: 45000 },
+  { name: "Agnes Ummy", amount: 28500 },
+  { name: "Simon Ndalichako", amount: 52000 },
+  { name: "Beatrice Masele", amount: 18000 },
+  { name: "Paul Nyalandu", amount: 39000 },
+  { name: "Martha Membe", amount: 22500 },
+  { name: "Steven Pinda", amount: 47500 },
+  { name: "Grace Sumaye", amount: 21000 },
+  { name: "Lucas Salim", amount: 34000 },
+  { name: "Diana Kigwangalla", amount: 26500 },
+  { name: "Edward Nape", amount: 55000 },
+  { name: "Irene Nnauye", amount: 17500 },
+  { name: "Daniel Makani", amount: 40500 },
+  { name: "Veronica Slaa", amount: 24500 },
+  { name: "Victor Mtei", amount: 49500 },
+  { name: "Dorcas Mbatia", amount: 20000 },
+  { name: "Samwel Mkosamali", amount: 37000 },
+  { name: "Lilian Chegeni", amount: 23000 },
+  { name: "Kelvin Mgeja", amount: 46500 },
+  { name: "Ester Ngeleja", amount: 29500 }
+];
 
 export function buildCompliantLivePayouts(usedBaseNames: Set<string>, usedFullNames: Set<string>): LivePayout[] {
   const payouts: LivePayout[] = [];
-  const baseAmounts = [
-    12500, 14200, 16500, 18000, 19500, 21000, 22500, 24000, 26500, 28000,
-    31500, 34000, 36500, 39000, 42000, 45500, 48000, 52000, 56500, 61000
-  ];
 
-  for (let i = 0; i < 65; i++) {
-    const customer = generateDistinctCustomer(usedBaseNames, usedFullNames, "Tanzania");
-    const amt = baseAmounts[i % baseAmounts.length] + ((i * 450) % 5000);
+  RAW_LIVE_PAYOUT_MEMBERS.forEach((m, i) => {
+    const fullKey = m.name.toLowerCase().trim();
+    const baseKey = extractBaseName(m.name);
+    usedFullNames.add(fullKey);
+    usedBaseNames.add(baseKey);
+
     payouts.push({
       id: 2000 + i,
-      name: customer.name,
-      rawTzsAmount: amt,
-      amountStr: `TZS ${amt.toLocaleString()}`,
-      tzsStr: `TZS ${amt.toLocaleString()}`
+      name: m.name,
+      rawTzsAmount: m.amount,
+      amountStr: `TZS ${m.amount.toLocaleString()}`,
+      tzsStr: `TZS ${m.amount.toLocaleString()}`
     });
-  }
+  });
 
   return payouts;
 }
@@ -736,11 +1162,11 @@ export function validateSystemData(data: { orders: Order[]; notifications: LiveP
   if (data.orders.length !== 36) {
     errors.push(`Orders count is ${data.orders.length}, expected exactly 36.`);
   }
-  if (data.notifications.length !== 65) {
-    errors.push(`Notifications count is ${data.notifications.length}, expected exactly 65.`);
+  if (data.notifications.length < 60) {
+    errors.push(`Notifications count is ${data.notifications.length}, expected at least 60.`);
   }
-  if (data.comments.length !== 35) {
-    errors.push(`Comments count is ${data.comments.length}, expected exactly 35.`);
+  if (data.comments.length < 40) {
+    errors.push(`Comments count is ${data.comments.length}, expected at least 40.`);
   }
 
   const p1 = data.orders.slice(0, 12);
@@ -783,6 +1209,7 @@ export function validateSystemData(data: { orders: Order[]; notifications: LiveP
     }
   });
 
+  // Global cross-entity name uniqueness check
   const allNames = new Set<string>();
   const allBaseNames = new Set<string>();
 
@@ -793,6 +1220,33 @@ export function validateSystemData(data: { orders: Order[]; notifications: LiveP
     if (allBaseNames.has(base)) errors.push(`Base name collision in orders: "${base}" (${o.name}) at #${idx+1}.`);
     allNames.add(full);
     allBaseNames.add(base);
+  });
+
+  data.notifications.forEach((n, idx) => {
+    const base = extractBaseName(n.name);
+    const full = n.name.toLowerCase().trim();
+    if (allNames.has(full)) errors.push(`Name collision in notifications: "${n.name}" at #${idx+1} is already used.`);
+    if (allBaseNames.has(base)) errors.push(`Base name collision in notifications: "${base}" (${n.name}) is already used.`);
+    allNames.add(full);
+    allBaseNames.add(base);
+  });
+
+  data.comments.forEach((c, idx) => {
+    const base = extractBaseName(c.name);
+    const full = c.name.toLowerCase().trim();
+    if (allNames.has(full)) errors.push(`Name collision in comments: "${c.name}" at #${idx+1} is already used.`);
+    if (allBaseNames.has(base)) errors.push(`Base name collision in comments: "${base}" (${c.name}) is already used.`);
+    allNames.add(full);
+    allBaseNames.add(base);
+
+    (c.replies || []).forEach((r, rIdx) => {
+      const rBase = extractBaseName(r.name);
+      const rFull = r.name.toLowerCase().trim();
+      if (allNames.has(rFull)) errors.push(`Name collision in comment replies: "${r.name}" (${c.name} reply #${rIdx+1}) is already used.`);
+      if (allBaseNames.has(rBase)) errors.push(`Base name collision in comment replies: "${rBase}" (${r.name}) is already used.`);
+      allNames.add(rFull);
+      allBaseNames.add(rBase);
+    });
   });
 
   return {
@@ -856,9 +1310,9 @@ export function generateCompliantSystemData(epochSeed: number) {
   const orders: Order[] = [];
 
   // Authentic distribution of East African & international countries for each page
-  const targetCountryList: string[] = [
-    "Ghana", "Senegal", "Ethiopia", "Zimbabwe", "Botswana", "Mozambique", "Egypt", "Morocco", "Cameroon", "Madagascar", "Ivory Coast", "Mali",
-    "Nigeria", "Kenya", "Uganda", "Rwanda", "South Africa", "Zambia", "Malawi", "Angola", "Namibia", "Algeria", "Tunisia", "Sudan",
+      const targetCountryList: string[] = [
+    "Congo (DRC)", "Ivory Coast", "Kenya", "Uganda", "Congo (DRC)", "Rwanda", "Congo (DRC)", "Burundi", "Algeria", "Zambia", "Congo (DRC)", "Malawi",
+    "Congo (DRC)", "Tanzania", "South Africa", "Nigeria", "Congo (DRC)", "Kenya", "Ghana", "Congo (DRC)", "Uganda", "Senegal", "Zambia", "Congo (DRC)",
     "Somalia", "Liberia", "Sierra Leone", "Togo", "Benin", "Guinea", "Burkina Faso", "Niger", "Chad", "Burundi", "Lesotho", "Eswatini"
   ];
 

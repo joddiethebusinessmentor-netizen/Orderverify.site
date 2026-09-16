@@ -237,10 +237,10 @@ function LiveClock() {
         </div>
         <div className="flex flex-col">
           <span className="text-white font-extrabold text-sm leading-tight">
-            order za leo zimewekwa Thibitisha tukulipe
+            Asante kwa kuendelea kuwa sehemu ya mafanikio ya kampuni yetu
           </span>
           <span className="text-slate-400 text-[11px] sm:text-xs mt-0.5 font-medium leading-snug">
-            ✅ UWE NA JUMANNE NJEMA
+            tumeweka order mpya Thibitisha sasa tukulipe✅✅
           </span>
         </div>
       </div>
@@ -582,7 +582,7 @@ function Dashboard() {
               <div key={order.id} className={`bg-[#141624] text-white rounded-2xl overflow-hidden flex flex-col shadow-xl border ${isVerified ? 'border-slate-800/80 opacity-60' : 'border-slate-800 hover:border-emerald-500/50 hover:shadow-[0_8px_25px_rgba(0,230,118,0.12)] transition-all duration-200'}`}>
                 {/* Product Image Top */}
                 <div className="h-28 bg-slate-900 relative">
-                  <img src={order.productImage} alt={order.product} referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80"; e.currentTarget.onerror = null; }} className={`w-full h-full object-cover ${isVerified ? 'grayscale' : ''}`} />
+                  <img src={order.productImage} alt={order.product} referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Ford_8N.jpg/500px-Ford_8N.jpg"; e.currentTarget.onerror = null; }} className={`w-full h-full object-cover ${isVerified ? 'grayscale' : ''}`} />
                   {isVerified && (
                     <div className="absolute inset-0 bg-black/75 flex flex-col items-center justify-center backdrop-blur-[1px]">
                       <div className="bg-slate-900 border border-[#00E676] text-[#00E676] text-[10px] font-black px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-[0_0_12px_rgba(0,230,118,0.35)]">
@@ -1327,7 +1327,7 @@ function Dashboard() {
                         className="w-full h-full object-cover" 
                         referrerPolicy="no-referrer"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80";
+                          (e.target as HTMLImageElement).src = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Ford_8N.jpg/500px-Ford_8N.jpg";
                           e.currentTarget.onerror = null;
                         }}
                       />
