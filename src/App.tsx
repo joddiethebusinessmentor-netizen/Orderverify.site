@@ -6,7 +6,7 @@ import { UserCheck, CheckCircle2, Volume2, VolumeX, Play, Pause, AlertCircle, Wa
   Video, Phone, Mic, PhoneOff, CreditCard, ShieldCheck
   , ShoppingBag, Eye, EyeOff
 } from 'lucide-react';
-import { orderData, livePayouts, initialComments, generate6HourComments, formatLocalCurrency, update6HourDataIfChanged } from './data';
+import { orderData, livePayouts, initialComments, generate6HourComments, formatLocalCurrency, update6HourDataIfChanged, STORAGE_VERSION_TAG } from './data';
 import { TutorialVideoSection } from './components/TutorialVideoSection';
 
 // --- Toast Component ---
@@ -282,9 +282,73 @@ function Dashboard() {
     localStorage.setItem('orderverify_status', userStatus);
   }, [userStatus]);
 
-  const [balance, setBalance] = useState(0);
-  const [showBalance, setShowBalance] = useState(false);
-  const [verifiedOrders, setVerifiedOrders] = useState<number[]>([]);
+  // Persistent User Balance (Preserved permanently across days, weeks, months, and updates)
+  const [balance, setBalance] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem('orderverify_user_balance');
+      if (saved !== null && !isNaN(Number(saved))) {
+        return Number(saved);
+      }
+    } catch (e) {}
+    return 0;
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('orderverify_user_balance', String(balance));
+    } catch (e) {}
+  }, [balance]);
+
+  const [showBalance, setShowBalance] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('orderverify_show_balance');
+      return saved !== null ? saved === 'true' : false;
+    } catch (e) {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('orderverify_show_balance', String(showBalance));
+    } catch (e) {}
+  }, [showBalance]);
+
+  // Persistent Verified Orders (Tied to the active order catalog & product signatures)
+  const [verifiedOrders, setVerifiedOrders] = useState<string[]>(() => {
+    try {
+      const savedVersion = localStorage.getItem('orderverify_orders_catalog_version');
+      // When the admin updates the order catalog to a new version, the user sees the new fresh orders to verify!
+      if (savedVersion && savedVersion !== STORAGE_VERSION_TAG) {
+        localStorage.setItem('orderverify_orders_catalog_version', STORAGE_VERSION_TAG);
+        localStorage.removeItem('orderverify_verified_orders');
+        return [];
+      }
+      if (!savedVersion) {
+        localStorage.setItem('orderverify_orders_catalog_version', STORAGE_VERSION_TAG);
+      }
+      const saved = localStorage.getItem('orderverify_verified_orders');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          return parsed.map(String);
+        }
+      }
+    } catch (e) {}
+    return [];
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('orderverify_verified_orders', JSON.stringify(verifiedOrders));
+      localStorage.setItem('orderverify_orders_catalog_version', STORAGE_VERSION_TAG);
+    } catch (e) {}
+  }, [verifiedOrders]);
+
+  const isOrderVerified = (order: { id: number; product: string }) => {
+    const sig = `${order.id}:${order.product}`;
+    return verifiedOrders.includes(sig) || verifiedOrders.includes(String(order.id));
+  };
 
   const [authModalState, setAuthModalState] = useState<{show: boolean, type: 'register' | 'payment', message: string}>({show: false, type: 'register', message: ''});
   const [showWithdrawModal, setShowWithdrawModal] = useState(false);
@@ -399,14 +463,28 @@ function Dashboard() {
   };
 
   const handleConfirmAction = (orderId: number, payout: number) => {
-    setVerifiedOrders(prev => [...prev, orderId]);
-    setBalance(prev => prev + payout);
+    const targetOrder = orders.find(o => o.id === orderId);
+    const signature = targetOrder ? `${orderId}:${targetOrder.product}` : String(orderId);
+
+    const updatedVerified = Array.from(new Set([...verifiedOrders, signature, String(orderId)]));
+    setVerifiedOrders(updatedVerified);
+    try {
+      localStorage.setItem('orderverify_verified_orders', JSON.stringify(updatedVerified));
+      localStorage.setItem('orderverify_orders_catalog_version', STORAGE_VERSION_TAG);
+    } catch (e) {}
+
+    const newBalance = balance + payout;
+    setBalance(newBalance);
+    try {
+      localStorage.setItem('orderverify_user_balance', String(newBalance));
+    } catch (e) {}
+
     setToastMessage(`PAID SUCCESSFULLY: TZS ${payout.toLocaleString()}`);
     setActiveVerification(null);
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2500);
     setTimeout(() => {
-      triggerMotivation(`Hongera kwa kuthibitisha order! Salio lako sasa ni TZS ${(balance + payout).toLocaleString()}. Kumbuka, ili kuitoa pesa hii utahitaji kujisajili na kulipia mtaji wa 14,500/= tu.`, 7);
+      triggerMotivation(`Hongera kwa kuthibitisha order! Salio lako sasa ni TZS ${newBalance.toLocaleString()}. Kumbuka, ili kuitoa pesa hii utahitaji kujisajili na kulipia mtaji wa 14,500/= tu.`, 7);
     }, 2000);
   };
 
@@ -576,7 +654,7 @@ function Dashboard() {
         {/* Order Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
           {currentOrders.map((order) => {
-            const isVerified = verifiedOrders.includes(order.id);
+            const isVerified = isOrderVerified(order);
             
             return (
               <div key={order.id} className={`bg-[#141624] text-white rounded-2xl overflow-hidden flex flex-col shadow-xl border ${isVerified ? 'border-slate-800/80 opacity-60' : 'border-slate-800 hover:border-emerald-500/50 hover:shadow-[0_8px_25px_rgba(0,230,118,0.12)] transition-all duration-200'}`}>

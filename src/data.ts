@@ -271,7 +271,7 @@ function saveStoredSet(key: string, set: Set<string>): void {
   } catch (e) {}
 }
 
-const STORAGE_VERSION_TAG = "ov_v69_fresh_live_notifications_and_rich_comments";
+export const STORAGE_VERSION_TAG = "ov_v69_fresh_live_notifications_and_rich_comments";
 const STORAGE_KEY_VERSION = "orderverify_app_version";
 const STORAGE_KEY_USED_PRODUCTS = "orderverify_used_products";
 const STORAGE_KEY_USED_NAMES = "orderverify_used_customer_names";
