@@ -236,11 +236,11 @@ function LiveClock() {
           <ShoppingBag className="w-5 h-5 text-[#00E676] animate-bounce" />
         </div>
         <div className="flex flex-col">
-          <span className="text-white font-extrabold text-sm leading-tight">
-            Asante kwa kuendelea kuwa sehemu ya mafanikio ya kampuni yetu
+          <span className="text-white font-extrabold text-xs sm:text-sm leading-snug">
+            Fungua na ulipie 14500 kwa ajili ya akaunti yako leo ya Orderverify ili ulipwe pesa utakazo zipata kwa kuthibitisha order za wateja wetu
           </span>
-          <span className="text-slate-400 text-[11px] sm:text-xs mt-0.5 font-medium leading-snug">
-            tumeweka order mpya Thibitisha sasa tukulipe✅✅
+          <span className="text-[#00E676] text-[11px] sm:text-xs mt-1 font-bold leading-snug">
+            ✅ Keep earning with us tunakutakia ALHAMIS NJEMA
           </span>
         </div>
       </div>
