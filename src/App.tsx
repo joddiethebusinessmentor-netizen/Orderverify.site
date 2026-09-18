@@ -237,10 +237,13 @@ function LiveClock() {
         </div>
         <div className="flex flex-col">
           <span className="text-white font-extrabold text-xs sm:text-sm leading-snug">
-            Fungua na ulipie 14500 kwa ajili ya akaunti yako leo ya Orderverify ili ulipwe pesa utakazo zipata kwa kuthibitisha order za wateja wetu
+            Weekend inaanza leo je una pesa??
+          </span>
+          <span className="text-slate-300 text-[11px] sm:text-xs mt-0.5 font-medium leading-snug">
+            Pata pesa leo kwa kutumia account ya ORDERVERIFY kwa kuthibitisha order za wateja wetu zilizopo
           </span>
           <span className="text-[#00E676] text-[11px] sm:text-xs mt-1 font-bold leading-snug">
-            ✅ Keep earning with us tunakutakia ALHAMIS NJEMA
+            ✅ HAVE A GOOD DAY✅
           </span>
         </div>
       </div>
