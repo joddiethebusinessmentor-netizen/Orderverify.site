@@ -237,7 +237,7 @@ function LiveClock() {
         </div>
         <div className="flex flex-col">
           <span className="text-white font-extrabold text-xs sm:text-sm leading-snug">
-            Weekend inaanza leo je una pesa??
+            Weekend yako ikoje je una pesa??
           </span>
           <span className="text-slate-300 text-[11px] sm:text-xs mt-0.5 font-medium leading-snug">
             Pata pesa leo kwa kutumia account ya ORDERVERIFY kwa kuthibitisha order za wateja wetu zilizopo
