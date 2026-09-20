@@ -78,6 +78,7 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
                 src="/orderverify_official_logo.jpg" 
                 alt="OrderVerify Logo" 
                 className="h-12 sm:h-14 w-auto max-w-[190px] object-contain block"
+                style={{ maxHeight: '56px', maxWidth: '190px', width: 'auto' }}
                 referrerPolicy="no-referrer"
               />
             </div>

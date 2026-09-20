@@ -1,15 +1,18 @@
-import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [react()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
       },
+    },
+    build: {
+      target: ['es2015', 'chrome60', 'safari11', 'edge18', 'firefox60'],
+      cssTarget: ['chrome60', 'safari11', 'edge18', 'firefox60'],
     },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
