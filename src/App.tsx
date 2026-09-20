@@ -51,6 +51,9 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
       setErrorMsg("Tafadhali bonyeza kibox kuthibitisha kuwa una umri wa zaidi ya miaka 18+ kwanza.");
       return;
     }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as any });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     onVerify();
   };
 
@@ -236,14 +239,12 @@ function LiveClock() {
           <ShoppingBag className="w-5 h-5 text-[#00E676] animate-bounce" />
         </div>
         <div className="flex flex-col">
-          <span className="text-white font-extrabold text-xs sm:text-sm leading-snug">
-            Weekend yako ikoje je una pesa??
+          <span className="text-[#00E676] font-black text-xs sm:text-sm leading-snug uppercase tracking-wide flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#00E676] animate-pulse shrink-0"></span>
+            ORDER ZIPO LIVE SASA HIVI
           </span>
-          <span className="text-slate-300 text-[11px] sm:text-xs mt-0.5 font-medium leading-snug">
-            Pata pesa leo kwa kutumia account ya ORDERVERIFY kwa kuthibitisha order za wateja wetu zilizopo
-          </span>
-          <span className="text-[#00E676] text-[11px] sm:text-xs mt-1 font-bold leading-snug">
-            ✅ HAVE A GOOD DAY✅
+          <span className="text-white text-[11px] sm:text-xs mt-1 font-extrabold leading-snug">
+            FUNGA WEEKEND YAKO KIBABE NA ORDERVERIFY,, THIBITISHA ORDER TUKULIPE HADI 100,000 KILA SIKU
           </span>
         </div>
       </div>
@@ -264,6 +265,22 @@ function LiveClock() {
 // --- Main Dashboard ---
 
 function Dashboard() {
+  useEffect(() => {
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' as any });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+    scrollToTop();
+    const raf = requestAnimationFrame(scrollToTop);
+    const t1 = setTimeout(scrollToTop, 50);
+    const t2 = setTimeout(scrollToTop, 150);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, []);
 
   const [globalLoading, setGlobalLoading] = useState(false);
   
@@ -392,12 +409,7 @@ function Dashboard() {
     }
   };
 
-  useEffect(() => {
-    const welcomeTimer = setTimeout(() => {
-      triggerMotivation("Karibu kwenye site yetu ambayo itakusaidia kutimiza ndoto zako kwa kuthibitisha order za wateja na kulipwa", 7);
-    }, 1500);
-    return () => clearTimeout(welcomeTimer);
-  }, []);
+  // Welcome timer removed as requested by user to eliminate automatic popup on entry
 
   
   // Verification Interaction
@@ -1861,6 +1873,14 @@ function GlobalAudioPlayer() {
 export default function App() {
   const [isAgeVerified, setIsAgeVerified] = useState(false);
   
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as any });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [isAgeVerified]);
 
   React.useEffect(() => {
     // Save the initial epoch when the app loads
