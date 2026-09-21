@@ -288,13 +288,10 @@ function LiveClock() {
         <div className="bg-[#00E676]/20 p-2 rounded-lg shrink-0">
           <ShoppingBag className="w-5 h-5 text-[#00E676] animate-bounce" />
         </div>
-        <div className="flex flex-col">
-          <span className="text-[#00E676] font-black text-xs sm:text-sm leading-snug tracking-wide flex items-center gap-1.5">
+        <div className="flex flex-col justify-center">
+          <span className="text-[#00E676] font-black text-xs sm:text-sm leading-snug tracking-wide flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#00E676] animate-pulse shrink-0"></span>
-            Hello mteja wetu tunaleta order zaidi kwenye website yetu kuleta furusa nyingi kwenye kipato chako.
-          </span>
-          <span className="text-white text-[11px] sm:text-xs mt-1 font-extrabold leading-snug">
-            Lipa 14,500 account yako iwe active. Tengeneza pesa online JUMATATU njema✅
+            ORDER ZIPO LIVE SASA WEZESHA ACCOUNT YAKO ILI UNUFAIKE NA HUDUMA ZETU
           </span>
         </div>
       </div>
