@@ -16,3 +16,24 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #00E676;
 }
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-slow {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-scroll 50s linear infinite;
+}
+
+.animate-marquee-slow:hover,
+.animate-marquee-slow:active {
+  animation-play-state: paused;
+}

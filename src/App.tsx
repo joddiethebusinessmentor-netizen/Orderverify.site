@@ -4,7 +4,7 @@ import { UserCheck, CheckCircle2, Volume2, VolumeX, Play, Pause, AlertCircle, Wa
   UserPlus, MessageCircle, Send, Globe, MessageSquare, X, Loader2,
   Activity, ChevronRight, ChevronLeft, Smartphone, Users, ArrowDownToLine, ChevronDown, PhoneCall,
   Video, Phone, Mic, PhoneOff, CreditCard, ShieldCheck
-  , ShoppingBag, Eye, EyeOff
+  , ShoppingBag, Eye, EyeOff, Clock, AlertTriangle
 } from 'lucide-react';
 import { orderData, livePayouts, initialComments, generate6HourComments, formatLocalCurrency, update6HourDataIfChanged, STORAGE_VERSION_TAG } from './data';
 import { TutorialVideoSection } from './components/TutorialVideoSection';
@@ -27,6 +27,55 @@ function Toast({ message, visible }: { message: string, visible: boolean }) {
         </motion.div>
       )}
     </AnimatePresence>
+  );
+}
+
+// --- Sliding Announcement Bar (Marquee Ticker between Calendar & Balance Cards) ---
+function SlidingAnnouncementBar() {
+  const [canSlide, setCanSlide] = useState(false);
+
+  useEffect(() => {
+    // Subiri kama sekunde 5 baada ya website kufunguka ndipo ujumbe uanze kuslide
+    const timer = setTimeout(() => {
+      setCanSlide(true);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const messageText = "MTAJI WA KUJIUNGA NA HII SITE NI EFU KUMI NA NNE NA MIA TANO 14,500 TU PESA HII NDIO ITAWEZESHA AKAUNTI YAKO ILI UWEZE KUANZA KUTOA PESA HAPA ORDERVERIFY";
+
+  return (
+    <div className="bg-gradient-to-r from-amber-500/20 via-yellow-400/25 to-amber-500/20 border-2 border-yellow-400 rounded-2xl shadow-[0_0_25px_rgba(250,204,21,0.55)] select-none overflow-hidden h-11 sm:h-12 flex items-center relative z-10 backdrop-blur-md">
+      {/* Pinned Badge on the left - Glowing Bright Amber / Yellow */}
+      <div className="bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 text-black px-3 sm:px-4 h-full flex items-center gap-1.5 border-r border-yellow-300 z-20 shrink-0 shadow-[4px_0_15px_rgba(0,0,0,0.6)]">
+        <span className="w-2.5 h-2.5 rounded-full bg-black animate-ping shrink-0" />
+        <span className="text-xs sm:text-sm font-black tracking-wider uppercase whitespace-nowrap flex items-center gap-1">
+          <span>⚠️</span>
+          <span>KIGEZO</span>
+        </span>
+      </div>
+
+      {/* Marquee sliding track */}
+      <div className="overflow-hidden w-full relative flex items-center">
+        <div 
+          className="animate-marquee-slow flex items-center whitespace-nowrap cursor-default"
+          style={{ animationPlayState: canSlide ? 'running' : 'paused' }}
+        >
+          <div className="flex items-center gap-6 px-4">
+            <span className="text-xs sm:text-sm font-black text-white tracking-wide uppercase drop-shadow-[0_1px_3px_rgba(0,0,0,1)]">
+              {messageText}
+            </span>
+            <span className="text-amber-400 font-black tracking-widest text-sm">✦ ✦ ✦</span>
+          </div>
+          <div className="flex items-center gap-6 px-4">
+            <span className="text-xs sm:text-sm font-black text-white tracking-wide uppercase drop-shadow-[0_1px_3px_rgba(0,0,0,1)]">
+              {messageText}
+            </span>
+            <span className="text-amber-400 font-black tracking-widest text-sm">✦ ✦ ✦</span>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -240,12 +289,12 @@ function LiveClock() {
           <ShoppingBag className="w-5 h-5 text-[#00E676] animate-bounce" />
         </div>
         <div className="flex flex-col">
-          <span className="text-[#00E676] font-black text-xs sm:text-sm leading-snug uppercase tracking-wide flex items-center gap-1.5">
+          <span className="text-[#00E676] font-black text-xs sm:text-sm leading-snug tracking-wide flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-[#00E676] animate-pulse shrink-0"></span>
-            ORDER ZIPO LIVE SASA HIVI
+            Hello mteja wetu tunaleta order zaidi kwenye website yetu kuleta furusa nyingi kwenye kipato chako.
           </span>
           <span className="text-white text-[11px] sm:text-xs mt-1 font-extrabold leading-snug">
-            FUNGA WEEKEND YAKO KIBABE NA ORDERVERIFY,, THIBITISHA ORDER TUKULIPE HADI 100,000 KILA SIKU
+            Lipa 14,500 account yako iwe active. Tengeneza pesa online JUMATATU njema✅
           </span>
         </div>
       </div>
@@ -373,11 +422,31 @@ function Dashboard() {
 
   const [authModalState, setAuthModalState] = useState<{show: boolean, type: 'register' | 'payment', message: string}>({show: false, type: 'register', message: ''});
   const [showWithdrawModal, setShowWithdrawModal] = useState(false);
+  const [showWithdrawPendingNotice, setShowWithdrawPendingNotice] = useState(false);
+  const [pendingNoticeSecondsLeft, setPendingNoticeSecondsLeft] = useState(25);
   const [showPaymentGuide, setShowPaymentGuide] = useState(false);
   const [showRegisterConfirmModal, setShowRegisterConfirmModal] = useState(false);
   const [registerModalStep, setRegisterModalStep] = useState<'confirm' | 'instructions'>('confirm');
   const [showInstallAppModal, setShowInstallAppModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
+
+  // Countdown ya sekunde 25 kwa ajili ya ujumbe wa kuzuia pesa pending
+  useEffect(() => {
+    let timer: any;
+    if (showWithdrawPendingNotice) {
+      if (pendingNoticeSecondsLeft > 0) {
+        timer = setTimeout(() => {
+          setPendingNoticeSecondsLeft((prev) => prev - 1);
+        }, 1000);
+      } else {
+        // Sekunde 25 zikimalizika ujumbe unaondoka bila kulazimisha maelezo ya usajili kiotomatiki
+        setShowWithdrawPendingNotice(false);
+      }
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [showWithdrawPendingNotice, pendingNoticeSecondsLeft]);
 
   const openRegisterModal = () => {
     setShowTopNotification(false);
@@ -585,8 +654,11 @@ function Dashboard() {
 
       </header>
 
-      <div className="p-4 max-w-4xl mx-auto space-y-6 pb-28 sm:pb-32">
-                <LiveClock />
+      <div className="p-4 max-w-4xl mx-auto space-y-4 sm:space-y-6 pb-28 sm:pb-32">
+        <LiveClock />
+
+        {/* Ujumbe unaoteleza kati ya Calendar na button za kutoa pesa / balance */}
+        <SlidingAnnouncementBar />
 
         {/* 3 Top Cards */}
         <div className="grid grid-cols-3 gap-3">
@@ -1098,9 +1170,9 @@ function Dashboard() {
                     setShowToast(true);
                     setTimeout(() => setShowToast(false), 2500);
                     setTimeout(() => {
-                      triggerMotivation("Ili kuruhusiwa kutoa pesa zote kwenda kwenye namba yako, tafadhali jisajili kisha ulipie mtaji wa 14,500/=.", 7);
-                      setShowRegisterConfirmModal(true);
-                    }, 1800);
+                      setPendingNoticeSecondsLeft(25);
+                      setShowWithdrawPendingNotice(true);
+                    }, 2600);
                   });
                 }}
                 className="w-full bg-[#00E676] text-black font-black py-4 rounded-xl hover:bg-[#00C260] transition-colors uppercase tracking-wider text-sm shadow-lg shadow-[#00E676]/20 cursor-pointer"
@@ -1118,6 +1190,81 @@ function Dashboard() {
               >
                 Funga
               </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Ujumbe wa kuzuia pesa pending kabla ya maelezo ya usajili (unakaa sekunde 25) */}
+      <AnimatePresence>
+        {showWithdrawPendingNotice && (
+          <div 
+            onClick={() => setShowWithdrawPendingNotice(false)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-[#0B0C10]/95 backdrop-blur-md overflow-y-auto"
+          >
+            <motion.div 
+              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-[#141624] border-2 border-red-500 rounded-3xl p-5 sm:p-6 max-w-sm sm:max-w-md w-full shadow-[0_0_35px_rgba(239,68,68,0.35)] relative text-center my-auto"
+            >
+              {/* Close Button */}
+              <button 
+                type="button"
+                onClick={() => setShowWithdrawPendingNotice(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800/80 hover:bg-slate-700 rounded-full p-1.5 transition-colors cursor-pointer"
+                aria-label="Funga"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="w-14 h-14 rounded-2xl bg-red-500/20 border border-red-500/50 flex items-center justify-center mx-auto mb-3 text-red-400">
+                <AlertTriangle className="w-7 h-7 stroke-[2.2] animate-bounce" />
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/20 text-red-400 border border-red-500/40 text-[11px] font-black uppercase tracking-wider mb-3">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
+                <span>HALI YA MAOMBI: PENDING</span>
+              </div>
+
+              <div className="space-y-3.5 my-3 text-left">
+                <div className="bg-red-950/40 border border-red-500/40 rounded-2xl p-4 shadow-inner">
+                  <p className="text-xs sm:text-sm text-red-100 font-black leading-relaxed">
+                    TUMESHINDWA KUKUTUMIA PESA ZAKO ULIZO OMBA KUTOA KWA SABABU HUNA AKAUNTI ACTIVE YA ORDERVERIFY LIPIA MTAJI WA 14500 ILI MFUMO UKUTAMBUE NA UPOKEE PESA ZAKO
+                  </p>
+                </div>
+
+                <div className="bg-amber-950/40 border border-amber-500/40 rounded-2xl p-4 shadow-inner">
+                  <p className="text-xs sm:text-sm text-amber-100 font-black leading-relaxed">
+                    PESA ZAKO ZIKO PENDING UTAZIPOKEA MARA TU UTAKAPO ACTIVATE AKAUNTI YAKO KARIBU SANA ORDERVERIFY
+                  </p>
+                </div>
+              </div>
+
+              {/* Buttons */}
+              <div className="space-y-2.5 mt-4">
+                <button 
+                  type="button"
+                  onClick={() => {
+                    setShowWithdrawPendingNotice(false);
+                    setRegisterModalStep('instructions');
+                    setShowRegisterConfirmModal(true);
+                  }}
+                  className="w-full bg-gradient-to-r from-[#00E676] to-[#00C853] hover:brightness-110 active:scale-95 text-black font-black py-3.5 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#00E676]/30 cursor-pointer"
+                >
+                  <span>ENDELEA NA USAJILI SASA</span>
+                  <ChevronRight className="w-4 h-4 stroke-[3]" />
+                </button>
+
+                <button 
+                  type="button"
+                  onClick={() => setShowWithdrawPendingNotice(false)}
+                  className="w-full bg-[#1C1D26] hover:bg-[#252733] text-slate-300 font-bold py-2.5 rounded-2xl transition-all text-xs uppercase tracking-wider border border-slate-700 cursor-pointer"
+                >
+                  FUNGA
+                </button>
+              </div>
             </motion.div>
           </div>
         )}
@@ -1785,7 +1932,7 @@ function GlobalAudioPlayer() {
   };
 
   return (
-    <div className="fixed bottom-48 sm:bottom-40 right-4 z-[150] flex flex-col items-end gap-2 pointer-events-none">
+    <div className="fixed bottom-24 sm:bottom-20 right-3 z-[150] flex flex-col items-end gap-1.5 pointer-events-none">
       <audio 
         ref={audioRef} 
         src="/Joddie.mp3"
@@ -1802,35 +1949,35 @@ function GlobalAudioPlayer() {
             initial={{ opacity: 0, scale: 0.8, y: 10, originX: 1, originY: 1 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 10 }}
-            className="bg-[#1C1D24] border border-slate-700 p-3.5 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] flex flex-col gap-3 w-52 pointer-events-auto backdrop-blur-md"
+            className="bg-[#1C1D24] border border-slate-700 p-3 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] flex flex-col gap-2.5 w-48 pointer-events-auto backdrop-blur-md"
           >
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
               <div className="flex items-center gap-1.5">
-                <div className={`w-2 h-2 rounded-full ${isPlaying ? 'bg-[#00E676] animate-pulse' : 'bg-slate-500'}`}></div>
-                <span className="text-xs font-bold text-slate-200 uppercase tracking-wider">Sauti ya Mwongozo</span>
+                <div className={`w-1.5 h-1.5 rounded-full ${isPlaying ? 'bg-[#00E676] animate-pulse' : 'bg-slate-500'}`}></div>
+                <span className="text-[10px] font-bold text-slate-200 uppercase tracking-wider">Sauti ya Mwongozo</span>
               </div>
               <button onClick={() => setShowControls(false)} className="text-slate-400 hover:text-white bg-slate-800 rounded-full p-1 transition-colors">
-                <X className="w-3.5 h-3.5" />
+                <X className="w-3 h-3" />
               </button>
             </div>
             
-            <div className="flex items-center justify-center gap-5 py-1">
-              <button onClick={toggleMute} className="text-white p-2.5 bg-slate-800 rounded-full hover:bg-slate-700 transition-colors">
-                {isMuted ? <VolumeX className="w-4 h-4 text-red-400" /> : <Volume2 className="w-4 h-4 text-slate-300" />}
+            <div className="flex items-center justify-center gap-4 py-0.5">
+              <button onClick={toggleMute} className="text-white p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition-colors">
+                {isMuted ? <VolumeX className="w-3.5 h-3.5 text-red-400" /> : <Volume2 className="w-3.5 h-3.5 text-slate-300" />}
               </button>
-              <button onClick={togglePlay} className="bg-[#00E676] text-black p-3.5 rounded-full hover:scale-105 transition-transform shadow-[0_0_15px_rgba(0,230,118,0.3)]">
-                {isPlaying ? <Pause className="w-5 h-5 fill-black" /> : <Play className="w-5 h-5 ml-0.5 fill-black" />}
+              <button onClick={togglePlay} className="bg-[#00E676] text-black p-2.5 rounded-full hover:scale-105 transition-transform shadow-[0_0_15px_rgba(0,230,118,0.3)]">
+                {isPlaying ? <Pause className="w-4 h-4 fill-black" /> : <Play className="w-4 h-4 ml-0.5 fill-black" />}
               </button>
             </div>
             
-            <div className="flex items-center gap-2.5 pt-1">
+            <div className="flex items-center gap-2 pt-0.5">
               <VolumeX className="w-3 h-3 text-slate-500" />
               <input 
                 type="range" 
                 min="0" max="1" step="0.01" 
                 value={volume} 
                 onChange={handleVolume}
-                className="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-[#00E676]"
+                className="w-full h-1 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-[#00E676]"
               />
               <Volume2 className="w-3 h-3 text-slate-500" />
             </div>
@@ -1844,7 +1991,7 @@ function GlobalAudioPlayer() {
             if (!isPlaying) togglePlay();
             setShowControls(true);
           }}
-          className={`flex items-center gap-2 px-3.5 py-2.5 rounded-full shadow-[0_5px_15px_rgba(0,0,0,0.3)] border transition-all pointer-events-auto ${
+          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-full shadow-lg border transition-all pointer-events-auto ${
             isPlaying 
               ? 'bg-[#1C1D24] border-[#00E676]/40 text-[#00E676] animate-pulse' 
               : 'bg-[#00E676] border-[#00E676] text-black hover:bg-[#00C260] hover:scale-105'
@@ -1852,17 +1999,17 @@ function GlobalAudioPlayer() {
         >
           {isPlaying ? (
             <>
-              <div className="flex items-center gap-0.5 mr-1">
-                <motion.div animate={{ height: [4, 12, 4] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-1 bg-[#00E676] rounded-full"></motion.div>
-                <motion.div animate={{ height: [4, 16, 4] }} transition={{ repeat: Infinity, duration: 0.8, delay: 0.2 }} className="w-1 bg-[#00E676] rounded-full"></motion.div>
-                <motion.div animate={{ height: [4, 10, 4] }} transition={{ repeat: Infinity, duration: 0.8, delay: 0.4 }} className="w-1 bg-[#00E676] rounded-full"></motion.div>
+              <div className="flex items-center gap-0.5 mr-0.5">
+                <motion.div animate={{ height: [3, 10, 3] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-0.5 bg-[#00E676] rounded-full"></motion.div>
+                <motion.div animate={{ height: [3, 13, 3] }} transition={{ repeat: Infinity, duration: 0.8, delay: 0.2 }} className="w-0.5 bg-[#00E676] rounded-full"></motion.div>
+                <motion.div animate={{ height: [3, 8, 3] }} transition={{ repeat: Infinity, duration: 0.8, delay: 0.4 }} className="w-0.5 bg-[#00E676] rounded-full"></motion.div>
               </div>
-              <span className="text-xs font-bold uppercase tracking-wider">Inacheza...</span>
+              <span className="text-[10px] font-bold uppercase tracking-tight">Inacheza...</span>
             </>
           ) : (
             <>
-              <Volume2 className="w-4 h-4 shrink-0" />
-              <span className="text-xs font-black uppercase tracking-wide">BONYEZA KUSIKILIZA</span>
+              <Volume2 className="w-3.5 h-3.5 shrink-0" />
+              <span className="text-[10px] font-black uppercase tracking-tight">BONYEZA KUSIKILIZA</span>
             </>
           )}
         </button>
