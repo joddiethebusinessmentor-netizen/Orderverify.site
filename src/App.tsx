@@ -30,55 +30,6 @@ function Toast({ message, visible }: { message: string, visible: boolean }) {
   );
 }
 
-// --- Sliding Announcement Bar (Marquee Ticker between Calendar & Balance Cards) ---
-function SlidingAnnouncementBar() {
-  const [canSlide, setCanSlide] = useState(false);
-
-  useEffect(() => {
-    // Subiri kama sekunde 5 baada ya website kufunguka ndipo ujumbe uanze kuslide
-    const timer = setTimeout(() => {
-      setCanSlide(true);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const messageText = "MTAJI WA KUJIUNGA NA HII SITE NI EFU KUMI NA NNE NA MIA TANO 14,500 TU PESA HII NDIO ITAWEZESHA AKAUNTI YAKO ILI UWEZE KUANZA KUTOA PESA HAPA ORDERVERIFY";
-
-  return (
-    <div className="bg-gradient-to-r from-amber-500/20 via-yellow-400/25 to-amber-500/20 border-2 border-yellow-400 rounded-2xl shadow-[0_0_25px_rgba(250,204,21,0.55)] select-none overflow-hidden h-11 sm:h-12 flex items-center relative z-10 backdrop-blur-md">
-      {/* Pinned Badge on the left - Glowing Bright Amber / Yellow */}
-      <div className="bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 text-black px-3 sm:px-4 h-full flex items-center gap-1.5 border-r border-yellow-300 z-20 shrink-0 shadow-[4px_0_15px_rgba(0,0,0,0.6)]">
-        <span className="w-2.5 h-2.5 rounded-full bg-black animate-ping shrink-0" />
-        <span className="text-xs sm:text-sm font-black tracking-wider uppercase whitespace-nowrap flex items-center gap-1">
-          <span>⚠️</span>
-          <span>KIGEZO</span>
-        </span>
-      </div>
-
-      {/* Marquee sliding track */}
-      <div className="overflow-hidden w-full relative flex items-center">
-        <div 
-          className="animate-marquee-slow flex items-center whitespace-nowrap cursor-default"
-          style={{ animationPlayState: canSlide ? 'running' : 'paused' }}
-        >
-          <div className="flex items-center gap-6 px-4">
-            <span className="text-xs sm:text-sm font-black text-white tracking-wide uppercase drop-shadow-[0_1px_3px_rgba(0,0,0,1)]">
-              {messageText}
-            </span>
-            <span className="text-amber-400 font-black tracking-widest text-sm">✦ ✦ ✦</span>
-          </div>
-          <div className="flex items-center gap-6 px-4">
-            <span className="text-xs sm:text-sm font-black text-white tracking-wide uppercase drop-shadow-[0_1px_3px_rgba(0,0,0,1)]">
-              {messageText}
-            </span>
-            <span className="text-amber-400 font-black tracking-widest text-sm">✦ ✦ ✦</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // Function to generate name initials (e.g. Juma Hamisi -> JH)
 function getInitials(name: string): string {
   if (!name) return "OV";
@@ -291,7 +242,7 @@ function LiveClock() {
         <div className="flex flex-col justify-center">
           <span className="text-[#00E676] font-black text-xs sm:text-sm leading-snug tracking-wide flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#00E676] animate-pulse shrink-0"></span>
-            ORDER ZIPO LIVE SASA WEZESHA ACCOUNT YAKO ILI UNUFAIKE NA HUDUMA ZETU
+            ORDER MPYA 24 ZIMEWEKWA KWENYE SITE THIBITISHA SASA UPATE KIPATO CHAKO ENJOY YOUR DAY WITH ORDERVERIFY
           </span>
         </div>
       </div>
@@ -654,9 +605,6 @@ function Dashboard() {
       <div className="p-4 max-w-4xl mx-auto space-y-4 sm:space-y-6 pb-28 sm:pb-32">
         <LiveClock />
 
-        {/* Ujumbe unaoteleza kati ya Calendar na button za kutoa pesa / balance */}
-        <SlidingAnnouncementBar />
-
         {/* 3 Top Cards */}
         <div className="grid grid-cols-3 gap-3">
           <button 
@@ -704,21 +652,6 @@ function Dashboard() {
 
         {/* Tutorial Video Section (Replacing sliding banner with interactive video demonstration) */}
         <TutorialVideoSection whatsappUrl="https://chat.whatsapp.com/LD0Yw9eAXMXJWBLETw85Pu?s=cl&p=a&mlu=4&ilr=4" />
-
-        {/* Explanation Section */}
-        <div className="bg-gradient-to-br from-[#141624] to-[#0E101A] border border-emerald-500/30 rounded-3xl p-5 sm:p-6 shadow-xl mt-6">
-          <div className="flex items-center gap-2.5 mb-3">
-            <div className="w-8 h-8 rounded-xl bg-[#00E676]/20 border border-[#00E676]/40 flex items-center justify-center text-[#00E676] font-black text-sm">
-              💡
-            </div>
-            <h2 className="text-base sm:text-lg font-black text-white uppercase tracking-wide">
-              KWANINI UNALIPWA KWA KUTHIBITISHA ORDER?
-            </h2>
-          </div>
-          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
-            Ukisha kuwa mshirika wa <span className="text-[#00E676] font-bold">OrderVerify</span>, jukumu lako litakua ni kuthibitisha uwepo wa bidhaa na utayari wa mteja. Unapothibitisha order, unaipa kampuni uhakika wa kufanya mauzo bila mteja kughairi. Kutokana na kazi hii muhimu ya kulinda mauzo ya kampuni, <span className="text-white font-bold">utalipwa kamisheni ya asilimia 5% ya thamani halisi ya bidhaa hiyo.</span> Mfano, ukithibitisha bidhaa ya TZS 100,000, utalipwa TZS 5,000 papo hapo kwenye akaunti yako. Jisajili kwa kufungua akaunti yako ya <span className="text-[#00E676] font-bold">OrderVerify</span> kwa mtaji wa elfu kumi na nne na mia tano <span className="text-[#00E676] font-bold">14,500 tu</span> ili uanze kunufaika na site hii.
-          </p>
-        </div>
 
         {/* Orders Header */}
         <div className="text-center mt-6">

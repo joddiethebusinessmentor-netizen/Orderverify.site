@@ -50,6 +50,16 @@ import imgWorkoutBench from './assets/images/workout_bench_foldable_178986115992
 import imgKneeMassager from './assets/images/knee_massager_heat_1789861169403.jpg';
 import imgFootballTrainingKit from './assets/images/football_training_kit_1789861178929.jpg';
 
+import imgTreadmill from './assets/images/folding_treadmill_1790065348486.jpg';
+import imgSpinBike from './assets/images/indoor_spin_bike_1790065361037.jpg';
+import imgSquatRack from './assets/images/power_squat_rack_1790065373194.jpg';
+import imgRowingMachine from './assets/images/magnetic_rowing_machine_1790065384527.jpg';
+import imgBarbellPlates from './assets/images/barbell_weight_plates_1790065397974.jpg';
+import imgPunchingBag from './assets/images/boxing_punching_bag_1790065409379.jpg';
+import imgCablePulley from './assets/images/cable_pulley_system_1790065422289.jpg';
+import imgEllipticalTrainer from './assets/images/elliptical_trainer_1790065837998.jpg';
+import imgPullupDipTower from './assets/images/pullup_dip_tower_1790065849280.jpg';
+
 // Re-map images in procedural generator just in case
 const genericFarmImg = imgFarmTools;
 const genericSolarImg = imgSportsSmartwatch;
@@ -91,7 +101,14 @@ import pressOnNailsImg from "./assets/images/press_on_nails_1789291049824.jpg";
 import batanaOilImg from "./assets/images/batana_oil_1789291060745.jpg";
 import makeupBrushSet13pcsImg from "./assets/images/makeup_brush_set_13pcs_1789291072315.jpg";
 import phoneTripodImg from "./assets/images/phone_tripod_stand_1789290638423.jpg";
+import imgSolarCctv from "./assets/images/solar_cctv_camera_1789537236789.jpg";
 import cameraMugImg from "./assets/images/camera_lens_mug_1789290655544.jpg";
+import cordlessHammerDrillImg from "./assets/images/cordless_hammer_drill_1790064868417.jpg";
+import concreteMixerImg from "./assets/images/concrete_mixer_machine_1790064880449.jpg";
+import greenLaserLevelImg from "./assets/images/green_laser_level_1790064891481.jpg";
+import ceramicTileCutterImg from "./assets/images/ceramic_tile_cutter_1790064902501.jpg";
+import concreteVibratorImg from "./assets/images/concrete_vibrator_poker_1790064913250.jpg";
+import telescopicLadderImg from "./assets/images/telescopic_ladder_1790064923864.jpg";
 import floorScrubberImg from "./assets/images/floor_scrubber_1789028954800.jpg";
 import metalGrindingMachineImg from "./assets/images/metal_grinding_machine_1789028825448.jpg";
 import oilPressMachineImg from "./assets/images/oil_press_machine_1789028847105.jpg";
@@ -272,7 +289,7 @@ function saveStoredSet(key: string, set: Set<string>): void {
   } catch (e) {}
 }
 
-export const STORAGE_VERSION_TAG = "ov_v76_fresh_notifications_and_emotional_comments";
+export const STORAGE_VERSION_TAG = "ov_v83_gym_orders_refresh_page2";
 const STORAGE_KEY_VERSION = "orderverify_app_version";
 const STORAGE_KEY_USED_PRODUCTS = "orderverify_used_products";
 const STORAGE_KEY_USED_NAMES = "orderverify_used_customer_names";
@@ -285,6 +302,9 @@ const STORAGE_KEY_ACTIVE_EPOCH = "orderverify_active_epoch";
 
 // PERMANENTLY RETIRED OLD PRODUCTS (Never to be selected again)
 export const PERMANENTLY_RETIRED_PRODUCTS = new Set<string>([
+  "cordless deep tissue percussion muscle massage gun",
+  "high-density anti-tear exercise gym mat & resistance bands kit",
+  "high density anti tear exercise gym mat resistance bands kit",
   "pasi ya mvuke ya kisasa",
   "blender ya matunda smoothies",
   "mashine ya kahawa ya espresso",
@@ -373,36 +393,156 @@ export interface ProductTemplate {
   description: string;
 }
 
-// PAGE 1: Nguo, Mikoba, Mabegi, Urembo (Clothes, Handbags, Backpacks, Beauty & Jewelry: 100k - 300k TZS)
+// PAGE 1: Vifaa vya Ujenzi (Construction & Building Tools: 150k - 500k TZS)
 export const masterHomeProducts: ProductTemplate[] = [
-  { name: "Luxury Genuine Leather Handbag", price: 260000, image: imgLeatherHandbag, description: "Luxury genuine cowhide leather handbag with adjustable strap and premium gold-toned zipper accents." },
-  { name: "Handcrafted Italian Leather Oxford Shoes", price: 255000, image: imgOxfordShoes, description: "Handcrafted genuine burnished Italian calfskin leather Oxford shoes with non-slip sole and cushioned footbed." },
-  { name: "Waterproof Laptop Business Travel Backpack", price: 185000, image: imgTravelLaptopBackpack, description: "High-density waterproof multi-compartment travel backpack with dedicated padded 15.6-inch laptop sleeve and USB port." },
-  { name: "Organic Glow Facial Skincare & Care Kit", price: 145000, image: facialKitImg, description: "Complete organic facial brightening and moisturizing skincare treatment kit with natural botanical extracts." },
-  { name: "Designer Quilted Crossbody Chain Shoulder Bag", price: 210000, image: imgCrossbodyBag, description: "Chic quilted leatherette crossbody shoulder purse with a radiant golden chain strap and magnetic lock clasp." },
-  { name: "Authentic African Print Kitenge Maxi Dress", price: 165000, image: imgKitengeDress, description: "Handcrafted 100% cotton vibrant African Kitenge maxi gown featuring flared silhouette and modern couture tailoring." },
-  { name: "Vintage Leather Weekend Duffel Travel Bag", price: 275000, image: imgLeatherDuffel, description: "Durable heavy-duty leather weekender travel duffel bag with reinforced brass buckles and shoulder strap." },
-  { name: "Luxury 24K Gold-Tone Watch & Bracelet Set", price: 240000, image: imgGoldWatch, description: "Precision quartz diamond-accented gold-tone wristwatch paired with matching crystal jewelry bangle bracelet." },
-  { name: "Luxury Designer Casual Leather Sneakers", price: 215000, image: imgWhiteSneakers, description: "Contemporary handcrafted premium white leather low-top sneakers with cushioned ergonomic footbed and gold foil branding." },
-  { name: "Crocodile Embossed Leather Tote Handbag", price: 230000, image: imgCrocodileTote, description: "Spacious luxury crocodile embossed structured leather tote purse with top handles and interior zip divider." },
-  { name: "Ergonomic Multi-Pocket Outdoor Hiking Backpack", price: 195000, image: imgHikingBackpack, description: "Heavy-duty ripstop nylon outdoor expedition and trekking backpack with breathable air-mesh back padding." },
-  { name: "Professional 13-Piece Makeup Brush & Beauty Kit", price: 135000, image: makeupBrushSet13pcsImg, description: "Ultra-soft synthetic fiber cosmetic makeup brushes with ergonomic wooden handles and sleek travel roll pouch." }
+  { 
+    name: "Heavy-Duty Electric Demolition Jackhammer", 
+    price: 460000, 
+    image: demolitionHammerImg, 
+    description: "Professional high-impact electric demolition jackhammer engineered for breaking reinforced concrete slabs, masonry, and foundations." 
+  },
+  { 
+    name: "Digital Inverter ARC Welding Machine", 
+    price: 380000, 
+    image: weldingMachineImg, 
+    description: "Industrial IGBT digital inverter arc welding system with thermal overload protection, electrode holder, and heavy grounding clamp." 
+  },
+  { 
+    name: "Heavy-Duty Industrial Cut-Off Metal Saw", 
+    price: 340000, 
+    image: metalCutSawImg, 
+    description: "High-torque 355mm abrasive cut-off chop saw designed for precise high-speed cutting through steel rebar, structural pipes, and angle iron." 
+  },
+  { 
+    name: "Cordless Brushless Rotary Hammer Drill Kit", 
+    price: 270000, 
+    image: cordlessHammerDrillImg, 
+    description: "Heavy-duty cordless brushless rotary hammer drill with dual lithium-ion battery packs, SDS-plus chuck, and protective carry case." 
+  },
+  { 
+    name: "Portable Electric Concrete Mixer Machine", 
+    price: 480000, 
+    image: concreteMixerImg, 
+    description: "Rugged electric cement and concrete drum mixer on sturdy transport wheels for uniform on-site mortar and concrete batching." 
+  },
+  { 
+    name: "Self-Leveling 360 Green Laser Level Kit", 
+    price: 215000, 
+    image: greenLaserLevelImg, 
+    description: "High-visibility 16-line 360-degree green beam self-leveling cross line laser level kit complete with magnetic mount and tripod stand." 
+  },
+  { 
+    name: "Manual Precision Ceramic Tile Cutter Machine", 
+    price: 195000, 
+    image: ceramicTileCutterImg, 
+    description: "Heavy-duty manual ceramic and porcelain tile cutter featuring a tungsten carbide scoring wheel, laser guide, and solid steel guide rails." 
+  },
+  { 
+    name: "Handheld Electric Concrete Vibrator Poker", 
+    price: 225000, 
+    image: concreteVibratorImg, 
+    description: "Powerful handheld electric concrete vibrator with long reinforced flexible shaft poker for eliminating air pockets in poured pillars." 
+  },
+  { 
+    name: "Telescopic Multi-Angle Aluminum Extension Ladder", 
+    price: 295000, 
+    image: telescopicLadderImg, 
+    description: "Extendable multi-position aluminum telescoping folding ladder with anti-slip rubber safety feet and automatic rung lock mechanisms." 
+  },
+  { 
+    name: "High-Power Variable Speed Angle Metal Grinder", 
+    price: 175000, 
+    image: metalGrindingMachineImg, 
+    description: "Industrial 125mm high-power angle grinder with variable speed dial, protective wheel burst guard, and vibration-absorbing handle." 
+  },
+  { 
+    name: "Professional Construction Mechanics Tool Box Set", 
+    price: 240000, 
+    image: mechanicToolboxImg, 
+    description: "Comprehensive multi-piece chrome vanadium steel construction mechanics hand tool kit housed in an impact-resistant rugged carry box." 
+  },
+  { 
+    name: "Heavy-Duty Direct Drive Air Compressor Tank", 
+    price: 430000, 
+    image: airCompressorImg, 
+    description: "High-pressure direct-drive pneumatic air compressor tank with dual pressure gauges, quick-connect couplers, and automatic pressure release." 
+  }
 ];
 
-// PAGE 2: Afya na Mchezo (Health, Fitness & Sports: 100k - 400k TZS)
+// PAGE 2: Vifaa vya Mazoezi (Gym & Fitness Workout Equipment: 100k - 800k TZS)
 export const masterTechProducts: ProductTemplate[] = [
-  { name: "Deep Tissue Percussion Muscle Massage Gun", price: 185000, image: imgMassageGun, description: "Cordless deep tissue percussion muscle massage gun with 6 interchangeable heads and LCD touch display for athlete recovery." },
-  { name: "Adjustable Cast Iron Dumbbells Set 20kg", price: 265000, image: imgDumbbells, description: "Heavy-duty 20kg adjustable cast iron dumbbell weight plates with anti-slip knurled grip bars and secure spinlock collars." },
-  { name: "Smart Fitness Tracker & Heart Rate Sports Watch", price: 220000, image: imgSportsSmartwatch, description: "Waterproof IP68 sports smartwatch featuring continuous heart rate, blood oxygen monitoring, GPS step tracker, and sports modes." },
-  { name: "Digital Upper Arm Blood Pressure & Health Monitor", price: 135000, image: imgBpMonitor, description: "Automatic clinical-accuracy digital arm blood pressure monitor with voice broadcast, pulse reader, and dual-user memory." },
-  { name: "High-Density Yoga Mat & Resistance Bands Set", price: 125000, image: imgYogaMat, description: "Eco-friendly extra-thick 10mm non-slip exercise yoga mat complete with 5 levels of latex resistance loop bands and carry strap." },
-  { name: "Indoor Aerobic Stair Stepper with Resistance Bands", price: 295000, image: imgStairStepper, description: "Compact hydraulic twist stair stepper machine for cardio exercise, featuring digital LCD monitor and upper-body workout ropes." },
-  { name: "Carbon Fiber Pro Badminton & Tennis Racket Set", price: 175000, image: imgBadmintonRackets, description: "Lightweight ultra-strong carbon fiber sports racket set with high-tension strings, nylon shuttlecocks, and protective padded case." },
-  { name: "Orthopedic Ergonomic Lumbar Support Health Belt", price: 115000, image: imgLumbarBelt, description: "Breathable dual-compression lumbar back brace belt with steel support stays for posture correction and spine pain relief." },
-  { name: "Portable Rechargeable Protein Shake Sports Blender", price: 145000, image: imgProteinBlender, description: "High-speed 6-blade USB rechargeable portable sport blender cup for protein shakes, fruit smoothies, and pre-workout nutrition." },
-  { name: "Adjustable Weight Incline Workout Bench", price: 380000, image: imgWorkoutBench, description: "Heavy-gauge steel multi-position foldable incline-decline workout bench with dense sweat-resistant foam padding." },
-  { name: "Electric Heated Knee Joint Compression Massager", price: 210000, image: imgKneeMassager, description: "Thermal vibration knee joint therapy massager with adjustable infrared heating levels and airbag compression for joint relief." },
-  { name: "FIFA Match Football & Agility Training Kit", price: 160000, image: imgFootballTrainingKit, description: "Thermal-bonded size 5 professional match football paired with agility speed ladder, training cones, and dual-action hand pump." }
+  { 
+    name: "Foldable Motorized Electric Running Treadmill", 
+    price: 740000, 
+    image: imgTreadmill, 
+    description: "Heavy-duty foldable electric running treadmill with digital LED touch screen display, automatic incline control, and shock-absorbing running deck." 
+  },
+  { 
+    name: "Multi-Function Heavy Steel Power Squat Rack Tower", 
+    price: 680000, 
+    image: imgSquatRack, 
+    description: "Commercial gauge steel power cage squat rack equipped with multi-grip pull-up chin bar, adjustable J-hooks, and barbell safety spotter catches." 
+  },
+  { 
+    name: "Water Resistance Foldable Magnetic Rowing Machine", 
+    price: 620000, 
+    image: imgRowingMachine, 
+    description: "Full-body cardio magnetic rowing machine featuring smooth silent glide rail, ergonomic padded seat, and digital workout performance monitor." 
+  },
+  { 
+    name: "Magnetic Flywheel Indoor Cycling Spin Exercise Bike", 
+    price: 560000, 
+    image: imgSpinBike, 
+    description: "Commercial indoor cycling spin exercise bike with heavy bidirectional flywheel, adjustable resistance knob, and device holder." 
+  },
+  { 
+    name: "Olympic Barbell 100kg Cast Iron Bumper Plates Set", 
+    price: 480000, 
+    image: imgBarbellPlates, 
+    description: "Standard 7-foot Olympic chrome steel barbell bar paired with 100kg heavy-duty cast iron rubber-coated bumper weight plates and lock collars." 
+  },
+  { 
+    name: "Adjustable Multi-Position Commercial Workout Weight Bench", 
+    price: 380000, 
+    image: imgWorkoutBench, 
+    description: "Heavy-gauge steel multi-position foldable incline-flat-decline workout bench with dense sweat-resistant foam padding and leg hold-down." 
+  },
+  { 
+    name: "Heavy-Duty Freestanding Boxing Punching Bag & Gloves Set", 
+    price: 320000, 
+    image: imgPunchingBag, 
+    description: "Shock-absorbing freestanding heavy punching boxing bag with stable sand/water suction base and padded professional sparring gloves." 
+  },
+  { 
+    name: "Adjustable Hex Cast Iron Dumbbells Pair 30kg", 
+    price: 270000, 
+    image: imgDumbbells, 
+    description: "Anti-roll hexagonal cast iron dumbbell weight set with ergonomic knurled chrome handles and durable scratch-resistant rubber coating." 
+  },
+  { 
+    name: "Dual-Hydraulic Twist Stair Stepper Cardio Machine", 
+    price: 230000, 
+    image: imgStairStepper, 
+    description: "Compact dual-cylinder hydraulic twist stair stepper machine for cardio leg toning, featuring digital step counter and resistance exercise ropes." 
+  },
+  { 
+    name: "Heavy-Duty Wall-Mounted Cable Pulley & Lat Pulldown System", 
+    price: 210000, 
+    image: imgCablePulley, 
+    description: "Wall-mounted gym steel cable pulley machine with smooth nylon silent pulleys, straight lat pulldown bar, and triceps rope attachment." 
+  },
+  { 
+    name: "Commercial Magnetic Elliptical Cross Trainer Machine", 
+    price: 540000, 
+    image: imgEllipticalTrainer, 
+    description: "Heavy-duty magnetic elliptical cross trainer cardio machine with dual action handlebars, smooth silent stride flywheel, and LCD pulse monitor." 
+  },
+  { 
+    name: "Multi-Grip Freestanding Pull-Up & Dip Station Tower", 
+    price: 285000, 
+    image: imgPullupDipTower, 
+    description: "Multi-functional strength training power tower with wide-grip chin-up bar, dip handles, push-up bars, and padded forearm cushions." 
+  }
 ];
 
 // PAGE 3: Samani za Ndani na Nje (Furniture: 200k - 700k TZS)
@@ -426,8 +566,8 @@ export const masterIndustrialProducts: ProductTemplate[] = [
 // Procedural generator for infinite continuous rotations (NEVER uses old products)
 let proceduralCounter = 50;
 export function generateFreshProceduralProduct(category: "home" | "tech" | "industrial", usedKeys: Set<string>): ProductTemplate {
-  const homeBases = ["Leather Handbag", "Travel Backpack", "Evening Gown", "Men's Suit", "Beauty Skincare Kit", "Crossbody Bag", "Duffel Travel Bag", "Gold Jewelry Set", "Makeup Brush Set", "Kitenge Dress", "Crocodile Tote", "Hiking Backpack"];
-const techBases = ["Massage Gun", "Dumbbells Set", "Fitness Watch", "Blood Pressure Monitor", "Yoga Mat", "Stair Stepper", "Badminton Set", "Lumbar Belt", "Protein Blender", "Workout Bench", "Knee Massager", "Football Agility Kit"];
+  const homeBases = ["Demolition Jackhammer", "Inverter Arc Welder", "Metal Cut-Off Saw", "Cordless Hammer Drill", "Concrete Mixer Machine", "Green Laser Level", "Ceramic Tile Cutter", "Concrete Vibrator Poker", "Telescopic Ladder", "Angle Metal Grinder", "Mechanics Tool Box", "Air Compressor Tank"];
+const techBases = ["Folding Treadmill", "Power Squat Rack", "Rowing Machine", "Spin Exercise Bike", "Olympic Barbell Set", "Weight Workout Bench", "Boxing Punching Bag", "Cast Iron Dumbbells", "Cardio Stair Stepper", "Cable Pulley System", "Elliptical Trainer", "Pull-Up Dip Tower"];
 const industrialBases = ["Office Chair", "Dining Table", "Accent Armchair", "Coffee Table", "Wardrobe Closet", "Standing Desk", "Bed Frame", "Bookshelf Rack", "TV Console", "Patio Sofa", "Nightstand Table", "Shoe Cabinet"];
 
   const modifiers = ["Pro", "Max", "Plus", "Ultra", "Elite", "Premium", "HD"];
@@ -485,6 +625,14 @@ const RAW_FIRST_NAMES_DB: { first: string; gender: "male" | "female"; country: s
   { first: "Zainab", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Zanzibar" },
   { first: "Brighton", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Mwanza" },
   { first: "Mary", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Morogoro" },
+  { first: "Juma", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Morogoro" },
+  { first: "Rehema", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Tanga" },
+  { first: "Selemani", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Mwanza" },
+  { first: "Mwajuma", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Mtwara" },
+  { first: "Bakari", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Tabora" },
+  { first: "Neema", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Iringa" },
+  { first: "Daudi", gender: "male", country: "Tanzania", flag: "🇹🇿", city: "Moshi" },
+  { first: "Asha", gender: "female", country: "Tanzania", flag: "🇹🇿", city: "Zanzibar" },
   { first: "Tresor", gender: "male", country: "Congo (DRC)", flag: "🇨🇩", city: "Kinshasa" },
   { first: "Chantal", gender: "female", country: "Congo (DRC)", flag: "🇨🇩", city: "Lubumbashi" },
   { first: "Fiston", gender: "male", country: "Congo (DRC)", flag: "🇨🇩", city: "Goma" },
@@ -518,6 +666,10 @@ const RAW_FIRST_NAMES_DB: { first: string; gender: "male" | "female"; country: s
   { first: "Ngozi", gender: "female", country: "Nigeria", flag: "🇳🇬", city: "Abuja" },
   { first: "Mwangi", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Nairobi" },
   { first: "Njeri", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Mombasa" },
+  { first: "Kiprono", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Eldoret" },
+  { first: "Wanjiku", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Nakuru" },
+  { first: "Otieno", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Kisumu" },
+  { first: "Achieng", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Kisumu" },
   { first: "Kato", gender: "male", country: "Uganda", flag: "🇺🇬", city: "Kampala" },
   { first: "Babirye", gender: "female", country: "Uganda", flag: "🇺🇬", city: "Entebbe" },
   { first: "Bosco", gender: "male", country: "Rwanda", flag: "🇷🇼", city: "Kigali" },
@@ -567,7 +719,7 @@ const RAW_FIRST_NAMES_DB: { first: string; gender: "male" | "female"; country: s
 const SURNAME_MAP: Record<string, string[]> = {
   "Tanzania": ["Mushi", "Shirima", "Massawe", "Swai", "Kapinga", "Mrope", "Kileo", "Kimaro", "Lema", "Mbowe", "Makamba", "Mwinyi", "Kikwete", "Magufuli", "Suluhu", "Majaliwa", "Mwalimu", "Nyerere", "Kariuki", "Kibao", "Masanja", "Komba", "Mwandosya", "Mwakyembe", "Mdee", "Bulaya", "Mrema", "Mnyika", "Zitto", "Kabwe", "Mabula", "Ndumbaro", "Mchengerwa", "Gwajima", "Mpango", "Mwigulu", "Nchemba", "Makonda", "Chalamila", "Mtaturu", "Mhagama", "Kairuki", "Ummy", "Mwalimu", "Ndalichako", "Masele", "Nyalandu", "Membe", "Mwandosya", "Pinda", "Sumaye", "Salim", "Kigwangalla", "Nape", "Nnauye", "Makamamba", "Makani", "Slaa", "Mtei", "Mbowe", "Mbatia", "Mkosamali", "Chegeni", "Mgeja", "Ngeleja", "Chenge", "Rostam", "Dewji", "Bakhresa", "Meng", "Manji", "Karamagi", "Yona", "Mramba", "Meghji", "Kimei", "Msuya", "Malecela", "Warioba", "Salim", "Kambona", "Kawawa", "Karume", "Jumbe", "Mwinyi", "Mkapa"],
   "Congo (DRC)": ["Mwamba", "Mutombo", "Kabila", "Tshisekedi", "Lukaku", "Bolasie", "Mulumba", "Ilunga", "Kasongo", "Lumumba"],
-  "Kenya": ["Karanja", "Kamau", "Ochieng", "Kipchoge", "Waweru", "Otieno", "Kimani", "Kiprono"],
+  "Kenya": ["Karanja", "Kamau", "Ochieng", "Kipchoge", "Waweru", "Otieno", "Kimani", "Kiprono", "Mutua", "Maina", "Njoroge", "Odhiambo", "Kiprotich", "Chebet"],
   "Uganda": ["Mukasa", "Kigozi", "Ouma", "Kato", "Ssebaggala", "Nabirye", "Muwanga"],
   "Rwanda": ["Kagame", "Nizeyimana", "Hakizimana", "Mugisha", "Uwimana", "Gasana"],
   "Burundi": ["Nkurunziza", "Ndayishimiye", "Ndikumana", "Niyongabo", "Bizimana"],
@@ -575,6 +727,7 @@ const SURNAME_MAP: Record<string, string[]> = {
   "Ghana": ["Mensah", "Osei", "Appiah", "Boateng", "Asante", "Agyemang"],
   "South Africa": ["Mandela", "Zuma", "Mokoena", "Ndlovu", "Khoza", "Dlamini", "Buthelezi"],
   "Zambia": ["Banda", "Mwila", "Chileshe", "Phiri", "Tembo", "Lungu", "Sata"],
+  "Malawi": ["Phiri", "Banda", "Chirwa", "Mwale", "Kamanga", "Chiumia"],
   "Ivory Coast": ["Bédié", "Ouattara", "Drogba", "Touré", "Kouamé", "Konan"],
   "Mozambique": ["Chissano", "Machel", "Guebuza", "Mondlane", "Couto"],
   "Senegal": ["Ndiaye", "Diop", "Sall", "Ba", "Sow", "Fall"],
@@ -671,7 +824,10 @@ export function generateDistinctCustomer(usedBaseNames: Set<string>, usedFullNam
 
       if (!usedBaseNames.has(base)) {
         const surnameList = SURNAME_MAP[item.country] || SURNAME_MAP["Tanzania"];
-        const surname = surnameList[(proceduralCustomerSeed + idx) % surnameList.length];
+        let surname = surnameList[(proceduralCustomerSeed + idx) % surnameList.length];
+        if (surname.toLowerCase() === item.first.toLowerCase() && surnameList.length > 1) {
+          surname = surnameList[(proceduralCustomerSeed + idx + 1) % surnameList.length];
+        }
         const fullName = `${item.first} ${surname}`;
         const fullKey = fullName.toLowerCase();
 
@@ -701,7 +857,10 @@ export function generateDistinctCustomer(usedBaseNames: Set<string>, usedFullNam
 
     if (!usedBaseNames.has(base)) {
       const surnameList = SURNAME_MAP[item.country] || SURNAME_MAP["Tanzania"];
-      const surname = surnameList[(proceduralCustomerSeed + idx) % surnameList.length];
+      let surname = surnameList[(proceduralCustomerSeed + idx) % surnameList.length];
+      if (surname.toLowerCase() === item.first.toLowerCase() && surnameList.length > 1) {
+        surname = surnameList[(proceduralCustomerSeed + idx + 1) % surnameList.length];
+      }
       const fullName = `${item.first} ${surname}`;
       const fullKey = fullName.toLowerCase();
 
@@ -1259,8 +1418,8 @@ export function validateSystemData(data: { orders: Order[]; notifications: LiveP
   });
 
   data.orders.forEach((o, idx) => {
-    if (o.productValue < 80000 || o.productValue > 700000) {
-      errors.push(`Order #${idx+1} value ${o.productValue} out of 80k-700k bounds.`);
+    if (o.productValue < 80000 || o.productValue > 800000) {
+      errors.push(`Order #${idx+1} value ${o.productValue} out of 80k-800k bounds.`);
     }
     const expectedPayout = Math.round(o.productValue * 0.05);
     if (Math.abs(o.payout - expectedPayout) > 1) {
@@ -1375,7 +1534,7 @@ export function generateCompliantSystemData(epochSeed: number) {
   // Authentic distribution of East African & international countries for each page
   const targetCountryList: string[] = [
     "Tanzania", "Kenya", "Uganda", "Rwanda", "South Africa", "Nigeria", "Tanzania", "Ghana", "Congo (DRC)", "Zambia", "Ivory Coast", "Burundi",
-    "Kenya", "Tanzania", "Uganda", "Rwanda", "South Africa", "Nigeria", "Ghana", "Congo (DRC)", "Zambia", "Senegal", "Ivory Coast", "Ethiopia",
+    "Kenya", "Tanzania", "Uganda", "Rwanda", "South Africa", "Nigeria", "Ghana", "Congo (DRC)", "Zambia", "Senegal", "Malawi", "Angola",
     "Tanzania", "Kenya", "Uganda", "Rwanda", "South Africa", "Nigeria", "Ghana", "Congo (DRC)", "Zambia", "Cameroon", "Zimbabwe", "Namibia"
   ];
 
@@ -1429,6 +1588,7 @@ export function initOrLoadSystemData() {
     storageRemove(STORAGE_KEY_ACTIVE_COMMENTS);
     try {
       if (typeof window !== "undefined" && window.localStorage) {
+        window.localStorage.removeItem("orderverify_active_orders");
         window.localStorage.removeItem("orderverify_verified_orders");
         window.localStorage.setItem("orderverify_orders_catalog_version", STORAGE_VERSION_TAG);
       }
