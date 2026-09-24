@@ -60,6 +60,45 @@ import imgCablePulley from './assets/images/cable_pulley_system_1790065422289.jp
 import imgEllipticalTrainer from './assets/images/elliptical_trainer_1790065837998.jpg';
 import imgPullupDipTower from './assets/images/pullup_dip_tower_1790065849280.jpg';
 
+import imgGoldMetalDetector from './assets/images/gold_metal_detector_1790256373604.jpg';
+import imgXrfAnalyzer from './assets/images/xrf_mineral_analyzer_1790256384395.jpg';
+import imgPneumaticRockDrill from './assets/images/pneumatic_rock_drill_1790256396223.jpg';
+import imgJawRockCrusher from './assets/images/jaw_rock_crusher_1790256407898.jpg';
+import imgCentrifugalGoldConcentrator from './assets/images/centrifugal_gold_concentrator_1790256423981.jpg';
+import imgMiningSlurryPump from './assets/images/mining_slurry_pump_1790256438122.jpg';
+import imgGemstoneGoldTester from './assets/images/gemstone_gold_tester_1790256449300.jpg';
+import imgDiamondCoreDrill from './assets/images/diamond_core_drill_1790256465596.jpg';
+import imgMineralMicroscope from './assets/images/mineral_microscope_1790256478675.jpg';
+import imgGoldSluiceBox from './assets/images/gold_sluice_box_1790256488850.jpg';
+import imgMiningVentilationBlower from './assets/images/mining_ventilation_blower_1790256502211.jpg';
+import imgMineralGravityBalance from './assets/images/mineral_gravity_balance_1790256514554.jpg';
+
+import imgHydraulicPalletTruck from './assets/images/hydraulic_pallet_truck_1790258207851.jpg';
+import imgElectricCargoWinch from './assets/images/electric_cargo_winch_1790258223028.jpg';
+import imgFoldingPlatformCart from './assets/images/folding_platform_cart_1790258234577.jpg';
+import imgStairCargoTrolley from './assets/images/stair_cargo_trolley_1790258245929.jpg';
+import imgCargoRatchetStraps from './assets/images/cargo_ratchet_straps_1790258261372.jpg';
+import imgRoofCargoCarrier from './assets/images/roof_cargo_carrier_1790258274686.jpg';
+import imgTruckCargoTarpaulin from './assets/images/truck_cargo_tarpaulin_1790258286863.jpg';
+import imgMachineryMovingSkates from './assets/images/machinery_moving_skates_1790258303733.jpg';
+import imgCraneFreightScale from './assets/images/crane_freight_scale_1790258316741.jpg';
+import imgAluminumLoadingRamp from './assets/images/aluminum_loading_ramp_1790258333630.jpg';
+import imgHitchCargoCarrier from './assets/images/hitch_cargo_carrier_1790258348315.jpg';
+import imgIndustrialHandTruck from './assets/images/industrial_hand_truck_1790258363647.jpg';
+
+import imgVitalSignsMonitor from './assets/images/vital_signs_monitor_1790258942457.jpg';
+import imgOxygenConcentrator from './assets/images/oxygen_concentrator_1790258956276.jpg';
+import imgHospitalPatientBed from './assets/images/hospital_patient_bed_1790258967848.jpg';
+import imgMedicalCentrifuge from './assets/images/medical_centrifuge_1790258981474.jpg';
+import imgHospitalTrolleyCart from './assets/images/hospital_trolley_cart_1790258995080.jpg';
+import imgPharmacyRefrigerator from './assets/images/pharmacy_refrigerator_1790259008151.jpg';
+import imgUltrasoundScanner from './assets/images/ultrasound_scanner_1790259022267.jpg';
+import imgAutoclaveSterilizer from './assets/images/autoclave_sterilizer_1790259035217.jpg';
+import imgHospitalWheelchair from './assets/images/hospital_wheelchair_1790259047958.jpg';
+import imgPharmacyBalance from './assets/images/pharmacy_balance_1790259064554.jpg';
+import imgOtoscopeSet from './assets/images/otoscope_set_1790259079331.jpg';
+import imgVeinFinderDevice from './assets/images/vein_finder_device_1790259094324.jpg';
+
 // Re-map images in procedural generator just in case
 const genericFarmImg = imgFarmTools;
 const genericSolarImg = imgSportsSmartwatch;
@@ -289,7 +328,7 @@ function saveStoredSet(key: string, set: Set<string>): void {
   } catch (e) {}
 }
 
-export const STORAGE_VERSION_TAG = "ov_v83_gym_orders_refresh_page2";
+export const STORAGE_VERSION_TAG = "ov_v87_live_notifications_and_social_comments_refresh";
 const STORAGE_KEY_VERSION = "orderverify_app_version";
 const STORAGE_KEY_USED_PRODUCTS = "orderverify_used_products";
 const STORAGE_KEY_USED_NAMES = "orderverify_used_customer_names";
@@ -302,6 +341,42 @@ const STORAGE_KEY_ACTIVE_EPOCH = "orderverify_active_epoch";
 
 // PERMANENTLY RETIRED OLD PRODUCTS (Never to be selected again)
 export const PERMANENTLY_RETIRED_PRODUCTS = new Set<string>([
+  "ergonomic high-back executive office chair",
+  "modern solid oak wood dining table",
+  "luxury velvet upholstered accent armchair",
+  "minimalist nordic wooden coffee table",
+  "solid teak wood 3-door bedroom wardrobe",
+  "motorized electric height-adjustable standing desk",
+  "tufted queen size upholstered platform bed",
+  "rustic industrial 5-tier bookshelf display rack",
+  "fluted glass wooden tv media console stand",
+  "all-weather acacia wood outdoor patio sofa",
+  "solid oak 2-drawer wooden bedside nightstand",
+  "multi-tier ventilated wooden shoe storage cabinet",
+  "foldable motorized electric running treadmill",
+  "multi-function heavy steel power squat rack tower",
+  "water resistance foldable magnetic rowing machine",
+  "magnetic flywheel indoor cycling spin exercise bike",
+  "olympic barbell 100kg cast iron bumper plates set",
+  "adjustable multi-position commercial workout weight bench",
+  "heavy-duty freestanding boxing punching bag & gloves set",
+  "adjustable hex cast iron dumbbells pair 30kg",
+  "dual-hydraulic twist stair stepper cardio machine",
+  "heavy-duty wall-mounted cable pulley & lat pulldown system",
+  "commercial magnetic elliptical cross trainer machine",
+  "multi-grip freestanding pull-up & dip station tower",
+  "heavy-duty electric demolition jackhammer",
+  "digital inverter arc welding machine",
+  "heavy-duty industrial cut-off metal saw",
+  "cordless brushless rotary hammer drill kit",
+  "portable electric concrete mixer machine",
+  "self-leveling 360 green laser level kit",
+  "manual precision ceramic tile cutter machine",
+  "handheld electric concrete vibrator poker",
+  "telescopic multi-angle aluminum extension ladder",
+  "high-power variable speed angle metal grinder",
+  "professional construction mechanics tool box set",
+  "heavy-duty direct drive air compressor tank",
   "cordless deep tissue percussion muscle massage gun",
   "high-density anti-tear exercise gym mat & resistance bands kit",
   "high density anti tear exercise gym mat resistance bands kit",
@@ -393,182 +468,242 @@ export interface ProductTemplate {
   description: string;
 }
 
-// PAGE 1: Vifaa vya Ujenzi (Construction & Building Tools: 150k - 500k TZS)
+// PAGE 1: Vifaa vya Kisasa vya Uchimbaji na Upimaji wa Madini (Modern Mining & Mineral Assaying Equipment: 200k - 600k TZS)
 export const masterHomeProducts: ProductTemplate[] = [
   { 
-    name: "Heavy-Duty Electric Demolition Jackhammer", 
-    price: 460000, 
-    image: demolitionHammerImg, 
-    description: "Professional high-impact electric demolition jackhammer engineered for breaking reinforced concrete slabs, masonry, and foundations." 
+    name: "Deep Underground Gold & Mineral Metal Detector", 
+    price: 580000, 
+    image: imgGoldMetalDetector, 
+    description: "Professional underground pulse induction gold nugget and precious mineral prospecting metal detector with waterproof search coil and digital ground balance." 
   },
   { 
-    name: "Digital Inverter ARC Welding Machine", 
-    price: 380000, 
-    image: weldingMachineImg, 
-    description: "Industrial IGBT digital inverter arc welding system with thermal overload protection, electrode holder, and heavy grounding clamp." 
+    name: "Handheld XRF Precious Ore & Mineral Analyzer", 
+    price: 540000, 
+    image: imgXrfAnalyzer, 
+    description: "High-precision handheld X-ray fluorescence spectrometer device for instant non-destructive mineral ore composition and gemstone assaying." 
   },
   { 
-    name: "Heavy-Duty Industrial Cut-Off Metal Saw", 
+    name: "Mini Jaw Ore Rock Crusher Machine", 
+    price: 520000, 
+    image: imgJawRockCrusher, 
+    description: "High-manganese steel electric mini jaw crusher for pulverizing hard raw mineral rocks, gold ore, and geological field samples." 
+  },
+  { 
+    name: "Heavy-Duty Pneumatic Rock Mining Jackleg Drill", 
+    price: 490000, 
+    image: imgPneumaticRockDrill, 
+    description: "High-impact pneumatic jackleg rock drill for hard-rock underground tunnel blast-hole drilling in quartz and gold veins." 
+  },
+  { 
+    name: "Geological Mineral Diamond Core Sampling Drill", 
+    price: 470000, 
+    image: imgDiamondCoreDrill, 
+    description: "Portable handheld petrol-powered diamond core drilling rig for geological exploration rock core sample extraction." 
+  },
+  { 
+    name: "Centrifugal Gold Concentrator Separator Machine", 
+    price: 450000, 
+    image: imgCentrifugalGoldConcentrator, 
+    description: "Automated centrifugal mineral bowl concentrator for high-recovery gravity separation of fine placer gold and heavy mineral sands." 
+  },
+  { 
+    name: "High-Pressure Mining Slurry & Mud Sump Pump", 
+    price: 390000, 
+    image: imgMiningSlurryPump, 
+    description: "Heavy-duty cast iron submersible slurry pump with high-torque motor for dewatering deep mining shafts and pumping mineral gravel slurry." 
+  },
+  { 
+    name: "Digital Ultrasonic Gemstone & Gold Purity Tester", 
     price: 340000, 
-    image: metalCutSawImg, 
-    description: "High-torque 355mm abrasive cut-off chop saw designed for precise high-speed cutting through steel rebar, structural pipes, and angle iron." 
+    image: imgGemstoneGoldTester, 
+    description: "Electronic carat and precious metal purity verification density scale and ultrasound tester for gold bullion and raw gemstones." 
   },
   { 
-    name: "Cordless Brushless Rotary Hammer Drill Kit", 
-    price: 270000, 
-    image: cordlessHammerDrillImg, 
-    description: "Heavy-duty cordless brushless rotary hammer drill with dual lithium-ion battery packs, SDS-plus chuck, and protective carry case." 
+    name: "Optical Stereoscopic Gem & Mineral Ore Microscope", 
+    price: 310000, 
+    image: imgMineralMicroscope, 
+    description: "Binocular zoom stereomicroscope with dual LED illumination for gemstone crystal structure inspection and mineralogical assaying." 
   },
   { 
-    name: "Portable Electric Concrete Mixer Machine", 
-    price: 480000, 
-    image: concreteMixerImg, 
-    description: "Rugged electric cement and concrete drum mixer on sturdy transport wheels for uniform on-site mortar and concrete batching." 
+    name: "Mining Shaft Air Ventilation Blower Fan System", 
+    price: 280000, 
+    image: imgMiningVentilationBlower, 
+    description: "Explosion-proof heavy axial tunnel ventilation exhaust fan with flexible anti-static duct hose for fresh airflow in underground mining pits." 
   },
   { 
-    name: "Self-Leveling 360 Green Laser Level Kit", 
-    price: 215000, 
-    image: greenLaserLevelImg, 
-    description: "High-visibility 16-line 360-degree green beam self-leveling cross line laser level kit complete with magnetic mount and tripod stand." 
+    name: "Mining Gold Sluice Box with Vortex Rubber Matting", 
+    price: 260000, 
+    image: imgGoldSluiceBox, 
+    description: "High-grade aircraft aluminum folding mining sluice box equipped with expanded metal riffles and deep vortex gold recovery matting." 
   },
   { 
-    name: "Manual Precision Ceramic Tile Cutter Machine", 
-    price: 195000, 
-    image: ceramicTileCutterImg, 
-    description: "Heavy-duty manual ceramic and porcelain tile cutter featuring a tungsten carbide scoring wheel, laser guide, and solid steel guide rails." 
-  },
-  { 
-    name: "Handheld Electric Concrete Vibrator Poker", 
-    price: 225000, 
-    image: concreteVibratorImg, 
-    description: "Powerful handheld electric concrete vibrator with long reinforced flexible shaft poker for eliminating air pockets in poured pillars." 
-  },
-  { 
-    name: "Telescopic Multi-Angle Aluminum Extension Ladder", 
-    price: 295000, 
-    image: telescopicLadderImg, 
-    description: "Extendable multi-position aluminum telescoping folding ladder with anti-slip rubber safety feet and automatic rung lock mechanisms." 
-  },
-  { 
-    name: "High-Power Variable Speed Angle Metal Grinder", 
-    price: 175000, 
-    image: metalGrindingMachineImg, 
-    description: "Industrial 125mm high-power angle grinder with variable speed dial, protective wheel burst guard, and vibration-absorbing handle." 
-  },
-  { 
-    name: "Professional Construction Mechanics Tool Box Set", 
-    price: 240000, 
-    image: mechanicToolboxImg, 
-    description: "Comprehensive multi-piece chrome vanadium steel construction mechanics hand tool kit housed in an impact-resistant rugged carry box." 
-  },
-  { 
-    name: "Heavy-Duty Direct Drive Air Compressor Tank", 
-    price: 430000, 
-    image: airCompressorImg, 
-    description: "High-pressure direct-drive pneumatic air compressor tank with dual pressure gauges, quick-connect couplers, and automatic pressure release." 
+    name: "Precision Digital Hydrostatic Mineral Gravity Balance", 
+    price: 220000, 
+    image: imgMineralGravityBalance, 
+    description: "High-accuracy digital hydrostatic specific gravity balance scale for mineral density determination, gold purity, and raw gemstone testing." 
   }
 ];
 
-// PAGE 2: Vifaa vya Mazoezi (Gym & Fitness Workout Equipment: 100k - 800k TZS)
+// PAGE 2: Vifaa vya Usafirishaji na Mizigo (Transport, Logistics & Cargo Equipment: 100k - 500k TZS)
 export const masterTechProducts: ProductTemplate[] = [
   { 
-    name: "Foldable Motorized Electric Running Treadmill", 
-    price: 740000, 
-    image: imgTreadmill, 
-    description: "Heavy-duty foldable electric running treadmill with digital LED touch screen display, automatic incline control, and shock-absorbing running deck." 
-  },
-  { 
-    name: "Multi-Function Heavy Steel Power Squat Rack Tower", 
-    price: 680000, 
-    image: imgSquatRack, 
-    description: "Commercial gauge steel power cage squat rack equipped with multi-grip pull-up chin bar, adjustable J-hooks, and barbell safety spotter catches." 
-  },
-  { 
-    name: "Water Resistance Foldable Magnetic Rowing Machine", 
-    price: 620000, 
-    image: imgRowingMachine, 
-    description: "Full-body cardio magnetic rowing machine featuring smooth silent glide rail, ergonomic padded seat, and digital workout performance monitor." 
-  },
-  { 
-    name: "Magnetic Flywheel Indoor Cycling Spin Exercise Bike", 
-    price: 560000, 
-    image: imgSpinBike, 
-    description: "Commercial indoor cycling spin exercise bike with heavy bidirectional flywheel, adjustable resistance knob, and device holder." 
-  },
-  { 
-    name: "Olympic Barbell 100kg Cast Iron Bumper Plates Set", 
+    name: "Hydraulic Heavy-Duty Manual Pallet Jack Truck", 
     price: 480000, 
-    image: imgBarbellPlates, 
-    description: "Standard 7-foot Olympic chrome steel barbell bar paired with 100kg heavy-duty cast iron rubber-coated bumper weight plates and lock collars." 
+    image: imgHydraulicPalletTruck, 
+    description: "Industrial 2.5-ton manual hydraulic pallet jack truck with reinforced steel forks, ergonomic steering handle, and polyurethane load wheels." 
   },
   { 
-    name: "Adjustable Multi-Position Commercial Workout Weight Bench", 
+    name: "Heavy-Duty Electric Vehicle Recovery Cargo Winch", 
+    price: 450000, 
+    image: imgElectricCargoWinch, 
+    description: "High-torque 12V electric recovery winch with braided steel aircraft cable, forged steel clevis hook, and wired remote control for freight haulage." 
+  },
+  { 
+    name: "Arched Aluminum Folding Cargo Loading Ramps Pair", 
+    price: 420000, 
+    image: imgAluminumLoadingRamp, 
+    description: "Heavy-duty rustproof folding aluminum loading ramps with punched non-slip traction plate surface for trucks, trailers, and cargo vans." 
+  },
+  { 
+    name: "Heavy-Duty Stair Climbing Cargo Hand Trolley", 
     price: 380000, 
-    image: imgWorkoutBench, 
-    description: "Heavy-gauge steel multi-position foldable incline-flat-decline workout bench with dense sweat-resistant foam padding and leg hold-down." 
+    image: imgStairCargoTrolley, 
+    description: "Rugged aluminum stair-climbing hand truck trolley featuring tri-wheel rotating climbing mechanism and folding cargo base plate." 
   },
   { 
-    name: "Heavy-Duty Freestanding Boxing Punching Bag & Gloves Set", 
+    name: "Universal Aerodynamic Roof Cargo Carrier Basket", 
+    price: 360000, 
+    image: imgRoofCargoCarrier, 
+    description: "Heavy-gauge tubular steel roof rack cargo basket with front aerodynamic wind fairing and weather-resistant black powder coat finish." 
+  },
+  { 
+    name: "Machinery Moving Heavy Roller Skates Dolly Set", 
     price: 320000, 
-    image: imgPunchingBag, 
-    description: "Shock-absorbing freestanding heavy punching boxing bag with stable sand/water suction base and padded professional sparring gloves." 
+    image: imgMachineryMovingSkates, 
+    description: "Industrial heavy machinery moving roller skates dolly kit with 360-degree rotating turntables and heavy-duty steel rollers." 
   },
   { 
-    name: "Adjustable Hex Cast Iron Dumbbells Pair 30kg", 
-    price: 270000, 
-    image: imgDumbbells, 
-    description: "Anti-roll hexagonal cast iron dumbbell weight set with ergonomic knurled chrome handles and durable scratch-resistant rubber coating." 
+    name: "Heavy-Duty Hitch Mount Rear Cargo Luggage Carrier", 
+    price: 290000, 
+    image: imgHitchCargoCarrier, 
+    description: "Vehicular rear trailer hitch cargo carrier basket with folding shank, mesh flooring, and high side rails for bulk transport luggage." 
   },
   { 
-    name: "Dual-Hydraulic Twist Stair Stepper Cardio Machine", 
-    price: 230000, 
-    image: imgStairStepper, 
-    description: "Compact dual-cylinder hydraulic twist stair stepper machine for cardio leg toning, featuring digital step counter and resistance exercise ropes." 
-  },
-  { 
-    name: "Heavy-Duty Wall-Mounted Cable Pulley & Lat Pulldown System", 
+    name: "Foldable Steel Platform Cargo Push Cart Trolley", 
     price: 210000, 
-    image: imgCablePulley, 
-    description: "Wall-mounted gym steel cable pulley machine with smooth nylon silent pulleys, straight lat pulldown bar, and triceps rope attachment." 
+    image: imgFoldingPlatformCart, 
+    description: "Heavy-duty folding steel flatbed platform hand truck cart with non-skid textured deck and smooth rolling 360-degree caster wheels." 
   },
   { 
-    name: "Commercial Magnetic Elliptical Cross Trainer Machine", 
-    price: 540000, 
-    image: imgEllipticalTrainer, 
-    description: "Heavy-duty magnetic elliptical cross trainer cardio machine with dual action handlebars, smooth silent stride flywheel, and LCD pulse monitor." 
+    name: "Digital Heavy Freight Hanging Crane Scale 1000kg", 
+    price: 195000, 
+    image: imgCraneFreightScale, 
+    description: "Industrial high-capacity digital hanging crane scale with large bright LED display, remote tare function, and forged steel shackle." 
   },
   { 
-    name: "Multi-Grip Freestanding Pull-Up & Dip Station Tower", 
-    price: 285000, 
-    image: imgPullupDipTower, 
-    description: "Multi-functional strength training power tower with wide-grip chin-up bar, dip handles, push-up bars, and padded forearm cushions." 
+    name: "Waterproof Reinforced PVC Truck Cargo Tarpaulin", 
+    price: 175000, 
+    image: imgTruckCargoTarpaulin, 
+    description: "Heavy-duty commercial waterproof vinyl cargo cover tarp with reinforced heat-sealed seams and rustproof brass corner grommets." 
+  },
+  { 
+    name: "All-Terrain 2-Wheel Industrial Steel Hand Truck", 
+    price: 160000, 
+    image: imgIndustrialHandTruck, 
+    description: "Commercial heavy tubular steel 2-wheel sack barrow hand truck with shock-absorbing pneumatic tires and high curved back frame." 
+  },
+  { 
+    name: "Heavy-Duty Cargo Ratchet Tie-Down Straps Kit", 
+    price: 140000, 
+    image: imgCargoRatchetStraps, 
+    description: "Pack of 4 industrial-strength 5-ton polyester ratchet tie-down straps with zinc-coated double J-hooks for flatbed cargo securing." 
   }
 ];
 
-// PAGE 3: Samani za Ndani na Nje (Furniture: 200k - 700k TZS)
+// PAGE 3: Vifaa vya Hospitali na Pharmacy (Hospital & Pharmacy Medical Equipment: 100k - 800k TZS)
 export const masterClothingProducts: ProductTemplate[] = [];
 
 export const masterIndustrialProducts: ProductTemplate[] = [
-  { name: "Ergonomic High-Back Executive Office Chair", price: 385000, image: imgOfficeChair, description: "Heavy-duty ergonomic high-back executive mesh office chair with lumbar support, adjustable headrest, 3D armrests, and smooth swivel caster wheels." },
-  { name: "Modern Solid Oak Wood Dining Table", price: 590000, image: imgDiningTable, description: "Handcrafted 6-seater solid oak timber dining table featuring scratch-resistant natural wood grain finish and reinforced tapered hardwood legs." },
-  { name: "Luxury Velvet Upholstered Accent Armchair", price: 480000, image: imgAccentArmchair, description: "Contemporary Scandinavian barrel armchair tailored in plush royal velvet upholstery with deep foam cushioning and polished gold metal legs." },
-  { name: "Minimalist Nordic Wooden Coffee Table", price: 240000, image: imgCoffeeTable, description: "Minimalist circular living room coffee table crafted from solid natural pine wood with water-repellent protective clear coat and tripod base." },
-  { name: "Solid Teak Wood 3-Door Bedroom Wardrobe", price: 680000, image: imgTeakWardrobe, description: "Spacious 3-door bedroom wardrobe closet built from seasoned solid teak wood with internal hanging rails, shelving units, and brushed brass handles." },
-  { name: "Motorized Electric Height-Adjustable Standing Desk", price: 520000, image: imgStandingDesk, description: "Dual-motor electric sit-stand ergonomic computer workstation with digital LED memory controller, anti-collision sensor, and heavy steel frame." },
-  { name: "Tufted Queen Size Upholstered Platform Bed", price: 650000, image: imgTuftedBed, description: "Modern queen platform bed frame with premium button-tufted linen fabric headboard, durable wooden slat support system, and noise-free structure." },
-  { name: "Rustic Industrial 5-Tier Bookshelf Display Rack", price: 290000, image: imgBookshelfRack, description: "Sturdy 5-tier open shelving unit combining rustic textured timber boards and matte black iron framing for books, decor, and office storage." },
-  { name: "Fluted Glass Wooden TV Media Console Stand", price: 360000, image: imgTvStandConsole, description: "Mid-century modern television stand for TVs up to 65 inches, featuring tempered fluted glass sliding doors, cable management holes, and storage cubbies." },
-  { name: "All-Weather Acacia Wood Outdoor Patio Sofa", price: 560000, image: imgPatioSofa, description: "Weather-resistant 3-seater garden and patio lounge couch crafted from sustainably sourced acacia hardwood with thick water-repellent cushions." },
-  { name: "Solid Oak 2-Drawer Wooden Bedside Nightstand", price: 220000, image: imgNightstandTable, description: "Compact modern bedroom bedside table featuring two smooth-gliding storage drawers with gold alloy knobs and solid oak timber construction." },
-  { name: "Multi-Tier Ventilated Wooden Shoe Storage Cabinet", price: 260000, image: imgShoeCabinet, description: "Space-saving multi-layer entryway shoe rack cabinet with louvered ventilation doors to protect footwear from dust while maintaining airflow." }
+  { 
+    name: "Electric ICU Bedside Patient Vital Signs Monitor", 
+    price: 750000, 
+    image: imgVitalSignsMonitor, 
+    description: "Multi-parameter ICU patient monitor with high-resolution color LCD display for continuous ECG, SpO2, NIBP, temperature, and respiration rate tracking." 
+  },
+  { 
+    name: "Medical Grade 5L Portable Oxygen Concentrator Machine", 
+    price: 680000, 
+    image: imgOxygenConcentrator, 
+    description: "Continuous flow medical oxygen concentrator generator featuring high-purity molecular sieve, digital LCD flow control, and integrated nebulizer." 
+  },
+  { 
+    name: "Hospital Adjustable Manual 2-Crank Medical Patient Bed", 
+    price: 620000, 
+    image: imgHospitalPatientBed, 
+    description: "Dual-crank hospital ward bed with smooth elevation for backrest and leg sections, collapsible aluminum safety side rails, and high-density medical mattress." 
+  },
+  { 
+    name: "Clinical Laboratory Centrifuge for Blood Plasma & Serology", 
+    price: 540000, 
+    image: imgMedicalCentrifuge, 
+    description: "Digital benchtop clinical centrifuge machine with programmable speed timer and angled rotor for separating blood serum, plasma, and urine samples." 
+  },
+  { 
+    name: "Medical Stainless Steel Hospital Dressing Trolley Cart", 
+    price: 460000, 
+    image: imgHospitalTrolleyCart, 
+    description: "Two-tier heavy-gauge stainless steel hospital surgical dressing utility trolley cart with security guardrails, instrument drawer, and silent locking wheels." 
+  },
+  { 
+    name: "Pharmacy Glass Door Medical Vaccine & Medicine Refrigerator", 
+    price: 420000, 
+    image: imgPharmacyRefrigerator, 
+    description: "Specialized pharmacy temperature-controlled vaccine cooler with double-layer heated glass door, microcomputer digital thermostat, and audible alarm system." 
+  },
+  { 
+    name: "Wireless Portable Ultrasonic B-Mode Scanner Probe Device", 
+    price: 380000, 
+    image: imgUltrasoundScanner, 
+    description: "Pocket-sized wireless ultrasound transducer probe device compatible with mobile tablets for abdominal, obstetric, and vascular clinical diagnostics." 
+  },
+  { 
+    name: "Digital Benchtop Autoclave Medical Steam Sterilizer", 
+    price: 340000, 
+    image: imgAutoclaveSterilizer, 
+    description: "High-pressure automatic steam autoclave sterilizer with digital temperature control and stainless steel pressure chamber for surgical and dental tools." 
+  },
+  { 
+    name: "Hospital Stainless Steel Transport Wheelchair with Footrests", 
+    price: 280000, 
+    image: imgHospitalWheelchair, 
+    description: "Chrome-plated stainless steel hospital transport wheelchair featuring waterproof leatherette seat, companion handbrakes, and swing-away footrests." 
+  },
+  { 
+    name: "Pharmacy Precision Analytical Electronic Balance Scale", 
+    price: 240000, 
+    image: imgPharmacyBalance, 
+    description: "High-precision 0.001g digital laboratory analytical scale with glass draft shield, tare function, and multi-unit display for pharmaceutical compounding." 
+  },
+  { 
+    name: "Professional Medical ENT Diagnostic Ophthalmoscope & Otoscope Kit", 
+    price: 190000, 
+    image: imgOtoscopeSet, 
+    description: "Fiber-optic clinical diagnostic ophthalmoscope and otoscope examination kit with LED illumination and hard protective carrying case." 
+  },
+  { 
+    name: "Handheld Medical Infrared Vein Finder Illuminator Device", 
+    price: 150000, 
+    image: imgVeinFinderDevice, 
+    description: "Portable infrared vein locator illuminator projecting safe vascular mapping light on patient skin for painless intravenous cannulation and blood drawing." 
+  }
 ];
 
 // Procedural generator for infinite continuous rotations (NEVER uses old products)
 let proceduralCounter = 50;
 export function generateFreshProceduralProduct(category: "home" | "tech" | "industrial", usedKeys: Set<string>): ProductTemplate {
-  const homeBases = ["Demolition Jackhammer", "Inverter Arc Welder", "Metal Cut-Off Saw", "Cordless Hammer Drill", "Concrete Mixer Machine", "Green Laser Level", "Ceramic Tile Cutter", "Concrete Vibrator Poker", "Telescopic Ladder", "Angle Metal Grinder", "Mechanics Tool Box", "Air Compressor Tank"];
-const techBases = ["Folding Treadmill", "Power Squat Rack", "Rowing Machine", "Spin Exercise Bike", "Olympic Barbell Set", "Weight Workout Bench", "Boxing Punching Bag", "Cast Iron Dumbbells", "Cardio Stair Stepper", "Cable Pulley System", "Elliptical Trainer", "Pull-Up Dip Tower"];
-const industrialBases = ["Office Chair", "Dining Table", "Accent Armchair", "Coffee Table", "Wardrobe Closet", "Standing Desk", "Bed Frame", "Bookshelf Rack", "TV Console", "Patio Sofa", "Nightstand Table", "Shoe Cabinet"];
+  const homeBases = ["Gold Metal Detector", "XRF Ore Analyzer", "Jaw Ore Crusher", "Pneumatic Rock Drill", "Diamond Core Drill", "Centrifugal Gold Concentrator", "Mining Slurry Pump", "Gemstone Purity Tester", "Mineral Stereomicroscope", "Mining Ventilation Fan", "Gold Sluice Box", "Hydrostatic Gravity Balance"];
+const techBases = ["Hydraulic Pallet Jack", "Electric Cargo Winch", "Aluminum Loading Ramp", "Stair Climbing Trolley", "Roof Cargo Carrier", "Machinery Moving Skates", "Hitch Cargo Carrier", "Folding Platform Cart", "Crane Freight Scale", "Truck Cargo Tarpaulin", "Industrial Hand Truck", "Cargo Ratchet Straps"];
+const industrialBases = ["Patient Vital Monitor", "Oxygen Concentrator", "Hospital Ward Bed", "Clinical Centrifuge", "Medical Dressing Trolley", "Pharmacy Refrigerator", "Ultrasound Scanner Probe", "Autoclave Steam Sterilizer", "Medical Transport Wheelchair", "Pharmacy Analytical Balance", "Diagnostic ENT Set", "Infrared Vein Finder"];
 
   const modifiers = ["Pro", "Max", "Plus", "Ultra", "Elite", "Premium", "HD"];
 
@@ -664,6 +799,8 @@ const RAW_FIRST_NAMES_DB: { first: string; gender: "male" | "female"; country: s
   { first: "Oumou", gender: "female", country: "Mali", flag: "🇲🇱", city: "Sikasso" },
   { first: "Chuka", gender: "male", country: "Nigeria", flag: "🇳🇬", city: "Lagos" },
   { first: "Ngozi", gender: "female", country: "Nigeria", flag: "🇳🇬", city: "Abuja" },
+  { first: "Oluwaseun", gender: "male", country: "Nigeria", flag: "🇳🇬", city: "Ibadan" },
+  { first: "Chioma", gender: "female", country: "Nigeria", flag: "🇳🇬", city: "Enugu" },
   { first: "Mwangi", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Nairobi" },
   { first: "Njeri", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Mombasa" },
   { first: "Kiprono", gender: "male", country: "Kenya", flag: "🇰🇪", city: "Eldoret" },
@@ -672,12 +809,26 @@ const RAW_FIRST_NAMES_DB: { first: string; gender: "male" | "female"; country: s
   { first: "Achieng", gender: "female", country: "Kenya", flag: "🇰🇪", city: "Kisumu" },
   { first: "Kato", gender: "male", country: "Uganda", flag: "🇺🇬", city: "Kampala" },
   { first: "Babirye", gender: "female", country: "Uganda", flag: "🇺🇬", city: "Entebbe" },
+  { first: "Muwonge", gender: "male", country: "Uganda", flag: "🇺🇬", city: "Jinja" },
+  { first: "Nakato", gender: "female", country: "Uganda", flag: "🇺🇬", city: "Mbarara" },
   { first: "Bosco", gender: "male", country: "Rwanda", flag: "🇷🇼", city: "Kigali" },
   { first: "Chantal", gender: "female", country: "Rwanda", flag: "🇷🇼", city: "Butare" },
+  { first: "Kagame", gender: "male", country: "Rwanda", flag: "🇷🇼", city: "Gisenyi" },
+  { first: "Uwase", gender: "female", country: "Rwanda", flag: "🇷🇼", city: "Musanze" },
   { first: "Sipho", gender: "male", country: "South Africa", flag: "🇿🇦", city: "Johannesburg" },
   { first: "Thandi", gender: "female", country: "South Africa", flag: "🇿🇦", city: "Cape Town" },
+  { first: "Bongani", gender: "male", country: "South Africa", flag: "🇿🇦", city: "Durban" },
+  { first: "Nomvula", gender: "female", country: "South Africa", flag: "🇿🇦", city: "Pretoria" },
   { first: "Mulenga", gender: "male", country: "Zambia", flag: "🇿🇲", city: "Lusaka" },
   { first: "Mutale", gender: "female", country: "Zambia", flag: "🇿🇲", city: "Ndola" },
+  { first: "Chileshe", gender: "male", country: "Zambia", flag: "🇿🇲", city: "Kitwe" },
+  { first: "Chipo", gender: "female", country: "Zambia", flag: "🇿🇲", city: "Livingstone" },
+  { first: "Kwame", gender: "male", country: "Ghana", flag: "🇬🇭", city: "Accra" },
+  { first: "Abena", gender: "female", country: "Ghana", flag: "🇬🇭", city: "Kumasi" },
+  { first: "Kofi", gender: "male", country: "Ghana", flag: "🇬🇭", city: "Takoradi" },
+  { first: "Akua", gender: "female", country: "Ghana", flag: "🇬🇭", city: "Cape Coast" },
+  { first: "Ilunga", gender: "male", country: "Congo (DRC)", flag: "🇨🇩", city: "Kolwezi" },
+  { first: "Mbuyi", gender: "female", country: "Congo (DRC)", flag: "🇨🇩", city: "Mbuji-Mayi" },
   { first: "Yamikani", gender: "male", country: "Malawi", flag: "🇲🇼", city: "Lilongwe" },
   { first: "Chisomo", gender: "female", country: "Malawi", flag: "🇲🇼", city: "Blantyre" },
   { first: "Jose", gender: "male", country: "Angola", flag: "🇦🇴", city: "Luanda" },
@@ -916,311 +1067,291 @@ export interface CommentTemplateDef {
 
 export const rawSwahiliCommentsData: CommentTemplateDef[] = [
   {
-    name: "Gasto Mhagama",
-    text: "Machozi yamenitoka nilipoona message ya M-Pesa ikisoma 62,000/= jioni hii. Nilikuwa sina hata senti ya dawa ya mtoto wangu 😭🙏 Mungu awabariki sana OrderVerify.",
+    name: "Agness Sanga",
+    text: "Nilikuwa na hofu sana mara ya kwanza kuweka hela, lakini baada ya kuthibitisha oda 5 tu nikajaribu kutoa, M-Pesa ikaingia papo hapo! Roho yangu sasa imetulia kabisa 🙏✨",
     time: "Dakika 3 zilizopita",
     replies: [
-      { name: "Bahati Kishimba", text: "Pole sana ndugu, Mungu amponye mtoto. Hapa kweli panasaidia watu.", time: "Dakika 1 iliyopita" }
+      { name: "Zephania Msuya", text: "Hata mimi mwanzo nilitetemeka, ila sasa nimezowea kupokea kila jioni 🤝", time: "Dakika 1 iliyopita" }
     ]
   },
   {
-    name: "Naomi Mrope",
-    text: "Pesa imeingia fasta mnoo bila chenga yoyote 🔥💯",
-    time: "Dakika 5 zilizopita",
+    name: "Benito Nkondola",
+    text: "Kazi imeenda freshi sana, kamisheni imetua chap ⚡💵",
+    time: "Dakika 6 zilizopita",
     replies: []
   },
   {
-    name: "Herieth Mkuki",
-    text: "Nilishawahi kupoteza hela kwenye mifumo mingi ya ovyo nikasema sitakaa nijaribu tena mtandaoni. Lakini hapa nimejionea tofauti, kila unachokifanyia kazi unalipwa papo hapo bila visingizio 👏",
-    time: "Dakika 8 zilizopita",
+    name: "Cecilia Mwambungu",
+    text: "Mwanangu alikuwa anafukuzwa shule kwa sababu ya ada ya elfu 45, nikakaa nikatulia na simu yangu hapa nikamaliza oda zote, nikatoa hela nikamlipia mchana huu huu. Asanteni sana OrderVerify kwa kuokoa familia yangu 😭❤️",
+    time: "Dakika 9 zilizopita",
     replies: []
   },
   {
-    name: "Shedrack Ndelwa",
-    text: "Hii ni legit kabisa, nishatoa mara tatu wiki hii tu 💸",
-    time: "Dakika 12 zilizopita",
+    name: "Damian Mwaihojo",
+    text: "Hakuna longolongo, bofya thibitisha, hela yako inaingia kwenye wallet bila kusumbua 💯",
+    time: "Dakika 14 zilizopita",
     replies: []
   },
   {
-    name: "Loveness Mrema",
-    text: "Leo nimeamka saa kumi na moja alfajiri nikatuliza akili kuthibitisha oda zangu zote, salio likasoma 48,500/= na tayari imefika Tigo Pesa yangu asubuhi hii. Najisikia amani sana ❤️",
-    time: "Dakika 16 zilizopita",
+    name: "Elizabetha Mwakatobe",
+    text: "Hii ndio tovuti ya kwanza ya kazi za mtandaoni niliyojaribu ikawa haina ujanja ujanja. Kila kitu kinajieleza waziwazi na hakuna siri 👌",
+    time: "Dakika 18 zilizopita",
     replies: []
   },
   {
-    name: "Mussa Luoga",
-    text: "Wale mnaosita mtachelewa wenyewe, fursa ndio hii.",
-    time: "Dakika 20 zilizopita",
+    name: "Filbert Simkoko",
+    text: "Airtel Money imelia hapa muda huu! Wikiendi inaanza kwa amani 🍻🔥",
+    time: "Dakika 22 zilizopita",
     replies: []
   },
   {
-    name: "Rosemary Haule",
-    text: "Nilituma maombi ya kutoa nikawa na wasiwasi moyoni, sekunde kadhaa tu mlio wa simu ukaniambia pesa imeingia! Nilipiga kelele ya furaha sebule nzima 🥹💃",
-    time: "Dakika 25 zilizopita",
+    name: "Gaudensia Mwaikenda",
+    text: "Kusema kweli nilikuwa siamini ndugu yangu aliponiambia. Ila leo nimejionea mwenyewe maajabu, nimepata 38,500 yangu safi kabisa. Hakuna kitu kizuri kama kujitegemea 🌸",
+    time: "Dakika 26 zilizopita",
     replies: []
   },
   {
-    name: "Bright Mwasumbi",
-    text: "Hakuna longolongo, kazi inapimwa kwa matokeo ⚡",
-    time: "Dakika 29 zilizopita",
+    name: "Hamisi Mwakasungula",
+    text: "Kazi safi na malipo ya uhakika kabisa 👍",
+    time: "Dakika 31 zilizopita",
     replies: []
   },
   {
-    name: "Jenipher Nchimbi",
-    text: "Mimi nilikuwa na shida ya ada ya mdogo wangu ya chuo, wiki hii nimejikusanyia kamisheni zote nikamlipia bila kwenda kukopa kwa riba. Asanteni sana kwa kuweka mfumo huu wazi 🙏",
-    time: "Dakika 34 zilizopita",
+    name: "Ivona Mwampashi",
+    text: "Nilikuwa na stress za kodi ya chumba mwezi huu, kupitia hizi oda nimeweza kukamilisha kiasi kilichobaki bila kwenda kuomba mtu. Mungu awazidishie sana 🙏💼",
+    time: "Dakika 35 zilizopita",
     replies: [
-      { name: "Buyamba Malale", text: "Hongera sana dada, kusaidia familia ndio jambo kubwa zaidi 👏", time: "Dakika 22 zilizopita" }
+      { name: "Fortunata Mlay", text: "Hongera sana dada, ukipambana kwa njia halali milango inafunguka 👏", time: "Dakika 20 zilizopita" }
     ]
   },
   {
-    name: "Godlisten Mtei",
-    text: "Nimeshapokea changu cha leo, kazi inaendelea 💰",
-    time: "Dakika 38 zilizopita",
+    name: "Josephat Mwazembe",
+    text: "System ipo smart sana na inajibu haraka bila kuganda 📱⚡",
+    time: "Dakika 39 zilizopita",
     replies: []
   },
   {
-    name: "Jesca Ndunguru",
-    text: "Nilikuwa na wasiwasi mkubwa sana kabla ya kuanza, lakini nilipoongea na wateja na kuthibitisha oda zangu, kila kitu kikawa wazi na salio likapanda papo hapo. Nimeridhika kwa 100%!",
-    time: "Dakika 42 zilizopita",
+    name: "Kurwa Mwaisumo",
+    text: "Niliwaelekeza mafundi wenzangu wawili gereji, sasa hivi wote wanachekelea usiku huu baada ya kuona ujumbe wa Tigo Pesa 😅👏",
+    time: "Dakika 44 zilizopita",
     replies: []
   },
   {
-    name: "Amani Makassy",
-    text: "Tigo Pesa imelia sasa hivi 🔔 safi sana!",
-    time: "Dakika 47 zilizopita",
+    name: "Lazaro Kayange",
+    text: "Pesa imeingia mara moja bila usumbufu, asanteni sana 💸",
+    time: "Dakika 48 zilizopita",
     replies: []
   },
   {
-    name: "Leokadia Komba",
-    text: "Kama mama wa nyumbani mwenye watoto wadogo siwezi kwenda mjini kila siku, lakini hapa nikiwa chumbani na simu yangu tu napata matumizi ya siku bila kumtegemea mtu yeyote ✨",
-    time: "Dakika 52 zilizopita",
+    name: "Modesta Mbwambo",
+    text: "Kitu ninachokipenda ni uwazi wa nchi za wateja na picha halisi za bidhaa. Unajua kabisa unafanya nini na unalipwa nini, haina masihara kabisa 🌟",
+    time: "Dakika 53 zilizopita",
     replies: []
   },
   {
-    name: "Stephano Mlewa",
-    text: "Mtandao upo makini sana, hakuna kukwama wala nini.",
-    time: "Dakika 58 zilizopita",
+    name: "Novatus Sikana",
+    text: "Halopesa imesoma sekunde mbili zilizopita, full furaha 🥳",
+    time: "Dakika 57 zilizopita",
     replies: []
   },
   {
-    name: "Theresia Ngwada",
-    text: "Jana nilinunua unga, mafuta na sukari kwa pesa ya kamisheni nilizopata hapa. Watoto wamekula na wameshiba, roho yangu imetulia sana leo 🍲❤️",
+    name: "Olipa Msukwa",
+    text: "Nilipoteza kazi mwezi uliopita nikawa sina pa kuanzia. Hii kazi ya kuthibitisha oda imenirudishia matumaini na sasa nina uhakika wa kula kila siku bila kuombaomba ❤️🙌",
     time: "Saa 1 lililopita",
     replies: []
   },
   {
-    name: "Eliazer Matimbwa",
-    text: "Ukweli uliopo hapa ni kwamba hakuna anayedhulumiwa jasho lake 🤝",
+    name: "Paulo Siyame",
+    text: "Sio maneno mengi, hapa ni matokeo tu! 🚀",
     time: "Saa 1 lililopita",
     replies: []
   },
   {
-    name: "Rebina Chiduo",
-    text: "Watu wengi mitandaoni ni waongo, lakini hawa OrderVerify wamenifanya niamini tena teknolojia. Pesa yangu ya kwanza imeingia bila hata senti kupunguzwa 📱✨",
+    name: "Regina Mwashinga",
+    text: "Kama unataka uhuru wa kifedha bila kubanwa ofisini, hii ndio fursa yenyewe. Nafanya nikiwa nyumbani na wanangu 🏠👶✨",
     time: "Saa 1 lililopita",
     replies: []
   },
   {
-    name: "Melkior Ngaponda",
-    text: "Kazi rahisi inayolipa kwa uaminifu kabisa 🔥",
+    name: "Sadiki Mwakitalu",
+    text: "Nilitest kutoa 25,000/= nikaona inaingia chap, nikaendelea na oda zilizobaki. Leo niko na amani tele 💵",
     time: "Saa 2 yaliyopita",
     replies: []
   },
   {
-    name: "Blandina Mpinga",
-    text: "Kila nikimaliza kuthibitisha oda najisikia mwenye fahari kubwa kwa sababu najua naingiza kipato halali kwa mikono yangu mwenyewe. Hakuna kitu kitamu kama pesa ya jasho lako mwenyewe 🌸",
-    time: "Saa 2 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Ignas Kibiki",
-    text: "Withdrawal yangu imekuja ndani ya dakika 2 tu! Hii spidi ni ya kipekee ⚡🚀",
-    time: "Saa 2 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Elizabeth Mwita",
-    text: "Niliwaangalia wenzangu kwa siku mbili nikidhani wanajifurahisha tu. Nilipoamua kuweka mtaji wangu wa 14,500/= na kuanza, nimeona maajabu! Nimesharudisha mtaji wangu na faida juu 🙌",
+    name: "Teopista Mwansasu",
+    text: "Nilidhani nitasubiri masaa mengi kama tovuti nyingine, lakini hapa ukibonyeza kutoa ndani ya sekunde kumi ujumbe wa benki/simu upo hewani! Nimependa sana huduma yao ⏱️❤️",
     time: "Saa 2 yaliyopita",
     replies: [
-      { name: "Ndaki Kadushi", text: "Hata mimi niliwahi kuchelewa kwa uoga, ila sasa nina amani tele.", time: "Saa 1 lililopita" }
+      { name: "Geraldina Mushi", text: "Kweli kabisa, kasi yao ya malipo ndio inayonifanya nibaki hapa kila siku 💯", time: "Saa 1 lililopita" }
     ]
   },
   {
-    name: "Frank Marwa",
-    text: "Nimevuta 55k yangu mapema, wikiendi hii niko safi kabisa 🍻",
+    name: "Urban Mwalongo",
+    text: "Oda za leo zimetema faida nzuri mno, wiki imeanza vizuri 🔥📈",
+    time: "Saa 2 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Valery Mwakagenda",
+    text: "Jana usiku gesi iliisha nikashindwa kupika, leo asubuhi nimethibitisha oda zangu nikatoa hela nikanunua mtungi mpya wa gesi na matumizi. Nawashukuru sana kwa uaminifu wenu 🍲🙏",
     time: "Saa 3 yaliyopita",
     replies: []
   },
   {
-    name: "Victoria Chacha",
-    text: "Nilikuwa na deni lililoninyima usingizi kwa wiki mbili. Leo baada ya kukamilisha oda zangu zote nimelipa deni lote na bado nimebakiwa na akiba kwenye simu 😭 Asante sana OrderVerify.",
+    name: "Wilbrod Maleko",
+    text: "Uhakika asilimia 100, hakuna danadana 👊",
     time: "Saa 3 yaliyopita",
     replies: []
   },
   {
-    name: "Gervas Wambura",
-    text: "Huduma yao haina kona kona, kila kitu kinajieleza wazi 👍",
+    name: "Yakobo Kilawe",
+    text: "Kila siku asubuhi naanza hapa kabla ya kuelekea shambani, faida inayonisaidia kununua mbolea na pembejeo 🌾🚜",
     time: "Saa 3 yaliyopita",
     replies: []
   },
   {
-    name: "Edna Bhoke",
-    text: "Nawashauri vijana wenzangu msipoteze muda kwenye mambo yasiyo na faida, chukua simu yako uingie hapa uanze kujiingizia kipato cha halali kila siku 💼💯",
-    time: "Saa 3 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Fredrick Matiko",
-    text: "Halopesa imesoma sekunde hii 🥳 nimeridhika sana!",
+    name: "Zabron Lyakurwa",
+    text: "Nimeshapokea changu cha leo, kazi inaendelea kwa morali ya juu 💰",
     time: "Saa 4 yaliyopita",
     replies: []
   },
   {
-    name: "Lucy Robi",
-    text: "Mwanzo nilikuwa siamini kama mtu anaweza kulipwa kwa kuthibitisha oda tu, lakini nilipoingiza namba yangu na kupokea malipo yangu ya kwanza, nimegundua kuna fursa halisi bado duniani ❤️",
+    name: "Agapiti Minja",
+    text: "Mwanzoni nilikuwa na maswali mengi sana, nikaona nisijilaumu ngoja nijaribu. Leo ni siku ya saba na sijawahi kukosa malipo hata mara moja. Ni ukweli mtupu! 🛡️✨",
     time: "Saa 4 yaliyopita",
     replies: []
   },
   {
-    name: "Jackson Nyanganyi",
-    text: "Hapa ndio sehemu sahihi, hakuna hadithi nyingi 👊",
+    name: "Blandis Shirima",
+    text: "Wale wanaolalamika hakuna kazi mitandaoni hawajafika hapa tu, kazi zipo na zinalipa vizuri 💼",
     time: "Saa 4 yaliyopita",
     replies: []
   },
   {
-    name: "Belinda Mwera",
-    text: "Nilipomaliza oda zote za leo nikaangalia salio nikakuta 51,000/=. Nimebofya withdraw nikafumba macho, kufungua nikakuta notification ya Airtel Money ipo tayari! Nimeruka kwa furaha 💃✨",
+    name: "Costantina Shayo",
+    text: "Nimevuta 52,000/= yangu asubuhi hii, furaha niliyonayo haielezeki 💃🎉",
     time: "Saa 5 yaliyopita",
     replies: []
   },
   {
-    name: "Nelson Msangi",
-    text: "Uaminifu wa hali ya juu kabisa, asanteni sana timu ya OrderVerify.",
+    name: "Dionis Tarimo",
+    text: "Mfumo wa salama na wa uhakika kabisa, nimeridhika sana 👍",
     time: "Saa 5 yaliyopita",
     replies: []
   },
   {
-    name: "Juliana Makori",
-    text: "Nimepata ada ya mtihani wa ufundi bila kusumbuka. Nilikosa pa kukimbilia lakini hii site imenifuta machozi 🙏",
+    name: "Evarist Kavishe",
+    text: "Nimefanya verification ya bidhaa za hospitali na tech, kila kitu kiko clear. Nimeshalipwa faida yangu yote bila kupunguzwa hata senti moja 🏥🩺💵",
     time: "Saa 5 yaliyopita",
     replies: []
   },
   {
-    name: "Boniface Rioba",
-    text: "Kamisheni zote zinaingia kwenye muda sahihi kabisa ⏱️💵",
+    name: "Faustina Tesha",
+    text: "Nikiwa chuoni nilikuwa nachangiwa matumizi na wazazi wangu ambao wako kijijini, lakini sasa najinunulia vitabu na vocha mwenyewe kupitia faida ya hapa. Nawapenda sana OrderVerify 📚❤️",
     time: "Saa 6 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Miriam Machera",
-    text: "Kitu ninachokipenda ni jinsi kila oda inavyoonyesha nchi ya mteja, bidhaa na thamani yake. Mfumo wao uko makini na wa uwazi kabisa, huwezi kujuta hata kidogo.",
-    time: "Saa 6 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Alfred Mohere",
-    text: "Hela ya lunch na bili ndogo ndogo haisumbui tena 🍗👌",
-    time: "Saa 6 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Eunice Ghati",
-    text: "Mume wangu aliniambia kuwa ni uongo, nilipoenda kumwonyesha ujumbe wa M-Pesa wa laki moja na elfu thelathini niliyotoa hapa, akabaki ameduwaa! Sasa hivi na yeye anataka kuanza 😅👏",
-    time: "Saa 7 yaliyopita",
     replies: [
-      { name: "Mihayo Ngwigulu", text: "Hahaha safi sana dada, vitendo huongea zaidi ya maneno 👏", time: "Saa 5 yaliyopita" }
+      { name: "Honesta Kimario", text: "Hongera sana, unawapunguzia wazazi mzigo mkubwa sana 👏", time: "Saa 4 yaliyopita" }
     ]
   },
   {
-    name: "Dickson Keraryo",
-    text: "Kazi imeenda shwari, malipo yamefika chap!",
+    name: "Gordian Urassa",
+    text: "M-Pesa imelia sekunde chache zilizopita, kazi safi 📲🔥",
+    time: "Saa 6 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Hiltruda Mchome",
+    text: "Nimetumia nusu saa tu kuthibitisha oda zangu zote, salio likasoma vizuri na nimezihamishia kwenye akaunti yangu bila shida yoyote ⏱️👌",
+    time: "Saa 6 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Isidory Lyimo",
+    text: "Huduma yao haina kona kona, ukifanya kazi unalipwa mara moja 🤝",
     time: "Saa 7 yaliyopita",
     replies: []
   },
   {
-    name: "Frola Nyandwi",
-    text: "Sina maneno mengi zaidi ya kusema asante. Nimepata mtaji wa kuongezea kwenye kibanda changu cha mbogamboga kupitia faida ya hapa 🍅🥬❤️",
+    name: "Julita Massawe",
+    text: "Nilipata dharura ya mgonjwa hospitali nikaishiwa fedha, nikakumbuka nina oda za leo ambazo sikuwa nimemaliza. Nikazithibitisha mara moja nikafanya withdrawal nikalipia matibabu. Mungu awabariki sana 😭🙏",
     time: "Saa 7 yaliyopita",
     replies: []
   },
   {
-    name: "Patrick Sarya",
-    text: "Oda za leo zimetema faida nzuri sana 📈",
+    name: "Kastori Maro",
+    text: "Pesa ya mboga na matumizi ya nyumbani haisumbui tena 🍗🥬",
+    time: "Saa 7 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Laurencia Mosha",
+    text: "Kila nikiamka asubuhi kitu cha kwanza ni kufungua hapa kuangalia oda mpya. Siku yangu haiwezi kukamilika bila kupokea kamisheni zangu ☀️✨",
     time: "Saa 8 yaliyopita",
     replies: []
   },
   {
-    name: "Suzana Mwasi",
-    text: "Kujisajili ni rahisi na kuanza ni papo hapo. Niliwaelekeza na wenzangu wawili mtaani wote sasa wanafurahia faida zao kila jioni ✨",
+    name: "Melania Mmbando",
+    text: "Tigo Pesa imetua chap chap! Nimefurahi mnoo 💃🥳",
     time: "Saa 8 yaliyopita",
     replies: []
   },
   {
-    name: "Raymond Werema",
-    text: "Uhakika asilimia mia moja, hakuna longo longo 💯",
+    name: "Nestory Msele",
+    text: "Kazi rahisi, maelekezo yako wazi na malipo ni ya papo kwa papo bila usumbufu wowote ⚡",
     time: "Saa 8 yaliyopita",
     replies: []
   },
   {
-    name: "Alice Nyankena",
-    text: "Leo nimeamka nikakuta oda mpya zimeongezwa, nimefanya kwa umakini mkubwa na sasa salio langu limeshiba vizuri sana. Kazi inaendelea kwa morali ya juu! 🌟",
+    name: "Odilia Macha",
+    text: "Mimi nilikuwa muoga sana wa vitu vya mtandaoni kwa sababu ya matapeli wengi, lakini hapa nimepata amani ya kweli. Hakuna mtu anayekudai ada ya kijinga, unafanya kazi unalipwa jasho lako mwenyewe 🌸💯",
+    time: "Saa 9 yaliyopita",
+    replies: [
+      { name: "Jovita Kisamo", text: "Umesema kweli tupu dada, hapa panaheshimu jasho la mtu 🙌", time: "Saa 6 yaliyopita" }
+    ]
+  },
+  {
+    name: "Pantaleo Meela",
+    text: "Kazi imeenda kama ilivyopangwa, asanteni kwa huduma bora 👊",
     time: "Saa 9 yaliyopita",
     replies: []
   },
   {
-    name: "Charles Marwa",
-    text: "Hii ndio fursa bora zaidi niliyokutana nayo mwaka huu 🚀",
-    time: "Saa 9 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Mercy Magabe",
-    text: "Nilikua sina hata mia mfukoni leo asubuhi, ila sasa hivi nina elfu 39 yangu niliyotoa safi kabisa. Hakuna anayeweza kuelewa furaha niliyonayo leo hii 😭❤️",
+    name: "Romwald Temu",
+    text: "Nimenunua dawa na vifaa vya watoto wangu shuleni leo kupitia malipo haya. Hakuna furaha kama ya mzazi kuona anawahudumia watoto wake bila kuombaomba 🎒✏️❤️",
     time: "Saa 10 yaliyopita",
     replies: []
   },
   {
-    name: "Pius Mogendi",
-    text: "Nimeridhika sana na utaratibu wa tovuti hii, iko salama na rahisi.",
+    name: "Siana Nkya",
+    text: "Nimepokea ujumbe wa Airtel Money sasa hivi, asanteni sana kwa uaminifu wenu mkubwa 📱✨",
     time: "Saa 10 yaliyopita",
     replies: []
   },
   {
-    name: "Doto Masanja",
-    text: "Tigo Pesa yangu imeshiba leo 💰🔥 Kila siku ni siku ya mavuno hapa!",
+    name: "Theobald Kweka",
+    text: "Oda mpya za leo zimenilipa vizuri sana, asanteni timu nzima 📈💵",
     time: "Saa 11 yaliyopita",
     replies: []
   },
   {
-    name: "Kulwa Masalu",
-    text: "Niliacha kazi yangu ya ofisini nikiwa na stress kubwa, lakini kupitia kufanya uthibitisho wa oda hapa nina uhakika wa kula na kulipa pango bila presha yoyote 🙏",
+    name: "Ursula Kaaya",
+    text: "Nilijaribu kidogo kuona kama ni kweli, nilipoona hela inaingia kwenye simu yangu huku nikiwa nimelala kitandani nikashtuka kwa furaha! Sasa hivi naanza siku kwa kicheko kikubwa 😅💃",
     time: "Saa 11 yaliyopita",
-    replies: []
+    replies: [
+      { name: "Leandri Mringo", text: "Hahaha karibu sana kwenye kundi la wanaoanza siku na tabasamu 🤝", time: "Saa 8 yaliyopita" }
+    ]
   },
   {
-    name: "Shija Bundala",
-    text: "Pesa imeingia mara moja bila usumbufu ⚡",
+    name: "Venant Assenga",
+    text: "Uaminifu wa kiwango cha juu sana, endeleeni na moyo huu huu 🌟👏",
     time: "Saa 12 yaliyopita",
     replies: []
   },
   {
-    name: "Ngwalu Mayunga",
-    text: "Kila nikipata changamoto huduma kwa wateja wananijibu mara moja kwa ustaarabu na kunisaidia. Kampuni yenye kujali watu kama hii ni nadra sana kuiona 🤝✨",
+    name: "Walburga Kimambo",
+    text: "Leo nimethibitisha oda zangu zote 12 za ukurasa wa vifaa, kamisheni yangu imesoma na tayari nimeitoa kwenye M-Pesa. Kila kitu kiko salama na cha kuaminika 100% ❤️🔥",
     time: "Saa 12 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Jilala Buluda",
-    text: "Mambo ni moto huku, usilale na njaa wakati fursa ipo mkononi mwako 🔥",
-    time: "Saa 13 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Minza Lushagija",
-    text: "Nilipoanza nilikuwa na mashaka tele, lakini leo hii nimekuwa shuhuda hai. Asante sana OrderVerify kwa kuendelea kuwa waaminifu kwetu sote ❤️👏",
-    time: "Saa 13 yaliyopita",
     replies: []
   }
 ];
@@ -1271,76 +1402,76 @@ export function buildCompliantComments(usedBaseNames: Set<string>, usedFullNames
 // ============================================================================
 
 export const RAW_LIVE_PAYOUT_MEMBERS: { name: string; amount: number }[] = [
-  { name: "Meshack Mgalla", amount: 24500 },
-  { name: "Tabitha Mwambije", amount: 18000 },
-  { name: "Zakaria Kingu", amount: 31500 },
-  { name: "Rahabu Chambo", amount: 16500 },
-  { name: "Lameck Ndimbo", amount: 42000 },
-  { name: "Hellen Ndile", amount: 21000 },
-  { name: "Eliud Kasonso", amount: 36000 },
-  { name: "Sikudhani Mwakipesile", amount: 19500 },
-  { name: "Festus Mwakyoma", amount: 48000 },
-  { name: "Frida Kalambo", amount: 27500 },
-  { name: "Titus Mwalukasa", amount: 33000 },
-  { name: "Mwajuma Kipanga", amount: 22000 },
-  { name: "Gideon Mwaisemba", amount: 51500 },
-  { name: "Recho Malila", amount: 17500 },
-  { name: "Christopher Simbeye", amount: 29000 },
-  { name: "Stella Mwaipopo", amount: 25000 },
-  { name: "Boaz Mwasyoke", amount: 44500 },
-  { name: "Ashura Mdegela", amount: 20000 },
-  { name: "Samson Mwanyanje", amount: 38500 },
-  { name: "Aziza Mwangosi", amount: 23500 },
-  { name: "Enock Sanga", amount: 46000 },
-  { name: "Zuhia Mwakagenda", amount: 15500 },
-  { name: "Joel Mwalongo", amount: 34500 },
-  { name: "Furaha Mwansasu", amount: 28000 },
-  { name: "Alex Mwakitalu", amount: 56000 },
-  { name: "Penina Siyame", amount: 19000 },
-  { name: "Japhet Mwashinga", amount: 37500 },
-  { name: "Rhoda Mwakalindile", amount: 26000 },
-  { name: "Ephraim Sikana", amount: 49000 },
-  { name: "Saumu Msukwa", amount: 18500 },
-  { name: "Gerald Mwambungu", amount: 32000 },
-  { name: "Atupelye Mwaihojo", amount: 22500 },
-  { name: "Leonard Mwakatobe", amount: 53000 },
-  { name: "Aneth Simkoko", amount: 21500 },
-  { name: "Amos Mwaikenda", amount: 39500 },
-  { name: "Tumpe Mwakasungula", amount: 17000 },
-  { name: "Antony Mwampashi", amount: 43000 },
-  { name: "Mwajabu Mwazembe", amount: 27000 },
-  { name: "Joshua Mwaisumo", amount: 47000 },
-  { name: "Nuru Kayange", amount: 20500 },
-  { name: "Philimon Mbwambo", amount: 35500 },
-  { name: "Khadija Nkondola", amount: 24000 },
-  { name: "Brian Kisamo", amount: 58000 },
-  { name: "Asnath Mlay", amount: 16000 },
-  { name: "Ebenezer Mringo", amount: 41000 },
-  { name: "Nemes Lyakurwa", amount: 23000 },
-  { name: "Erasmus Mushi", amount: 50500 },
-  { name: "Tegemea Minja", amount: 19500 },
-  { name: "Cosmas Kimario", amount: 36500 },
-  { name: "Anjelina Shirima", amount: 25500 },
-  { name: "Crispin Shayo", amount: 45000 },
-  { name: "Veridiana Tarimo", amount: 28500 },
-  { name: "Urbanus Kavishe", amount: 52000 },
-  { name: "Sarafina Tesha", amount: 18000 },
-  { name: "Faustine Urassa", amount: 39000 },
-  { name: "Leticia Mchome", amount: 22500 },
-  { name: "Dismas Lyimo", amount: 47500 },
-  { name: "Adela Massawe", amount: 21000 },
-  { name: "Albinus Maro", amount: 34000 },
-  { name: "Triphonia Mosha", amount: 26500 },
-  { name: "Valerian Mmbando", amount: 55000 },
-  { name: "Fabiola Msele", amount: 17500 },
-  { name: "Norbert Macha", amount: 40500 },
-  { name: "Goreth Meela", amount: 24500 },
-  { name: "Severin Temu", amount: 49500 },
-  { name: "Perpetua Nkya", amount: 20000 },
-  { name: "Protasi Kweka", amount: 37000 },
-  { name: "Prudencia Kaaya", amount: 23000 },
-  { name: "Cyprian Assenga", amount: 46500 },
-  { name: "Emiliana Kimambo", amount: 29500 }
+  { name: "Anord Mhagama", amount: 22500 },
+  { name: "Beatrice Kimaro", amount: 34000 },
+  { name: "Castor Mtweve", amount: 18500 },
+  { name: "Dorcas Mbwilo", amount: 41000 },
+  { name: "Edwin Lyatuu", amount: 27500 },
+  { name: "Flora Ndalama", amount: 15000 },
+  { name: "Geofrey Kinyaga", amount: 48000 },
+  { name: "Happy Mwashitete", amount: 31500 },
+  { name: "Isaya Mwankenja", amount: 52000 },
+  { name: "Judith Ndunguru", amount: 19500 },
+  { name: "Kelvin Msuvva", amount: 38000 },
+  { name: "Lilian Kavishe", amount: 24000 },
+  { name: "Mathias Mwakatobe", amount: 45000 },
+  { name: "Nehemia Songa", amount: 29000 },
+  { name: "Oliver Mwanisenga", amount: 33500 },
+  { name: "Prosper Mlay", amount: 51000 },
+  { name: "Queenie Mkenda", amount: 17500 },
+  { name: "Richard Mwakasege", amount: 43000 },
+  { name: "Scholastica Muro", amount: 26000 },
+  { name: "Thomas Msele", amount: 37500 },
+  { name: "Upendo Msolla", amount: 20500 },
+  { name: "Victor Mwita", amount: 46500 },
+  { name: "Witness Kileo", amount: 32000 },
+  { name: "Xavier Msacky", amount: 55000 },
+  { name: "Yohana Kibona", amount: 16000 },
+  { name: "Zena Mbise", amount: 28500 },
+  { name: "Abel Mwambapa", amount: 39000 },
+  { name: "Bertha Lyimo", amount: 21500 },
+  { name: "Cleophas Ngowi", amount: 47000 },
+  { name: "Diana Shirima", amount: 35000 },
+  { name: "Erick Minja", amount: 53500 },
+  { name: "Felista Tarimo", amount: 19000 },
+  { name: "Godfrey Maro", amount: 42500 },
+  { name: "Hadija Mremi", amount: 25000 },
+  { name: "Innocent Moshi", amount: 36000 },
+  { name: "Joyce Meela", amount: 14500 },
+  { name: "Kenneth Macha", amount: 49000 },
+  { name: "Leah Nkya", amount: 30000 },
+  { name: "Moses Kweka", amount: 56500 },
+  { name: "Nancy Assenga", amount: 23000 },
+  { name: "Oscar Kimambo", amount: 40000 },
+  { name: "Pauline Masawe", amount: 18000 },
+  { name: "Rajabu Mtei", amount: 37000 },
+  { name: "Suzan Mushi", amount: 27000 },
+  { name: "Tumaini Temu", amount: 44000 },
+  { name: "Veronica Tesha", amount: 22000 },
+  { name: "Walter Urassa", amount: 50000 },
+  { name: "Yustina Mchome", amount: 31000 },
+  { name: "Zacharia Mmbando", amount: 41500 },
+  { name: "Alicea Kaaya", amount: 17000 },
+  { name: "Barnaba Mrema", amount: 38500 },
+  { name: "Clara Shayo", amount: 28000 },
+  { name: "Dennis Kisamo", amount: 54000 },
+  { name: "Esteria Mwangosi", amount: 20000 },
+  { name: "Francis Mwanyanje", amount: 46000 },
+  { name: "Grace Mdegela", amount: 33000 },
+  { name: "Hemed Mwasyoke", amount: 26500 },
+  { name: "Irene Simbeye", amount: 58500 },
+  { name: "Justin Mwaisemba", amount: 35500 },
+  { name: "Kuluthum Malila", amount: 19500 },
+  { name: "Lucas Mwakyoma", amount: 47500 },
+  { name: "Martha Ndimbo", amount: 24500 },
+  { name: "Norbert Chambo", amount: 39500 },
+  { name: "Paschal Kingu", amount: 52500 },
+  { name: "Rachel Mwambije", amount: 16500 },
+  { name: "Simon Mgalla", amount: 43500 },
+  { name: "Tatu Kipanga", amount: 29500 },
+  { name: "Venance Mwalukasa", amount: 51500 },
+  { name: "Winfrida Kalambo", amount: 32500 },
+  { name: "Zakayo Kasonso", amount: 45500 }
 ];
 
 export function buildCompliantLivePayouts(usedBaseNames: Set<string>, usedFullNames: Set<string>): LivePayout[] {

@@ -234,15 +234,18 @@ function LiveClock() {
   const timeString = time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
 
   return (
-    <div className="bg-[#1C1D24] border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 relative z-0">
+    <div className="bg-[#1C1D24] border border-amber-500/30 rounded-2xl p-4 shadow-[0_4px_20px_rgba(0,0,0,0.35)] flex flex-col sm:flex-row items-center justify-between gap-4 relative z-0">
       <div className="flex items-center gap-3 w-full sm:w-auto">
-        <div className="bg-[#00E676]/20 p-2 rounded-lg shrink-0">
-          <ShoppingBag className="w-5 h-5 text-[#00E676] animate-bounce" />
+        <div className="bg-amber-400/20 border border-amber-400/30 p-2 rounded-xl shrink-0 shadow-[0_0_12px_rgba(251,191,36,0.2)]">
+          <ShoppingBag className="w-5 h-5 text-amber-400 animate-bounce" />
         </div>
         <div className="flex flex-col justify-center">
-          <span className="text-[#00E676] font-black text-xs sm:text-sm leading-snug tracking-wide flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#00E676] animate-pulse shrink-0"></span>
-            ORDER MPYA 24 ZIMEWEKWA KWENYE SITE THIBITISHA SASA UPATE KIPATO CHAKO ENJOY YOUR DAY WITH ORDERVERIFY
+          <span className="text-[#FFD700] font-black text-xs sm:text-sm leading-snug tracking-wide flex items-center gap-2 drop-shadow-[0_1px_6px_rgba(255,215,0,0.4)]">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#FFD700] animate-pulse shrink-0 shadow-[0_0_8px_#FFD700]"></span>
+            HABARI ZA MUDA HUU CHAMPION WETU ORDER ZIPO ZA KUTOSHA LEO
+          </span>
+          <span className="text-[#00FF88] text-xs sm:text-sm font-extrabold tracking-wide mt-1 drop-shadow-[0_1px_4px_rgba(0,255,136,0.3)]">
+            Thibitisha order za wateja wetu zilizopo leo na ulipwe
           </span>
         </div>
       </div>
@@ -651,7 +654,7 @@ function Dashboard() {
         </div>
 
         {/* Tutorial Video Section (Replacing sliding banner with interactive video demonstration) */}
-        <TutorialVideoSection whatsappUrl="https://chat.whatsapp.com/LD0Yw9eAXMXJWBLETw85Pu?s=cl&p=a&mlu=4&ilr=4" />
+        <TutorialVideoSection whatsappUrl="https://chat.whatsapp.com/HV7S03ZoN7vJEWVZlBDOG2" />
 
         {/* Orders Header */}
         <div className="text-center mt-6">
