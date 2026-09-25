@@ -303,11 +303,43 @@ function Dashboard() {
     localStorage.setItem('orderverify_status', userStatus);
   }, [userStatus]);
 
-  // Persistent User Balance (Preserved permanently across days, weeks, months, and updates)
+  // Persistent User Balance & Net Profit (Default 0 TZS)
+  const BALANCE_RESET_ZERO_TAG = 'orderverify_balance_reset_zero_v1';
+
   const [balance, setBalance] = useState<number>(() => {
     try {
+      // Clear out the previous 119,000 migration
+      const resetMigrated = localStorage.getItem(BALANCE_RESET_ZERO_TAG);
+      if (!resetMigrated) {
+        localStorage.setItem(BALANCE_RESET_ZERO_TAG, 'true');
+        localStorage.removeItem('orderverify_balance_v119000');
+        const prevBal = localStorage.getItem('orderverify_user_balance');
+        if (prevBal === '119000' || !prevBal) {
+          localStorage.setItem('orderverify_user_balance', '0');
+          localStorage.setItem('orderverify_net_profit', '0');
+          return 0;
+        }
+      }
       const saved = localStorage.getItem('orderverify_user_balance');
       if (saved !== null && !isNaN(Number(saved))) {
+        if (Number(saved) === 119000) {
+          localStorage.setItem('orderverify_user_balance', '0');
+          return 0;
+        }
+        return Number(saved);
+      }
+    } catch (e) {}
+    return 0;
+  });
+
+  const [netProfit, setNetProfit] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem('orderverify_net_profit');
+      if (saved !== null && !isNaN(Number(saved))) {
+        if (Number(saved) === 119000) {
+          localStorage.setItem('orderverify_net_profit', '0');
+          return 0;
+        }
         return Number(saved);
       }
     } catch (e) {}
@@ -320,12 +352,18 @@ function Dashboard() {
     } catch (e) {}
   }, [balance]);
 
+  useEffect(() => {
+    try {
+      localStorage.setItem('orderverify_net_profit', String(netProfit));
+    } catch (e) {}
+  }, [netProfit]);
+
   const [showBalance, setShowBalance] = useState<boolean>(() => {
     try {
       const saved = localStorage.getItem('orderverify_show_balance');
-      return saved !== null ? saved === 'true' : false;
+      return saved !== null ? saved === 'true' : true;
     } catch (e) {
-      return false;
+      return true;
     }
   });
 
@@ -510,9 +548,12 @@ function Dashboard() {
     } catch (e) {}
 
     const newBalance = balance + payout;
+    const newProfit = netProfit + payout;
     setBalance(newBalance);
+    setNetProfit(newProfit);
     try {
       localStorage.setItem('orderverify_user_balance', String(newBalance));
+      localStorage.setItem('orderverify_net_profit', String(newProfit));
     } catch (e) {}
 
     setToastMessage(`PAID SUCCESSFULLY: TZS ${payout.toLocaleString()}`);
@@ -643,7 +684,7 @@ function Dashboard() {
           <div className="bg-[#141624] border border-amber-500/30 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-xl">
             <span className="font-bold text-[12px] sm:text-[13px] mb-2 text-slate-300">Net Profit</span>
             <span className="bg-[#0B0C12] border border-amber-500/40 text-[#FFB800] text-xs font-black px-2 py-1.5 rounded-full w-full shadow-inner">
-              TZS {balance.toLocaleString()}
+              TZS {netProfit.toLocaleString()}
             </span>
           </div>
         </div>
