@@ -1,6 +1,6 @@
 {
   "name": "Orderverify.site",
-  "description": "Fanya kazi ya kuthibitisha order za wateja na ulipwe papo hapo. Inafanya kazi Afrika Mashariki yote.",
+  "description": "Ingiza kipato kwa kuthibitisha order za wateja hii ipo Afrika mashariki yote",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
