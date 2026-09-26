@@ -242,10 +242,10 @@ function LiveClock() {
         <div className="flex flex-col justify-center">
           <span className="text-[#FFD700] font-black text-xs sm:text-sm leading-snug tracking-wide flex items-center gap-2 drop-shadow-[0_1px_6px_rgba(255,215,0,0.4)]">
             <span className="w-2.5 h-2.5 rounded-full bg-[#FFD700] animate-pulse shrink-0 shadow-[0_0_8px_#FFD700]"></span>
-            HABARI ZA MUDA HUU CHAMPION WETU ORDER ZIPO ZA KUTOSHA LEO
+            ORDER MPYA ZIMEWEKWA NENDA KATHIBITISHE ILI ULIPWE HONGERENI WOTE MLIO JIUNGA LEO
           </span>
           <span className="text-[#00FF88] text-xs sm:text-sm font-extrabold tracking-wide mt-1 drop-shadow-[0_1px_4px_rgba(0,255,136,0.3)]">
-            Thibitisha order za wateja wetu zilizopo leo na ulipwe
+            UWE NA JUMAPILI NJEMA
           </span>
         </div>
       </div>
@@ -303,60 +303,56 @@ function Dashboard() {
     localStorage.setItem('orderverify_status', userStatus);
   }, [userStatus]);
 
-  // Persistent User Balance & Net Profit (Default 0 TZS)
-  const BALANCE_RESET_ZERO_TAG = 'orderverify_balance_reset_zero_v1';
+  // Persistent User Balance & Net Profit (Strictly synchronized so Balance === Net Profit always)
+  const BALANCE_SYNC_TAG = 'orderverify_balance_sync_v2';
 
   const [balance, setBalance] = useState<number>(() => {
     try {
-      // Clear out the previous 119,000 migration
-      const resetMigrated = localStorage.getItem(BALANCE_RESET_ZERO_TAG);
-      if (!resetMigrated) {
-        localStorage.setItem(BALANCE_RESET_ZERO_TAG, 'true');
-        localStorage.removeItem('orderverify_balance_v119000');
-        const prevBal = localStorage.getItem('orderverify_user_balance');
-        if (prevBal === '119000' || !prevBal) {
-          localStorage.setItem('orderverify_user_balance', '0');
-          localStorage.setItem('orderverify_net_profit', '0');
-          return 0;
-        }
+      const savedProfit = localStorage.getItem('orderverify_net_profit');
+      const savedBal = localStorage.getItem('orderverify_user_balance');
+      const isSynced = localStorage.getItem(BALANCE_SYNC_TAG);
+
+      const numProfit = savedProfit !== null && !isNaN(Number(savedProfit)) ? Number(savedProfit) : null;
+      const numBal = savedBal !== null && !isNaN(Number(savedBal)) ? Number(savedBal) : null;
+
+      // Clear any legacy 119,000 values
+      if (numBal === 119000 || numProfit === 119000) {
+        localStorage.setItem(BALANCE_SYNC_TAG, 'true');
+        localStorage.setItem('orderverify_user_balance', '0');
+        localStorage.setItem('orderverify_net_profit', '0');
+        return 0;
       }
-      const saved = localStorage.getItem('orderverify_user_balance');
-      if (saved !== null && !isNaN(Number(saved))) {
-        if (Number(saved) === 119000) {
-          localStorage.setItem('orderverify_user_balance', '0');
-          return 0;
-        }
-        return Number(saved);
+
+      // If they are mismatched (e.g. balance was 929,250 while net profit was 421,500),
+      // synchronize them to the genuine net profit earned from verified orders
+      if (!isSynced || (numProfit !== null && numBal !== null && numBal !== numProfit)) {
+        localStorage.setItem(BALANCE_SYNC_TAG, 'true');
+        const authoritativeVal = numProfit !== null ? numProfit : (numBal !== null ? numBal : 0);
+        localStorage.setItem('orderverify_user_balance', String(authoritativeVal));
+        localStorage.setItem('orderverify_net_profit', String(authoritativeVal));
+        return authoritativeVal;
       }
+
+      if (numProfit !== null) return numProfit;
+      if (numBal !== null) return numBal;
     } catch (e) {}
     return 0;
   });
 
   const [netProfit, setNetProfit] = useState<number>(() => {
-    try {
-      const saved = localStorage.getItem('orderverify_net_profit');
-      if (saved !== null && !isNaN(Number(saved))) {
-        if (Number(saved) === 119000) {
-          localStorage.setItem('orderverify_net_profit', '0');
-          return 0;
-        }
-        return Number(saved);
-      }
-    } catch (e) {}
-    return 0;
+    return balance;
   });
 
+  // Keep balance and net profit strictly synchronized in state and localStorage
   useEffect(() => {
+    if (netProfit !== balance) {
+      setNetProfit(balance);
+    }
     try {
       localStorage.setItem('orderverify_user_balance', String(balance));
+      localStorage.setItem('orderverify_net_profit', String(balance));
     } catch (e) {}
-  }, [balance]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('orderverify_net_profit', String(netProfit));
-    } catch (e) {}
-  }, [netProfit]);
+  }, [balance, netProfit]);
 
   const [showBalance, setShowBalance] = useState<boolean>(() => {
     try {
@@ -548,12 +544,11 @@ function Dashboard() {
     } catch (e) {}
 
     const newBalance = balance + payout;
-    const newProfit = netProfit + payout;
     setBalance(newBalance);
-    setNetProfit(newProfit);
+    setNetProfit(newBalance);
     try {
       localStorage.setItem('orderverify_user_balance', String(newBalance));
-      localStorage.setItem('orderverify_net_profit', String(newProfit));
+      localStorage.setItem('orderverify_net_profit', String(newBalance));
     } catch (e) {}
 
     setToastMessage(`PAID SUCCESSFULLY: TZS ${payout.toLocaleString()}`);
