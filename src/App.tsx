@@ -690,7 +690,7 @@ function Dashboard() {
         </div>
 
         {/* Tutorial Video Section (Replacing sliding banner with interactive video demonstration) */}
-        <TutorialVideoSection whatsappUrl="https://chat.whatsapp.com/HV7S03ZoN7vJEWVZlBDOG2" />
+        <TutorialVideoSection whatsappUrl="https://chat.whatsapp.com/J9Iq1ikG4VVC94HBftcBIW" />
 
         {/* Orders Header */}
         <div className="text-center mt-6">
@@ -1786,7 +1786,7 @@ function Dashboard() {
                 
                 <div className="flex flex-col gap-3 w-full">
                   <a
-                    href="https://wa.me/255777729105?text=Habari%20Naomba%20kujiunga%20na%20OrderVerify"
+                    href="https://wa.me/255771004764?text=Habari%20Naomba%20kujiunga%20na%20OrderVerify"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full flex items-center justify-between bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 text-[#25D366] font-bold px-5 py-4 rounded-xl transition-all"
@@ -1795,7 +1795,7 @@ function Dashboard() {
                       <MessageCircle className="w-6 h-6" />
                       <div className="flex flex-col items-start">
                         <span className="text-base">WhatsApp</span>
-                        <span className="text-xs opacity-80">0777 729 105</span>
+                        <span className="text-xs opacity-80">0771 004 764</span>
                       </div>
                     </div>
                     <ChevronRight className="w-5 h-5 opacity-70" />
