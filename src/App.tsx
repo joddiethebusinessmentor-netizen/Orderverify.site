@@ -242,10 +242,10 @@ function LiveClock() {
         <div className="flex flex-col justify-center">
           <span className="text-[#FFD700] font-black text-xs sm:text-sm leading-snug tracking-wide flex items-center gap-2 drop-shadow-[0_1px_6px_rgba(255,215,0,0.4)]">
             <span className="w-2.5 h-2.5 rounded-full bg-[#FFD700] animate-pulse shrink-0 shadow-[0_0_8px_#FFD700]"></span>
-            ORDER MPYA ZIMEWEKWA NENDA KATHIBITISHE ILI ULIPWE HONGERENI WOTE MLIO JIUNGA LEO
+            JUMATATU YAKO IMEANZAJE?? LEO KUNA WATU WAMELIPWA HADI 200,000
           </span>
           <span className="text-[#00FF88] text-xs sm:text-sm font-extrabold tracking-wide mt-1 drop-shadow-[0_1px_4px_rgba(0,255,136,0.3)]">
-            UWE NA JUMAPILI NJEMA
+            FUNGUA AKAUNTI SASA UANZE KULIPWA
           </span>
         </div>
       </div>
@@ -1782,11 +1782,11 @@ function Dashboard() {
                   <PhoneCall className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-extrabold text-white mb-2">Chagua Njia ya Mawasiliano</h3>
-                <p className="text-slate-400 text-sm mb-8">Wasiliana na wakala wetu kupitia WhatsApp au Tuma Meseji (SMS) kwa msaada zaidi.</p>
+                <p className="text-slate-300 text-base font-bold mb-8">Wasiliana na wakala wetu kupitia WhatsApp au Tuma Meseji (SMS) kwa msaada zaidi.</p>
                 
                 <div className="flex flex-col gap-3 w-full">
                   <a
-                    href="https://wa.me/255695653432?text=Habari%20Naomba%20kujiunga%20na%20OrderVerify"
+                    href="https://wa.me/255792281116?text=Habari%20Naomba%20kujiunga%20na%20OrderVerify"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full flex items-center justify-between bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 text-[#25D366] font-bold px-5 py-4 rounded-xl transition-all"
@@ -1795,7 +1795,7 @@ function Dashboard() {
                       <MessageCircle className="w-6 h-6" />
                       <div className="flex flex-col items-start">
                         <span className="text-base">WhatsApp</span>
-                        <span className="text-xs opacity-80">0695 653 432</span>
+                        <span className="text-xs opacity-80">0792 281 116</span>
                       </div>
                     </div>
                     <ChevronRight className="w-5 h-5 opacity-70" />
