@@ -73,6 +73,19 @@ import imgIonicHairDryer from './assets/images/ionic_hair_dryer_1790462291621.jp
 import imgHotLatherMachine from './assets/images/hot_lather_machine_1790462304541.jpg';
 import imgFacialLampSteamer from './assets/images/facial_lamp_steamer_1790462316003.jpg';
 
+import imgEggIncubator from './assets/images/digital_egg_incubator_1790726922490.jpg';
+import imgMilkingMachine from './assets/images/cow_milking_machine_1790726933033.jpg';
+import imgFeedGrinder from './assets/images/animal_feed_grinder_1790726945036.jpg';
+import imgChaffCutterLivestock from './assets/images/chaff_cutter_machine_1790726956111.jpg';
+import imgLivestockScale from './assets/images/livestock_platform_scale_1790726966969.jpg';
+import imgPoultryWaterer from './assets/images/poultry_waterer_system_1790726979669.jpg';
+import imgFenceEnergizer from './assets/images/electric_fence_energizer_1790726990846.jpg';
+import imgVetUltrasound from './assets/images/veterinary_ultrasound_scanner_1790727003049.jpg';
+import imgEarTagKit from './assets/images/ear_tag_applicator_kit_livestock_1790727013382.jpg';
+import imgBrooderHeater from './assets/images/poultry_brooder_heater_lamp_1790727026730.jpg';
+import imgGroomingBrush from './assets/images/cattle_grooming_brush_machine_1790727036369.jpg';
+import imgPigFeeder from './assets/images/automatic_pig_feeder_system_livestock_1790727047490.jpg';
+
 import imgGoldMetalDetector from './assets/images/gold_metal_detector_1790256373604.jpg';
 import imgXrfAnalyzer from './assets/images/xrf_mineral_analyzer_1790256384395.jpg';
 import imgPneumaticRockDrill from './assets/images/pneumatic_rock_drill_1790256396223.jpg';
@@ -112,6 +125,19 @@ import imgMotoChainSprocket from './assets/images/moto_chain_sprocket_1790462878
 import imgCarStarterMotor from './assets/images/car_starter_motor_1790462890861.jpg';
 import imgMotoCdiStator from './assets/images/moto_cdi_stator_1790462904935.jpg';
 
+import imgVlogCameraKit from './assets/images/vlogging_camera_kit_4k_1790727461352.jpg';
+import imgPodcastMic from './assets/images/professional_podcast_mic_xlr_1790727473042.jpg';
+import imgStudioSoftbox from './assets/images/rgb_studio_softbox_lighting_1790727486604.jpg';
+import imgLavalierMic from './assets/images/wireless_lavalier_mic_system_1790727496215.jpg';
+import imgSmartphoneGimbal from './assets/images/smartphone_video_rig_gimbal_1790727507413.jpg';
+import imgGreenScreen from './assets/images/green_screen_chromakey_kit_1790727518025.jpg';
+import imgTeleprompter from './assets/images/teleprompter_for_tablet_smartphone_1790727529132.jpg';
+import imgAudioInterface from './assets/images/portable_audio_mixer_interface_1790727541971.jpg';
+import imgCaptureCard from './assets/images/video_capture_card_4k_hdr_1790727555537.jpg';
+import imgOverheadMount from './assets/images/overhead_camera_mount_rig_1790727569277.jpg';
+import imgVideoTripod from './assets/images/professional_video_tripod_fluid_head_1790727579728.jpg';
+import imgAcousticPanels from './assets/images/acoustic_sound_proofing_panels_pack_1790727590889.jpg';
+
 import imgVitalSignsMonitor from './assets/images/vital_signs_monitor_1790258942457.jpg';
 import imgOxygenConcentrator from './assets/images/oxygen_concentrator_1790258956276.jpg';
 import imgHospitalPatientBed from './assets/images/hospital_patient_bed_1790258967848.jpg';
@@ -137,6 +163,19 @@ import imgLabVortexMixer from './assets/images/lab_vortex_mixer_1790463416021.jp
 import imgLabPhMeter from './assets/images/lab_ph_meter_1790463427293.jpg';
 import imgLabUltrasonicBath from './assets/images/lab_ultrasonic_bath_1790463438387.jpg';
 import imgLabDistillationSet from './assets/images/lab_distillation_set_1790463451879.jpg';
+
+import imgSmartTv43 from './assets/images/smart_android_tv_43_inch_1790727960734.jpg';
+import imgBusinessLaptop from './assets/images/slim_business_laptop_14_inch_1790727972852.jpg';
+import imgAndroidTabletPro from './assets/images/android_tablet_10_inch_pro_1790727985052.jpg';
+import imgGameConsoleHome from './assets/images/gaming_console_next_gen_home_1790727998713.jpg';
+import imgHomeTheater51 from './assets/images/home_theater_system_5_1_surround_1790728010810.jpg';
+import imgSmartProjector4K from './assets/images/portable_4k_smart_projector_white_1790728021554.jpg';
+import imgDslrCameraPro from './assets/images/dslr_camera_professional_black_1790728032338.jpg';
+import imgSmartphone5G from './assets/images/smartphone_5g_sleek_design_blue_1790728045350.jpg';
+import imgSportsWatchGps from './assets/images/sports_smartwatch_gps_rugged_black_1790728058453.jpg';
+import imgPartyTowerSpeaker from './assets/images/bluetooth_party_tower_speaker_led_1790728070890.jpg';
+import imgPowerInverter1000W from './assets/images/pure_sine_wave_inverter_1000w_red_1790728084116.jpg';
+import imgVoltageStabilizerAVR from './assets/images/automatic_voltage_stabilizer_avr_5000va_1790728096362.jpg';
 
 // Re-map images in procedural generator just in case
 const genericFarmImg = imgFarmTools;
@@ -367,7 +406,7 @@ function saveStoredSet(key: string, set: Set<string>): void {
   } catch (e) {}
 }
 
-export const STORAGE_VERSION_TAG = "ov_v93_live_notifications_social_comments_expanded";
+export const STORAGE_VERSION_TAG = "ov_v100_name_collision_fix_final";
 const STORAGE_KEY_VERSION = "orderverify_app_version";
 const STORAGE_KEY_USED_PRODUCTS = "orderverify_used_products";
 const STORAGE_KEY_USED_NAMES = "orderverify_used_customer_names";
@@ -543,233 +582,231 @@ export interface ProductTemplate {
   description: string;
 }
 
-// PAGE 1: Vifaa vya Saloon za Kike na za Kiume (Men's & Women's Salon & Barbershop Equipment: 200,000 - 500,000 TZS)
+// PAGE 1: Vifaa vya Mifugo (Livestock Equipment: 200,000 - 800,000 TZS)
 export const masterHomeProducts: ProductTemplate[] = [
   { 
-    name: "Hydraulic Reclining Barber Styling Chair", 
-    price: 480000, 
-    image: imgBarberStylingChair, 
-    description: "Heavy-duty hydraulic reclining barber chair with high-density sponge padding, 360-degree swivel, and chrome round base for professional barbershops." 
-  },
-  { 
-    name: "Professional Standing Hooded Hair Dryer & Steamer", 
+    name: "Professional Digital Egg Incubator Pro", 
     price: 450000, 
-    image: imgHoodedHairDryer, 
-    description: "Commercial salon bonnet hair dryer with adjustable temperature control, height stand, and deep-conditioning ionic mist steamer for women's hair treatments." 
+    image: imgEggIncubator, 
+    description: "Automatic digital egg incubator with forced air circulation, digital temperature and humidity control for poultry farming." 
   },
   { 
-    name: "Ceramic Shampoo Basin Sink & Reclining Salon Chair Unit", 
-    price: 460000, 
-    image: imgShampooBasinChair, 
-    description: "Ergonomic hair washing backwash station featuring an adjustable ceramic shampoo bowl with chrome sprayer faucet and comfortable padded salon chair." 
+    name: "Electric Vacuum Cow Milking Machine", 
+    price: 780000, 
+    image: imgMilkingMachine, 
+    description: "Portable heavy-duty electric milking machine with 25L stainless steel bucket and efficient vacuum pump for dairy farms." 
   },
   { 
-    name: "Professional Multi-Head Ultrasonic Facial & Skin Treatment Machine", 
-    price: 420000, 
-    image: imgFacialMachinePro, 
-    description: "All-in-one beauty salon facial device featuring high-frequency galvanic probes, ultrasonic skin scrubber, and deep pore extraction vacuum." 
+    name: "Industrial Animal Feed Grinder and Mixer", 
+    price: 620000, 
+    image: imgFeedGrinder, 
+    description: "High-capacity electric grinder for crushing maize and mixing animal feed supplements with robust steel construction." 
   },
   { 
-    name: "Commercial Hot Towel Warmer & UV Sterilizer Cabinet", 
-    price: 290000, 
-    image: imgHotTowelWarmer, 
-    description: "Double-layer stainless steel spa towel warmer cabinet with ultraviolet germicidal sterilization lamp for barbershops and beauty salons." 
-  },
-  { 
-    name: "Titanium Hair Flat Iron & Nano Steam Straightener Station", 
-    price: 240000, 
-    image: imgHairFlatIron, 
-    description: "High-heat 480°F salon titanium flat iron with digital LCD display and continuous nano-steam infusion for silky smooth hair pressing and keratin treatments." 
-  },
-  { 
-    name: "Cordless Professional Barber Hair Clipper & Trimmer Combo Set", 
-    price: 310000, 
-    image: imgBarberClipperSet, 
-    description: "Heavy-duty metal housing cordless hair clippers and precision detail trimmer set with high-torque rotary motor, DLC taper blades, and charging dock." 
-  },
-  { 
-    name: "Adjustable Heated Hair Steamer & Ozone Scalp Micro-Mist Machine", 
+    name: "Heavy-Duty Electric Chaff Cutter Machine", 
     price: 380000, 
-    image: imgHairSteamerMist, 
-    description: "Stand-up electronic micro-mist hair steamer with dual ozone scalp therapy tanks and timer for deep moisture penetration and hair coloring." 
+    image: imgChaffCutterLivestock, 
+    description: "Professional fodder cutter with high-speed blades for processing grass and stalks for livestock feeding." 
   },
   { 
-    name: "Multi-Tier Rolling Salon Trolley Cart with Heat-Resistant Trays", 
-    price: 220000, 
-    image: imgSalonTrolleyCart, 
-    description: "Sturdy steel salon workstation organizer cart with 5 sliding pull-out drawers, appliance holders, and smooth 360-degree silent castor wheels." 
+    name: "Digital Livestock Platform Scale 1000kg", 
+    price: 680000, 
+    image: imgLivestockScale, 
+    description: "Electronic floor scale with reinforced steel platform and guard rails for weighing cattle, pigs, and goats accurately." 
   },
   { 
-    name: "High-Power Professional Ionic Salon Hair Blow Dryer 2500W", 
+    name: "Automatic Poultry Drinking and Feeding System", 
+    price: 240000, 
+    image: imgPoultryWaterer, 
+    description: "Commercial grade automatic nipple watering system with integrated piping for broiler and layer chicken farms." 
+  },
+  { 
+    name: "High-Voltage Electric Fence Energizer Kit", 
+    price: 520000, 
+    image: imgFenceEnergizer, 
+    description: "Powerful electric fence pulse controller with digital monitoring for effective livestock containment and predator protection." 
+  },
+  { 
+    name: "Portable Veterinary Ultrasound Pregnancy Scanner", 
+    price: 750000, 
+    image: imgVetUltrasound, 
+    description: "Handheld digital veterinary ultrasound device for early pregnancy detection and reproductive health monitoring in livestock." 
+  },
+  { 
+    name: "Livestock Identification Ear Tag Applicator Set", 
+    price: 210000, 
+    image: imgEarTagKit, 
+    description: "Professional stainless steel ear tag applicator pliers with 100 sets of numbered plastic identification tags for cattle." 
+  },
+  { 
+    name: "Infrared Ceramic Poultry Brooder Heater Lamp", 
     price: 260000, 
-    image: imgIonicHairDryer, 
-    description: "Commercial long-life AC motor ionic hair dryer with tourmaline ceramic heat, multiple speed and heat nozzles, and cool-shot button for salon blowouts." 
+    image: imgBrooderHeater, 
+    description: "Efficient infrared heating unit for brooding baby chicks with adjustable temperature control and suspended mounting kit." 
   },
   { 
-    name: "Barbershop Hot Lather Shaving Machine & Foam Dispenser", 
-    price: 250000, 
-    image: imgHotLatherMachine, 
-    description: "Electric hot lather foam machine that heats and dispenses thick, soothing shave cream for classic straight-razor haircuts and hot towel beard trims." 
+    name: "Automatic Rotating Cattle Grooming Brush Station", 
+    price: 320000, 
+    image: imgGroomingBrush, 
+    description: "Electronic rotating cow brush designed to improve livestock welfare and hygiene in commercial dairy barns." 
   },
   { 
-    name: "Professional LED Magnifying Floor Lamp with Facial Steamer Unit", 
-    price: 340000, 
-    image: imgFacialLampSteamer, 
-    description: "5X diopter distortion-free magnifying LED inspection lamp combined with a warm herbal aromatherapy ozone facial steamer on a rolling base." 
+    name: "Stainless Steel Automatic Pig Feeding Trough", 
+    price: 410000, 
+    image: imgPigFeeder, 
+    description: "Anti-waste automatic pig feeder system with large capacity hopper and durable mechanical dispensing mechanism." 
   }
 ];
 
-// PAGE 2: Spare za Magari na Pikipiki (Car & Motorcycle Spare Parts: 200,000 - 400,000 TZS)
+// PAGE 2: Vifaa vya Utangazaji na Content Creators (Content Creator & Broadcasting Equipment: 100,000 - 1,000,000 TZS)
 export const masterTechProducts: ProductTemplate[] = [
   { 
-    name: "Complete Front Ceramic Brake Caliper & Rotor Disc Assembly", 
-    price: 380000, 
-    image: imgCarBrakeRotorCaliper, 
-    description: "High-performance automotive drilled and slotted vented steel brake disc rotor kit with dual-piston hydraulic brake caliper for cars and SUVs." 
+    name: "Professional 4K Vlogging Camera Kit", 
+    price: 980000, 
+    image: imgVlogCameraKit, 
+    description: "Ultra HD 4K digital camera for content creators with flip-out screen, external mic input, and 64GB high-speed memory card." 
   },
   { 
-    name: "Heavy-Duty Automotive Alternator 12V 130A Generator", 
-    price: 360000, 
-    image: imgCarAlternatorGen, 
-    description: "Brand new high-amperage 12V automotive charging alternator generator with ribbed pulley wheel and heavy-duty aluminum casing." 
-  },
-  { 
-    name: "High-Performance Motorcycle Inverted Hydraulic Front Shock Absorber Forks", 
-    price: 390000, 
-    image: imgMotoFrontForks, 
-    description: "Gold anodized inverted hydraulic telescopic front suspension fork shock absorbers for street and sport motorcycles." 
-  },
-  { 
-    name: "Automotive Electronic Fuel Injection Throttle Body Assembly", 
-    price: 320000, 
-    image: imgCarThrottleBody, 
-    description: "OEM electronic drive-by-wire aluminum throttle body assembly with integrated position sensor for smooth vehicle acceleration." 
-  },
-  { 
-    name: "Heavy-Duty Motorcycle Cylinder Block Piston & Ring Kit 250cc", 
-    price: 270000, 
-    image: imgMotoCylinderPiston, 
-    description: "Complete motorcycle engine overhaul kit featuring cast iron cylinder bore, lightweight alloy piston, pin, clips, rings, and gaskets." 
-  },
-  { 
-    name: "Automotive High-Flow Electric Fuel Pump Module Assembly", 
-    price: 290000, 
-    image: imgCarFuelPumpMod, 
-    description: "In-tank electric high-pressure fuel pump assembly with built-in fuel strainer filter, fuel level float sensor, and wiring harness." 
-  },
-  { 
-    name: "Universal Car Air Conditioning A/C Compressor Unit", 
-    price: 370000, 
-    image: imgCarAcCompressor, 
-    description: "Heavy-duty automotive air conditioning AC compressor pump with electromagnetic clutch and multi-groove pulley for efficient cabin cooling." 
-  },
-  { 
-    name: "Motorcycle Heavy-Duty Rear Monoshock Nitrogen Gas Suspension", 
-    price: 280000, 
-    image: imgMotoRearMonoshock, 
-    description: "Adjustable rear nitrogen gas reservoir mono shock absorber with high-tension red spring for all-terrain motorcycle stability." 
-  },
-  { 
-    name: "Automotive Complete Heavy-Duty Clutch Kit with Pressure Plate", 
+    name: "Studio XLR Podcast Microphone Pro", 
     price: 350000, 
-    image: imgCarClutchKit, 
-    description: "Full automotive clutch replacement kit including high-friction clutch disc plate, heavy-duty pressure plate cover, and release throwout bearing." 
+    image: imgPodcastMic, 
+    description: "Professional cardioid dynamic broadcast microphone with internal pop filter and adjustable boom arm stand for podcasting." 
   },
   { 
-    name: "Motorcycle Heavy-Duty O-Ring Gold Drive Chain & Steel Sprocket Kit", 
-    price: 230000, 
-    image: imgMotoChainSprocket, 
-    description: "High-tensile gold motorcycle O-ring drive chain set with heat-treated hardened steel front and rear drive sprockets." 
+    name: "RGB LED Studio Softbox Lighting Set", 
+    price: 480000, 
+    image: imgStudioSoftbox, 
+    description: "Full dual softbox lighting kit with high-intensity RGB LED panels, 2-meter light stands, and wireless remote control." 
   },
   { 
-    name: "Automotive High-Output Starter Motor Unit 12V 2.2kW", 
-    price: 340000, 
-    image: imgCarStarterMotor, 
-    description: "High-torque 12V automotive starter motor with high-efficiency solenoid and durable pinion gear for reliable car engine starting." 
+    name: "Wireless Dual Lavalier Microphone System", 
+    price: 540000, 
+    image: imgLavalierMic, 
+    description: "Professional 2.4GHz wireless lapel mic system with dual transmitters and receiver for clear interview audio on smartphones." 
   },
   { 
-    name: "Motorcycle Digital CDI Ignition Control Box & Stator Magneto Coil", 
+    name: "3-Axis Smartphone Gimbal Stabilizer Pro", 
+    price: 320000, 
+    image: imgSmartphoneGimbal, 
+    description: "Handheld foldable 3-axis stabilizer for mobile phones with AI tracking, built-in fill light, and cinematic zoom wheel." 
+  },
+  { 
+    name: "Professional Chromakey Green Screen Kit", 
+    price: 180000, 
+    image: imgGreenScreen, 
+    description: "High-density wrinkle-resistant green screen background with 3x3 meter support stand and spring clamps for studio video." 
+  },
+  { 
+    name: "Portable Smartphone & Tablet Teleprompter", 
+    price: 260000, 
+    image: imgTeleprompter, 
+    description: "Universal teleprompter with high-definition beam splitter glass and Bluetooth remote for reading scripts while filming." 
+  },
+  { 
+    name: "4-Channel Podcast Audio Mixer Interface", 
+    price: 650000, 
+    image: imgAudioInterface, 
+    description: "Digital audio workstation mixer with phantom power, sound pads, and USB interface for live streaming and recording." 
+  },
+  { 
+    name: "4K HDR HDMI Video Capture Card", 
+    price: 120000, 
+    image: imgCaptureCard, 
+    description: "Ultra-low latency USB 3.0 video capture card for streaming console games and mirrorless cameras in 4K resolution." 
+  },
+  { 
+    name: "Overhead Desktop Camera Mount Rig", 
     price: 210000, 
-    image: imgMotoCdiStator, 
-    description: "Complete motorcycle electrical ignition set including high-output copper-wound magneto stator coil and digital micro-controller CDI unit." 
+    image: imgOverheadMount, 
+    description: "Steel overhead desk mount for top-down vlogging, product reviews, and unboxing videos with flexible articulating arms." 
+  },
+  { 
+    name: "Carbon Fiber Video Tripod with Fluid Head", 
+    price: 720000, 
+    image: imgVideoTripod, 
+    description: "Heavy-duty carbon fiber tripod with professional fluid drag head for smooth cinematic pan and tilt camera movements." 
+  },
+  { 
+    name: "Studio Acoustic Sound Proofing Panels Pack", 
+    price: 150000, 
+    image: imgAcousticPanels, 
+    description: "24-pack of high-density pyramid acoustic foam panels for reducing echoes and noise in home studios and streaming rooms." 
   }
 ];
 
-// PAGE 3: Vifaa vya Laboratory (Scientific & Clinical Laboratory Equipment: 200,000 - 600,000 TZS)
-export const masterClothingProducts: ProductTemplate[] = [];
-
+// PAGE 3: Vifaa vya Electronics (Consumer Electronics: 200,000 - 600,000 TZS)
 export const masterIndustrialProducts: ProductTemplate[] = [
   { 
-    name: "Binocular Biological Compound Laboratory Microscope", 
+    name: "43-inch Smart Android LED TV UHD", 
     price: 580000, 
-    image: imgLabCompoundMicroscope, 
-    description: "High-grade optical binocular biological microscope with 40X-2000X magnification, dual-layer mechanical stage, and bright LED illumination for clinical diagnostic research." 
+    image: imgSmartTv43, 
+    description: "Ultra High Definition smart TV with built-in Wi-Fi, YouTube, Netflix, and multiple HDMI ports for home entertainment." 
   },
   { 
-    name: "Digital Benchtop Laboratory Centrifuge Machine 5000 RPM", 
-    price: 520000, 
-    image: imgLabCentrifugePro, 
-    description: "Microcomputer controlled benchtop clinical laboratory centrifuge with brushless motor, digital LCD speed timer, and angled rotor for blood serum and specimen separation." 
+    name: "14-inch Slim Core i5 Business Laptop", 
+    price: 595000, 
+    image: imgBusinessLaptop, 
+    description: "Powerful and portable silver business laptop with 8GB RAM, 256GB SSD, and long-lasting battery for professional use." 
   },
   { 
-    name: "High-Precision Analytical Laboratory Balance 0.0001g with Glass Draft Shield", 
-    price: 490000, 
-    image: imgLabAnalyticalBal, 
-    description: "High-sensitivity electronic analytical balance with 0.1mg accuracy, three-door glass draft shield chamber, electromagnetic sensor, and automatic internal calibration." 
+    name: "10.1-inch Quad-Core Android Tablet Pro", 
+    price: 420000, 
+    image: imgAndroidTabletPro, 
+    description: "Large screen Android tablet with high-resolution display, 4G LTE connectivity, and dual speakers for study and entertainment." 
   },
   { 
-    name: "Digital Laboratory Constant Temperature Water Bath Incubator", 
-    price: 450000, 
-    image: imgLabWaterBath, 
-    description: "Precision thermostatically controlled stainless steel laboratory water bath featuring digital microcomputer temperature regulation and anti-corrosion heating element." 
+    name: "Next-Gen Video Game Console Home Edition", 
+    price: 550000, 
+    image: imgGameConsoleHome, 
+    description: "High-performance gaming system with wireless controller, immersive graphics, and support for the latest AAA game titles." 
   },
   { 
-    name: "Laboratory UV-Visible Spectrophotometer Analyzer", 
-    price: 570000, 
-    image: imgLabSpectrophotometer, 
-    description: "Benchtop single-beam UV-Vis spectrophotometer with digital wavelength scanning and LCD display for quantitative chemical analysis and optical density measurement." 
+    name: "5.1 Channel Home Theater Surround System", 
+    price: 460000, 
+    image: imgHomeTheater51, 
+    description: "Complete cinematic audio setup with powerful subwoofer, five satellite speakers, and Bluetooth connectivity for movies and music." 
   },
   { 
-    name: "Microbiology Laboratory Benchtop Autoclave Sterilizer", 
-    price: 530000, 
-    image: imgLabAutoclaveBench, 
-    description: "Automated high-pressure digital steam autoclave sterilizer with stainless steel pressure vessel, safety interlock door, and exhaust drying cycle for lab glassware." 
-  },
-  { 
-    name: "Multi-Channel Adjustable Micropipette Set with Carousel Stand", 
-    price: 340000, 
-    image: imgLabMicropipettes, 
-    description: "Complete ergonomic laboratory single and multi-channel variable micropipette set with volume locks, autoclavable tip cones, and rotating desktop carousel stand." 
-  },
-  { 
-    name: "Digital Magnetic Hotplate Stirrer with Temperature Sensor Probe", 
-    price: 310000, 
-    image: imgLabHotplateStir, 
-    description: "Chemical-resistant ceramic top laboratory magnetic stirrer with digital temperature regulation, stirring speed control, and external PT1000 temperature probe." 
-  },
-  { 
-    name: "Laboratory Vortex Mixer & Test Tube Shaker", 
-    price: 260000, 
-    image: imgLabVortexMixer, 
-    description: "Heavy-duty cast aluminum base vortex mixer with continuous and touch-activated vibrating modes for rapid suspension of test tubes and biological reagents." 
-  },
-  { 
-    name: "Digital Benchtop pH & Conductivity Meter Station", 
-    price: 290000, 
-    image: imgLabPhMeter, 
-    description: "High-precision benchtop pH/ORP/temperature/conductivity multi-parameter meter with 3-point calibration, articulating electrode holder arm, and backlit LCD screen." 
-  },
-  { 
-    name: "Laboratory Ultrasonic Cleaning Bath with Degas Timer", 
+    name: "Portable 4K Home Cinema Smart Projector", 
     price: 380000, 
-    image: imgLabUltrasonicBath, 
-    description: "Industrial-grade stainless steel ultrasonic cleaner tank with digital heating, degas frequency sweep, stainless basket, and sound-reducing lid for scientific instruments." 
+    image: imgSmartProjector4K, 
+    description: "Compact smart projector with 4K support, keystone correction, and integrated Android OS for streaming anywhere." 
   },
   { 
-    name: "Complete Borosilicate Glass Distillation Apparatus & Condenser Setup", 
-    price: 240000, 
-    image: imgLabDistillationSet, 
-    description: "Professional chemistry distillation glassware kit made of high-expansion 3.3 borosilicate glass, including Graham condenser, Vigreux column, flasks, and retort clamp stand." 
+    name: "Professional Digital SLR Photography Camera", 
+    price: 570000, 
+    image: imgDslrCameraPro, 
+    description: "High-resolution DSLR camera with 18-55mm lens kit, fast autofocus, and Full HD video recording for photography enthusiasts." 
+  },
+  { 
+    name: "Flagship 5G Smartphone 256GB Storage", 
+    price: 520000, 
+    image: imgSmartphone5G, 
+    description: "Premium 5G mobile phone with large OLED display, advanced triple camera system, and fast charging capabilities." 
+  },
+  { 
+    name: "Rugged GPS Sports Smartwatch Pro", 
+    price: 290000, 
+    image: imgSportsWatchGps, 
+    description: "Waterproof fitness tracker with heart rate monitor, multi-sport modes, and integrated GPS for outdoor activities." 
+  },
+  { 
+    name: "High-Power Bluetooth Party Tower Speaker", 
+    price: 340000, 
+    image: imgPartyTowerSpeaker, 
+    description: "Vertical tower speaker with deep bass, integrated RGB light show, and wireless microphone support for karaoke and parties." 
+  },
+  { 
+    name: "Pure Sine Wave Power Inverter 1000W", 
+    price: 450000, 
+    image: imgPowerInverter1000W, 
+    description: "High-efficiency power inverter for home backup systems, converting DC to clean AC power with digital status display." 
+  },
+  { 
+    name: "Automatic Voltage Regulator (AVR) Stabilizer", 
+    price: 260000, 
+    image: imgVoltageStabilizerAVR, 
+    description: "Heavy-duty 5000VA voltage stabilizer to protect sensitive electronics from power surges and fluctuations." 
   }
 ];
 
@@ -1142,291 +1179,331 @@ export interface CommentTemplateDef {
 
 export const rawSwahiliCommentsData: CommentTemplateDef[] = [
   {
-    name: "Adelita Mosha",
-    text: "Mimi nilikuwa mtu wa mwisho kabisa kuamini vitu kama hivi mtandaoni maana nilishawahi kupigwa laki 2 sehemu nyingine. Lakini hapa nilianza kwa kuweka kidogo sana nithibitishe kama kweli. Nilipoona ujumbe wa M-Pesa ukiingia nilitulia na kulia kwa furaha 😭❤️. Asanteni sana OrderVerify kwa kurudisha uaminifu wangu!",
-    time: "Dakika 3 zilizopita",
+    name: "Amana Mallya",
+    text: "Hakika OrderVerify ni mwokozi wa wengi! Nilikuwa na deni kubwa lakini kupitia hapa nimeweza kulipa yote. Mungu awabariki sana kwa fursa hii ya kipekee 🙏🙌💸",
+    time: "Dakika 2 zilizopita",
     replies: [
-      { name: "Venancia Mbise", text: "Pole sana kwa yaliyokupata huko nyuma dada. Hapa ni sehemu ya kazi halali kabisa, wote tunapokea kila siku bila wasiwasi wowote 🙌", time: "Dakika 1 iliyopita" }
+      { name: "Barikiwa Msuya", text: "Ni kweli kabisa ndugu yangu, hata mimi nilikuwa na shida kama yako lakini sasa niko huru kabisa. Uaminifu wao ni 100% 🤝✨", time: "Dakika 1 iliyopita" }
     ]
   },
   {
-    name: "Batholomeo Temu",
-    text: "Chuma kimesoma chap kwenye simu! 🔥💰",
-    time: "Dakika 7 zilizopita",
+    name: "Chonge Mosha",
+    text: "Mara ya kwanza niliona kama utapeli, lakini baada ya kuona hela inaingia kwenye M-Pesa yangu moja kwa moja, sasa hivi sichezi mbali na simu yangu. Ni furaha tupu! 📱🎉💃",
+    time: "Dakika 5 zilizopita",
     replies: []
   },
   {
-    name: "Christina Mmbando",
-    text: "Leo nimethibitisha oda zote za spare za pikipiki na magari, faida niliyopata imenisaidia kununua dawa za mama yangu mzazi hospitali jioni hii. Hakuna furaha kubwa kama hii jamani 🙏💐",
-    time: "Dakika 11 zilizopita",
+    name: "Daimu Shirima",
+    text: "Huduma bora kabisa niliyowahi kuiona mtandaoni. Uwazi na uaminifu ndio siri ya mafanikio yao. Endeleeni hivi hivi! 🌟🤝💯",
+    time: "Dakika 10 zilizopita",
     replies: []
   },
   {
-    name: "Dafrosa Massawe",
-    text: "Kwa kweli mtandao huu ni baraka tele. Unafanya kazi kwa uwazi kabisa, unajua bidhaa unayoithibitisha, nchi ya mteja, na kiasi chako cha faida kinaingia hapo hapo bila danadana yoyote ✨⚡",
-    time: "Dakika 16 zilizopita",
+    name: "Evelina Kavishe",
+    text: "Nimepokea kamisheni yangu ya leo asubuhi, asanteni sana timu nzima ya OrderVerify! 💰🔥",
+    time: "Dakika 15 zilizopita",
     replies: []
   },
   {
-    name: "Elia Swai",
-    text: "Mambo ni motooo! Tigo Pesa imetua muda huu 📱💃",
+    name: "Fadhili Msele",
+    text: "Kwa vijana wenzangu, acheni kulalamika hakuna ajira. Fursa ndio hii hapa mikononi mwenu. Jitume upate matokeo kama mimi 👊📈🚀",
     time: "Dakika 20 zilizopita",
-    replies: []
-  },
-  {
-    name: "Fortunatus Shirima",
-    text: "Hakuna mambo mengi ya kuzunguka zunguka hapa. Bonyeza oda yako, thibitisha, vuta mkwanja wako. Hivi ndivyo mifumo ya kisasa inavyotakiwa kufanya kazi 👏🚀",
-    time: "Dakika 24 zilizopita",
-    replies: []
-  },
-  {
-    name: "Goreth Muro",
-    text: "Niliamka saa kumi na mbili asubuhi nikiwa sina hata shilingi mia mfukoni ya nauli ya kwenda kibaruani. Nikaingia hapa nikathibitisha oda tatu tu nikafanya withdrawal, nikapata nauli na hela ya chai asubuhi. Mungu azidi kuwabariki sana wamiliki wa hii huduma ☕🍞❤️",
-    time: "Dakika 29 zilizopita",
-    replies: []
-  },
-  {
-    name: "Hilaria Kweka",
-    text: "Huduma ya kwanza ya mtandaoni niliyokutana nayo yenye uaminifu wa 100%. Nimefurahi sana!",
-    time: "Dakika 33 zilizopita",
-    replies: []
-  },
-  {
-    name: "Ireneus Kimaro",
-    text: "Ukweli usemwe, kazi ziko wazi na picha za bidhaa zote zinaonekana vizuri sana. Nimefanya verification ya vifaa vya maabara na saluni bila wasiwasi wowote 🔬💈👌",
-    time: "Dakika 38 zilizopita",
-    replies: []
-  },
-  {
-    name: "Jackline Meela",
-    text: "Hela ya kodi ya meza imepatikana asubuhi hii, asanteni mnooo! 🎉💸",
-    time: "Dakika 42 zilizopita",
-    replies: []
-  },
-  {
-    name: "Kordula Urassa",
-    text: "Kila siku huwa najitahidi nimalize mgao wangu wa oda mapema kabla watoto hawajaamka. Inanipa uhuru wa kufanya majukumu yangu ya nyumbani huku nikiwa na uhakika wa kipato changu 🏡👩‍👧‍👦✨",
-    time: "Dakika 47 zilizopita",
     replies: [
-      { name: "Wilhelmina Ngowi", text: "Hata mimi nafanya hivyo hivyo dada yangu, inasaidia sana kuanza siku bila msongo wa mawazo 🌸", time: "Dakika 35 zilizopita" }
+      { name: "Gwantwa Mwakatobe", text: "Ukweli mtupu! Mimi nilikuwa nakaa kijiweni tu lakini sasa hivi niko busy kutengeneza hela hapa. Asante sana kaka 👊", time: "Dakika 5 zilizopita" }
     ]
   },
   {
-    name: "Liberata Mremi",
-    text: "Airtel Money safi kabisa, imeingia ndani ya dakika mbili tu ⚡",
-    time: "Dakika 51 zilizopita",
+    name: "Hekima Makamba",
+    text: "Inasisimua sana kuona jinsi teknolojia inavyoweza kubadili maisha ya watu maskini kama mimi. Leo nimenunua unga na sukari kwa hela ya hapa. Ahsanteni sana! 🌽🍚🙏",
+    time: "Dakika 30 zilizopita",
     replies: []
   },
   {
-    name: "Magdalena Macha",
-    text: "Mume wangu aliponiona nashinda na simu alidhani napoteza muda kwenye Instagram, nilipomwonyesha muamala wa 48,000 ulioingia jioni akashtuka akataka na yeye nimfundishe jinsi ya kuthibitisha oda zake 😅🤝",
-    time: "Dakika 56 zilizopita",
+    name: "Inara Kimei",
+    text: "Nimefurahi mnooo! Nilikuwa na wasiwasi mkubwa lakini sasa nimejionea kwa macho yangu malipo yakiingia sekunde chache baada ya kuthibitisha oda 💃🥳🎉",
+    time: "Saa 1 iliyopita",
     replies: []
   },
   {
-    name: "Nobert Nkya",
-    text: "Kasi ya malipo ya hii platform haina mpinzani. Ukibonyeza kutoa tu, simu inalia 📲💨",
-    time: "Saa 1 lililopita",
+    name: "Jafari Mrema",
+    text: "Mfumo unafanya kazi vizuri sana, haugandi wala hauzungushi mtu. Malipo yapo palepale kama yalivyoahidiwa ⏱️✅",
+    time: "Saa 1 iliyopita",
     replies: []
   },
   {
-    name: "Octavian Kavishe",
-    text: "Nimetoka kutoa 35,000 yangu sasa hivi. Nimependa jinsi mambo yalivyo wazi, hakuna siri wala udanganyifu wowote 💯",
-    time: "Saa 1 lililopita",
-    replies: []
-  },
-  {
-    name: "Prisca Msele",
-    text: "Nawashukuru sana kwa uvumilivu wenu pia, nilipokosea mara ya kwanza nikaelekezwa vizuri na sasa ninafanya kazi kwa wepesi kabisa bila kukwama popote 🛡️💖",
-    time: "Saa 1 lililopita",
-    replies: []
-  },
-  {
-    name: "Quinbert Assenga",
-    text: "Oda za spea za magari za leo zimenilipa vizuri sana. Kazi inaendelea kwa ari kubwa 🚗🔧💰",
-    time: "Saa 2 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Restituta Kimambo",
-    text: "Nimepokea hela yangu ya leo, Mungu awabariki sana 🙏",
-    time: "Saa 2 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Severin Chalamila",
-    text: "Kama wewe ni kijana unayelalamika hakuna ajira, badala ya kukaa vijiweni kulaumu watu, tumia simu yako hapa kuthibitisha oda upate faida yako ya halali. Mimi inanisaidia sana 👊📈",
-    time: "Saa 2 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Theresia Tesha",
-    text: "Nimefurahi mnooo! Nilikuwa na wasiwasi mkubwa lakini sasa nimejionea kwa macho yangu 💃🥳🎉",
-    time: "Saa 3 yaliyopita",
-    replies: [
-      { name: "Yolanda Lyatuu", text: "Hahaha wasiwasi ndio ugonjwa wa wengi, ila ukishajaribu mara moja huwezi kuacha 👏", time: "Saa 2 yaliyopita" }
-    ]
-  },
-  {
-    name: "Urbanus Kaaya",
-    text: "Mfumo unafanya kazi vizuri sana, haugandi wala hauzungushi mtu. Malipo yapo palepale ⏱️",
-    time: "Saa 3 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Veneranda Kisamo",
+    name: "Kalista Mushi",
     text: "Leo nimenunua daftari na sare za mjukuu wangu kupitia kamisheni niliyopata hapa asubuhi. Hakika ni jasho la mtu linaloheshimiwa na kulipwa kwa haki 📚👵❤️",
+    time: "Saa 2 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Lilian Shayo",
+    text: "Halopesa imetua sekunde chache zilizopita, kazi safi mno 👍 malipo ya haraka na uhakika ndio kila kitu kwangu ⚡💵",
+    time: "Saa 2 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Magreth Lema",
+    text: "Nimefanya kazi na mitandao mingi lakini hii ndio namba moja kwa uwazi na malipo ya haraka 🔥 haijawahi kunitupa tangu nimeanza",
     time: "Saa 3 yaliyopita",
     replies: []
   },
   {
-    name: "Wenceslaus Mushi",
-    text: "Halopesa imetua sekunde chache zilizopita, kazi safi mno 👍",
-    time: "Saa 4 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Xystus Mallya",
-    text: "Nimefanya kazi na mitandao mingi lakini hii ndio namba moja kwa uwazi na malipo ya haraka 🔥",
-    time: "Saa 4 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Yvette Minja",
+    name: "Neema Tarimo",
     text: "Nilijaribu kutoa kiasi kidogo kama majaribio, ilipoingia nikapata ujasiri wa kuthibitisha oda zilizobaki. Sasa hivi niko huru na mwenye amani tele 🕊️💵",
+    time: "Saa 3 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Omary Kimaro",
+    text: "Uaminifu wenu ndio unaowafanya muwe bora kuliko wengine wote. Endeleeni hivi hivi tuko pamoja nanyi daima 🌟🤝 tunawaamini sana",
     time: "Saa 4 yaliyopita",
     replies: []
   },
   {
-    name: "Zita Maro",
-    text: "Uaminifu wenu ndio unaowafanya muwe bora kuliko wengine wote. Endeleeni hivi hivi tuko pamoja nanyi daima 🌟🤝",
-    time: "Saa 5 yaliyopita",
+    name: "Prisca Mollel",
+    text: "Pesa imeingia mara moja, asanteni sana kwa huduma makini 💸 kila senti inafika kwa wakati",
+    time: "Saa 4 yaliyopita",
     replies: []
   },
   {
-    name: "Amatus Moshi",
-    text: "Pesa imeingia mara moja, asanteni sana kwa huduma makini 💸",
-    time: "Saa 5 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Brigitha Mchome",
+    name: "Queen Muro",
     text: "Niko na mtoto mchanga nyumbani siwezi kutoka kwenda kuajiriwa mbali, hii kazi ya simu ya kuthibitisha oda inanisaidia kupata hela ya maziwa na pampers bila kumtegemea mtu yeyote 👶🍼🌸",
     time: "Saa 5 yaliyopita",
     replies: [
-      { name: "Zacheus Minja", text: "Hongera sana mama, huo ndio ujasiriamali wa kweli wa kidijitali 🙌", time: "Saa 4 yaliyopita" }
+      { name: "Robert Temu", text: "Hongera sana mama, huo ndio ujasiriamali wa kweli wa kidijitali 🙌 mwanamke shujaa", time: "Saa 2 yaliyopita" }
     ]
   },
   {
-    name: "Cyprian Lyakurwa",
-    text: "Oda za leo zimetema vizuri sana! Wiki imeanza kwa kishindo kikubwa 📈🔥",
+    name: "Sarafina Shirima",
+    text: "Oda za leo zimetema vizuri sana! Wiki imeanza kwa kishindo kikubwa 📈🔥 sikutegemea kupata kiasi hiki leo",
+    time: "Saa 5 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Teresia Masawe",
+    text: "Nimepata kamisheni yangu kamili bila kukatwa chochote kisichoeleweka. Asante sana kwa kuwa wakweli kwetu!",
     time: "Saa 6 yaliyopita",
     replies: []
   },
   {
-    name: "Doroth Sikana",
-    text: "Nimepata kamisheni yangu kamili bila kukatwa chochote kisichoeleweka. Asante sana!",
+    name: "Upendo Macha",
+    text: "Kila mara nikifanya verification hapa nahisi fahari kuona bidhaa halisi na wateja kutoka nchi mbalimbali za Afrika kama Kenya, Rwanda na Tanzania yetu 🌍🤝 kampuni imejipanga!",
     time: "Saa 6 yaliyopita",
     replies: []
   },
   {
-    name: "Eustachia Mwangosi",
-    text: "Kila mara nikifanya verification hapa nahisi fahari kuona bidhaa halisi na wateja kutoka nchi mbalimbali za Afrika kama Kenya, Rwanda na Tanzania yetu 🌍🤝",
-    time: "Saa 6 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Flaviana Songa",
-    text: "Nimeridhika kwa 100%, hakuna usumbufu wowote 👌",
+    name: "Vicent Msuya",
+    text: "Nimeridhika kwa 100%, hakuna usumbufu wowote 👌 kila kitu kipo wazi na rahisi kuelewa hata kwa mgeni",
     time: "Saa 7 yaliyopita",
     replies: []
   },
   {
-    name: "Gasperina Mwambapa",
+    name: "Warda Kweka",
     text: "Jana niliweka oda zangu nikalala nikiwa na shaka, lakini asubuhi ya leo nimezimalizia na kutoa pesa yangu M-Pesa bila kizuizi chochote. Asante sana OrderVerify kwa kutotuangusha 🙏❤️",
     time: "Saa 7 yaliyopita",
     replies: []
   },
   {
-    name: "Honorat Mwankenja",
-    text: "Hii ndio maana halisi ya huduma ya kuaminika. Kazi inaenda mbele 🚀",
-    time: "Saa 7 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Immaculata Mwashitete",
-    text: "Nimepokea faida yangu ya oda za hospitali na lab, kazi safi kabisa na malipo ya papo kwa papo 🏥🔬💰",
+    name: "Xaveria Mtei",
+    text: "Hii ndio maana halisi ya huduma ya kuaminika. Kazi inaenda mbele 🚀 sasa ninaweza kupanga mipango yangu kwa uhakika",
     time: "Saa 8 yaliyopita",
     replies: []
   },
   {
-    name: "Juvenal Ndunguru",
-    text: "Kaka zangu na dada zangu, kama mko hapa fanyeni kazi kwa bidii, hakika inalipa bila wasiwasi 👊",
+    name: "Yolanda Nkya",
+    text: "Nimepokea faida yangu ya oda za leo, kazi safi kabisa na malipo ya papo kwa papo 💰 nimeamini sasa",
     time: "Saa 8 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Zuwena Salim",
+    text: "Kaka zangu na dada zangu, kama mko hapa fanyeni kazi kwa bidii, hakika inalipa bila wasiwasi 👊 jasho lenu halitapotea hapa",
+    time: "Saa 9 yaliyopita",
     replies: [
-      { name: "Anicet Tarimo", text: "Kweli kabisa ndugu yangu, jasho la mtu halipotei hapa 💯", time: "Saa 6 yaliyopita" }
+      { name: "Abel Kimambo", text: "Kweli kabisa dada, mimi ni shahidi wa hili. Kila siku napata kile nilichofanyia kazi 💯", time: "Saa 4 yaliyopita" }
     ]
   },
   {
-    name: "Kostansia Kinyaga",
-    text: "Simu yangu imelia mlio wa furaha asubuhi hii, asanteni sana timu nzima 📲💃",
-    time: "Saa 8 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Ladislaus Mbwilo",
-    text: "Urahisi wa matumizi na uwazi wa taarifa ni vitu vinavyonivutia sana kila siku hapa 👍",
+    name: "Beka Assenga",
+    text: "Simu yangu imelia mlio wa furaha asubuhi hii, asanteni sana timu nzima kwa kuendelea kuwa waaminifu 📲💃",
     time: "Saa 9 yaliyopita",
     replies: []
   },
   {
-    name: "Monika Mtweve",
+    name: "Cosmas Makamba",
+    text: "Urahisi wa matumizi na uwazi wa taarifa ni vitu vinavyonivutia sana kila siku hapa 👍 hakuna mambo ya siri, kila kitu mbele yako",
+    time: "Saa 10 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Doris Tesha",
     text: "Nimefanikiwa kulipa bili ya umeme na maji ya nyumbani kwa faida ya leo asubuhi tu. Mungu awabariki sana kwa kutupa fursa hii adhimu 💡🚰🙏",
-    time: "Saa 9 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Nathanael Ndalama",
-    text: "Hakuna longolongo, hakuna uongo. Ni kazi na malipo ya uhakika tu ⚡",
     time: "Saa 10 yaliyopita",
     replies: []
   },
   {
-    name: "Odilo Mhagama",
-    text: "Nimefanya withdrawal ya 41,000/= sasa hivi na tayari ipo kwenye mkoba wangu wa simu. Ni furaha tupu leo 🎉💵",
-    time: "Saa 10 yaliyopita",
-    replies: []
-  },
-  {
-    name: "Paschazia Msuvva",
-    text: "Nilikuwa na maswali mengi lakini nilipoona jinsi kila hatua inavyojieleza, nikaona hakuna sababu ya kuwa na mashaka. Nimeridhika sana na utendaji wao 🛡️✨",
+    name: "Elisha Kaaya",
+    text: "Hakuna longolongo, hakuna uongo. Ni kazi na malipo ya uhakika tu ⚡ nimevutiwa sana na kasi ya malipo yenu",
     time: "Saa 11 yaliyopita",
     replies: []
   },
   {
-    name: "Quirinus Mwita",
-    text: "Kila nikimaliza kazi zangu hapa naenda shambani nikiwa na amani moyoni 🌾🚜",
+    name: "Flavia Mmbando",
+    text: "Nimefanya withdrawal ya 41,000/= sasa hivi na tayari ipo kwenye mkoba wangu wa simu. Ni furaha tupu leo 🎉💵 maisha yanasonga",
     time: "Saa 11 yaliyopita",
     replies: []
   },
   {
-    name: "Raphael Kileo",
-    text: "Ujumbe wa Airtel Money umeingia muda huu, asanteni sana!",
+    name: "Goodluck Kisamo",
+    text: "Nilikuwa na maswali mengi lakini nilipoona jinsi kila hatua inavyojieleza, nikaona hakuna sababu ya kuwa na mashaka. Nimeridhika sana 🛡️✨",
     time: "Saa 12 yaliyopita",
     replies: []
   },
   {
-    name: "Seraphina Msacky",
-    text: "Nalala leo nikiwa na tabasamu kubwa usoni maana nimepata faida nzuri sana kwenye oda zangu za leo. Mungu azidi kuilinda tovuti hii kwa ajili yetu sote 🌙✨❤️",
+    name: "Hilda Minja",
+    text: "Kila nikimaliza kazi zangu hapa naenda shambani nikiwa na amani moyoni nikijua jioni nitalipwa 🌾🚜",
     time: "Saa 12 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Isaya Maro",
+    text: "Ujumbe wa Airtel Money umeingia muda huu, asanteni sana kwa kuonyesha kuwa bado kuna watu waaminifu mtandaoni!",
+    time: "Saa 13 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Jenifa Moshi",
+    text: "Nalala leo nikiwa na tabasamu kubwa usoni maana nimepata faida nzuri sana kwenye oda zangu za leo. Mungu azidi kuilinda tovuti hii 🌙✨❤️",
+    time: "Saa 14 yaliyopita",
     replies: [
-      { name: "Bibiana Maro", text: "Usingizi mnono dada, kesho mapema tunakutana tena hapa kwa mgao mwingine 🙌", time: "Saa 10 yaliyopita" }
+      { name: "Khalid Mchome", text: "Usingizi mnono dada, kesho mapema tunakutana tena hapa kwa mgao mwingine 🙌 tuko pamoja", time: "Saa 5 yaliyopita" }
     ]
   },
   {
-    name: "Tarcisius Kibona",
-    text: "Huduma bora ya kisasa na ya kipekee sana. Hongereni wote mnaoendesha huu mfumo 👏🔥",
-    time: "Saa 12 yaliyopita",
+    name: "Luka Lyakurwa",
+    text: "Huduma bora ya kisasa na ya kipekee sana. Hongereni wote mnaoendesha huu mfumo kwa weledi mkubwa 👏🔥",
+    time: "Saa 15 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Monica Sikana",
+    text: "Napenda jinsi oda zinavyobadilika kila wakati, inafanya kazi iwe ya kuvutia and isiyochosha 👗📱🔬 nimejifunza vitu vingi vipya hapa",
+    time: "Saa 16 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Nixon Mwangosi",
+    text: "Kwa kweli hii ndio website pekee ambayo sijaona ikileta usumbufu kwenye kutoa hela. Safi sana! ✅💰",
+    time: "Saa 17 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Oliver Songa",
+    text: "Nimetumia faida ya wiki hii kununua kuku 5 wa kufuga. OrderVerify inatujenga kiuchumi kweli 🐥📈 asanteni mno!",
+    time: "Saa 18 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Pili Mwambapa",
+    text: "Aiseee! Yaani ni fasta tu, ukimaliza kudhibitisha oda, unavuna ulichopanda. Hakuna kusubiri mwezi uishe ⏱️💵💃",
+    time: "Saa 19 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Richard Mwankenja",
+    text: "Kila mara napata hamu ya kuingia hapa maana najua kuna hela inanisubiri. Inabadilisha kabisa mtazamo wangu wa maisha ya mtandaoni 🌟🙏",
+    time: "Saa 20 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Sofia Mwashitete",
+    text: "Nimevutiwa na jinsi kila kitu kilivyo rahisi, hata kwa sisi wazee tunajua kutumia simu kidogo tunaweza kupata kipato hapa 👵👵💰",
+    time: "Saa 21 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Thomas Ndunguru",
+    text: "Asanteni kwa kuleta mfumo huu Tanzania. Sasa hivi tunaweza kufanya kazi na kulipwa kwa sarafu yetu bila usumbufu wa kubadilisha 🇹🇿💎",
+    time: "Saa 22 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Ushindi Kinyaga",
+    text: "Siku yangu imeanza vizuri mno kwa kupokea ujumbe wa malipo. Ahsanteni sana timu ya usaidizi kwa kuwa bega kwa bega nasi 📲✨",
+    time: "Saa 23 yaliyopita",
+    replies: []
+  },
+  {
+    name: "Valentina Mbwilo",
+    text: "OrderVerify ni habari ya mjini! Hakuna asiyejua sasa hivi jinsi inavyosaidia watu kupata kipato cha ziada 🏠🏙️💵",
+    time: "Saa 1 iliyopita",
+    replies: []
+  },
+  {
+    name: "William Mtweve",
+    text: "Nimevuta mkwanja wangu wa leo, naenda kula bata kidogo na marafiki. Kesho tena kazini! 🍗🥤🎉",
+    time: "Saa 2 iliyopita",
+    replies: []
+  },
+  {
+    name: "Abeli Mtweve",
+    text: "Nimepokea salio langu la M-Pesa bila kipingamizi chochote. Ahsanteni sana kwa huduma yenu tukuka 📱💰💎",
+    time: "Saa 3 zilizopita",
+    replies: []
+  },
+  {
+    name: "Busara Ndalama",
+    text: "Maisha yamekuwa rahisi tangu nianze kutumia OrderVerify. Napata kipato changu nikiwa nyumbani tu na wanangu 🏡🤱💵",
+    time: "Saa 4 zilizopita",
+    replies: []
+  },
+  {
+    name: "Clementina Mhagama",
+    text: "Sikuamini kama kweli inalipa mpaka rafiki yangu aliponitumia picha ya muamala wake. Nikaingia na mimi sasa hivi nimevuna kwanza! 🚜💨🔥",
+    time: "Saa 5 zilizopita",
+    replies: []
+  },
+  {
+    name: "Dau Msuvva",
+    text: "Kila nikiamka asubuhi kitu cha kwanza ni kuingia hapa kuangalia oda mpya. Ni kama mchezo wa kuvutia unaokupa hela 🎮💰✨",
+    time: "Saa 6 zilizopita",
+    replies: []
+  },
+  {
+    name: "Esteria Mwita",
+    text: "OrderVerify imenifanya niamini kuwa bado kuna fursa halali mtandaoni. Nimevuna faida yangu ya kwanza leo! 🌟🙌",
+    time: "Saa 7 zilizopita",
+    replies: []
+  },
+  {
+    name: "Filipo Kileo",
+    text: "Nimevutiwa sana na uwiano wa bidhaa na bei zake. Kila kitu kipo professional na kinaeleweka 👔📈",
+    time: "Saa 8 zilizopita",
+    replies: []
+  },
+  {
+    name: "Gasperi Msacky",
+    text: "Huduma ya wateja ipo vizuri sana, walinisaidia pale nilipopata shida ya kutoa hela kwa haraka. Asante sana! 🛡️🤝",
+    time: "Saa 9 zilizopita",
+    replies: []
+  },
+  {
+    name: "Herieth Kibona",
+    text: "Nimefurahi mno kuona mchango wangu mdogo unavyozalisha matunda makubwa hapa. Maisha yanabadilika kweli 💃💰",
+    time: "Saa 10 zilizopita",
+    replies: []
+  },
+  {
+    name: "Idrissa Mbise",
+    text: "Kwa kweli nimeshushwa presha baada ya kuona hela inaingia. Sasa nafanya kazi kwa moyo mmoja 👊🔥",
+    time: "Saa 11 zilizopita",
+    replies: []
+  },
+  {
+    name: "Judithi Ngowi",
+    text: "Sikuwahi kufikiria kama simu yangu inaweza kuwa ofisi yangu. Asante OrderVerify kwa kunifumbua macho 📱🏢✨",
+    time: "Saa 12 zilizopita",
     replies: []
   }
 ];
@@ -1477,74 +1554,93 @@ export function buildCompliantComments(usedBaseNames: Set<string>, usedFullNames
 // ============================================================================
 
 export const RAW_LIVE_PAYOUT_MEMBERS: { name: string; amount: number }[] = [
-  { name: "Aloyce Mchau", amount: 23500 },
-  { name: "Benson Tarimo", amount: 36000 },
-  { name: "Calvin Lyimo", amount: 19000 },
-  { name: "Doreen Mollel", amount: 42500 },
-  { name: "Eliud Swai", amount: 28000 },
-  { name: "Fredrick Massawe", amount: 16500 },
-  { name: "Gasper Shirima", amount: 53000 },
-  { name: "Hassan Muro", amount: 31000 },
-  { name: "Iddi Kweka", amount: 47500 },
-  { name: "Jackson Kimaro", amount: 22000 },
-  { name: "Khamis Temu", amount: 39500 },
-  { name: "Lazaro Meela", amount: 25500 },
-  { name: "Melkiad Urassa", amount: 44000 },
-  { name: "Nelson Mremi", amount: 18000 },
-  { name: "Oswald Macha", amount: 34500 },
-  { name: "Patrick Nkya", amount: 52000 },
-  { name: "Qudus Salim", amount: 20500 },
-  { name: "Ramadhani Msuya", amount: 41000 },
-  { name: "Samson Mtei", amount: 27000 },
-  { name: "Titus Shayo", amount: 48500 },
-  { name: "Ulimboka Mwakatobe", amount: 33000 },
-  { name: "Vincent Kavishe", amount: 55000 },
-  { name: "Waziri Msele", amount: 17500 },
-  { name: "Xaveria Assenga", amount: 38000 },
-  { name: "Yassir Makamba", amount: 29500 },
-  { name: "Zuberi Kimambo", amount: 46000 },
-  { name: "Amri Chalamila", amount: 21500 },
-  { name: "Brian Tesha", amount: 37500 },
-  { name: "Cornel Kaaya", amount: 15500 },
-  { name: "Dominick Mmbando", amount: 50500 },
-  { name: "Eustace Kisamo", amount: 32500 },
-  { name: "Festus Mushi", amount: 26000 },
-  { name: "Gerald Mallya", amount: 43500 },
-  { name: "Hellen Minja", amount: 19500 },
-  { name: "Ibrahim Maro", amount: 54000 },
-  { name: "James Moshi", amount: 35000 },
-  { name: "Kaspar Mchome", amount: 24500 },
-  { name: "Livinus Lyakurwa", amount: 40500 },
-  { name: "Meshack Sikana", amount: 18500 },
-  { name: "Nickson Mwangosi", amount: 49000 },
-  { name: "Omari Songa", amount: 27500 },
-  { name: "Philipo Mwambapa", amount: 36500 },
-  { name: "Riziki Mwankenja", amount: 22500 },
-  { name: "Shabani Mwashitete", amount: 45000 },
-  { name: "Twaha Ndunguru", amount: 30500 },
-  { name: "Urasa Kinyaga", amount: 51500 },
-  { name: "Valerian Mbwilo", amount: 16000 },
-  { name: "Wilfred Mtweve", amount: 42000 },
-  { name: "Yasin Ndalama", amount: 28500 },
-  { name: "Zablon Mhagama", amount: 47000 },
-  { name: "Albert Msuvva", amount: 34000 },
-  { name: "Barnabas Mwita", amount: 21000 },
-  { name: "Crispin Kileo", amount: 56000 },
-  { name: "Dotto Msacky", amount: 17000 },
-  { name: "Erasmus Kibona", amount: 38500 },
-  { name: "Frank Mbise", amount: 29000 },
-  { name: "Goodluck Ngowi", amount: 43000 },
-  { name: "Hamza Lyatuu", amount: 25000 },
-  { name: "Ismail Minja", amount: 52500 },
-  { name: "Joseph Tarimo", amount: 31500 },
-  { name: "Kassim Maro", amount: 19000 },
-  { name: "Leonard Mremi", amount: 46500 },
-  { name: "Mustafa Meela", amount: 23000 },
-  { name: "Nasoro Macha", amount: 37000 },
-  { name: "Osward Nkya", amount: 50000 },
-  { name: "Peter Kweka", amount: 33500 },
-  { name: "Rashid Assenga", amount: 26500 },
-  { name: "Saidi Kimambo", amount: 45500 }
+  { name: "Abbas Kimei", amount: 23500 },
+  { name: "Abduel Mrema", amount: 36000 },
+  { name: "Adolf Mushi", amount: 19000 },
+  { name: "Agnes Shayo", amount: 42500 },
+  { name: "Albert Lema", amount: 28000 },
+  { name: "Alex Tarimo", amount: 16500 },
+  { name: "Amos Kimaro", amount: 53000 },
+  { name: "Andrew Mollel", amount: 31000 },
+  { name: "Aneth Muro", amount: 47500 },
+  { name: "Anita Temu", amount: 22000 },
+  { name: "Anna Shirima", amount: 39500 },
+  { name: "Anthony Masawe", amount: 25500 },
+  { name: "Arnold Macha", amount: 44000 },
+  { name: "Asha Msuya", amount: 18000 },
+  { name: "Augustino Kweka", amount: 34500 },
+  { name: "Beda Mtei", amount: 52000 },
+  { name: "Beatrice Nkya", amount: 20500 },
+  { name: "Belia Salim", amount: 41000 },
+  { name: "Benedict Kimambo", amount: 27000 },
+  { name: "Bertha Assenga", amount: 48500 },
+  { name: "Bonus Makamba", amount: 33000 },
+  { name: "Catherine Tesha", amount: 55000 },
+  { name: "Cecilia Kaaya", amount: 17500 },
+  { name: "Charles Mmbando", amount: 38000 },
+  { name: "Christian Kisamo", amount: 29500 },
+  { name: "Clara Minja", amount: 46000 },
+  { name: "Clement Maro", amount: 21500 },
+  { name: "Dismas Moshi", amount: 37500 },
+  { name: "Debora Mchome", amount: 15500 },
+  { name: "Dennis Lyakurwa", amount: 50500 },
+  { name: "Diana Sikana", amount: 32500 },
+  { name: "Dickson Mwangosi", amount: 26000 },
+  { name: "Dorcas Songa", amount: 43500 },
+  { name: "Edgar Mwambapa", amount: 19500 },
+  { name: "Edith Mwankenja", amount: 54000 },
+  { name: "Edwin Mwashitete", amount: 35000 },
+  { name: "Elias Ndunguru", amount: 24500 },
+  { name: "Elice Kinyaga", amount: 40500 },
+  { name: "Elisante Mbwilo", amount: 18500 },
+  { name: "Elizabeth Mtweve", amount: 49000 },
+  { name: "Elly Ndalama", amount: 27500 },
+  { name: "Ema Mhagama", amount: 36500 },
+  { name: "Emil Msuvva", amount: 22500 },
+  { name: "Enock Mwita", amount: 45000 },
+  { name: "Ephraim Kileo", amount: 30500 },
+  { name: "Ester Msacky", amount: 51500 },
+  { name: "Eva Kibona", amount: 16000 },
+  { name: "Evans Mbise", amount: 42000 },
+  { name: "Ezira Ngowi", amount: 28500 },
+  { name: "Faith Lyatuu", amount: 47000 },
+  { name: "Faraja Minja", amount: 34000 },
+  { name: "Faustine Tarimo", amount: 21000 },
+  { name: "Felista Maro", amount: 56000 },
+  { name: "Felistus Meela", amount: 17000 },
+  { name: "Florence Macha", amount: 38500 },
+  { name: "Frank Nkya", amount: 29000 },
+  { name: "Gabriel Kweka", amount: 43000 },
+  { name: "Geoffrey Assenga", amount: 25000 },
+  { name: "George Kimambo", amount: 52500 },
+  { name: "Gift Chalamila", amount: 31500 },
+  { name: "Gladness Tesha", amount: 19000 },
+  { name: "Gloria Kaaya", amount: 46500 },
+  { name: "Gidioni Mmbando", amount: 23000 },
+  { name: "Grace Kisamo", amount: 37000 },
+  { name: "Grolia Mushi", amount: 50000 },
+  { name: "Hagai Mallya", amount: 33500 },
+  { name: "Happy Minja", amount: 26500 },
+  { name: "Honest Maro", amount: 45500 },
+  { name: "Hope Moshi", amount: 39000 },
+  { name: "Hosea Mchome", amount: 27000 },
+  { name: "Hyasinta Lyakurwa", amount: 51000 },
+  { name: "Idadi Sikana", amount: 31000 },
+  { name: "Isidora Kavishe", amount: 22000 },
+  { name: "James Minja", amount: 48000 },
+  { name: "Kelvin Maro", amount: 35000 },
+  { name: "Lucy Moshi", amount: 19500 },
+  { name: "Martha Mchome", amount: 54000 },
+  { name: "Noel Lyakurwa", amount: 27500 },
+  { name: "Paul Sikana", amount: 41000 },
+  { name: "Rose Mwangosi", amount: 33000 },
+  { name: "Simon Songa", amount: 52000 },
+  { name: "Tabu Mwambapa", amount: 20500 },
+  { name: "Victor Mwankenja", amount: 46000 },
+  { name: "Winifrida Mwashitete", amount: 38000 },
+  { name: "Yohana Ndunguru", amount: 29500 },
+  { name: "Zaituni Kinyaga", amount: 55000 },
+  { name: "Zakaria Mbwilo", amount: 17500 }
 ];
 
 export function buildCompliantLivePayouts(usedBaseNames: Set<string>, usedFullNames: Set<string>): LivePayout[] {
@@ -1622,8 +1718,8 @@ export function validateSystemData(data: { orders: Order[]; notifications: LiveP
   });
 
   data.orders.forEach((o, idx) => {
-    if (o.productValue < 80000 || o.productValue > 800000) {
-      errors.push(`Order #${idx+1} value ${o.productValue} out of 80k-800k bounds.`);
+    if (o.productValue < 80000 || o.productValue > 1000000) {
+      errors.push(`Order #${idx+1} value ${o.productValue} out of 80k-1M bounds.`);
     }
     const expectedPayout = Math.round(o.productValue * 0.05);
     if (Math.abs(o.payout - expectedPayout) > 1) {
@@ -1720,7 +1816,7 @@ export function generateCompliantSystemData(epochSeed: number) {
 
   // Page 3: 12 Brand New Industrial products
   const page3Items: ProductTemplate[] = [];
-  [...masterIndustrialProducts, ...masterClothingProducts].forEach(p => {
+  [...masterIndustrialProducts].forEach(p => {
     const k = normalizeProductKey(p.name);
     if (page3Items.length < 12 && !activeProducts.has(k) && !PERMANENTLY_RETIRED_PRODUCTS.has(k)) {
       activeProducts.add(k);

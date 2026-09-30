@@ -6,7 +6,7 @@ interface TutorialVideoSectionProps {
 }
 
 export function TutorialVideoSection({
-  whatsappUrl = "https://chat.whatsapp.com/KqTZxthYkRG1QsaGGQihHe"
+  whatsappUrl = "https://whatsapp.com/channel/0029Vb9DAjqLY6dFP4TXlE1x"
 }: TutorialVideoSectionProps) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -79,7 +79,7 @@ export function TutorialVideoSection({
           className="block w-full bg-gradient-to-r from-[#25D366] to-[#1DA851] hover:brightness-110 text-white font-bold text-center py-2.5 px-3 rounded-xl uppercase text-xs sm:text-sm tracking-normal sm:tracking-wide transition-all shadow-md shadow-[#25D366]/20 flex items-center justify-center gap-2 cursor-pointer"
         >
           <Users className="w-4 h-4 shrink-0" />
-          <span className="leading-tight">JIUNGE NA GROUP LETU LA WHATSAPP</span>
+          <span className="leading-tight">FOLLOW CHANNEL YETU YA WHATSAPP</span>
         </a>
       </div>
 

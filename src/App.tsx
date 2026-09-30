@@ -73,14 +73,12 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
         <div className="flex flex-col items-center justify-center mb-6">
           <div className="relative mb-3 flex items-center justify-center">
             <div className="absolute -inset-1 bg-gradient-to-r from-[#00E676]/35 via-emerald-400/25 to-[#00E676]/35 rounded-2xl blur-md opacity-60" />
-            <div className="relative bg-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl border border-emerald-400/40 shadow-xl flex items-center justify-center">
-              <img 
-                src="/orderverify_official_logo.jpg" 
-                alt="OrderVerify Logo" 
-                className="h-12 sm:h-14 w-auto max-w-[190px] object-contain block"
-                style={{ maxHeight: '56px', maxWidth: '190px', width: 'auto' }}
-                referrerPolicy="no-referrer"
-              />
+            <div className="relative bg-white px-6 py-3 rounded-2xl border border-emerald-400/40 shadow-xl flex items-center justify-center">
+              <div className="flex flex-col items-center">
+                <span className="text-black font-black text-2xl sm:text-3xl tracking-tighter leading-none">ORDER<span className="text-emerald-500">VERIFY</span></span>
+                <div className="h-0.5 w-full bg-emerald-500/30 my-1" />
+                <span className="text-slate-600 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.15em] leading-none">Thibitisha order pata kipato</span>
+              </div>
             </div>
           </div>
           
@@ -96,7 +94,7 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
         {/* Maneno aliyoagiza mtumiaji na style nzuri ya kuvutia */}
         <div className="bg-[#181A26] border border-emerald-500/30 rounded-2xl p-4 sm:p-5 mb-5 text-left shadow-inner space-y-3.5">
           <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-normal">
-            <span className="text-[#00E676] font-bold">OrderVerify</span> inakupa fursa ya kujiingizia kipato cha uhakika kwa kuthibitisha order za wateja kwa kuwatumia message za uthibitisho na kuzungumza nao, na kuisaidia kampuni yetu kutokupoteza wateja walio request hizo order kwa kupitia mawasiliano ya moja kwa moja ndani ya site ya <span className="text-[#00E676] font-bold">OrderVerify</span>.
+            <span className="text-[#00E676] font-bold">OrderVerify</span> inakupa fursa ya kujiingizia kipato kwa kuthibitisha order za wateja kwa kuwatumia message za uthibitisho na kuzungumza nao, na kuisaidia kampuni yetu kutokupoteza wateja walio request hizo order kwa kupitia mawasiliano ya moja kwa moja ndani ya site ya <span className="text-[#00E676] font-bold">OrderVerify</span>.
           </p>
         </div>
 
@@ -155,7 +153,7 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
 
         {/* Trust Note chini */}
         <div className="mt-5 pt-3.5 border-t border-slate-800/80 flex items-center justify-center gap-2 text-[11px] text-slate-400 font-medium">
-          <span>🔒 Tovuti Salama • Malipo ya Papo Hapo M-Pesa, Airtel, Tigo & HaloPesa</span>
+          <span>🔒 Tovuti Salama</span>
         </div>
       </motion.div>
       
@@ -242,10 +240,10 @@ function LiveClock() {
         <div className="flex flex-col justify-center">
           <span className="text-[#FFD700] font-black text-xs sm:text-sm leading-snug tracking-wide flex items-center gap-2 drop-shadow-[0_1px_6px_rgba(255,215,0,0.4)]">
             <span className="w-2.5 h-2.5 rounded-full bg-[#FFD700] animate-pulse shrink-0 shadow-[0_0_8px_#FFD700]"></span>
-            JUMATATU YAKO IMEANZAJE?? LEO KUNA WATU WAMELIPWA HADI 200,000
+            HONGERENI WOTE MLIO TOA PESA ZENU LEO KEEP EARNING WITH US ZIPO ORDER ZA KUTOSHA THIBITISHA SASA NA ULIPWE
           </span>
           <span className="text-[#00FF88] text-xs sm:text-sm font-extrabold tracking-wide mt-1 drop-shadow-[0_1px_4px_rgba(0,255,136,0.3)]">
-            FUNGUA AKAUNTI SASA UANZE KULIPWA
+            Tafadhali kamilisha usajili wako sasa kuanza kulipwa
           </span>
         </div>
       </div>
@@ -626,7 +624,7 @@ function Dashboard() {
           </div>
           <div>
             <h2 className="font-black text-base sm:text-lg leading-none tracking-tight text-white">ORDER<span className="text-[#00E676]">VERIFY</span></h2>
-            <p className="text-[10px] text-slate-400 font-medium">Verify Orders • Pata Kipato</p>
+            <p className="text-[10px] text-slate-400 font-medium">Thibitisha order pata kipato</p>
           </div>
         </div>
         {/* Kitufe cha Jisajili Hapa chenye rangi nyekundu inayowakawaka */}
@@ -690,7 +688,7 @@ function Dashboard() {
         </div>
 
         {/* Tutorial Video Section (Replacing sliding banner with interactive video demonstration) */}
-        <TutorialVideoSection whatsappUrl="https://chat.whatsapp.com/KqTZxthYkRG1QsaGGQihHe" />
+        <TutorialVideoSection whatsappUrl="https://whatsapp.com/channel/0029Vb9DAjqLY6dFP4TXlE1x" />
 
         {/* Orders Header */}
         <div className="text-center mt-6">
@@ -1786,7 +1784,7 @@ function Dashboard() {
                 
                 <div className="flex flex-col gap-3 w-full">
                   <a
-                    href="https://wa.me/255792281116?text=Habari%20Naomba%20kujiunga%20na%20OrderVerify"
+                    href="https://wa.me/255617309096?text=Habari%20Naomba%20kujiunga%20na%20OrderVerify"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full flex items-center justify-between bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 text-[#25D366] font-bold px-5 py-4 rounded-xl transition-all"
@@ -1795,7 +1793,7 @@ function Dashboard() {
                       <MessageCircle className="w-6 h-6" />
                       <div className="flex flex-col items-start">
                         <span className="text-base">WhatsApp</span>
-                        <span className="text-xs opacity-80">0792 281 116</span>
+                        <span className="text-xs opacity-80">0617 309 096</span>
                       </div>
                     </div>
                     <ChevronRight className="w-5 h-5 opacity-70" />
