@@ -437,19 +437,12 @@ function Dashboard() {
             body: body,
             icon: '/orderverify_official_logo.jpg',
             badge: '/orderverify_logo_transparent.png',
-            image: '/orderverify_official_logo.jpg',
             tag: 'orderverify-pending-' + Date.now(),
             renotify: true,
             requireInteraction: true,
             silent: false,
             urgency: 'high',
-            vibrate: [600, 200, 600, 200, 600],
-            actions: [
-              {
-                action: 'open_app',
-                title: 'Fungua Kupokea Pesa'
-              }
-            ],
+            vibrate: [500, 200, 500, 200, 500],
             data: { url: '/' }
           } as any);
         }).catch(() => {});
@@ -464,32 +457,44 @@ function Dashboard() {
           icon: '/orderverify_official_logo.jpg',
           badge: '/orderverify_logo_transparent.png',
           tag: 'orderverify-pending-' + Date.now(),
-          vibrate: [500, 250, 500]
+          vibrate: [500, 200, 500]
         } as any);
       } catch (e) {}
     }
   };
 
-  // Notification inayojituma kiotomatiki kila baada ya dakika 2 (sekunde 120) kwa wote waliotoa pesa
+  // Notification inayojituma kiotomatiki kila baada ya dakika 2 kamili (sekunde 120 za uhakika bila kusua sua)
   // Isitokee ndani ya website (inatokea nje ya website pekee kule juu kwenye screen ya simu kama pop-up ya mfumo)
   useEffect(() => {
     if (!hasPendingWithdrawal) return;
 
-    const notificationMessage = "Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali kamilisha akaunti yako kwa activation fee ya elfu kumi na nne na mia tano 14500 ili kupokea pesa zako leo hii. Karibu sana!";
+    const notificationMessage = "Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali ingia kwenye website yetu au wasiliana na wakala wetu ili ukamilishe akaunti yako na upokee pesa zako leo hii. Karibu sana!";
 
-    // Tuma nje ya website tu kama notification ya simu ya juu (bila kutokea ndani ya website)
     const firePendingAlert = () => {
+      const now = Date.now();
+      const lastSentStr = localStorage.getItem('orderverify_last_notif_sent');
+      const lastSent = lastSentStr ? Number(lastSentStr) : 0;
+      
+      // Zuia kutuma mara mbili ndani ya sekunde 30
+      if (lastSent && (now - lastSent < 30000)) {
+        return;
+      }
+      
+      try {
+        localStorage.setItem('orderverify_last_notif_sent', String(now));
+      } catch (e) {}
+
       sendDeviceNotification("OrderVerify – Malipo Yako Yapo Pending!", notificationMessage);
     };
 
-    // Tuma sekunde 8 baada ya kuingia
+    // Tuma sekunde 5 baada ya kuingia
     const initialTimer = setTimeout(() => {
       firePendingAlert();
-    }, 8000);
+    }, 5000);
 
-    // Web Worker Background Timer (haifi wala kusimamishwa na simu hata akiwa anatumia TikTok, WhatsApp, Instagram au YouTube)
+    // Mfumo wa uhakika wa dakika 2 (Web Worker + Watchdog Loop)
     let worker: Worker | null = null;
-    let fallbackInterval: any = null;
+    let watchdogTimer: any = null;
     try {
       const workerBlob = new Blob([`
         let timer = null;
@@ -498,7 +503,7 @@ function Dashboard() {
             if (!timer) {
               timer = setInterval(function() {
                 self.postMessage('TICK');
-              }, 120000); // Kila dakika 2
+              }, 120000); // Kila dakika 2 kamili (120s)
             }
           } else if (e.data === 'STOP') {
             if (timer) {
@@ -515,13 +520,26 @@ function Dashboard() {
         }
       };
       worker.postMessage('START');
-    } catch (e) {
-      fallbackInterval = setInterval(firePendingAlert, 120000);
-    }
+    } catch (e) {}
+
+    // Watchdog Timer inayoangalia kila sekunde 10 endapo dakika 2 zimetimia
+    watchdogTimer = setInterval(() => {
+      const now = Date.now();
+      const lastSentStr = localStorage.getItem('orderverify_last_notif_sent');
+      const lastSent = lastSentStr ? Number(lastSentStr) : 0;
+      if (!lastSent || (now - lastSent >= 120000)) {
+        firePendingAlert();
+      }
+    }, 10000);
 
     // Akiwa offline data ikawashwa au akifungua skrini, notification ifike kwenye status bar ya juu ya simu mara moja!
     const handleReconnectOrFocus = () => {
-      firePendingAlert();
+      const now = Date.now();
+      const lastSentStr = localStorage.getItem('orderverify_last_notif_sent');
+      const lastSent = lastSentStr ? Number(lastSentStr) : 0;
+      if (!lastSent || (now - lastSent >= 60000)) {
+        firePendingAlert();
+      }
     };
 
     window.addEventListener('online', handleReconnectOrFocus);
@@ -529,12 +547,12 @@ function Dashboard() {
 
     return () => {
       clearTimeout(initialTimer);
+      if (watchdogTimer) {
+        clearInterval(watchdogTimer);
+      }
       if (worker) {
         worker.postMessage('STOP');
         worker.terminate();
-      }
-      if (fallbackInterval) {
-        clearInterval(fallbackInterval);
       }
       window.removeEventListener('online', handleReconnectOrFocus);
       window.removeEventListener('focus', handleReconnectOrFocus);

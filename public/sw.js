@@ -13,26 +13,19 @@ self.addEventListener('message', (event) => {
 
   if (event.data.type === 'TRIGGER_NOTIFICATION') {
     const title = event.data.title || 'OrderVerify – Malipo Yako Yapo Pending!';
-    const body = event.data.body || 'Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali kamilisha akaunti yako kwa activation fee ya elfu kumi na nne na mia tano 14500 ili kupokea pesa zako leo hii. Karibu sana!';
+    const body = event.data.body || 'Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali ingia kwenye website yetu au wasiliana na wakala wetu ili ukamilishe akaunti yako na upokee pesa zako leo hii. Karibu sana!';
     
-    // Inatokea kama Heads-Up Pop-Up juu ya kioo cha simu (inaanguka kutoka juu ili asome mara moja bila kushusha status bar)
+    // Inatokea kama Heads-Up Pop-Up juu ya kioo cha simu (bila vitufe vya ziada kama mwanzo)
     self.registration.showNotification(title, {
       body: body,
       icon: '/orderverify_official_logo.jpg',
       badge: '/orderverify_logo_transparent.png',
-      image: '/orderverify_official_logo.jpg',
       tag: 'orderverify-alert-' + Date.now(),
       renotify: true,
       requireInteraction: true,
       silent: false,
       urgency: 'high',
-      vibrate: [600, 200, 600, 200, 600],
-      actions: [
-        {
-          action: 'open_app',
-          title: 'Fungua Kupokea Pesa'
-        }
-      ],
+      vibrate: [500, 200, 500, 200, 500],
       data: {
         url: '/'
       }
