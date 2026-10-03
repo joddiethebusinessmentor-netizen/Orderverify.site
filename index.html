@@ -6,11 +6,25 @@
     <meta name="robots" content="index, follow" />
     <title>Orderverify.site – Thibitisha Order pata kipato</title>
     <link rel="canonical" href="https://orderverify.site/" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0B0C10" />
+    <link rel="icon" type="image/png" href="/orderverify_logo_transparent.png" />
     <script>
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
       window.scrollTo(0, 0);
+
+      // Register Service Worker for background device notifications
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').then(function(reg) {
+            console.log('SW registered successfully:', reg.scope);
+          }).catch(function(err) {
+            console.log('SW registration failed:', err);
+          });
+        });
+      }
     </script>
     <meta name="description" content="Ingiza kipato kwa kuthibitisha order za wateja hii ipo Afrika mashariki yote">
     <meta property="og:title" content="Orderverify.site – Thibitisha Order pata kipato" />

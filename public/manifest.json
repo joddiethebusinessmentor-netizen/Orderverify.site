@@ -1,0 +1,26 @@
+{
+  "id": "/",
+  "name": "Orderverify.site – Thibitisha Order pata kipato",
+  "short_name": "OrderVerify",
+  "description": "Ingiza kipato kwa kuthibitisha order za wateja hii ipo Afrika mashariki yote",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0B0C10",
+  "background_color": "#0B0C10",
+  "icons": [
+    {
+      "src": "/orderverify_logo_transparent.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/orderverify_logo_transparent.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
