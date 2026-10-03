@@ -340,6 +340,15 @@ function Dashboard() {
   }, []);
 
   const [globalLoading, setGlobalLoading] = useState(false);
+  const [adminUnlockTaps, setAdminUnlockTaps] = useState(0);
+
+  const handleSecretTap = () => {
+    setAdminUnlockTaps(prev => prev + 1);
+    if (adminUnlockTaps + 1 >= 5) {
+      handleAdminLogin();
+      setAdminUnlockTaps(0);
+    }
+  };
   
   const runWithLoader = (action: () => void) => {
     setShowTopNotification(false);
@@ -2230,22 +2239,18 @@ function Dashboard() {
 
       {/* Secret Admin Access in Footer */}
       <div className="mt-12 mb-12 flex flex-col items-center gap-4 pb-8">
-        {currentUser?.email === 'zuhurasalum186@gmail.com' ? (
+        {currentUser?.email === 'zuhurasalum186@gmail.com' && (
           <button 
             onClick={() => setShowAdminPanel(true)}
             className="bg-[#00E676] text-black px-8 py-4 rounded-2xl text-xs uppercase font-black tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-[0_0_20px_rgba(0,230,118,0.4)]"
           >
             🔓 FUNGUA ADMIN PANEL
           </button>
-        ) : (
-          <button 
-            onClick={handleAdminLogin}
-            className="text-[10px] text-slate-500 uppercase font-black tracking-widest cursor-pointer opacity-60 hover:opacity-100 active:text-[#00E676] transition-all py-3 px-6 border border-slate-800 rounded-xl"
-          >
-            ADMIN ACCESS (LOG IN)
-          </button>
         )}
-        <div className="flex flex-col items-center gap-1 opacity-40">
+        <div 
+          onClick={handleSecretTap}
+          className="flex flex-col items-center gap-1 opacity-40 cursor-default select-none active:opacity-100"
+        >
           <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">© 2026 ORDERVERIFY OFFICIAL SITE</p>
           <p className="text-[9px] text-slate-600 font-medium tracking-tight">Haki zote zimehifadhiwa.</p>
         </div>
