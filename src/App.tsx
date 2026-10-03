@@ -423,7 +423,7 @@ function Dashboard() {
   // Function ya kutuma notification ya simu ya mfumo (System Notification)
   // Inayoonekana kwenye screen ya simu hata akiwa nje ya website (TikTok, WhatsApp, YouTube, Instagram n.k.)
   const sendDeviceNotification = (title: string, body: string) => {
-    // 1. Jaribu kupitia Service Worker (inafanya kazi popote hata app ikiwa background / nje ya browser)
+    // 1. Jaribu kupitia Service Worker (inafanya kazi popote hata app ikiwa background / nje ya browser hata asipofungua website)
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
       if (navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage({
@@ -464,11 +464,24 @@ function Dashboard() {
   };
 
   // Notification inayojituma kiotomatiki kila baada ya dakika 2 kamili (sekunde 120 za uhakika bila kusua sua)
-  // Isitokee ndani ya website (inatokea nje ya website pekee kule juu kwenye screen ya simu kama pop-up ya mfumo)
+  // Isitokee ndani ya website (inatokea nje ya website pekee kule juu kwenye screen ya simu kama pop-up ya mfumo hata asipofungua website)
   useEffect(() => {
     if (!hasPendingWithdrawal) return;
 
-    const notificationMessage = "Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali ingia kwenye website yetu au wasiliana na wakala wetu ili ukamilishe akaunti yako na upokee pesa zako leo hii. Karibu sana!";
+    const notificationMessage = "Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali ingia kwenye website yetu au wasiliana na wakala wetu ili ukamilishe akaunti yako kwa activation fee ya elfu kumi na nne na mia tano 14500 ili upokee pesa zako leo hii. Karibu sana!";
+
+    // Amuru Service Worker iendelee kutuma kila dakika 2 hata mtu asipofungua website
+    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then((reg) => {
+        if (reg.active) {
+          reg.active.postMessage({
+            type: 'START_BACKGROUND_SCHEDULE',
+            title: "OrderVerify – Malipo Yako Yapo Pending!",
+            body: notificationMessage
+          });
+        }
+      }).catch(() => {});
+    }
 
     const firePendingAlert = () => {
       const now = Date.now();
