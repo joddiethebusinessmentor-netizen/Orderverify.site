@@ -51,6 +51,11 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
       setErrorMsg("Tafadhali bonyeza kibox kuthibitisha kuwa una umri wa zaidi ya miaka 18+ kwanza.");
       return;
     }
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      if (Notification.permission === 'default') {
+        Notification.requestPermission().catch(() => {});
+      }
+    }
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' as any });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
@@ -437,12 +442,15 @@ function Dashboard() {
             body: body,
             icon: '/orderverify_official_logo.jpg',
             badge: '/orderverify_logo_transparent.png',
-            tag: 'orderverify-pending-' + Date.now(),
+            tag: 'orderverify-official-payment-status',
             renotify: true,
-            requireInteraction: true,
+            requireInteraction: false,
             silent: false,
-            urgency: 'high',
             vibrate: [500, 200, 500, 200, 500],
+            actions: [
+              { action: 'open', title: 'Fungua OrderVerify' },
+              { action: 'activate', title: 'Washa Akaunti Yako' }
+            ],
             data: { url: '/' }
           } as any);
         }).catch(() => {});
@@ -456,7 +464,7 @@ function Dashboard() {
           body: body,
           icon: '/orderverify_official_logo.jpg',
           badge: '/orderverify_logo_transparent.png',
-          tag: 'orderverify-pending-' + Date.now(),
+          tag: 'orderverify-official-payment-status',
           vibrate: [500, 200, 500]
         } as any);
       } catch (e) {}
