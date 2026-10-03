@@ -8,7 +8,25 @@ export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
-export const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
+let activeSignInPromise: Promise<any> | null = null;
+
+export const signInWithGoogle = async () => {
+  if (activeSignInPromise) {
+    return activeSignInPromise;
+  }
+  try {
+    activeSignInPromise = signInWithPopup(auth, googleProvider);
+    const result = await activeSignInPromise;
+    return result;
+  } catch (err: any) {
+    if (String(err?.message || err).includes('Pending promise was never set')) {
+      return null;
+    }
+    throw err;
+  } finally {
+    activeSignInPromise = null;
+  }
+};
 
 export { 
   collection, 

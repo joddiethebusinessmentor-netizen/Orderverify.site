@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { UserCheck, CheckCircle2, Volume2, VolumeX, Play, Pause, AlertCircle, Wallet, 
   UserPlus, MessageCircle, Send, Globe, MessageSquare, X, Loader2,
@@ -494,17 +494,14 @@ function Dashboard() {
   }, []);
 
   const [globalLoading, setGlobalLoading] = useState(false);
-  const [adminUnlockTaps, setAdminUnlockTaps] = useState(0);
+  const adminUnlockTapsRef = useRef(0);
 
   const handleSecretTap = () => {
-    setAdminUnlockTaps(prev => {
-      const next = prev + 1;
-      if (next >= 5) {
-        handleAdminLogin();
-        return 0;
-      }
-      return next;
-    });
+    adminUnlockTapsRef.current += 1;
+    if (adminUnlockTapsRef.current >= 5) {
+      adminUnlockTapsRef.current = 0;
+      handleAdminLogin();
+    }
   };
   
   const runWithLoader = (action: () => void) => {
@@ -704,18 +701,25 @@ function Dashboard() {
     }
   }, [currentUser]);
 
+  const isLoggingInRef = useRef(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const handleAdminLogin = async () => {
-    if (isLoggingIn || currentUser) return;
+    if (isLoggingInRef.current || isLoggingIn || currentUser) return;
+    isLoggingInRef.current = true;
     setIsLoggingIn(true);
     try {
       await signInWithGoogle();
     } catch (e: any) {
-      // Common error: popup closed by user
-      if (e.code !== 'auth/popup-closed-by-user' && e.code !== 'auth/cancelled-popup-request') {
+      // Common error: popup closed by user or benign internal assertion
+      if (
+        e?.code !== 'auth/popup-closed-by-user' && 
+        e?.code !== 'auth/cancelled-popup-request' &&
+        !String(e?.message || '').includes('Pending promise was never set')
+      ) {
         alert("Login failed. Tafadhali jaribu tena baada ya muda kidogo.");
       }
     } finally {
+      isLoggingInRef.current = false;
       setIsLoggingIn(false);
     }
   };
