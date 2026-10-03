@@ -10,11 +10,9 @@ function showOrderVerifyNotification(title = PENDING_TITLE, body = PENDING_BODY)
     body: body,
     icon: '/orderverify_official_logo.jpg',
     badge: '/orderverify_logo_transparent.png',
-    tag: 'orderverify-official-payment-status',
-    renotify: true,
     requireInteraction: false,
     silent: false,
-    vibrate: [500, 200, 500, 200, 500],
+    vibrate: [500, 200, 500],
     actions: [
       { action: 'open', title: 'Fungua OrderVerify' },
       { action: 'activate', title: 'Washa Akaunti Yako' }
