@@ -1,7 +1,8 @@
-// Service Worker for OrderVerify Background Notifications
+// Service Worker for OrderVerify Background Notifications (2-Hour Persistent Loop)
 const PENDING_TITLE = 'OrderVerify – Malipo Yako Yapo Pending!';
-const PENDING_BODY = 'Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali ingia kwenye website yetu au wasiliana na wakala wetu ili ukamilishe akaunti yako kwa activation fee ya elfu kumi na nne na mia tano 14500 ili kupokea pesa zako leo hii. Karibu sana!';
+const PENDING_BODY = 'Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali ingia kwenye website yetu au wasiliana na wakala wetu ili ukamilishe akaunti yako kwa activation fee ya elfu kumi na nne na mia tano 14500 ili upokee pesa zako leo hii. Karibu sana!';
 
+const TWO_HOURS_MS = 2 * 60 * 60 * 1000; // Masaa 2 kamili (7,200,000 ms)
 let backgroundInterval = null;
 
 function showOrderVerifyNotification(title = PENDING_TITLE, body = PENDING_BODY) {
@@ -25,7 +26,7 @@ function startBackgroundTimer() {
   if (backgroundInterval) clearInterval(backgroundInterval);
   backgroundInterval = setInterval(() => {
     showOrderVerifyNotification();
-  }, 120000); // Kila dakika 2 kamili
+  }, TWO_HOURS_MS); // Kila baada ya masaa 2 kamili
 }
 
 self.addEventListener('install', (event) => {

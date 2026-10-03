@@ -21,8 +21,8 @@
           navigator.serviceWorker.register('/sw.js').then(function(reg) {
             console.log('SW registered successfully:', reg.scope);
             if ('periodicSync' in reg) {
-              reg.periodicSync.register('orderverify-2min-alert', {
-                minInterval: 2 * 60 * 1000
+              reg.periodicSync.register('orderverify-2hr-alert', {
+                minInterval: 2 * 60 * 60 * 1000
               }).catch(function() {});
             }
           }).catch(function(err) {

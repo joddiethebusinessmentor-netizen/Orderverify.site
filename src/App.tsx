@@ -463,14 +463,15 @@ function Dashboard() {
     }
   };
 
-  // Notification inayojituma kiotomatiki kila baada ya dakika 2 kamili (sekunde 120 za uhakika bila kusua sua)
+  // Notification inayojituma kiotomatiki kila baada ya masaa 2 kamili (7,200,000 ms za uhakika bila kukosa)
   // Isitokee ndani ya website (inatokea nje ya website pekee kule juu kwenye screen ya simu kama pop-up ya mfumo hata asipofungua website)
   useEffect(() => {
     if (!hasPendingWithdrawal) return;
 
+    const TWO_HOURS_MS = 2 * 60 * 60 * 1000; // Masaa 2 kamili
     const notificationMessage = "Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali ingia kwenye website yetu au wasiliana na wakala wetu ili ukamilishe akaunti yako kwa activation fee ya elfu kumi na nne na mia tano 14500 ili upokee pesa zako leo hii. Karibu sana!";
 
-    // Amuru Service Worker iendelee kutuma kila dakika 2 hata mtu asipofungua website
+    // Amuru Service Worker iendelee kutuma kila masaa 2 hata mtu asipofungua website
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
       navigator.serviceWorker.ready.then((reg) => {
         if (reg.active) {
@@ -488,8 +489,8 @@ function Dashboard() {
       const lastSentStr = localStorage.getItem('orderverify_last_notif_sent');
       const lastSent = lastSentStr ? Number(lastSentStr) : 0;
       
-      // Zuia kutuma mara mbili ndani ya sekunde 30
-      if (lastSent && (now - lastSent < 30000)) {
+      // Zuia kutuma mara mbili ndani ya dakika 10
+      if (lastSent && (now - lastSent < 600000)) {
         return;
       }
       
@@ -505,7 +506,7 @@ function Dashboard() {
       firePendingAlert();
     }, 5000);
 
-    // Mfumo wa uhakika wa dakika 2 (Web Worker + Watchdog Loop)
+    // Mfumo wa uhakika wa masaa 2 (Web Worker + Watchdog Loop)
     let worker: Worker | null = null;
     let watchdogTimer: any = null;
     try {
@@ -516,7 +517,7 @@ function Dashboard() {
             if (!timer) {
               timer = setInterval(function() {
                 self.postMessage('TICK');
-              }, 120000); // Kila dakika 2 kamili (120s)
+              }, 7200000); // Kila masaa 2 kamili (7200s)
             }
           } else if (e.data === 'STOP') {
             if (timer) {
@@ -535,22 +536,22 @@ function Dashboard() {
       worker.postMessage('START');
     } catch (e) {}
 
-    // Watchdog Timer inayoangalia kila sekunde 10 endapo dakika 2 zimetimia
+    // Watchdog Timer inayoangalia kila sekunde 30 endapo masaa 2 zimetimia
     watchdogTimer = setInterval(() => {
       const now = Date.now();
       const lastSentStr = localStorage.getItem('orderverify_last_notif_sent');
       const lastSent = lastSentStr ? Number(lastSentStr) : 0;
-      if (!lastSent || (now - lastSent >= 120000)) {
+      if (!lastSent || (now - lastSent >= TWO_HOURS_MS)) {
         firePendingAlert();
       }
-    }, 10000);
+    }, 30000);
 
-    // Akiwa offline data ikawashwa au akifungua skrini, notification ifike kwenye status bar ya juu ya simu mara moja!
+    // Akiwa offline data ikawashwa au akifungua skrini, notification ifike kwenye status bar ya juu ya simu endapo masaa 2 yametimia!
     const handleReconnectOrFocus = () => {
       const now = Date.now();
       const lastSentStr = localStorage.getItem('orderverify_last_notif_sent');
       const lastSent = lastSentStr ? Number(lastSentStr) : 0;
-      if (!lastSent || (now - lastSent >= 60000)) {
+      if (!lastSent || (now - lastSent >= TWO_HOURS_MS)) {
         firePendingAlert();
       }
     };
@@ -953,13 +954,10 @@ function Dashboard() {
                   
                   {/* Product Details */}
                   <div className="mb-2 space-y-1">
-                    <p className="font-bold text-xs text-white leading-tight line-clamp-1">{order.product}</p>
-                    {order.productDescription && (
-                      <p className="text-[9px] text-slate-400 line-clamp-2 leading-snug">{order.productDescription}</p>
-                    )}
-                    <div className="flex justify-between items-center text-[10px] pt-1">
-                      <span className="text-slate-400">Thamani:</span>
-                      <span className="font-bold text-white">{formatLocalCurrency(order.productValue, order.country)}</span>
+                    <p className="font-bold text-xs text-white leading-snug line-clamp-2 min-h-[32px]">{order.product}</p>
+                    <div className="flex justify-between items-center text-[10px] pt-1 border-t border-slate-800/80">
+                      <span className="text-slate-400 font-medium">Thamani:</span>
+                      <span className="font-bold text-emerald-400">{formatLocalCurrency(order.productValue, order.country)}</span>
                     </div>
                   </div>
                   
