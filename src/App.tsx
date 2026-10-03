@@ -1669,14 +1669,14 @@ function Dashboard() {
         {showNotificationPromptModal && (
           <div 
             onClick={() => setShowNotificationPromptModal(false)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
           >
             <motion.div 
               onClick={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-[#141624] border-2 border-[#00E676] rounded-3xl p-6 max-w-sm sm:max-w-md w-full shadow-[0_0_50px_rgba(0,230,118,0.25)] text-center relative my-auto"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-[#141624] border-2 border-[#00E676] rounded-3xl p-6 max-w-sm sm:max-w-md w-full shadow-[0_0_50px_rgba(0,230,118,0.25)] text-center relative"
             >
               <button 
                 type="button"
@@ -1686,50 +1686,20 @@ function Dashboard() {
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="w-16 h-16 rounded-2xl bg-[#00E676]/20 border border-[#00E676]/40 flex items-center justify-center mx-auto mb-4 text-[#00E676]">
-                <Globe className="w-8 h-8 animate-pulse" />
-              </div>
-
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00E676]/15 text-[#00E676] border border-[#00E676]/30 text-[11px] font-black uppercase tracking-wider mb-3">
-                <span>🔔 THIBITISHA KUPOKEA TAARIFA ZA MALIPO</span>
-              </div>
-
-              <h3 className="text-white font-black text-lg sm:text-xl mb-3 leading-snug">
-                Ruhusu Taarifa Ili Ufunguliwe Dirisha la Kutoa Pesa
-              </h3>
-
-              <div className="bg-[#0B0C12] border border-amber-500/30 rounded-2xl p-4 text-left mb-5 space-y-2">
-                <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-semibold">
-                  Tafadhali bonyeza <span className="bg-white text-black px-1.5 py-0.5 rounded font-black text-[10px]">ALLOW ✅</span> kwenye ujumbe wa Chrome utakaotokea ili uwe unatumiwa taarifa za malipo yako utayako kuwa unalipwa. Usibonyeze <span className="underline decoration-red-500 font-bold">Block ❌</span>.
+              <div className="bg-[#0B0C12] border border-amber-500/30 rounded-2xl p-5 text-center my-4">
+                <p className="text-sm sm:text-base text-slate-100 font-bold leading-relaxed">
+                  Tafadhali bonyeza <span className="bg-white text-black px-1.5 py-0.5 rounded font-black text-xs">ALLOW ✅</span> kwenye ujumbe wa Chrome utakaotokea ili uwe unatumiwa taarifa za malipo yako utayako kuwa unalipwa. Usibonyeze <span className="underline decoration-red-500 font-black">Block ❌</span>.
                 </p>
               </div>
 
-              <div className="space-y-2.5">
-                <button 
-                  type="button"
-                  onClick={handleGrantNotificationAndProceed}
-                  className="w-full bg-gradient-to-r from-[#00E676] via-[#00D069] to-[#00B259] hover:brightness-110 active:scale-95 text-black font-black py-4 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-[#00E676]/30 cursor-pointer"
-                >
-                  <span>RUHUSU TAARIFA NA ENDELEA KUTOA PESA</span>
-                  <ChevronRight className="w-4 h-4 stroke-[3]" />
-                </button>
-
-                <button 
-                  type="button"
-                  onClick={() => {
-                    setShowNotificationPromptModal(false);
-                    runWithLoader(() => {
-                      setShowWithdrawModal(true);
-                      setTimeout(() => {
-                        triggerMotivation("Jaza namba yako kisha utume maombi. Kumbuka: Ili kutoa pesa zako leo, unapaswa kujisajili kisha kulipia mtaji wa 14,500/=.", 7);
-                      }, 1000);
-                    });
-                  }}
-                  className="w-full bg-slate-800/80 hover:bg-slate-700 text-slate-400 font-bold py-2.5 rounded-2xl transition-all text-xs uppercase"
-                >
-                  Nimesharuhusu / Endelea Kutoa Pesa
-                </button>
-              </div>
+              <button 
+                type="button"
+                onClick={handleGrantNotificationAndProceed}
+                className="w-full bg-gradient-to-r from-[#00E676] via-[#00D069] to-[#00B259] hover:brightness-110 active:scale-95 text-black font-black py-4 rounded-2xl transition-all text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-[#00E676]/30 cursor-pointer"
+              >
+                <span>ENDELEA</span>
+                <ChevronRight className="w-5 h-5 stroke-[3]" />
+              </button>
             </motion.div>
           </div>
         )}
