@@ -232,29 +232,15 @@ function LiveClock() {
   const timeString = time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
 
   return (
-    <div className="bg-[#1C1D24] border border-amber-500/30 rounded-2xl p-4 shadow-[0_4px_20px_rgba(0,0,0,0.35)] flex flex-col sm:flex-row items-center justify-between gap-4 relative z-0">
-      <div className="flex items-center gap-3 w-full sm:w-auto">
-        <div className="bg-amber-400/20 border border-amber-400/30 p-2 rounded-xl shrink-0 shadow-[0_0_12px_rgba(251,191,36,0.2)]">
-          <ShoppingBag className="w-5 h-5 text-amber-400 animate-bounce" />
+    <div className="bg-[#1C1D24] border border-amber-500/30 rounded-2xl p-4 shadow-[0_4px_20px_rgba(0,0,0,0.35)] flex flex-row items-center justify-center gap-4 relative z-0">
+      <div className="flex gap-4 w-full justify-center overflow-x-auto pb-1 sm:pb-0">
+        <div className="bg-slate-800 px-4 py-2 rounded-xl border border-slate-700 whitespace-nowrap shadow-inner">
+          <span className="text-[10px] text-slate-400 font-bold block mb-1 uppercase tracking-wider">Tarehe</span>
+          <span className="text-sm sm:text-base text-white font-black">{dateString}</span>
         </div>
-        <div className="flex flex-col justify-center">
-          <span className="text-[#FFD700] font-black text-xs sm:text-sm leading-snug tracking-wide flex items-center gap-2 drop-shadow-[0_1px_6px_rgba(255,215,0,0.4)]">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FFD700] animate-pulse shrink-0 shadow-[0_0_8px_#FFD700]"></span>
-            HONGERENI WOTE MLIO TOA PESA ZENU LEO KEEP EARNING WITH US ZIPO ORDER ZA KUTOSHA THIBITISHA SASA NA ULIPWE
-          </span>
-          <span className="text-[#00FF88] text-xs sm:text-sm font-extrabold tracking-wide mt-1 drop-shadow-[0_1px_4px_rgba(0,255,136,0.3)]">
-            Tafadhali kamilisha usajili wako sasa kuanza kulipwa
-          </span>
-        </div>
-      </div>
-      <div className="flex gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
-        <div className="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 whitespace-nowrap">
-          <span className="text-xs text-slate-400 font-bold block mb-0.5">Tarehe</span>
-          <span className="text-sm text-white font-black">{dateString}</span>
-        </div>
-        <div className="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 whitespace-nowrap">
-          <span className="text-xs text-slate-400 font-bold block mb-0.5">Saa (Live)</span>
-          <span className="text-sm text-[#00E676] font-black">{timeString}</span>
+        <div className="bg-slate-800 px-4 py-2 rounded-xl border border-slate-700 whitespace-nowrap shadow-inner">
+          <span className="text-[10px] text-slate-400 font-bold block mb-1 uppercase tracking-wider">Saa (Live)</span>
+          <span className="text-sm sm:text-base text-[#00E676] font-black">{timeString}</span>
         </div>
       </div>
     </div>
@@ -406,30 +392,31 @@ function Dashboard() {
   const [authModalState, setAuthModalState] = useState<{show: boolean, type: 'register' | 'payment', message: string}>({show: false, type: 'register', message: ''});
   const [showWithdrawModal, setShowWithdrawModal] = useState(false);
   const [showWithdrawPendingNotice, setShowWithdrawPendingNotice] = useState(false);
-  const [pendingNoticeSecondsLeft, setPendingNoticeSecondsLeft] = useState(25);
+  const [isProcessingWithdraw, setIsProcessingWithdraw] = useState(false);
+  const [processingSecondsLeft, setProcessingSecondsLeft] = useState(20);
   const [showPaymentGuide, setShowPaymentGuide] = useState(false);
   const [showRegisterConfirmModal, setShowRegisterConfirmModal] = useState(false);
   const [registerModalStep, setRegisterModalStep] = useState<'confirm' | 'instructions'>('confirm');
   const [showInstallAppModal, setShowInstallAppModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
 
-  // Countdown ya sekunde 25 kwa ajili ya ujumbe wa kuzuia pesa pending
+  // Countdown ya sekunde 20 wakati muamala unafanyiwa kazi
   useEffect(() => {
     let timer: any;
-    if (showWithdrawPendingNotice) {
-      if (pendingNoticeSecondsLeft > 0) {
+    if (isProcessingWithdraw) {
+      if (processingSecondsLeft > 0) {
         timer = setTimeout(() => {
-          setPendingNoticeSecondsLeft((prev) => prev - 1);
+          setProcessingSecondsLeft((prev) => prev - 1);
         }, 1000);
       } else {
-        // Sekunde 25 zikimalizika ujumbe unaondoka bila kulazimisha maelezo ya usajili kiotomatiki
-        setShowWithdrawPendingNotice(false);
+        setIsProcessingWithdraw(false);
+        setShowWithdrawPendingNotice(true);
       }
     }
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [showWithdrawPendingNotice, pendingNoticeSecondsLeft]);
+  }, [isProcessingWithdraw, processingSecondsLeft]);
 
   const openRegisterModal = () => {
     setShowTopNotification(false);
@@ -437,6 +424,62 @@ function Dashboard() {
     setShowRegisterConfirmModal(true);
   };
   const [selectedNetwork, setSelectedNetwork] = useState<string | null>(null);
+  const [withdrawPhone, setWithdrawPhone] = useState('');
+  const [withdrawAmount, setWithdrawAmount] = useState('');
+  const [withdrawError, setWithdrawError] = useState('');
+
+  const handleWithdrawSubmit = () => {
+    setShowTopNotification(false);
+    setWithdrawError('');
+
+    // 1. Uthibitisho wa salio
+    if (!balance || balance <= 0) {
+      setWithdrawError('Huna salio la kutosha kwenye akaunti yako (Salio lako ni TZS 0). Tafadhali thibitisha order kwanza ili kupata salio la kutoa.');
+      return;
+    }
+
+    // 2. Chagua Mtandao
+    if (!selectedNetwork) {
+      setWithdrawError('Tafadhali chagua mtandao wa simu (M-Pesa, Tigo Pesa, Airtel Money, au HaloPesa).');
+      return;
+    }
+
+    // 3. Namba ya Simu
+    const cleanPhone = withdrawPhone.trim().replace(/\s+/g, '');
+    if (!cleanPhone) {
+      setWithdrawError('Tafadhali jaza namba ya simu ya kupokelea pesa.');
+      return;
+    }
+    if (cleanPhone.length < 9) {
+      setWithdrawError('Namba ya simu uliyojaza haijakamilika. Tafadhali andika namba sahihi ya simu.');
+      return;
+    }
+
+    // 4. Kiwango cha Pesa
+    const cleanAmount = withdrawAmount.trim();
+    if (!cleanAmount) {
+      setWithdrawError('Tafadhali andika kiwango cha fedha unachotaka kutoa.');
+      return;
+    }
+    const numAmount = Number(cleanAmount);
+    if (isNaN(numAmount) || numAmount <= 0) {
+      setWithdrawError('Tafadhali andika kiwango sahihi cha fedha.');
+      return;
+    }
+    if (numAmount < 1000) {
+      setWithdrawError('Kiwango cha chini cha kutoa pesa ni elfu moja (1,000 TZS).');
+      return;
+    }
+    if (numAmount > balance) {
+      setWithdrawError(`Kiasi ulichoandika (TZS ${numAmount.toLocaleString()}) kinazidi salio lako lililopo (TZS ${balance.toLocaleString()}).`);
+      return;
+    }
+
+    // Vigezo vyote vimekidhiwa kikamilifu: Anza uchakataji wa sekunde 20
+    setShowWithdrawModal(false);
+    setProcessingSecondsLeft(20);
+    setIsProcessingWithdraw(true);
+  };
   
   const [topNotification, setTopNotification] = useState("");
   const [showTopNotification, setShowTopNotification] = useState(false);
@@ -1050,108 +1093,152 @@ function Dashboard() {
                 <X className="w-5 h-5" />
               </button>
 
-              <h3 className="text-white font-black text-lg mb-5 flex items-center gap-2">
+              <h3 className="text-white font-black text-lg mb-4 flex items-center gap-2">
                 <CreditCard className="w-5 h-5 text-[#00E676]" /> KUTOA PESA 
               </h3>
+
+              {/* Salio Linalopatikana Card */}
+              <div className="bg-[#0B0C10] border border-slate-700/80 rounded-2xl p-3.5 mb-4 flex items-center justify-between text-left">
+                <div>
+                  <span className="text-[11px] text-slate-400 font-bold block">Salio Linalopatikana</span>
+                  <span className={`text-base font-black ${balance > 0 ? 'text-[#00E676]' : 'text-amber-400'}`}>
+                    TZS {balance.toLocaleString()}
+                  </span>
+                </div>
+                <div className={`px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider ${balance > 0 ? 'bg-[#00E676]/15 text-[#00E676] border border-[#00E676]/30' : 'bg-red-500/15 text-red-400 border border-red-500/30'}`}>
+                  {balance > 0 ? 'Salio Lipo' : 'Salio: 0 TZS'}
+                </div>
+              </div>
               
-              <div className="mb-4">
+              <div className="mb-4 text-left">
                 <label className="text-xs text-slate-400 font-bold mb-2 block uppercase">1. Chagua Mtandao</label>
                 <div className="grid grid-cols-2 gap-2">
                   <button 
+                    type="button"
                     onPointerDown={() => setShowTopNotification(false)}
                     onClick={() => {
                       setShowTopNotification(false);
+                      setWithdrawError('');
                       setSelectedNetwork('mpesa');
                     }}
-                    className={`border text-xs font-black py-2.5 rounded-xl transition-all ${selectedNetwork === 'mpesa' ? 'bg-[#E3000F] text-white border-[#E3000F] shadow-[0_0_15px_rgba(227,0,15,0.4)] scale-105' : 'bg-[#E3000F]/10 border-[#E3000F]/30 text-[#E3000F] hover:border-[#E3000F]'}`}
+                    className={`border text-xs font-black py-2.5 rounded-xl transition-all cursor-pointer ${selectedNetwork === 'mpesa' ? 'bg-[#E3000F] text-white border-[#E3000F] shadow-[0_0_15px_rgba(227,0,15,0.4)] scale-105' : 'bg-[#E3000F]/10 border-[#E3000F]/30 text-[#E3000F] hover:border-[#E3000F]'}`}
                   >
                     M-Pesa
                   </button>
                   <button 
+                    type="button"
                     onPointerDown={() => setShowTopNotification(false)}
                     onClick={() => {
                       setShowTopNotification(false);
+                      setWithdrawError('');
                       setSelectedNetwork('tigo');
                     }}
-                    className={`border text-xs font-black py-2.5 rounded-xl transition-all ${selectedNetwork === 'tigo' ? 'bg-[#003B71] text-white border-[#003B71] shadow-[0_0_15px_rgba(0,59,113,0.4)] scale-105' : 'bg-[#003B71]/10 border-[#003B71]/30 text-[#4A90E2] hover:border-[#003B71]'}`}
+                    className={`border text-xs font-black py-2.5 rounded-xl transition-all cursor-pointer ${selectedNetwork === 'tigo' ? 'bg-[#003B71] text-white border-[#003B71] shadow-[0_0_15px_rgba(0,59,113,0.4)] scale-105' : 'bg-[#003B71]/10 border-[#003B71]/30 text-[#4A90E2] hover:border-[#003B71]'}`}
                   >
                     Tigo Pesa
                   </button>
                   <button 
+                    type="button"
                     onPointerDown={() => setShowTopNotification(false)}
                     onClick={() => {
                       setShowTopNotification(false);
+                      setWithdrawError('');
                       setSelectedNetwork('airtel');
                     }}
-                    className={`border text-xs font-black py-2.5 rounded-xl transition-all ${selectedNetwork === 'airtel' ? 'bg-[#FF0000] text-white border-[#FF0000] shadow-[0_0_15px_rgba(255,0,0,0.4)] scale-105' : 'bg-[#FF0000]/10 border-[#FF0000]/30 text-[#FF4D4D] hover:border-[#FF0000]'}`}
+                    className={`border text-xs font-black py-2.5 rounded-xl transition-all cursor-pointer ${selectedNetwork === 'airtel' ? 'bg-[#FF0000] text-white border-[#FF0000] shadow-[0_0_15px_rgba(255,0,0,0.4)] scale-105' : 'bg-[#FF0000]/10 border-[#FF0000]/30 text-[#FF4D4D] hover:border-[#FF0000]'}`}
                   >
                     Airtel Money
                   </button>
                   <button 
+                    type="button"
                     onPointerDown={() => setShowTopNotification(false)}
                     onClick={() => {
                       setShowTopNotification(false);
+                      setWithdrawError('');
                       setSelectedNetwork('halopesa');
                     }}
-                    className={`border text-xs font-black py-2.5 rounded-xl transition-all ${selectedNetwork === 'halopesa' ? 'bg-[#F8981D] text-white border-[#F8981D] shadow-[0_0_15px_rgba(248,152,29,0.4)] scale-105' : 'bg-[#F8981D]/10 border-[#F8981D]/30 text-[#F8981D] hover:border-[#F8981D]'}`}
+                    className={`border text-xs font-black py-2.5 rounded-xl transition-all cursor-pointer ${selectedNetwork === 'halopesa' ? 'bg-[#F8981D] text-white border-[#F8981D] shadow-[0_0_15px_rgba(248,152,29,0.4)] scale-105' : 'bg-[#F8981D]/10 border-[#F8981D]/30 text-[#F8981D] hover:border-[#F8981D]'}`}
                   >
                     HaloPesa
                   </button>
                 </div>
               </div>
 
-              <div className="mb-4">
+              <div className="mb-4 text-left">
                 <label className="text-xs text-slate-400 font-bold mb-2 block uppercase">2. Namba ya Simu</label>
                 <input 
                   type="tel" 
                   placeholder="Mfano: 07XX XXX XXX" 
-                  onFocus={() => setShowTopNotification(false)}
+                  value={withdrawPhone}
+                  onFocus={() => { setShowTopNotification(false); setWithdrawError(''); }}
                   onPointerDown={() => setShowTopNotification(false)}
                   onClick={() => setShowTopNotification(false)}
-                  onChange={() => setShowTopNotification(false)}
-                  className="w-full bg-[#0B0C10] border border-slate-700 rounded-xl px-4 py-3.5 text-white text-sm focus:border-[#00E676] focus:outline-none focus:ring-1 focus:ring-[#00E676]"
+                  onChange={(e) => {
+                    setWithdrawPhone(e.target.value);
+                    setWithdrawError('');
+                    setShowTopNotification(false);
+                  }}
+                  className={`w-full bg-[#0B0C10] border rounded-xl px-4 py-3.5 text-white text-sm focus:outline-none transition-colors ${withdrawError && (!withdrawPhone || withdrawPhone.trim().length < 9) ? 'border-red-500' : 'border-slate-700 focus:border-[#00E676]'}`}
                 />
               </div>
 
-              <div className="mb-6">
-                <label className="text-xs text-slate-400 font-bold mb-2 block uppercase">3. Kiasi (TZS)</label>
+              <div className="mb-4 text-left">
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-xs text-slate-400 font-bold block uppercase">3. Kiasi (TZS)</label>
+                  {balance > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setWithdrawAmount(String(balance));
+                        setWithdrawError('');
+                      }}
+                      className="text-[11px] text-[#00E676] font-bold hover:underline cursor-pointer"
+                    >
+                      Weka Salio Lote
+                    </button>
+                  )}
+                </div>
                 <input 
                   type="number" 
                   placeholder="Kuanzia 1,000 TZS" 
-                  onFocus={() => setShowTopNotification(false)}
+                  value={withdrawAmount}
+                  onFocus={() => { setShowTopNotification(false); setWithdrawError(''); }}
                   onPointerDown={() => setShowTopNotification(false)}
                   onClick={() => setShowTopNotification(false)}
-                  onChange={() => setShowTopNotification(false)}
-                  className="w-full bg-[#0B0C10] border border-slate-700 rounded-xl px-4 py-3.5 text-white font-black text-lg focus:outline-none focus:border-[#00E676]"
+                  onChange={(e) => {
+                    setWithdrawAmount(e.target.value);
+                    setWithdrawError('');
+                    setShowTopNotification(false);
+                  }}
+                  className={`w-full bg-[#0B0C10] border rounded-xl px-4 py-3.5 text-white font-black text-lg focus:outline-none transition-colors ${withdrawError && (!withdrawAmount || Number(withdrawAmount) <= 0 || Number(withdrawAmount) > balance) ? 'border-red-500' : 'border-slate-700 focus:border-[#00E676]'}`}
                 />
                 <p className="text-[10px] text-slate-500 mt-1">Kutoa pesa ni kuanzia elfu moja (1,000 TZS).</p>
               </div>
 
+              {/* Ujumbe wa Hitilafu / Makosa ya Kujaza */}
+              {withdrawError && (
+                <div className="mb-4 bg-red-950/70 border border-red-500/60 rounded-xl p-3 flex items-start gap-2.5 text-left text-xs text-red-200 font-bold shadow-md shadow-red-950/50">
+                  <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+                  <span className="leading-snug">{withdrawError}</span>
+                </div>
+              )}
+
               <button 
+                type="button"
                 onPointerDown={() => setShowTopNotification(false)}
-                onClick={() => {
-                  setShowTopNotification(false);
-                  setShowWithdrawModal(false);
-                  runWithLoader(() => {
-                    setToastMessage("MAOMBI YAMEPOKELEWA KIKAMILIFU!");
-                    setShowToast(true);
-                    setTimeout(() => setShowToast(false), 2500);
-                    setTimeout(() => {
-                      setPendingNoticeSecondsLeft(25);
-                      setShowWithdrawPendingNotice(true);
-                    }, 2600);
-                  });
-                }}
-                className="w-full bg-[#00E676] text-black font-black py-4 rounded-xl hover:bg-[#00C260] transition-colors uppercase tracking-wider text-sm shadow-lg shadow-[#00E676]/20 cursor-pointer"
+                onClick={handleWithdrawSubmit}
+                className="w-full bg-[#00E676] text-black font-black py-4 rounded-xl hover:bg-[#00C260] active:scale-95 transition-all uppercase tracking-wider text-sm shadow-lg shadow-[#00E676]/20 cursor-pointer"
               >
                 TUMA MAOMBI YA PESA
               </button>
               
               <button 
+                type="button"
                 onPointerDown={() => setShowTopNotification(false)}
                 onClick={() => {
                   setShowTopNotification(false);
                   setShowWithdrawModal(false);
+                  setWithdrawError('');
                 }}
                 className="w-full mt-3 text-slate-400 font-bold py-3 text-xs hover:text-white transition-colors cursor-pointer"
               >
@@ -1162,7 +1249,60 @@ function Dashboard() {
         )}
       </AnimatePresence>
 
-      {/* Ujumbe wa kuzuia pesa pending kabla ya maelezo ya usajili (unakaa sekunde 25) */}
+      {/* Modal ya Muamala Unafanyiwa Kazi (Sekunde 20) */}
+      <AnimatePresence>
+        {isProcessingWithdraw && (
+          <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-[#0B0C10]/95 backdrop-blur-md overflow-y-auto"
+          >
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-[#141624] border-2 border-[#00E676]/60 rounded-3xl p-6 sm:p-7 max-w-sm sm:max-w-md w-full shadow-[0_0_40px_rgba(0,230,118,0.25)] relative text-center my-auto"
+            >
+              {/* Animated Spinner & Icon */}
+              <div className="relative w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                <div className="absolute inset-0 rounded-full border-4 border-slate-700/60" />
+                <div className="absolute inset-0 rounded-full border-4 border-[#00E676] border-t-transparent animate-spin" />
+                <div className="w-12 h-12 rounded-full bg-[#00E676]/15 flex items-center justify-center text-[#00E676]">
+                  <Loader2 className="w-6 h-6 animate-spin text-[#00E676]" />
+                </div>
+              </div>
+
+              <h3 className="text-white font-black text-lg sm:text-xl uppercase tracking-wide mb-1">
+                Muamala Unafanyiwa Kazi...
+              </h3>
+              <p className="text-xs text-slate-400 mb-4">
+                Ombi lako la kutoa fedha limepokelewa na linashughulikiwa na mfumo mkuu wa malipo.
+              </p>
+
+              {/* Progress Bar & Percentage (Bila maneno yoyote ya ziada) */}
+              <div className="bg-[#0B0C12] border border-slate-800 rounded-2xl p-4 mb-4 shadow-inner space-y-2">
+                <div className="flex items-center justify-end text-xs font-bold">
+                  <span className="text-[#00E676] font-mono font-black text-sm">{Math.min(100, Math.round(((20 - processingSecondsLeft) / 20) * 100))}%</span>
+                </div>
+                
+                {/* Progress Bar */}
+                <div className="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                  <div 
+                    className="bg-gradient-to-r from-[#00E676] to-[#00C853] h-full rounded-full transition-all duration-1000 ease-linear shadow-[0_0_12px_rgba(0,230,118,0.5)]"
+                    style={{ width: `${Math.min(100, Math.round(((20 - processingSecondsLeft) / 20) * 100))}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* Notice ya Tafadhali subiri pekee bila sekunde zilizobaki */}
+              <div className="flex items-center justify-center gap-2 text-xs text-slate-300 font-bold bg-slate-900/80 border border-slate-800 rounded-xl py-2.5 px-4 shadow-inner">
+                <Clock className="w-3.5 h-3.5 text-[#00E676] animate-pulse shrink-0" />
+                <span>Tafadhali subiri...</span>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Ujumbe wa hitilafu ya kutoa pesa pending kabla ya maelezo ya usajili */}
       <AnimatePresence>
         {showWithdrawPendingNotice && (
           <div 
@@ -1192,19 +1332,23 @@ function Dashboard() {
 
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/20 text-red-400 border border-red-500/40 text-[11px] font-black uppercase tracking-wider mb-3">
                 <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
-                <span>HALI YA MAOMBI: PENDING</span>
+                <span>HALI YA MUAMALA: PENDING (HAUKUKAMILIKA)</span>
               </div>
 
               <div className="space-y-3.5 my-3 text-left">
                 <div className="bg-red-950/40 border border-red-500/40 rounded-2xl p-4 shadow-inner">
-                  <p className="text-xs sm:text-sm text-red-100 font-black leading-relaxed">
-                    TUMESHINDWA KUKUTUMIA PESA ZAKO ULIZO OMBA KUTOA KWA SABABU HUNA AKAUNTI ACTIVE YA ORDERVERIFY LIPIA MTAJI WA 14500 ILI MFUMO UKUTAMBUE NA UPOKEE PESA ZAKO
+                  <p className="text-xs sm:text-sm text-red-100 font-bold leading-relaxed">
+                    TUMESHINDWA KUKUTUMIA PESA ZAKO KWA SABABU MFUMO HAUONI AKAUNTI YENYE TAARIFA KAMA ULIZOJAZA INAYOSTAHILI KUPOKEA PESA KUTOKA KWETU. HAKUNA AKAUNTI ILIYOSAJILIWA NA KUWASHWA (ACTIVE) INAYOENDANA NA NAMBA HII YA SIMU KWENYE DATABASE YETU.
                   </p>
                 </div>
 
-                <div className="bg-amber-950/40 border border-amber-500/40 rounded-2xl p-4 shadow-inner">
-                  <p className="text-xs sm:text-sm text-amber-100 font-black leading-relaxed">
-                    PESA ZAKO ZIKO PENDING UTAZIPOKEA MARA TU UTAKAPO ACTIVATE AKAUNTI YAKO KARIBU SANA ORDERVERIFY
+                <div className="bg-amber-950/40 border border-amber-500/40 rounded-2xl p-4 shadow-inner space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-amber-400 font-black text-xs uppercase tracking-wider">
+                    <CheckCircle2 className="w-4 h-4 shrink-0 text-[#00E676]" />
+                    <span>HATUA YA KUFANYA ILI KUPOKEA PESA ZAKO</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-amber-100 font-bold leading-relaxed">
+                    TAFADHALI FUNGUA AKAUNTI KWANZA NA ULIPE MTAJI WA 14,500 TZS ILI KUWASHA  PROFILE YAKO YA KULIPWA. FEDHA ZAKO ZITATUMWA MOJA KWA MOJA KWENYE NAMBA YAKO MARA TU AKAUNTI YAKO ITAKAPOTHIBITISHWA.
                   </p>
                 </div>
               </div>
@@ -1229,7 +1373,7 @@ function Dashboard() {
                   onClick={() => setShowWithdrawPendingNotice(false)}
                   className="w-full bg-[#1C1D26] hover:bg-[#252733] text-slate-300 font-bold py-2.5 rounded-2xl transition-all text-xs uppercase tracking-wider border border-slate-700 cursor-pointer"
                 >
-                  FUNGA
+                  RUDI NYUMA
                 </button>
               </div>
             </motion.div>
