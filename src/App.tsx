@@ -291,25 +291,49 @@ function LiveClock() {
 // --- Main Dashboard ---
 
 function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: string, status: string) => void, key?: any }) {
-  const [msg, setMsg] = useState('OrderVerify - Malipo Yako Yapo Pending! Pesa ulizoomba kutoa kwenye akaunti yetu zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa. Tafadhali activation fee ya 14500 ili upokee pesa zako leo hii.');
+  const [msg, setMsg] = useState('OrderVerify - Malipo Yako Yapo Pending! Pesa ulizoomba kutoa kwenye akaunti yetu zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa. Tafadhali lipa activation fee ya 14500 ili upokee pesa zako leo hii.');
+  const [sendingNotif, setSendingNotif] = useState(false);
+
+  const getCleanPhoneForWhatsApp = (phoneStr: string) => {
+    let cleaned = (phoneStr || '').replace(/[^0-9]/g, '');
+    if (cleaned.startsWith('0')) {
+      cleaned = '255' + cleaned.substring(1);
+    } else if (!cleaned.startsWith('255') && cleaned.length === 9) {
+      cleaned = '255' + cleaned;
+    }
+    return cleaned;
+  };
 
   const sendChromeNotif = async () => {
     if (!w.id) return;
+    setSendingNotif(true);
     try {
       await updateDoc(doc(db, 'withdrawals', w.id), {
         adminMessage: msg,
         lastReminderAt: serverTimestamp()
       });
-      alert(`✅ UJUMBE WA CHROME IMETUMWA!\n\nMteja (${w.phoneNumber}) atauona ujumbe huu kama notification kwenye simu yake hivi sasa.`);
+      alert(`✅ UJUMBE UMEHIFADHIWA NA KUTUMWA!\n\nMteja (${w.phoneNumber}) akifungua tu website ataona Pop-up kubwa ya kengele yenye ujumbe huu, na pia ikipokelewa kwenye Chrome italia.`);
     } catch (e) {
       console.error(e);
-      alert("❌ Imeshindwa kutuma Chrome notification. Hakikisha una internet na email yako ina ruhusa.");
+      alert("❌ Imeshindwa kuhifadhi. Hakikisha una mtandao na umeingia kama Admin.");
+    } finally {
+      setSendingNotif(false);
     }
   };
 
   const sendSMS = () => {
     const url = `sms:${w.phoneNumber}?body=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
+  };
+
+  const sendWhatsApp = () => {
+    const waNumber = getCleanPhoneForWhatsApp(w.phoneNumber);
+    const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  };
+
+  const callCustomer = () => {
+    window.open(`tel:${w.phoneNumber}`, '_self');
   };
 
   return (
@@ -346,30 +370,53 @@ function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: st
             value={msg}
             onChange={(e) => setMsg(e.target.value)}
             className="w-full bg-[#0A0B10] border-2 border-slate-800 rounded-2xl p-4 text-sm text-slate-200 focus:border-[#00E676] focus:ring-4 focus:ring-[#00E676]/10 outline-none h-32 transition-all resize-none shadow-inner"
-            placeholder="Andika ujumbe hapa mteja atauona kwenye Chrome au SMS..."
+            placeholder="Andika ujumbe hapa mteja atauona kwenye Chrome, SMS au WhatsApp..."
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <button 
-            onClick={sendChromeNotif}
-            className="bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-black py-4 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95 shadow-lg shadow-blue-900/20"
-          >
-            <Globe className="w-5 h-5" />
-            <span>TUMA CHROME</span>
-          </button>
+        {/* Action Buttons for communicating with customer */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
           <button 
             onClick={sendSMS}
-            className="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-black py-4 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95 shadow-lg shadow-emerald-900/20"
+            title="Tuma kupitia Meseji ya kawaida ya simu"
+            className="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-black py-3.5 px-2 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95 shadow-lg shadow-emerald-900/30"
           >
             <MessageSquare className="w-5 h-5" />
-            <span>TUMA SMS</span>
+            <span>TUMA SMS ✅</span>
           </button>
-          
+
+          <button 
+            onClick={sendWhatsApp}
+            title="Tuma kupitia WhatsApp moja kwa moja"
+            className="bg-[#25D366] hover:bg-[#20ba59] text-black text-[11px] font-black py-3.5 px-2 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95 shadow-lg shadow-green-900/30"
+          >
+            <MessageCircle className="w-5 h-5 text-black" />
+            <span>WHATSAPP 💬</span>
+          </button>
+
+          <button 
+            onClick={callCustomer}
+            title="Piga simu ya kawaida kwa mteja"
+            className="bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-black py-3.5 px-2 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95 shadow-lg shadow-blue-900/30"
+          >
+            <Phone className="w-5 h-5" />
+            <span>PIGA SIMU 📞</span>
+          </button>
+
+          <button 
+            onClick={sendChromeNotif}
+            disabled={sendingNotif}
+            title="Hifadhi ujumbe uonekane kwenye Website/Chrome ya mteja"
+            className="bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-black py-3.5 px-2 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95 shadow-lg shadow-purple-900/30"
+          >
+            <Globe className="w-5 h-5" />
+            <span>{sendingNotif ? 'INATUMA...' : 'KWENYE SITE 🔔'}</span>
+          </button>
+
           {w.status !== 'completed' && (
             <button 
               onClick={() => onUpdateStatus(w.id, 'completed')}
-              className="col-span-2 bg-white hover:bg-slate-100 text-black text-xs font-black py-4 rounded-2xl flex items-center justify-center gap-2 shadow-2xl transition-all active:scale-95 mt-2 border-b-4 border-slate-300"
+              className="col-span-2 sm:col-span-4 bg-white hover:bg-slate-100 text-black text-xs font-black py-4 rounded-2xl flex items-center justify-center gap-2 shadow-2xl transition-all active:scale-95 mt-2 border-b-4 border-slate-300"
             >
               WEKA COMPLETED (MALIPO TAYARI) ✅
             </button>
@@ -391,75 +438,32 @@ function AdminPanel({ withdrawals, onClose, onUpdateStatus }: { withdrawals: any
               <p className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em]">Dhibiti Malipo ya Wateja</p>
               <button 
                 onClick={async () => {
-                  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-                  const isStandalone = (window.navigator as any).standalone || window.matchMedia('(display-mode: standalone)').matches;
-                  
-                  alert(`Jaribio linaanza...\nPlatform: ${isIOS ? 'iOS' : 'Android/PC'}\nPWA Mode: ${isStandalone ? 'YES' : 'NO'}`);
-                  
                   if (!('Notification' in window)) {
-                    alert("Kosa: Browser yako haikubali kabisa Notifications.");
+                    alert("Kifaa hiki hakitumii Web Notifications.");
                     return;
                   }
-                  
-                  alert("Hali ya sasa: " + Notification.permission);
-                  
-                  if (Notification.permission === 'denied') {
-                    alert("KOSA: Ume-BLOCK notifications. Tafadhali nenda kwenye Settings za Chrome > Site Settings > Notifications > Ruhusu OrderVerify.");
-                    return;
-                  }
-
-                  if (Notification.permission !== 'granted') {
-                    alert("Naomba ruhusa (Permission) sasa... Bonyeza ALLOW itakapotokea.");
+                  if (Notification.permission === 'granted') {
+                    try {
+                      new Notification("OrderVerify Test", {
+                        body: "Jaribio la taarifa kutoka OrderVerify!",
+                        icon: '/orderverify_official_logo.jpg'
+                      });
+                      alert("✅ Notification imetumwa kwenye kioo!");
+                    } catch (e: any) {
+                      alert("Taarifa: " + e.message);
+                    }
+                  } else {
                     const p = await Notification.requestPermission();
-                    alert("Matokeo ya ruhusa: " + p);
-                    if (p !== 'granted') return;
-                  }
-
-                  alert("Ninatuma ujumbe sasa... Angalia juu ya kioo!");
-                  try {
-                    const title = "OrderVerify Admin Panel";
-                    const options = {
-                      body: "Hongera! Mfumo wa taarifa unafanya kazi kikamilifu.",
-                      icon: '/orderverify_official_logo.jpg',
-                      badge: '/orderverify_logo_transparent.png',
-                      vibrate: [500, 200, 500]
-                    };
-
-                    if ('serviceWorker' in navigator) {
-                      const regs = await navigator.serviceWorker.getRegistrations();
-                      if (regs.length > 0) {
-                        await regs[0].showNotification(title, options);
-                        alert("Ujumbe umetumwa (Njia ya 1).");
-                      } else {
-                        new Notification(title, options);
-                        alert("Ujumbe umetumwa (Njia ya 2).");
-                      }
+                    if (p === 'granted') {
+                      alert("✅ Umeruhusu! Bonyeza tena kupima.");
                     } else {
-                      new Notification(title, options);
-                      alert("Ujumbe umetumwa (Njia ya 3).");
+                      alert("⚠️ Hujaruhusu notifications kwenye Chrome.");
                     }
-                  } catch (e: any) {
-                    alert("Kosa la kiufundi: " + e.message);
                   }
                 }}
-                className="bg-[#00E676] text-black text-[10px] px-3 py-2 rounded-xl font-black uppercase shadow-lg active:scale-90"
+                className="bg-[#00E676] text-black text-[9px] px-3 py-1.5 rounded-lg font-black uppercase shadow-lg active:scale-90"
               >
-                🔔 JARIBU NOTIFICATION
-              </button>
-              <button 
-                onClick={async () => {
-                  if ('serviceWorker' in navigator) {
-                    const registrations = await navigator.serviceWorker.getRegistrations();
-                    for (let registration of registrations) {
-                      await registration.unregister();
-                    }
-                    alert("🔄 Service Worker imefutwa! Sasa tafadhali refresh website yako ili ijisajili upya.");
-                    window.location.reload();
-                  }
-                }}
-                className="bg-red-500/20 hover:bg-red-500/30 text-red-400 text-[8px] px-3 py-1.5 rounded-lg border border-red-500/30 font-black uppercase transition-all"
-              >
-                🛠️ FIX & RESET SW
+                🔔 TEST CHROME
               </button>
             </div>
           </div>
@@ -714,8 +718,10 @@ function Dashboard() {
     };
   }, [isProcessingWithdraw, processingSecondsLeft]);
 
+  const [customerAlertMessage, setCustomerAlertMessage] = useState<string | null>(null);
+  const [showCustomerAlertModal, setShowCustomerAlertModal] = useState<boolean>(false);
+
   // Function ya kutuma notification ya simu ya mfumo (System Notification)
-  // Inayoonekana kwenye screen ya simu hata akiwa nje ya website (TikTok, WhatsApp, YouTube, Instagram n.k.)
   const sendDeviceNotification = (title: string, body: string) => {
     if (typeof window === 'undefined') return;
 
@@ -733,35 +739,33 @@ function Dashboard() {
       data: { url: '/' }
     } as any;
 
-    // 1. Jaribu kupitia Service Worker kwanza (Njia bora kwa simu/background)
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.ready.then((registration) => {
-        registration.showNotification(title, options);
-      }).catch((err) => {
-        console.error("SW Ready Error:", err);
-        // Fallback kama SW imefeli
-        if ('Notification' in window && Notification.permission === 'granted') {
-          new Notification(title, options);
+    if ('Notification' in window && Notification.permission === 'granted') {
+      try {
+        new Notification(title, options);
+      } catch (e) {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistration().then(reg => {
+            if (reg) reg.showNotification(title, options);
+          }).catch(() => {});
         }
-      });
-    } else if ('Notification' in window && Notification.permission === 'granted') {
-      // Direct fallback
-      new Notification(title, options);
+      }
     }
   };
 
-  // Msikilizaji wa Ujumbe kutoka kwa Admin (Chrome Notifications)
+  // Msikilizaji wa Ujumbe kutoka kwa Admin (Kwenye Website na Notifications)
   useEffect(() => {
     const wid = localStorage.getItem('orderverify_withdrawal_id');
     if (wid) {
       const unsubscribe = onSnapshot(doc(db, 'withdrawals', wid), (snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.data();
-          if (data.adminMessage && data.lastReminderAt) {
+          if (data.adminMessage) {
+            setCustomerAlertMessage(data.adminMessage);
             const lastSeen = localStorage.getItem(`orderverify_notif_seen_${wid}`);
             const reminderTime = data.lastReminderAt?.toMillis ? data.lastReminderAt.toMillis() : Date.now();
             
             if (lastSeen !== String(reminderTime)) {
+              setShowCustomerAlertModal(true);
               sendDeviceNotification("OrderVerify - Taarifa ya Malipo", data.adminMessage);
               localStorage.setItem(`orderverify_notif_seen_${wid}`, String(reminderTime));
             }
@@ -1144,6 +1148,22 @@ function Dashboard() {
       
       <Toast message={toastMessage} visible={showToast} />
       
+      {/* Customer Alert Top Banner if Admin sent a message */}
+      {customerAlertMessage && !showCustomerAlertModal && (
+        <div 
+          onClick={() => setShowCustomerAlertModal(true)}
+          className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-black py-2.5 px-4 text-xs font-black flex items-center justify-between cursor-pointer sticky top-0 z-50 shadow-lg animate-pulse"
+        >
+          <div className="flex items-center gap-2 overflow-hidden truncate">
+            <AlertTriangle className="w-4 h-4 shrink-0 text-black" />
+            <span className="truncate"><strong>TAARIFA YA MALIPO:</strong> {customerAlertMessage}</span>
+          </div>
+          <span className="bg-black text-white text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider shrink-0 ml-2 font-black">
+            BONYEZA KUSOMA 🔔
+          </span>
+        </div>
+      )}
+
       {/* Top Navigation */}
       <header className="bg-[#12141F]/95 backdrop-blur-md p-4 flex justify-between items-center rounded-b-3xl shadow-xl border-b border-emerald-500/20 sticky top-0 z-40">
         <div className="flex items-center gap-2.5 sm:gap-3">
@@ -1544,6 +1564,70 @@ function Dashboard() {
             <Loader2 className="w-12 h-12 text-[#00E676] animate-spin mb-4" />
             <p className="text-white font-bold text-sm animate-pulse">Loading...</p>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Admin Message Urgent Modal for Customer */}
+      <AnimatePresence>
+        {showCustomerAlertModal && customerAlertMessage && (
+          <div 
+            onClick={() => setShowCustomerAlertModal(false)}
+            className="fixed inset-0 z-[160] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+          >
+            <motion.div 
+              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="bg-[#141520] border-2 border-amber-500 rounded-3xl p-6 max-w-md w-full shadow-[0_0_60px_rgba(245,158,11,0.35)] text-left relative"
+            >
+              <button 
+                onClick={() => setShowCustomerAlertModal(false)}
+                className="absolute top-5 right-5 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-full p-1.5 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0">
+                  <AlertTriangle className="w-7 h-7 text-amber-400 animate-bounce" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-black tracking-widest uppercase bg-amber-500 text-black px-2 py-0.5 rounded-md">
+                    TAARIFA RASMI YA MALIPO
+                  </span>
+                  <h3 className="text-white font-black text-lg mt-1">Ujumbe Kutoka OrderVerify</h3>
+                </div>
+              </div>
+              
+              <div className="bg-[#0A0B10] p-4 rounded-2xl border border-slate-800 mb-5 shadow-inner">
+                <p className="text-sm text-slate-200 font-bold leading-relaxed whitespace-pre-wrap">
+                  {customerAlertMessage}
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-2.5">
+                <button
+                  onClick={() => {
+                    setShowCustomerAlertModal(false);
+                    setShowPaymentGuide(true);
+                  }}
+                  className="w-full bg-gradient-to-r from-[#00E676] via-[#00D069] to-[#00B259] text-black font-black py-4 rounded-2xl text-sm uppercase tracking-wider shadow-xl shadow-[#00E676]/30 active:scale-95 flex items-center justify-center gap-2 cursor-pointer hover:brightness-110"
+                >
+                  <CreditCard className="w-5 h-5" /> KAMILISHA ACTIVATION (14,500/=)
+                </button>
+                <button
+                  onClick={() => {
+                    setShowCustomerAlertModal(false);
+                    setShowContactModal(true);
+                  }}
+                  className="w-full bg-slate-800 hover:bg-slate-700 text-white font-black py-3.5 rounded-2xl text-xs uppercase cursor-pointer transition-all active:scale-95"
+                >
+                  Wasiliana na Wakala
+                </button>
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
