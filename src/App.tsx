@@ -437,10 +437,19 @@ function Dashboard() {
             body: body,
             icon: '/orderverify_official_logo.jpg',
             badge: '/orderverify_logo_transparent.png',
+            image: '/orderverify_official_logo.jpg',
             tag: 'orderverify-pending-' + Date.now(),
             renotify: true,
             requireInteraction: true,
-            vibrate: [500, 250, 500],
+            silent: false,
+            urgency: 'high',
+            vibrate: [600, 200, 600, 200, 600],
+            actions: [
+              {
+                action: 'open_app',
+                title: 'Fungua Kupokea Pesa'
+              }
+            ],
             data: { url: '/' }
           } as any);
         }).catch(() => {});
