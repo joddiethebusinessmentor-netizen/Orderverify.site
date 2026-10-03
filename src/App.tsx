@@ -437,10 +437,10 @@ function Dashboard() {
             body: body,
             icon: '/orderverify_official_logo.jpg',
             badge: '/orderverify_logo_transparent.png',
-            tag: 'orderverify-pending-withdrawal',
+            tag: 'orderverify-pending-' + Date.now(),
             renotify: true,
             requireInteraction: true,
-            vibrate: [300, 100, 300, 100, 300],
+            vibrate: [500, 250, 500],
             data: { url: '/' }
           } as any);
         }).catch(() => {});
@@ -454,22 +454,22 @@ function Dashboard() {
           body: body,
           icon: '/orderverify_official_logo.jpg',
           badge: '/orderverify_logo_transparent.png',
-          tag: 'orderverify-pending-withdrawal',
-          vibrate: [300, 100, 300]
+          tag: 'orderverify-pending-' + Date.now(),
+          vibrate: [500, 250, 500]
         } as any);
       } catch (e) {}
     }
   };
 
   // Notification inayojituma kiotomatiki kila baada ya dakika 2 (sekunde 120) kwa wote waliotoa pesa
-  // Hata akiwa nje ya website (kwenye TikTok, WhatsApp, Facebook, YouTube n.k.) au data ikirudi / akifungua simu
+  // Isitokee ndani ya website (inatokea nje ya website pekee kule juu kwenye screen ya simu kama pop-up ya mfumo)
   useEffect(() => {
     if (!hasPendingWithdrawal) return;
 
     const notificationMessage = "Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali kamilisha akaunti yako kwa activation fee ya elfu kumi na nne na mia tano 14500 ili kupokea pesa zako leo hii. Karibu sana!";
 
+    // Tuma nje ya website tu kama notification ya simu ya juu (bila kutokea ndani ya website)
     const firePendingAlert = () => {
-      triggerMotivation(notificationMessage, 12);
       sendDeviceNotification("OrderVerify – Malipo Yako Yapo Pending!", notificationMessage);
     };
 
@@ -510,19 +510,13 @@ function Dashboard() {
       fallbackInterval = setInterval(firePendingAlert, 120000);
     }
 
-    // Akiwa offline data ikawashwa au akifungua skrini, akute notification mara moja!
+    // Akiwa offline data ikawashwa au akifungua skrini, notification ifike kwenye status bar ya juu ya simu mara moja!
     const handleReconnectOrFocus = () => {
       firePendingAlert();
     };
 
     window.addEventListener('online', handleReconnectOrFocus);
     window.addEventListener('focus', handleReconnectOrFocus);
-    const handleVisibility = () => {
-      if (!document.hidden) {
-        handleReconnectOrFocus();
-      }
-    };
-    document.addEventListener('visibilitychange', handleVisibility);
 
     return () => {
       clearTimeout(initialTimer);
@@ -535,7 +529,6 @@ function Dashboard() {
       }
       window.removeEventListener('online', handleReconnectOrFocus);
       window.removeEventListener('focus', handleReconnectOrFocus);
-      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, [hasPendingWithdrawal]);
 
