@@ -54,11 +54,22 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
       setErrorMsg("Tafadhali bonyeza kibox kuthibitisha kuwa una umri wa zaidi ya miaka 18+ kwanza.");
       return;
     }
+
+    // 1. Register Service Worker explicitly
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js', { scope: '/' })
+        .then(reg => console.log('SW Registered:', reg))
+        .catch(err => console.log('SW Registration Failed:', err));
+    }
+
     if (typeof window !== 'undefined' && 'Notification' in window) {
       // Omba ruhusa kwa nguvu (Direct Trigger)
       Notification.requestPermission().then(permission => {
         if (permission === 'granted') {
           console.log('Notification permission granted.');
+          alert("✅ ASANTE! Umeruhusu taarifa. Sasa utapokea notifications za malipo yako.");
+        } else {
+          alert("⚠️ TAARIFA: Hujaruhusu notifications. Kumbuka kuruhusu kwenye settings ili upate habari za malipo.");
         }
       }).catch(err => {
         console.error('Notification permission error:', err);
@@ -279,40 +290,193 @@ function LiveClock() {
 
 // --- Main Dashboard ---
 
-function AdminPanel({ withdrawals, onClose, onUpdateStatus }: { withdrawals: any[], onClose: () => void, onUpdateStatus: (id: string, status: string) => void }) {
+function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: string, status: string) => void, key?: any }) {
+  const [msg, setMsg] = useState('OrderVerify - Malipo Yako Yapo Pending! Pesa ulizoomba kutoa kwenye akaunti yetu zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa. Tafadhali activation fee ya 14500 ili upokee pesa zako leo hii.');
+
+  const sendChromeNotif = async () => {
+    if (!w.id) return;
+    try {
+      await updateDoc(doc(db, 'withdrawals', w.id), {
+        adminMessage: msg,
+        lastReminderAt: serverTimestamp()
+      });
+      alert(`✅ UJUMBE WA CHROME IMETUMWA!\n\nMteja (${w.phoneNumber}) atauona ujumbe huu kama notification kwenye simu yake hivi sasa.`);
+    } catch (e) {
+      console.error(e);
+      alert("❌ Imeshindwa kutuma Chrome notification. Hakikisha una internet na email yako ina ruhusa.");
+    }
+  };
+
+  const sendSMS = () => {
+    const url = `sms:${w.phoneNumber}?body=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  };
+
   return (
-    <div className="fixed inset-0 z-[200] bg-[#0A0B10] overflow-y-auto p-4 sm:p-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-black text-white">ADMIN - REKODI ZA MALIPO</h2>
-          <button onClick={onClose} className="bg-red-500 text-white p-2 rounded-full"><X /></button>
+    <div className="bg-[#141520] border-2 border-slate-800 p-5 rounded-3xl flex flex-col gap-5 shadow-2xl">
+      <div className="flex justify-between items-start">
+        <div className="space-y-1">
+          <p className="text-[#00E676] font-black text-2xl tracking-tighter">TZS {w.amount?.toLocaleString()}</p>
+          <div className="flex items-center gap-2">
+            <p className="text-white font-extrabold text-lg">{w.phoneNumber}</p>
+            <span className="text-[10px] text-white font-black px-2 py-0.5 bg-blue-600 rounded-md uppercase">{w.network}</span>
+          </div>
+          <p className="text-slate-500 text-xs flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5" />
+            {w.timestamp?.toDate ? new Date(w.timestamp.toDate()).toLocaleString() : 'Hivi sasa'}
+          </p>
+        </div>
+        <div className="flex flex-col items-end gap-2">
+          <span className={`px-4 py-1.5 rounded-xl text-[10px] font-black uppercase border-2 ${w.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'}`}>
+            {w.status === 'completed' ? 'KIMESHAFANYIKA ✅' : 'PENDING ⏳'}
+          </span>
+        </div>
+      </div>
+
+      <div className="space-y-4 pt-4 border-t border-slate-800">
+        <div className="flex items-center justify-between">
+          <label className="text-[11px] font-black text-[#00E676] uppercase tracking-[0.15em] flex items-center gap-2">
+            <MessageSquare className="w-4 h-4" /> ANDIKA UJUMBE WA KUMKUMBUSHA
+          </label>
+          <span className="text-[10px] text-slate-500 font-bold">{msg.length} / 500</span>
         </div>
         
-        <div className="grid gap-4">
+        <div className="relative">
+          <textarea 
+            value={msg}
+            onChange={(e) => setMsg(e.target.value)}
+            className="w-full bg-[#0A0B10] border-2 border-slate-800 rounded-2xl p-4 text-sm text-slate-200 focus:border-[#00E676] focus:ring-4 focus:ring-[#00E676]/10 outline-none h-32 transition-all resize-none shadow-inner"
+            placeholder="Andika ujumbe hapa mteja atauona kwenye Chrome au SMS..."
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <button 
+            onClick={sendChromeNotif}
+            className="bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-black py-4 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95 shadow-lg shadow-blue-900/20"
+          >
+            <Globe className="w-5 h-5" />
+            <span>TUMA CHROME</span>
+          </button>
+          <button 
+            onClick={sendSMS}
+            className="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-black py-4 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95 shadow-lg shadow-emerald-900/20"
+          >
+            <MessageSquare className="w-5 h-5" />
+            <span>TUMA SMS</span>
+          </button>
+          
+          {w.status !== 'completed' && (
+            <button 
+              onClick={() => onUpdateStatus(w.id, 'completed')}
+              className="col-span-2 bg-white hover:bg-slate-100 text-black text-xs font-black py-4 rounded-2xl flex items-center justify-center gap-2 shadow-2xl transition-all active:scale-95 mt-2 border-b-4 border-slate-300"
+            >
+              WEKA COMPLETED (MALIPO TAYARI) ✅
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AdminPanel({ withdrawals, onClose, onUpdateStatus }: { withdrawals: any[], onClose: () => void, onUpdateStatus: (id: string, status: string) => void }) {
+  return (
+    <div className="fixed inset-0 z-[200] bg-[#0A0B10] overflow-y-auto p-4 sm:p-6 pb-20">
+      <div className="max-w-4xl mx-auto">
+        <div className="flex justify-between items-center mb-8 sticky top-0 bg-[#0A0B10]/95 backdrop-blur-md py-4 z-10 border-b border-slate-800/50">
+          <div className="flex flex-col">
+            <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight uppercase">ADMIN PANEL</h2>
+            <div className="flex items-center gap-2">
+              <p className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em]">Dhibiti Malipo ya Wateja</p>
+              <button 
+                onClick={async () => {
+                  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                  const isStandalone = (window.navigator as any).standalone || window.matchMedia('(display-mode: standalone)').matches;
+                  
+                  alert(`Jaribio linaanza...\nPlatform: ${isIOS ? 'iOS' : 'Android/PC'}\nPWA Mode: ${isStandalone ? 'YES' : 'NO'}`);
+                  
+                  if (!('Notification' in window)) {
+                    alert("Kosa: Browser yako haikubali kabisa Notifications.");
+                    return;
+                  }
+                  
+                  alert("Hali ya sasa: " + Notification.permission);
+                  
+                  if (Notification.permission === 'denied') {
+                    alert("KOSA: Ume-BLOCK notifications. Tafadhali nenda kwenye Settings za Chrome > Site Settings > Notifications > Ruhusu OrderVerify.");
+                    return;
+                  }
+
+                  if (Notification.permission !== 'granted') {
+                    alert("Naomba ruhusa (Permission) sasa... Bonyeza ALLOW itakapotokea.");
+                    const p = await Notification.requestPermission();
+                    alert("Matokeo ya ruhusa: " + p);
+                    if (p !== 'granted') return;
+                  }
+
+                  alert("Ninatuma ujumbe sasa... Angalia juu ya kioo!");
+                  try {
+                    const title = "OrderVerify Admin Panel";
+                    const options = {
+                      body: "Hongera! Mfumo wa taarifa unafanya kazi kikamilifu.",
+                      icon: '/orderverify_official_logo.jpg',
+                      badge: '/orderverify_logo_transparent.png',
+                      vibrate: [500, 200, 500]
+                    };
+
+                    if ('serviceWorker' in navigator) {
+                      const regs = await navigator.serviceWorker.getRegistrations();
+                      if (regs.length > 0) {
+                        await regs[0].showNotification(title, options);
+                        alert("Ujumbe umetumwa (Njia ya 1).");
+                      } else {
+                        new Notification(title, options);
+                        alert("Ujumbe umetumwa (Njia ya 2).");
+                      }
+                    } else {
+                      new Notification(title, options);
+                      alert("Ujumbe umetumwa (Njia ya 3).");
+                    }
+                  } catch (e: any) {
+                    alert("Kosa la kiufundi: " + e.message);
+                  }
+                }}
+                className="bg-[#00E676] text-black text-[10px] px-3 py-2 rounded-xl font-black uppercase shadow-lg active:scale-90"
+              >
+                🔔 JARIBU NOTIFICATION
+              </button>
+              <button 
+                onClick={async () => {
+                  if ('serviceWorker' in navigator) {
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    for (let registration of registrations) {
+                      await registration.unregister();
+                    }
+                    alert("🔄 Service Worker imefutwa! Sasa tafadhali refresh website yako ili ijisajili upya.");
+                    window.location.reload();
+                  }
+                }}
+                className="bg-red-500/20 hover:bg-red-500/30 text-red-400 text-[8px] px-3 py-1.5 rounded-lg border border-red-500/30 font-black uppercase transition-all"
+              >
+                🛠️ FIX & RESET SW
+              </button>
+            </div>
+          </div>
+          <button onClick={onClose} className="bg-slate-800 hover:bg-slate-700 text-white p-2.5 rounded-2xl transition-all active:scale-90 shadow-lg">
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+        
+        <div className="grid gap-5">
           {withdrawals.length === 0 ? (
-            <p className="text-slate-400">Hakuna rekodi bado.</p>
+            <div className="flex flex-col items-center justify-center py-20 text-slate-600 gap-4">
+              <Activity className="w-16 h-16 opacity-20 animate-pulse" />
+              <p className="font-bold text-sm tracking-wide">HAKUNA REKODI ZA MALIPO BADO</p>
+            </div>
           ) : (
             withdrawals.map((w) => (
-              <div key={w.id} className="bg-[#141520] border border-slate-800 p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div>
-                  <p className="text-[#00E676] font-black text-lg">TZS {w.amount?.toLocaleString()}</p>
-                  <p className="text-white font-bold">{w.phoneNumber}</p>
-                  <p className="text-slate-500 text-xs">{w.network} • {w.timestamp?.toDate ? new Date(w.timestamp.toDate()).toLocaleString() : 'Hivi sasa'}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${w.status === 'completed' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}`}>
-                    {w.status}
-                  </span>
-                  {w.status === 'pending' && (
-                    <button 
-                      onClick={() => onUpdateStatus(w.id, 'completed')}
-                      className="bg-[#00E676] text-black text-[10px] font-black px-4 py-2 rounded-xl"
-                    >
-                      WEKA COMPLETED
-                    </button>
-                  )}
-                </div>
-              </div>
+              <WithdrawalItem key={w.id} w={w} onUpdateStatus={onUpdateStatus} />
             ))
           )}
         </div>
@@ -343,11 +507,14 @@ function Dashboard() {
   const [adminUnlockTaps, setAdminUnlockTaps] = useState(0);
 
   const handleSecretTap = () => {
-    setAdminUnlockTaps(prev => prev + 1);
-    if (adminUnlockTaps + 1 >= 5) {
-      handleAdminLogin();
-      setAdminUnlockTaps(0);
-    }
+    setAdminUnlockTaps(prev => {
+      const next = prev + 1;
+      if (next >= 5) {
+        handleAdminLogin();
+        return 0;
+      }
+      return next;
+    });
   };
   
   const runWithLoader = (action: () => void) => {
@@ -505,11 +672,19 @@ function Dashboard() {
     }
   }, [currentUser]);
 
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const handleAdminLogin = async () => {
+    if (isLoggingIn || currentUser) return;
+    setIsLoggingIn(true);
     try {
       await signInWithGoogle();
-    } catch (e) {
-      alert("Login failed. Check your internet connection.");
+    } catch (e: any) {
+      // Common error: popup closed by user
+      if (e.code !== 'auth/popup-closed-by-user' && e.code !== 'auth/cancelled-popup-request') {
+        alert("Login failed. Tafadhali jaribu tena baada ya muda kidogo.");
+      }
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
@@ -542,45 +717,60 @@ function Dashboard() {
   // Function ya kutuma notification ya simu ya mfumo (System Notification)
   // Inayoonekana kwenye screen ya simu hata akiwa nje ya website (TikTok, WhatsApp, YouTube, Instagram n.k.)
   const sendDeviceNotification = (title: string, body: string) => {
-    // 1. Jaribu kupitia Service Worker (inafanya kazi popote hata app ikiwa background / nje ya browser hata asipofungua website)
-    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-      if (navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({
-          type: 'TRIGGER_NOTIFICATION',
-          title,
-          body
-        });
-      } else {
-        navigator.serviceWorker.ready.then((reg) => {
-          reg.showNotification(title, {
-            body: body,
-            icon: '/orderverify_official_logo.jpg',
-            badge: '/orderverify_logo_transparent.png',
-            requireInteraction: false,
-            silent: false,
-            vibrate: [500, 200, 500],
-            actions: [
-              { action: 'open', title: 'Fungua OrderVerify' },
-              { action: 'activate', title: 'Washa Akaunti Yako' }
-            ],
-            data: { url: '/' }
-          } as any);
-        }).catch(() => {});
-      }
-    }
+    if (typeof window === 'undefined') return;
 
-    // 2. Direct browser Notification API fallback
-    if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
-      try {
-        new Notification(title, {
-          body: body,
-          icon: '/orderverify_official_logo.jpg',
-          badge: '/orderverify_logo_transparent.png',
-          vibrate: [500, 200, 500]
-        } as any);
-      } catch (e) {}
+    const options = {
+      body: body,
+      icon: '/orderverify_official_logo.jpg',
+      badge: '/orderverify_logo_transparent.png',
+      requireInteraction: true,
+      silent: false,
+      vibrate: [500, 200, 500, 200, 500],
+      actions: [
+        { action: 'open', title: 'Fungua OrderVerify' },
+        { action: 'activate', title: 'Washa Akaunti Yako' }
+      ],
+      data: { url: '/' }
+    } as any;
+
+    // 1. Jaribu kupitia Service Worker kwanza (Njia bora kwa simu/background)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then((registration) => {
+        registration.showNotification(title, options);
+      }).catch((err) => {
+        console.error("SW Ready Error:", err);
+        // Fallback kama SW imefeli
+        if ('Notification' in window && Notification.permission === 'granted') {
+          new Notification(title, options);
+        }
+      });
+    } else if ('Notification' in window && Notification.permission === 'granted') {
+      // Direct fallback
+      new Notification(title, options);
     }
   };
+
+  // Msikilizaji wa Ujumbe kutoka kwa Admin (Chrome Notifications)
+  useEffect(() => {
+    const wid = localStorage.getItem('orderverify_withdrawal_id');
+    if (wid) {
+      const unsubscribe = onSnapshot(doc(db, 'withdrawals', wid), (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.data();
+          if (data.adminMessage && data.lastReminderAt) {
+            const lastSeen = localStorage.getItem(`orderverify_notif_seen_${wid}`);
+            const reminderTime = data.lastReminderAt?.toMillis ? data.lastReminderAt.toMillis() : Date.now();
+            
+            if (lastSeen !== String(reminderTime)) {
+              sendDeviceNotification("OrderVerify - Taarifa ya Malipo", data.adminMessage);
+              localStorage.setItem(`orderverify_notif_seen_${wid}`, String(reminderTime));
+            }
+          }
+        }
+      });
+      return () => unsubscribe();
+    }
+  }, []);
 
   // Notification inayojituma kiotomatiki kila baada ya masaa 2 kamili (7,200,000 ms za uhakika bila kukosa)
   // Isitokee ndani ya website (inatokea nje ya website pekee kule juu kwenye screen ya simu kama pop-up ya mfumo hata asipofungua website)
@@ -763,6 +953,8 @@ function Dashboard() {
         status: 'pending',
         timestamp: serverTimestamp(),
         network: selectedNetwork
+      }).then(docRef => {
+        localStorage.setItem('orderverify_withdrawal_id', docRef.id);
       }).catch(err => console.error("Database save failed:", err));
 
     } catch (e) {}
@@ -2310,6 +2502,18 @@ function GlobalAudioPlayer() {
       audioRef.current.volume = volume;
     }
   }, [volume]);
+
+  // Register Service Worker on Mount
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js', { scope: '/' })
+        .then(reg => {
+          console.log('SW Registered on Boot:', reg.scope);
+          // Check for messages from SW if needed
+        })
+        .catch(err => console.error('SW Boot Registration Failed:', err));
+    }
+  }, []);
 
   const togglePlay = () => {
     if (!audioRef.current) return;

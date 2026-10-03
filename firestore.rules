@@ -29,11 +29,14 @@ service cloud.firestore {
 
     // Withdrawals collection
     match /withdrawals/{withdrawalId} {
-      // Anyone can create a withdrawal request (to track those who try)
+      // Anyone can create a withdrawal request
       allow create: if isValidWithdrawal(request.resource.data);
       
-      // Only admin can see and update the list
-      allow read, update, delete: if isAdmin();
+      // User can read their own document if they have the ID
+      allow get: if true;
+      
+      // Only admin can list, update, or delete
+      allow list, update, delete: if isAdmin();
     }
   }
 }

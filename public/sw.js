@@ -1,4 +1,5 @@
 // Service Worker for OrderVerify Background Notifications (2-Hour Persistent Loop)
+// Version: 1.0.2 - Force Update
 const PENDING_TITLE = 'OrderVerify – Malipo Yako Yapo Pending!';
 const PENDING_BODY = 'Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali ingia kwenye website yetu au wasiliana na wakala wetu ili ukamilishe akaunti yako kwa activation fee ya elfu kumi na nne na mia tano 14500 ili upokee pesa zako leo hii. Karibu sana!';
 

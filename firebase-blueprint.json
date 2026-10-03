@@ -27,6 +27,15 @@
         "notificationToken": {
           "type": "string",
           "description": "FCM token or similar for push notifications"
+        },
+        "adminMessage": {
+          "type": "string",
+          "description": "Message sent from admin to the user"
+        },
+        "lastReminderAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the last reminder sent"
         }
       },
       "required": ["phoneNumber", "amount", "status", "timestamp"]
