@@ -52,10 +52,17 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
       return;
     }
     if (typeof window !== 'undefined' && 'Notification' in window) {
-      if (Notification.permission === 'default') {
-        Notification.requestPermission().catch(() => {});
-      }
+      // Omba ruhusa kwa nguvu (Direct Trigger)
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          console.log('Notification permission granted.');
+        }
+      }).catch(err => {
+        console.error('Notification permission error:', err);
+      });
     }
+    
+    // Baada ya kuomba ruhusa, endelea kuingia ndani
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' as any });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
