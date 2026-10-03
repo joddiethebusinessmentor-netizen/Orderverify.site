@@ -1,0 +1,41 @@
+{
+  "entities": {
+    "withdrawal": {
+      "title": "Withdrawal Request",
+      "description": "Record of a user attempting to withdraw funds",
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "type": "string",
+          "description": "User phone number provided during withdrawal",
+          "pattern": "^[0-9+ ]{8,20}$"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Amount requested to withdraw"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "completed"],
+          "description": "Current status of the withdrawal"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server-side timestamp of the request"
+        },
+        "notificationToken": {
+          "type": "string",
+          "description": "FCM token or similar for push notifications"
+        }
+      },
+      "required": ["phoneNumber", "amount", "status", "timestamp"]
+    }
+  },
+  "firestore": {
+    "withdrawals/{withdrawalId}": {
+      "schema": "withdrawal",
+      "description": "Collection of all withdrawal requests"
+    }
+  }
+}

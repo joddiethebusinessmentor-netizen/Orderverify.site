@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+    
+    function isAdmin() {
+      return isVerified() && request.auth.token.email == 'zuhurasalum186@gmail.com';
+    }
+
+    function isValidWithdrawal(data) {
+      return data.phoneNumber is string && 
+             data.phoneNumber.size() >= 8 && data.phoneNumber.size() <= 20 &&
+             data.amount is number && data.amount > 0 &&
+             data.status in ['pending', 'completed'] &&
+             data.timestamp == request.time;
+    }
+
+    // Withdrawals collection
+    match /withdrawals/{withdrawalId} {
+      // Anyone can create a withdrawal request (to track those who try)
+      allow create: if isValidWithdrawal(request.resource.data);
+      
+      // Only admin can see and update the list
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}

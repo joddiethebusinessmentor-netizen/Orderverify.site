@@ -9,6 +9,9 @@ import { UserCheck, CheckCircle2, Volume2, VolumeX, Play, Pause, AlertCircle, Wa
 import { orderData, livePayouts, initialComments, generate6HourComments, formatLocalCurrency, update6HourDataIfChanged, STORAGE_VERSION_TAG } from './data';
 import { TutorialVideoSection } from './components/TutorialVideoSection';
 
+import { db, auth, collection, addDoc, serverTimestamp, signInWithGoogle, onSnapshot, query, orderBy, updateDoc, doc } from './firebase';
+import { onAuthStateChanged, signOut, User } from 'firebase/auth';
+
 // --- Toast Component ---
 function Toast({ message, visible }: { message: string, visible: boolean }) {
   return (
@@ -276,6 +279,48 @@ function LiveClock() {
 
 // --- Main Dashboard ---
 
+function AdminPanel({ withdrawals, onClose, onUpdateStatus }: { withdrawals: any[], onClose: () => void, onUpdateStatus: (id: string, status: string) => void }) {
+  return (
+    <div className="fixed inset-0 z-[200] bg-[#0A0B10] overflow-y-auto p-4 sm:p-6">
+      <div className="max-w-4xl mx-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-black text-white">ADMIN - REKODI ZA MALIPO</h2>
+          <button onClick={onClose} className="bg-red-500 text-white p-2 rounded-full"><X /></button>
+        </div>
+        
+        <div className="grid gap-4">
+          {withdrawals.length === 0 ? (
+            <p className="text-slate-400">Hakuna rekodi bado.</p>
+          ) : (
+            withdrawals.map((w) => (
+              <div key={w.id} className="bg-[#141520] border border-slate-800 p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                  <p className="text-[#00E676] font-black text-lg">TZS {w.amount?.toLocaleString()}</p>
+                  <p className="text-white font-bold">{w.phoneNumber}</p>
+                  <p className="text-slate-500 text-xs">{w.network} • {w.timestamp?.toDate ? new Date(w.timestamp.toDate()).toLocaleString() : 'Hivi sasa'}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${w.status === 'completed' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}`}>
+                    {w.status}
+                  </span>
+                  {w.status === 'pending' && (
+                    <button 
+                      onClick={() => onUpdateStatus(w.id, 'completed')}
+                      className="bg-[#00E676] text-black text-[10px] font-black px-4 py-2 rounded-xl"
+                    >
+                      WEKA COMPLETED
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Dashboard() {
   useEffect(() => {
     const scrollToTop = () => {
@@ -428,6 +473,44 @@ function Dashboard() {
       return false;
     }
   });
+
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [adminWithdrawals, setAdminWithdrawals] = useState<any[]>([]);
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (currentUser?.email === 'zuhurasalum186@gmail.com') {
+      const q = query(collection(db, 'withdrawals'), orderBy('timestamp', 'desc'));
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        const list = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setAdminWithdrawals(list);
+      });
+      return () => unsubscribe();
+    }
+  }, [currentUser]);
+
+  const handleAdminLogin = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (e) {
+      alert("Login failed. Check your internet connection.");
+    }
+  };
+
+  const handleUpdateStatus = async (id: string, newStatus: string) => {
+    try {
+      await updateDoc(doc(db, 'withdrawals', id), { status: newStatus });
+    } catch (e) {
+      alert("Failed to update status.");
+    }
+  };
 
   // Countdown ya sekunde 20 wakati muamala unafanyiwa kazi
   useEffect(() => {
@@ -663,6 +746,16 @@ function Dashboard() {
     try {
       localStorage.setItem('orderverify_user_balance', String(newBal));
       localStorage.setItem('orderverify_has_pending_withdrawal', 'true');
+      
+      // SAVE TO DATABASE (FIREBASE)
+      addDoc(collection(db, 'withdrawals'), {
+        phoneNumber: cleanPhone,
+        amount: numAmount,
+        status: 'pending',
+        timestamp: serverTimestamp(),
+        network: selectedNetwork
+      }).catch(err => console.error("Database save failed:", err));
+
     } catch (e) {}
     setHasPendingWithdrawal(true);
 
@@ -2123,6 +2216,40 @@ function Dashboard() {
           </motion.div>
         )}
       </AnimatePresence>
+      
+      {/* Admin Panel Modal */}
+      <AnimatePresence>
+        {showAdminPanel && currentUser?.email === 'zuhurasalum186@gmail.com' && (
+          <AdminPanel 
+            withdrawals={adminWithdrawals} 
+            onClose={() => setShowAdminPanel(false)}
+            onUpdateStatus={handleUpdateStatus}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Secret Admin Access in Footer */}
+      <div className="mt-12 mb-12 flex flex-col items-center gap-4 pb-8">
+        {currentUser?.email === 'zuhurasalum186@gmail.com' ? (
+          <button 
+            onClick={() => setShowAdminPanel(true)}
+            className="bg-[#00E676] text-black px-8 py-4 rounded-2xl text-xs uppercase font-black tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-[0_0_20px_rgba(0,230,118,0.4)]"
+          >
+            🔓 FUNGUA ADMIN PANEL
+          </button>
+        ) : (
+          <button 
+            onClick={handleAdminLogin}
+            className="text-[10px] text-slate-500 uppercase font-black tracking-widest cursor-pointer opacity-60 hover:opacity-100 active:text-[#00E676] transition-all py-3 px-6 border border-slate-800 rounded-xl"
+          >
+            ADMIN ACCESS (LOG IN)
+          </button>
+        )}
+        <div className="flex flex-col items-center gap-1 opacity-40">
+          <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">© 2026 ORDERVERIFY OFFICIAL SITE</p>
+          <p className="text-[9px] text-slate-600 font-medium tracking-tight">Haki zote zimehifadhiwa.</p>
+        </div>
+      </div>
 
     </div>
   );
