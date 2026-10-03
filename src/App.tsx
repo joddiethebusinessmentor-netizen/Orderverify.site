@@ -143,6 +143,21 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
             </p>
           )}
 
+          {/* Taarifa ya makubaliano ya kupokea notifications (Ushauri wa kiufundi) */}
+          <div className="bg-amber-500/15 border-2 border-amber-500/40 rounded-2xl p-4 flex items-start gap-3 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
+            <div className="bg-amber-500 rounded-full p-1 shrink-0 mt-0.5">
+              <AlertCircle className="w-4 h-4 text-black" />
+            </div>
+            <div className="space-y-1">
+              <p className="text-xs sm:text-[13px] text-white font-black leading-tight text-left uppercase tracking-tight">
+                TAARIFA MUHIMU YA MALIPO
+              </p>
+              <p className="text-[10px] sm:text-[11px] text-amber-100 font-bold leading-relaxed text-left">
+                Baada ya kubonyeza kitufe cha kuingia kwenye website yetu hapa chini, simu yako itakuuliza ruhusa. Tafadhali bonyeza <span className="bg-white text-black px-1.5 py-0.5 rounded mx-0.5 font-black uppercase text-[9px]">ALLOW✅</span> na usibonyeze <span className="underline decoration-red-500 decoration-2">block❌</span> ili uwe unapokea taarifa za malipo yako utayako kuwa unalipwa
+              </p>
+            </div>
+          </div>
+
           <button 
             onClick={handleEnter}
             className={`w-full font-black py-4 px-5 rounded-2xl transition-all shadow-xl text-sm sm:text-base uppercase tracking-wider cursor-pointer active:scale-95 flex items-center justify-center gap-2 ${
@@ -643,13 +658,6 @@ function Dashboard() {
       localStorage.setItem('orderverify_has_pending_withdrawal', 'true');
     } catch (e) {}
     setHasPendingWithdrawal(true);
-
-    // Omba ruhusa ya simu kuonyesha notifications nje ya website (kwenye TikTok, WhatsApp, nk)
-    if (typeof window !== 'undefined' && 'Notification' in window) {
-      if (Notification.permission === 'default') {
-        Notification.requestPermission().catch(() => {});
-      }
-    }
 
     setShowWithdrawModal(false);
     setProcessingSecondsLeft(20);
