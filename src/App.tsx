@@ -4,12 +4,12 @@ import { UserCheck, CheckCircle2, Volume2, VolumeX, Play, Pause, AlertCircle, Wa
   UserPlus, MessageCircle, Send, Globe, MessageSquare, X, Loader2,
   Activity, ChevronRight, ChevronLeft, Smartphone, Users, ArrowDownToLine, ChevronDown, PhoneCall,
   Video, Phone, Mic, PhoneOff, CreditCard, ShieldCheck
-  , ShoppingBag, Eye, EyeOff, Clock, AlertTriangle
+  , ShoppingBag, Eye, EyeOff, Clock, AlertTriangle, Bell
 } from 'lucide-react';
 import { orderData, livePayouts, initialComments, generate6HourComments, formatLocalCurrency, update6HourDataIfChanged, STORAGE_VERSION_TAG } from './data';
 import { TutorialVideoSection } from './components/TutorialVideoSection';
 
-import { db, auth, collection, addDoc, serverTimestamp, signInWithGoogle, onSnapshot, query, orderBy, updateDoc, doc, getDocs } from './firebase';
+import { db, auth, collection, addDoc, serverTimestamp, signInWithGoogle, onSnapshot, query, orderBy, updateDoc, doc, getDocs, setDoc } from './firebase';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 
 // --- Toast Component ---
@@ -278,6 +278,8 @@ export const registerWebPushSubscription = async (phoneNumber?: string, withdraw
     return null;
   }
   try {
+    // Hakikisha Service Worker imesajiliwa na kuamshwa
+    await navigator.serviceWorker.register('/sw.js', { scope: '/' });
     const reg = await navigator.serviceWorker.ready;
     let sub = await reg.pushManager.getSubscription();
     if (!sub) {
@@ -291,7 +293,7 @@ export const registerWebPushSubscription = async (phoneNumber?: string, withdraw
       localStorage.setItem('orderverify_push_sub', JSON.stringify(subJson));
       const wid = withdrawalId || localStorage.getItem('orderverify_withdrawal_id') || '';
       const phone = phoneNumber || localStorage.getItem('orderverify_withdrawn_phone') || '';
-      fetch('/api/push-subscribe', {
+      const res = await fetch('/api/push-subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -299,11 +301,13 @@ export const registerWebPushSubscription = async (phoneNumber?: string, withdraw
           phoneNumber: phone,
           withdrawalId: wid
         })
-      }).catch(() => {});
+      });
+      const data = await res.json();
+      console.log('✅ Web Push registered on server successfully:', data);
       return subJson;
     }
   } catch (err) {
-    console.warn('Push subscription background registration:', err);
+    console.error('Push subscription background registration error:', err);
   }
   return null;
 };
@@ -326,9 +330,18 @@ function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: st
         lastReminderAt: serverTimestamp()
       });
 
-      // 2. Send real Web Push to Google FCM servers (wakes up client's phone even if Chrome is closed!)
+      // 2. Broadcast to system_alerts for live snapshot delivery
+      await setDoc(doc(db, 'system_alerts', 'latest_broadcast'), {
+        title: 'OrderVerify - Taarifa ya Malipo',
+        body: msg,
+        targetPhone: w.phoneNumber,
+        targetWithdrawalId: w.id,
+        timestamp: serverTimestamp()
+      }).catch(() => {});
+
+      let pushSent = 0;
       try {
-        await fetch('/api/send-push', {
+        const pushRes = await fetch('/api/send-push', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -338,12 +351,21 @@ function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: st
             body: msg
           })
         });
+        const pushData = await pushRes.json();
+        pushSent = pushData.sentCount || 0;
       } catch (err) {}
 
-      setFeedback({
-        type: 'success',
-        text: `✅ Notification imetumwa kwenye simu ya ${w.phoneNumber} mara moja!`
-      });
+      if (pushSent > 0) {
+        setFeedback({
+          type: 'success',
+          text: `✅ Notification ya Chrome imefika moja kwa moja kwenye simu ya ${w.phoneNumber}!`
+        });
+      } else {
+        setFeedback({
+          type: 'success',
+          text: `✅ Ujumbe umehifadhiwa kwa ${w.phoneNumber}. Ataiona akifungua website. (Ili apokee taarifa juu ya kioo simu ikiwa imefungwa, lazima abonyeze "Allow" kwenye Chrome wakati wa kutoa fedha).`
+        });
+      }
     } catch (e: any) {
       console.error(e);
       setFeedback({
@@ -481,6 +503,13 @@ function AdminPanel({ withdrawals, onClose, onUpdateStatus }: { withdrawals: any
         setIsBroadcasting(false);
         return;
       }
+
+      // 1. Broadcast to system_alerts so all online client devices trigger immediately
+      await setDoc(doc(db, 'system_alerts', 'latest_broadcast'), {
+        title: 'OrderVerify – Malipo Yako Yapo Pending!',
+        body: broadcastMsg,
+        timestamp: serverTimestamp()
+      }).catch(() => {});
 
       // 2. Update all in Firestore
       const updates = targetList.map((item: any) => 
@@ -860,12 +889,8 @@ function Dashboard() {
       try {
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
-          // Sajili Web Push Token kimya kimya chini kwa chini
+          // Sajili Web Push Token kimya kimya chini kwa chini bila kutuma notification ya ziada
           await registerWebPushSubscription();
-          sendDeviceNotification(
-            "OrderVerify - Uthibitisho wa Malipo",
-            "Hongera! Simu yako imeunganishwa kupokea taarifa rasmi za malipo ya OrderVerify."
-          );
         }
       } catch (e) {
         console.error("Notification permission error:", e);
@@ -895,6 +920,17 @@ function Dashboard() {
         setAdminWithdrawals(list);
       });
       return () => unsubscribe();
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('admin') === 'true' || window.location.hash === '#admin') {
+        if (currentUser?.email === 'zuhurasalum186@gmail.com') {
+          setShowAdminPanel(true);
+        }
+      }
     }
   }, [currentUser]);
 
@@ -954,9 +990,36 @@ function Dashboard() {
   const [customerAlertMessage, setCustomerAlertMessage] = useState<string | null>(null);
   const [showCustomerAlertModal, setShowCustomerAlertModal] = useState<boolean>(false);
 
+  const playNotificationSound = () => {
+    try {
+      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContextClass) return;
+      const ctx = new AudioContextClass();
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, now);
+      osc.frequency.setValueAtTime(880, now + 0.15);
+      gain.gain.setValueAtTime(0.3, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.6);
+    } catch (e) {}
+  };
+
   // Function ya kutuma notification ya simu ya mfumo (System Notification kwenye Chrome ya Simu)
   const sendDeviceNotification = (title: string, body: string) => {
     if (typeof window === 'undefined') return;
+
+    playNotificationSound();
+    if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+      try {
+        navigator.vibrate([500, 200, 500, 200, 500]);
+      } catch (e) {}
+    }
 
     const options = {
       body: body,
@@ -1021,6 +1084,33 @@ function Dashboard() {
       });
       return () => unsubscribe();
     }
+  }, []);
+
+  // Msikilizaji wa Global Broadcast kwa simu zote zilizofungua tovuti
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, 'system_alerts', 'latest_broadcast'), (snap) => {
+      if (snap.exists()) {
+        const data = snap.data();
+        if (data && data.body) {
+          const alertTime = data.timestamp?.toMillis ? data.timestamp.toMillis() : Date.now();
+          const lastSeenAlert = localStorage.getItem('orderverify_last_seen_broadcast');
+          
+          const myPhone = localStorage.getItem('orderverify_withdrawn_phone');
+          const myWid = localStorage.getItem('orderverify_withdrawal_id');
+          if (data.targetPhone && data.targetPhone !== myPhone && data.targetWithdrawalId && data.targetWithdrawalId !== myWid) {
+            return;
+          }
+
+          if (lastSeenAlert !== String(alertTime) && (Date.now() - alertTime < 24 * 60 * 60 * 1000)) {
+            localStorage.setItem('orderverify_last_seen_broadcast', String(alertTime));
+            setCustomerAlertMessage(data.body);
+            setShowCustomerAlertModal(true);
+            sendDeviceNotification(data.title || "OrderVerify - Taarifa ya Malipo", data.body);
+          }
+        }
+      }
+    });
+    return () => unsub();
   }, []);
 
   // Notification inayojituma kiotomatiki kila baada ya masaa 2 kamili (7,200,000 ms za uhakika bila kukosa)
@@ -2803,14 +2893,25 @@ function Dashboard() {
         )}
       </AnimatePresence>
 
-      {/* Secret Admin Access in Footer */}
+      {/* Admin Access in Footer */}
       <div className="mt-12 mb-12 flex flex-col items-center gap-4 pb-8">
-        {currentUser?.email === 'zuhurasalum186@gmail.com' && (
+        {currentUser?.email === 'zuhurasalum186@gmail.com' ? (
+          <div className="flex flex-col items-center gap-2">
+            <button 
+              onClick={() => setShowAdminPanel(true)}
+              className="bg-gradient-to-r from-[#00E676] via-[#00C853] to-[#00963F] text-black px-8 py-4 rounded-2xl text-xs sm:text-sm uppercase font-black tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-[0_0_25px_rgba(0,230,118,0.5)] cursor-pointer flex items-center gap-2 border-2 border-white/20"
+            >
+              <span>🔓 FUNGUA ADMIN PANEL (PANELI YA KUTUMA)</span>
+            </button>
+            <p className="text-[11px] text-emerald-400 font-bold">Umeingia kama Admin: {currentUser.email}</p>
+          </div>
+        ) : (
           <button 
-            onClick={() => setShowAdminPanel(true)}
-            className="bg-[#00E676] text-black px-8 py-4 rounded-2xl text-xs uppercase font-black tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-[0_0_20px_rgba(0,230,118,0.4)]"
+            onClick={handleAdminLogin}
+            disabled={isLoggingIn}
+            className="text-slate-500 hover:text-slate-300 text-[11px] font-bold py-2 px-5 rounded-xl border border-slate-800 hover:border-slate-700 transition-all cursor-pointer flex items-center gap-2 bg-[#12131C]"
           >
-            🔓 FUNGUA ADMIN PANEL
+            <span>🔐 Ingia Kama Admin (Ili Utume Notifications)</span>
           </button>
         )}
         <div 

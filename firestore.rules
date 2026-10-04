@@ -38,5 +38,11 @@ service cloud.firestore {
       // Only admin can list, update, or delete
       allow list, update, delete: if isAdmin();
     }
+
+    // System alerts / Broadcast notifications (all devices can listen to broadcasts)
+    match /system_alerts/{alertId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
   }
 }
