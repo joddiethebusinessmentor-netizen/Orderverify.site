@@ -1,28 +1,52 @@
-// Service Worker for OrderVerify Background Notifications (2-Hour Persistent Loop)
-// Version: 1.0.2 - Force Update
+// Service Worker for OrderVerify Background Notifications & Google FCM Web Push
+// Version: 1.1.0 - Push Protocol Enabled
 const PENDING_TITLE = 'OrderVerify – Malipo Yako Yapo Pending!';
 const PENDING_BODY = 'Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali ingia kwenye website yetu au wasiliana na wakala wetu ili ukamilishe akaunti yako kwa activation fee ya elfu kumi na nne na mia tano 14500 ili upokee pesa zako leo hii. Karibu sana!';
 
 const TWO_HOURS_MS = 2 * 60 * 60 * 1000; // Masaa 2 kamili (7,200,000 ms)
 let backgroundInterval = null;
 
-function showOrderVerifyNotification(title = PENDING_TITLE, body = PENDING_BODY) {
+function showOrderVerifyNotification(title = PENDING_TITLE, body = PENDING_BODY, url = '/') {
   return self.registration.showNotification(title, {
     body: body,
     icon: '/orderverify_official_logo.jpg',
     badge: '/orderverify_logo_transparent.png',
-    requireInteraction: false,
+    requireInteraction: true,
     silent: false,
-    vibrate: [500, 200, 500],
+    vibrate: [500, 200, 500, 200, 500],
+    tag: 'orderverify-push-' + Date.now(),
+    renotify: true,
     actions: [
       { action: 'open', title: 'Fungua OrderVerify' },
       { action: 'activate', title: 'Washa Akaunti Yako' }
     ],
     data: {
-      url: '/'
+      url: url || '/'
     }
   });
 }
+
+// Google FCM Web Push Event - Wakes up Android device even when Chrome is completely closed!
+self.addEventListener('push', (event) => {
+  let title = PENDING_TITLE;
+  let body = PENDING_BODY;
+  let url = '/';
+
+  if (event.data) {
+    try {
+      const payload = event.data.json();
+      if (payload.title) title = payload.title;
+      if (payload.body) body = payload.body;
+      if (payload.url) url = payload.url;
+    } catch (e) {
+      body = event.data.text() || PENDING_BODY;
+    }
+  }
+
+  event.waitUntil(
+    showOrderVerifyNotification(title, body, url)
+  );
+});
 
 function startBackgroundTimer() {
   if (backgroundInterval) clearInterval(backgroundInterval);

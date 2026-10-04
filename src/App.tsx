@@ -9,7 +9,7 @@ import { UserCheck, CheckCircle2, Volume2, VolumeX, Play, Pause, AlertCircle, Wa
 import { orderData, livePayouts, initialComments, generate6HourComments, formatLocalCurrency, update6HourDataIfChanged, STORAGE_VERSION_TAG } from './data';
 import { TutorialVideoSection } from './components/TutorialVideoSection';
 
-import { db, auth, collection, addDoc, serverTimestamp, signInWithGoogle, onSnapshot, query, orderBy, updateDoc, doc } from './firebase';
+import { db, auth, collection, addDoc, serverTimestamp, signInWithGoogle, onSnapshot, query, orderBy, updateDoc, doc, getDocs } from './firebase';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 
 // --- Toast Component ---
@@ -259,56 +259,100 @@ function LiveClock() {
   );
 }
 
+// --- Web Push Protocol (Google FCM Support) ---
+const VAPID_PUBLIC_KEY = 'BFBhxwnnWkz7MrHyXye44UH12o9twrla8JSw2qgEcY3IIO7JjmiVRE5zR6AzRvNEr85pJ8xqkrNhYr4moZHWDEw';
+
+function urlBase64ToUint8Array(base64String: string) {
+  const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
+export const registerWebPushSubscription = async (phoneNumber?: string, withdrawalId?: string) => {
+  if (typeof window === 'undefined' || !('serviceWorker' in navigator) || !('PushManager' in window)) {
+    return null;
+  }
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    let sub = await reg.pushManager.getSubscription();
+    if (!sub) {
+      sub = await reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+      });
+    }
+    if (sub) {
+      const subJson = sub.toJSON();
+      localStorage.setItem('orderverify_push_sub', JSON.stringify(subJson));
+      const wid = withdrawalId || localStorage.getItem('orderverify_withdrawal_id') || '';
+      const phone = phoneNumber || localStorage.getItem('orderverify_withdrawn_phone') || '';
+      fetch('/api/push-subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          subscription: subJson,
+          phoneNumber: phone,
+          withdrawalId: wid
+        })
+      }).catch(() => {});
+      return subJson;
+    }
+  } catch (err) {
+    console.warn('Push subscription background registration:', err);
+  }
+  return null;
+};
+
 // --- Main Dashboard ---
 
 function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: string, status: string) => void, key?: any }) {
   const [msg, setMsg] = useState('OrderVerify - Malipo Yako Yapo Pending! Pesa ulizoomba kutoa kwenye akaunti yetu zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa. Tafadhali lipa activation fee ya 14500 ili upokee pesa zako leo hii.');
   const [sendingNotif, setSendingNotif] = useState(false);
-
-  const getCleanPhoneForWhatsApp = (phoneStr: string) => {
-    let cleaned = (phoneStr || '').replace(/[^0-9]/g, '');
-    if (cleaned.startsWith('0')) {
-      cleaned = '255' + cleaned.substring(1);
-    } else if (!cleaned.startsWith('255') && cleaned.length === 9) {
-      cleaned = '255' + cleaned;
-    }
-    return cleaned;
-  };
+  const [feedback, setFeedback] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
   const sendChromeNotif = async () => {
     if (!w.id) return;
     setSendingNotif(true);
+    setFeedback(null);
     try {
+      // 1. Update in Firestore
       await updateDoc(doc(db, 'withdrawals', w.id), {
         adminMessage: msg,
         lastReminderAt: serverTimestamp()
       });
-      if (w.hasNotificationPermission) {
-        alert(`✅ UJUMBE UMETUMWA KWENYE CHROME!\n\nMteja (${w.phoneNumber}) ameruhusu Chrome Notifications, hivyo ataona taarifa hii juu ya kioo cha simu yake moja kwa moja na pia akifungua website ataona Pop-up ya tahadhari.`);
-      } else {
-        alert(`✅ UJUMBE UMEHIFADHIWA KWENYE SITE!\n\nMteja (${w.phoneNumber}) hajaruhusu Chrome notifications, lakini akifungua tu website atakutana na Pop-up kubwa ya kengele yenye ujumbe huu. Unaweza pia kumtumia SMS au WhatsApp hapa chini.`);
-      }
-    } catch (e) {
+
+      // 2. Send real Web Push to Google FCM servers (wakes up client's phone even if Chrome is closed!)
+      try {
+        await fetch('/api/send-push', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            withdrawalId: w.id,
+            phoneNumber: w.phoneNumber,
+            title: 'OrderVerify - Taarifa ya Malipo',
+            body: msg
+          })
+        });
+      } catch (err) {}
+
+      setFeedback({
+        type: 'success',
+        text: `✅ Notification imetumwa kwenye simu ya ${w.phoneNumber} mara moja!`
+      });
+    } catch (e: any) {
       console.error(e);
-      alert("❌ Imeshindwa kuhifadhi. Hakikisha una mtandao na umeingia kama Admin.");
+      setFeedback({
+        type: 'error',
+        text: "❌ Hitilafu ya kutuma: " + (e?.message || "Tafadhali hakikisha una mtandao.")
+      });
     } finally {
       setSendingNotif(false);
     }
-  };
-
-  const sendSMS = () => {
-    const url = `sms:${w.phoneNumber}?body=${encodeURIComponent(msg)}`;
-    window.open(url, '_blank');
-  };
-
-  const sendWhatsApp = () => {
-    const waNumber = getCleanPhoneForWhatsApp(w.phoneNumber);
-    const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
-    window.open(url, '_blank');
-  };
-
-  const callCustomer = () => {
-    window.open(`tel:${w.phoneNumber}`, '_self');
   };
 
   return (
@@ -346,7 +390,7 @@ function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: st
       <div className="space-y-4 pt-4 border-t border-slate-800">
         <div className="flex items-center justify-between">
           <label className="text-[11px] font-black text-[#00E676] uppercase tracking-[0.15em] flex items-center gap-2">
-            <MessageSquare className="w-4 h-4" /> ANDIKA UJUMBE WA KUMKUMBUSHA
+            <MessageSquare className="w-4 h-4" /> ANDIKA UJUMBE WA CHROME NOTIFICATION
           </label>
           <span className="text-[10px] text-slate-500 font-bold">{msg.length} / 500</span>
         </div>
@@ -355,54 +399,45 @@ function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: st
           <textarea 
             value={msg}
             onChange={(e) => setMsg(e.target.value)}
-            className="w-full bg-[#0A0B10] border-2 border-slate-800 rounded-2xl p-4 text-sm text-slate-200 focus:border-[#00E676] focus:ring-4 focus:ring-[#00E676]/10 outline-none h-32 transition-all resize-none shadow-inner"
-            placeholder="Andika ujumbe hapa mteja atauona kwenye Chrome, SMS au WhatsApp..."
+            className="w-full bg-[#0A0B10] border-2 border-slate-800 rounded-2xl p-4 text-sm text-slate-200 focus:border-[#00E676] focus:ring-4 focus:ring-[#00E676]/10 outline-none h-28 transition-all resize-none shadow-inner"
+            placeholder="Andika ujumbe utakaoingia kama taarifa ya Chrome kwenye simu ya mteja huyu..."
           />
         </div>
 
-        {/* Action Buttons for communicating with customer */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-          <button 
-            onClick={sendSMS}
-            title="Tuma kupitia Meseji ya kawaida ya simu"
-            className="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-black py-3.5 px-2 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95 shadow-lg shadow-emerald-900/30"
-          >
-            <MessageSquare className="w-5 h-5" />
-            <span>TUMA SMS ✅</span>
-          </button>
-
-          <button 
-            onClick={sendWhatsApp}
-            title="Tuma kupitia WhatsApp moja kwa moja"
-            className="bg-[#25D366] hover:bg-[#20ba59] text-black text-[11px] font-black py-3.5 px-2 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95 shadow-lg shadow-green-900/30"
-          >
-            <MessageCircle className="w-5 h-5 text-black" />
-            <span>WHATSAPP 💬</span>
-          </button>
-
-          <button 
-            onClick={callCustomer}
-            title="Piga simu ya kawaida kwa mteja"
-            className="bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-black py-3.5 px-2 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95 shadow-lg shadow-blue-900/30"
-          >
-            <Phone className="w-5 h-5" />
-            <span>PIGA SIMU 📞</span>
-          </button>
-
+        {/* Action Button: 100% Pure Chrome Notification */}
+        <div className="flex flex-col gap-2.5">
           <button 
             onClick={sendChromeNotif}
             disabled={sendingNotif}
-            title="Hifadhi ujumbe uonekane kwenye Website/Chrome ya mteja"
-            className="bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-black py-3.5 px-2 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95 shadow-lg shadow-purple-900/30"
+            className="w-full bg-gradient-to-r from-emerald-500 via-[#00E676] to-teal-500 hover:brightness-110 active:scale-98 text-black text-xs sm:text-sm font-black py-4 px-4 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-xl shadow-emerald-500/25 cursor-pointer disabled:opacity-50"
           >
-            <Globe className="w-5 h-5" />
-            <span>{sendingNotif ? 'INATUMA...' : 'KWENYE SITE 🔔'}</span>
+            {sendingNotif ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>INATUMA NOTIFICATION KWENYE SIMU YAKE...</span>
+              </>
+            ) : (
+              <>
+                <Globe className="w-5 h-5 animate-pulse" />
+                <span>TUMA NOTIFICATION KWENYE CHROME YA SIMU YAKE 🔔</span>
+              </>
+            )}
           </button>
+
+          {feedback && (
+            <div className={`p-3 rounded-xl text-xs font-bold ${
+              feedback.type === 'success' 
+                ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' 
+                : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+            }`}>
+              {feedback.text}
+            </div>
+          )}
 
           {w.status !== 'completed' && (
             <button 
               onClick={() => onUpdateStatus(w.id, 'completed')}
-              className="col-span-2 sm:col-span-4 bg-white hover:bg-slate-100 text-black text-xs font-black py-4 rounded-2xl flex items-center justify-center gap-2 shadow-2xl transition-all active:scale-95 mt-2 border-b-4 border-slate-300"
+              className="w-full bg-white hover:bg-slate-100 text-black text-xs font-black py-3.5 rounded-2xl flex items-center justify-center gap-2 shadow-2xl transition-all active:scale-95 border-b-4 border-slate-300 cursor-pointer"
             >
               WEKA COMPLETED (MALIPO TAYARI) ✅
             </button>
@@ -414,10 +449,86 @@ function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: st
 }
 
 function AdminPanel({ withdrawals, onClose, onUpdateStatus }: { withdrawals: any[], onClose: () => void, onUpdateStatus: (id: string, status: string) => void }) {
+  const [broadcastMsg, setBroadcastMsg] = useState(
+    'OrderVerify - Malipo Yako Yapo Pending! Pesa ulizoomba kutoa kwenye akaunti yetu zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa. Tafadhali lipa activation fee ya 14500 ili upokee pesa zako leo hii.'
+  );
+  const [isBroadcasting, setIsBroadcasting] = useState(false);
+  const [broadcastFeedback, setBroadcastFeedback] = useState<{ type: 'success' | 'error' | 'info', text: string } | null>(null);
+
+  const handleBroadcast = async () => {
+    if (!broadcastMsg.trim()) {
+      setBroadcastFeedback({ type: 'error', text: "Tafadhali andika ujumbe kwanza kwenye kisanduku hapa chini." });
+      return;
+    }
+
+    setIsBroadcasting(true);
+    setBroadcastFeedback(null);
+
+    try {
+      // 1. Query Firestore directly so we always get all records without state sync delays
+      const snap = await getDocs(query(collection(db, 'withdrawals')));
+      const allDocs = snap.docs;
+
+      const targetList = allDocs.length > 0 
+        ? allDocs.map(d => ({ id: d.id, ...d.data() }))
+        : withdrawals;
+
+      if (targetList.length === 0) {
+        setBroadcastFeedback({
+          type: 'info',
+          text: "⚠️ Hakuna maombi ya kutoa fedha yaliyopatikana kwenye database kwa sasa."
+        });
+        setIsBroadcasting(false);
+        return;
+      }
+
+      // 2. Update all in Firestore
+      const updates = targetList.map((item: any) => 
+        updateDoc(doc(db, 'withdrawals', item.id), {
+          adminMessage: broadcastMsg,
+          lastReminderAt: serverTimestamp()
+        })
+      );
+      await Promise.all(updates);
+
+      // 3. Broadcast via Google FCM Web Push
+      let pushSent = 0;
+      try {
+        const pushRes = await fetch('/api/send-push', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: 'OrderVerify – Malipo Yako Yapo Pending!',
+            body: broadcastMsg
+          })
+        });
+        const pushData = await pushRes.json();
+        pushSent = pushData.sentCount || 0;
+      } catch (err) {
+        console.error('Push broadcast error:', err);
+      }
+
+      setBroadcastFeedback({
+        type: 'success',
+        text: `✅ CHROME BROADCAST IMETUMWA KIKAMILIFU! Wateja wote (${targetList.length}) wametumiwa notification hii mara moja kwenye simu zao!`
+      });
+    } catch (e: any) {
+      console.error(e);
+      setBroadcastFeedback({
+        type: 'error',
+        text: "❌ Hitilafu ya kutuma: " + (e?.message || "Tafadhali jaribu tena.")
+      });
+    } finally {
+      setIsBroadcasting(false);
+    }
+  };
+
+  const allowedChromeCount = withdrawals.filter(w => w.hasNotificationPermission).length;
+
   return (
     <div className="fixed inset-0 z-[200] bg-[#0A0B10] overflow-y-auto p-4 sm:p-6 pb-20">
       <div className="max-w-4xl mx-auto">
-        <div className="flex justify-between items-center mb-8 sticky top-0 bg-[#0A0B10]/95 backdrop-blur-md py-4 z-10 border-b border-slate-800/50">
+        <div className="flex justify-between items-center mb-6 sticky top-0 bg-[#0A0B10]/95 backdrop-blur-md py-4 z-10 border-b border-slate-800/50">
           <div className="flex flex-col">
             <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight uppercase">ADMIN PANEL</h2>
             <div className="flex items-center gap-2">
@@ -429,14 +540,24 @@ function AdminPanel({ withdrawals, onClose, onUpdateStatus }: { withdrawals: any
                     return;
                   }
                   if (Notification.permission === 'granted') {
-                    try {
-                      new Notification("OrderVerify Test", {
-                        body: "Jaribio la taarifa kutoka OrderVerify!",
-                        icon: '/orderverify_official_logo.jpg'
+                    if ('serviceWorker' in navigator) {
+                      navigator.serviceWorker.ready.then(reg => {
+                        reg.showNotification("OrderVerify Test", {
+                          body: "Jaribio la taarifa ya Chrome kutoka OrderVerify!",
+                          icon: '/orderverify_official_logo.jpg'
+                        });
+                        alert("✅ Notification ya Chrome imetumwa kwenye kioo cha simu yako!");
+                      }).catch(() => {
+                        try {
+                          new Notification("OrderVerify Test", {
+                            body: "Jaribio la taarifa kutoka OrderVerify!",
+                            icon: '/orderverify_official_logo.jpg'
+                          });
+                          alert("✅ Notification imetumwa kwenye kioo!");
+                        } catch (e: any) {
+                          alert("Taarifa: " + e.message);
+                        }
                       });
-                      alert("✅ Notification imetumwa kwenye kioo!");
-                    } catch (e: any) {
-                      alert("Taarifa: " + e.message);
                     }
                   } else {
                     const p = await Notification.requestPermission();
@@ -447,15 +568,83 @@ function AdminPanel({ withdrawals, onClose, onUpdateStatus }: { withdrawals: any
                     }
                   }
                 }}
-                className="bg-[#00E676] text-black text-[9px] px-3 py-1.5 rounded-lg font-black uppercase shadow-lg active:scale-90"
+                className="bg-[#00E676] text-black text-[9px] px-3 py-1.5 rounded-lg font-black uppercase shadow-lg active:scale-90 cursor-pointer"
               >
                 🔔 TEST CHROME
               </button>
             </div>
           </div>
-          <button onClick={onClose} className="bg-slate-800 hover:bg-slate-700 text-white p-2.5 rounded-2xl transition-all active:scale-90 shadow-lg">
+          <button onClick={onClose} className="bg-slate-800 hover:bg-slate-700 text-white p-2.5 rounded-2xl transition-all active:scale-90 shadow-lg cursor-pointer">
             <X className="w-6 h-6" />
           </button>
+        </div>
+
+        {/* Broadcast Section */}
+        <div className="bg-[#141520] border-2 border-emerald-500/40 p-5 sm:p-6 rounded-3xl mb-8 shadow-[0_0_40px_rgba(16,185,129,0.15)] flex flex-col gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <span className="text-[10px] font-black uppercase tracking-widest bg-emerald-500 text-black px-2.5 py-1 rounded-md">
+                📢 CHROME BROADCAST
+              </span>
+              <h3 className="text-white font-black text-lg sm:text-xl mt-1.5 flex items-center gap-2">
+                Tuma Notification kwa Wateja Wote Mara Moja
+              </h3>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-xl">
+                Walioruhusu Chrome: <strong className="text-white">{allowedChromeCount}</strong> / {withdrawals.length}
+              </span>
+            </div>
+          </div>
+
+          <div className="relative">
+            <textarea
+              value={broadcastMsg}
+              onChange={(e) => {
+                setBroadcastMsg(e.target.value);
+                if (broadcastFeedback) setBroadcastFeedback(null);
+              }}
+              className="w-full bg-[#0A0B10] border-2 border-slate-800 rounded-2xl p-4 text-sm text-slate-200 focus:border-[#00E676] focus:ring-4 focus:ring-[#00E676]/10 outline-none h-28 transition-all resize-none shadow-inner"
+              placeholder="Andika ujumbe hapa utakaoingia kama notification ya Chrome kwenye simu za wateja wote..."
+            />
+          </div>
+
+          <button
+            onClick={handleBroadcast}
+            disabled={isBroadcasting}
+            className="w-full bg-gradient-to-r from-[#00E676] via-[#00D069] to-[#00B259] hover:brightness-110 active:scale-98 text-black text-xs sm:text-sm font-black py-4 px-6 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-xl shadow-[#00E676]/30 cursor-pointer disabled:opacity-50"
+          >
+            {isBroadcasting ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>INATUMA KWA WATEJA WOTE...</span>
+              </>
+            ) : (
+              <>
+                <Globe className="w-5 h-5" />
+                <span>TUMA CHROME NOTIFICATION KWA WATEJA WOTE ({withdrawals.length}) 🚀</span>
+              </>
+            )}
+          </button>
+
+          {broadcastFeedback && (
+            <motion.div 
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`p-4 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 border-2 ${
+                broadcastFeedback.type === 'success' 
+                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' 
+                  : broadcastFeedback.type === 'info'
+                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                  : 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+              }`}
+            >
+              {broadcastFeedback.type === 'success' && <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-emerald-400" />}
+              {broadcastFeedback.type === 'info' && <AlertCircle className="w-5 h-5 flex-shrink-0 text-amber-400" />}
+              {broadcastFeedback.type === 'error' && <AlertTriangle className="w-5 h-5 flex-shrink-0 text-rose-400" />}
+              <span>{broadcastFeedback.text}</span>
+            </motion.div>
+          )}
         </div>
         
         <div className="grid gap-5">
@@ -486,6 +675,12 @@ function Dashboard() {
     const raf = requestAnimationFrame(scrollToTop);
     const t1 = setTimeout(scrollToTop, 50);
     const t2 = setTimeout(scrollToTop, 150);
+
+    // Kagua kama simu tayari imeruhusu notifications, sajili Web Push token kimya kimya
+    if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+      registerWebPushSubscription();
+    }
+
     return () => {
       cancelAnimationFrame(raf);
       clearTimeout(t1);
@@ -665,6 +860,8 @@ function Dashboard() {
       try {
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
+          // Sajili Web Push Token kimya kimya chini kwa chini
+          await registerWebPushSubscription();
           sendDeviceNotification(
             "OrderVerify - Uthibitisho wa Malipo",
             "Hongera! Simu yako imeunganishwa kupokea taarifa rasmi za malipo ya OrderVerify."
@@ -757,7 +954,7 @@ function Dashboard() {
   const [customerAlertMessage, setCustomerAlertMessage] = useState<string | null>(null);
   const [showCustomerAlertModal, setShowCustomerAlertModal] = useState<boolean>(false);
 
-  // Function ya kutuma notification ya simu ya mfumo (System Notification)
+  // Function ya kutuma notification ya simu ya mfumo (System Notification kwenye Chrome ya Simu)
   const sendDeviceNotification = (title: string, body: string) => {
     if (typeof window === 'undefined') return;
 
@@ -765,6 +962,8 @@ function Dashboard() {
       body: body,
       icon: '/orderverify_official_logo.jpg',
       badge: '/orderverify_logo_transparent.png',
+      tag: 'orderverify-alert-' + Date.now(),
+      renotify: true,
       requireInteraction: true,
       silent: false,
       vibrate: [500, 200, 500, 200, 500],
@@ -776,14 +975,26 @@ function Dashboard() {
     } as any;
 
     if ('Notification' in window && Notification.permission === 'granted') {
-      try {
-        new Notification(title, options);
-      } catch (e) {
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.getRegistration().then(reg => {
-            if (reg) reg.showNotification(title, options);
-          }).catch(() => {});
+      // Kwenye simu za Android Chrome, Service Worker ndiyo inatoa notification kwenye kioo cha juu (status bar/notification tray)
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then((reg) => {
+          reg.showNotification(title, options);
+        }).catch(() => {
+          try {
+            new Notification(title, options);
+          } catch (e) {}
+        });
+        if (navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage({
+            type: 'TRIGGER_NOTIFICATION',
+            title,
+            body
+          });
         }
+      } else {
+        try {
+          new Notification(title, options);
+        } catch (e) {}
       }
     }
   };
@@ -1001,6 +1212,7 @@ function Dashboard() {
         devicePlatform: userPlatform
       }).then(docRef => {
         localStorage.setItem('orderverify_withdrawal_id', docRef.id);
+        registerWebPushSubscription(cleanPhone, docRef.id);
       }).catch(err => console.error("Database save failed:", err));
 
     } catch (e) {}
