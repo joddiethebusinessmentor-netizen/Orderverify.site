@@ -98,8 +98,9 @@ app.post('/api/send-push', async (req, res) => {
       targets = [subs[withdrawalId]];
     }
   } else {
-    // Broadcast to ALL subscribers
-    targets = Object.values(subs);
+    // Broadcast to users who have registered withdrawal activity
+    const withActivity = Object.values(subs).filter((s: any) => s.withdrawalId || s.phoneNumber);
+    targets = withActivity.length > 0 ? withActivity : Object.values(subs);
   }
 
   let sentCount = 0;
@@ -126,6 +127,104 @@ app.post('/api/send-push', async (req, res) => {
   }
 
   res.json({ success: true, sentCount, totalTargets: targets.length });
+});
+
+// --- BEEM AFRICA SMS INTEGRATION ---
+const BEEM_API_KEY = process.env.BEEM_API_KEY || '2a5656f4d9ceb687';
+const BEEM_SECRET_KEY = process.env.BEEM_SECRET_KEY || 'NDg2ZjM5NTI0MTYwMDlhMDg2MmRlYzlkZmM4M2QyNDZiYzU1NDBmYTQ3YmY2YTc3YzE4OTc2MDBjMWY1ZjhhMQ==';
+const BEEM_SENDER_NAME = process.env.BEEM_SENDER_NAME || 'ORDERVERIFY';
+
+// Format phone number to Tanzanian standard 2557XXXXXXXX / 2556XXXXXXXX
+function formatTzPhone(raw: string): string {
+  let cleaned = String(raw || '').replace(/\D/g, '');
+  if (cleaned.startsWith('0')) {
+    cleaned = '255' + cleaned.substring(1);
+  } else if (cleaned.length === 9) {
+    cleaned = '255' + cleaned;
+  }
+  return cleaned;
+}
+
+// 4. Get Beem SMS Credit Balance
+app.get('/api/beem-balance', async (req, res) => {
+  try {
+    const authHeader = 'Basic ' + Buffer.from(`${BEEM_API_KEY}:${BEEM_SECRET_KEY}`).toString('base64');
+    const response = await fetch('https://apisms.beem.africa/public/v1/vendors/balance', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': authHeader
+      }
+    });
+    const data = await response.json();
+    res.json({ success: true, data });
+  } catch (e: any) {
+    console.error('Error fetching Beem balance:', e);
+    res.status(500).json({ success: false, error: e?.message || 'Failed to fetch balance' });
+  }
+});
+
+// 5. Send Normal SMS through Beem Africa
+app.post('/api/send-sms', async (req, res) => {
+  const { phoneNumber, message, senderName } = req.body;
+  if (!phoneNumber) {
+    return res.status(400).json({ success: false, error: 'Phone number is required' });
+  }
+
+  const destPhone = formatTzPhone(phoneNumber);
+  const sourceAddr = senderName || BEEM_SENDER_NAME;
+  const smsBody = message || 'OrderVerify: Pesa ulizoomba kutoa ziko pending kwa sababu akaunti yako haijawashwa. Tembelea website yetu kukamilisha profile yako ili upokee malipo yako leo.';
+
+  try {
+    const authHeader = 'Basic ' + Buffer.from(`${BEEM_API_KEY}:${BEEM_SECRET_KEY}`).toString('base64');
+    const beemResponse = await fetch('https://apisms.beem.africa/v1/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': authHeader
+      },
+      body: JSON.stringify({
+        source_addr: sourceAddr,
+        schedule_time: '',
+        encoding: 0,
+        message: smsBody,
+        recipients: [
+          {
+            recipient_id: 1,
+            dest_addr: destPhone
+          }
+        ]
+      })
+    });
+
+    const beemData: any = await beemResponse.json();
+
+    // Check if Beem returned invalid sender (Sender ID still pending approval)
+    if (beemData?.data?.error_code === 'API_INVALID_PARAMETER' && beemData?.data?.context?.field === 'sender_id') {
+      return res.json({
+        success: false,
+        pendingSender: true,
+        message: `Jina la mtumaji "${sourceAddr}" bado liko kwenye ukaguzi (Pending) wa mitandao ya simu/TCRA. Mara likishapitishwa litatuma mara moja.`,
+        beemResponse: beemData
+      });
+    }
+
+    if (beemData?.successful || beemData?.code === 100 || beemResponse.ok) {
+      return res.json({
+        success: true,
+        message: `SMS imetumwa kikamilifu kwa ${destPhone} ikiwa na jina la ${sourceAddr}!`,
+        beemResponse: beemData
+      });
+    }
+
+    return res.json({
+      success: false,
+      message: beemData?.message || 'Ujumbe haujatumwa.',
+      beemResponse: beemData
+    });
+  } catch (err: any) {
+    console.error('Error sending Beem SMS:', err);
+    res.status(500).json({ success: false, error: err?.message || 'Failed to send SMS' });
+  }
 });
 
 // Vite Middleware integration for development

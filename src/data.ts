@@ -1,51 +1,51 @@
 // ============================================================================
-// ORDERVERIFY DATA ENGINE (VERSION 121 - PURE PRODUCT SHOTS FOR AGRICULTURE)
+// ORDERVERIFY DATA ENGINE (VERSION 129 - MUSIC BAND EQUIPMENT ALIGNED)
 // ============================================================================
-// Page 1: Vifaa vya Kilimo (Agricultural & Farming Equipment - Picha Halisi za Bidhaa Zenyewe Bila Watu)
-// Page 2: Mapambo ya Ukumbini & Vifaa vya Mapishi ya Keki tu
-// Page 3: Phone Accessories Tu
+// Page 1: Vifaa vya Uvuvi wa Kisasa (Modern Fishing Gear)
+// Page 2: Vifaa vya Ufugaji wa Kisasa (Modern Livestock Equipment)
+// Page 3: Vifaa vya Music Band (Music Band Equipment - Electric Guitar, Drum Set, Bass, Piano, Speakers, Mixers, Saxophone)
 // Malipo: 5% (Math.round(productValue * 0.05))
 // Zero duplicate names across Orders, Live Notifications, and Comments.
 // ============================================================================
 
-import imgBackpackSprayer from "./assets/images/backpack_sprayer_1789537034152.jpg";
-import imgPetrolWaterPump from "./assets/images/petrol_water_pump_1789028875127.jpg";
-import imgSubmersiblePump from "./assets/images/submersible_solar_pump_1789537226900.jpg";
-import imgChaffCutter from "./assets/images/chaff_cutter_machine_1790726956111.jpg";
-import imgMaizeSeeds from "./assets/images/maize_seeds_bag_1789537024362.jpg";
-import imgSunflowerSeeds from "./assets/images/sunflower_seeds_1789537055135.jpg";
-import imgCropTarpaulin from "./assets/images/blue_tarpaulin_1789537065716.jpg";
-import imgGrainBags from "./assets/images/grain_storage_bags_1789537087191.jpg";
-import imgHerbicideCan from "./assets/images/herbicide_jerrycan_1789537098028.jpg";
-import imgFarmToolsKit from "./assets/images/farming_tools_kit_1789537108300.jpg";
-import imgDapFertilizer from "./assets/images/dap_fertilizer_bag_1789537001954.jpg";
-import imgEggIncubator from "./assets/images/digital_egg_incubator_1790726922490.jpg";
+import imgFishFinderSonar from "./assets/images/fish_finder_sonar_1791342090674.jpg";
+import imgTelescopicFishingRod from "./assets/images/telescopic_fishing_rod_1791342099874.jpg";
+import imgNylonCastNet from "./assets/images/nylon_cast_net_1791342110058.jpg";
+import imgSubmersibleFishingLight from "./assets/images/submersible_fishing_light_1791342119311.jpg";
+import imgElectronicBiteAlarms from "./assets/images/electronic_bite_alarms_1791342129473.jpg";
+import imgSaltwaterTrollingReel from "./assets/images/saltwater_trolling_reel_1791342140190.jpg";
+import imgLiveBaitAeratorPump from "./assets/images/live_bait_aerator_pump_1791342149339.jpg";
+import imgFishingTackleBackpack from "./assets/images/fishing_tackle_backpack_1791342158433.jpg";
+import imgCrabPrawnTrapNet from "./assets/images/crab_prawn_trap_net_1791342167732.jpg";
+import imgFishGripperDigitalScale from "./assets/images/fish_gripper_digital_scale_1791342177614.jpg";
+import imgBoatTrailerWinch from "./assets/images/boat_trailer_winch_1791342187336.jpg";
+import imgBraidedFishingLineSpool from "./assets/images/braided_fishing_line_spool_1791342196621.jpg";
 
-import imgWeddingArch from "./assets/images/decor_wedding_arch_1791018057899.jpg";
-import imgFogMachine from "./assets/images/decor_fog_machine_1791018075245.jpg";
-import imgParLights from "./assets/images/decor_par_lights_1791018086492.jpg";
-import imgFlowerWall from "./assets/images/decor_flower_wall_1791018096016.jpg";
-import imgBalloonPump from "./assets/images/decor_balloon_pump_1791018108167.jpg";
-import imgChandelier from "./assets/images/decor_chandelier_1791018118614.jpg";
-import imgSequinWall from "./assets/images/decor_sequin_wall_1791018130193.jpg";
-import imgCenterpieces from "./assets/images/decor_centerpieces_1791018142089.jpg";
-import imgSparkMachine from "./assets/images/decor_spark_machine_1791018153901.jpg";
-import imgBackdropStand from "./assets/images/decor_backdrop_stand_1791018163950.jpg";
-import imgCurtainLights from "./assets/images/decor_curtain_lights_1791018170982.jpg";
-import imgDiscoLight from "./assets/images/decor_disco_light_1791018181377.jpg";
+import imgPoultryEggIncubator from "./assets/images/poultry_egg_incubator_1791345750502.jpg";
+import imgElectricMilkingMachine from "./assets/images/electric_milking_machine_1791345760639.jpg";
+import imgSheepShearingClipper from "./assets/images/sheep_shearing_clipper_1791345770182.jpg";
+import imgSolarFenceEnergizer from "./assets/images/solar_fence_energizer_1791345779321.jpg";
+import imgLivestockWaterTrough from "./assets/images/livestock_water_trough_1791345788287.jpg";
+import imgHoneyExtractorCentrifuge from "./assets/images/honey_extractor_centrifuge_1791345797071.jpg";
+import imgLivestockEarTagScanner from "./assets/images/livestock_ear_tag_scanner_1791345806088.jpg";
+import imgVeterinaryDrenchingGun from "./assets/images/veterinary_drenching_gun_1791345815145.jpg";
+import imgPoultryNippleDrinkerKit from "./assets/images/poultry_nipple_drinker_kit_1791345825473.jpg";
+import imgChickBrooderHeatLamp from "./assets/images/chick_brooder_heat_lamp_1791345833898.jpg";
+import imgElectricCalfDehorner from "./assets/images/electric_calf_dehorner_1791345843922.jpg";
+import imgTreadleChickenFeeder from "./assets/images/treadle_chicken_feeder_1791345852077.jpg";
 
-import imgPodcastMic from "./assets/images/professional_podcast_mic_xlr_1790727473042.jpg";
-import imgWirelessLavalier from "./assets/images/wireless_lavalier_mic_system_1790727496215.jpg";
-import imgStudioSoftbox from "./assets/images/rgb_studio_softbox_lighting_1790727486604.jpg";
-import imgSmartphoneGimbal from "./assets/images/smartphone_video_rig_gimbal_1790727507413.jpg";
-import imgGreenScreen from "./assets/images/green_screen_chromakey_kit_1790727518025.jpg";
-import imgTeleprompter from "./assets/images/teleprompter_for_tablet_smartphone_1790727529132.jpg";
-import imgAudioMixer from "./assets/images/portable_audio_mixer_interface_1790727541971.jpg";
-import imgVideoCapture from "./assets/images/video_capture_card_4k_hdr_1790727555537.jpg";
-import imgOverheadRig from "./assets/images/overhead_camera_mount_rig_1790727569277.jpg";
-import imgVideoTripod from "./assets/images/professional_video_tripod_fluid_head_1790727579728.jpg";
-import imgVloggingCamera from "./assets/images/vlogging_camera_kit_4k_1790727461352.jpg";
-import imgAcousticPanels from "./assets/images/acoustic_sound_proofing_panels_pack_1790727590889.jpg";
+import imgElectricGuitarPro from "./assets/images/music_band_gear_set_1_jpg_1791351368065.jpg";
+import imgCompleteDrumSet from "./assets/images/music_band_gear_set_2_jpg_1791351382397.jpg";
+import imgElectricBassGuitar from "./assets/images/music_band_gear_set_3_jpg_1791351393580.jpg";
+import imgDigitalPianoKeyboard from "./assets/images/music_band_gear_set_4_jpg_1791351405088.jpg";
+import imgPoweredPASpeaker from "./assets/images/music_band_gear_set_5_jpg_1791351415676.jpg";
+import imgProAudioMixer from "./assets/images/music_band_gear_set_6_jpg_1791351427189.jpg";
+import imgAltoSaxophone from "./assets/images/music_band_gear_set_7_jpg_1791351439939.jpg";
+import imgSilverTrumpet from "./assets/images/music_band_gear_set_8_jpg_1791351454460.jpg";
+import imgWirelessMicSystem from "./assets/images/music_band_gear_set_9_jpg_1791351467016.jpg";
+import imgStageFloorMonitor from "./assets/images/music_band_gear_set_10_jpg_1791351477959.jpg";
+import imgMusicSynthesizer from "./assets/images/music_band_gear_set_11_jpg_1791351489124.jpg";
+import imgLightingController from "./assets/images/music_band_gear_set_12_jpg_1791351501210.jpg";
 
 export interface Order {
   id: number;
@@ -105,7 +105,8 @@ export const countryRates: Record<string, { curr: string; rate: number }> = {
   "South Africa": { curr: "ZAR", rate: 0.007 },
   "Nigeria": { curr: "NGN", rate: 0.55 },
   "Ghana": { curr: "GHS", rate: 0.0055 },
-  "Zambia": { curr: "ZMW", rate: 0.01 }
+  "Zambia": { curr: "ZMW", rate: 0.01 },
+  "Mozambique": { curr: "MZN", rate: 0.024 }
 };
 
 export const formatLocalCurrency = (tzsAmount: number, countryName: string) => {
@@ -128,7 +129,7 @@ export function normalizeProductKey(productName: string): string {
 }
 
 // STORAGE VERSION TAG - Bumped to clear all client memory & cached orders
-export const STORAGE_VERSION_TAG = "ov_v123_pure_product_shots_audio_video_final";
+export const STORAGE_VERSION_TAG = "ov_v129_music_band_gear_aligned";
 const STORAGE_KEY_VERSION = "orderverify_app_version";
 const STORAGE_KEY_ACTIVE_ORDERS = "orderverify_active_orders";
 const STORAGE_KEY_ACTIVE_PAYOUTS = "orderverify_active_payouts";
@@ -169,483 +170,483 @@ function storageRemove(key: string): void {
 
 export const MASTER_EXACT_ORDERS: Order[] = [
   // --------------------------------------------------------------------------
-  // UKURASA WA 1: Vifaa vya Kilimo (Picha Halisi za Bidhaa Zenyewe Bila Watu) - 100k - 400k TZS
+  // UKURASA WA 1: Vifaa vya Uvuvi wa Kisasa (Modern Fishing Equipment - Picha Halisi za Bidhaa Zenyewe Bila Watu) - 100k - 400k TZS
   // --------------------------------------------------------------------------
   {
     id: 1,
-    name: "Kamau Njoroge",
-    gender: "male",
-    country: "Kenya",
-    flag: "🇰🇪",
-    city: "Nairobi",
-    product: "Heavy-Duty Backpack Knapsack Farm Sprayer 16L",
-    productValue: 145000,
-    payout: 7250,
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
-    productImage: imgBackpackSprayer
-  },
-  {
-    id: 2,
-    name: "Kondo Mwalimu",
-    gender: "male",
-    country: "Tanzania",
-    flag: "🇹🇿",
-    city: "Mbeya",
-    product: "Petrol Engine Irrigation Water Pump 2-Inch 5.5HP",
-    productValue: 385000,
-    payout: 19250,
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
-    productImage: imgPetrolWaterPump
-  },
-  {
-    id: 3,
-    name: "Lameck Lungu",
-    gender: "male",
-    country: "Zambia",
-    flag: "🇿🇲",
-    city: "Lusaka",
-    product: "Submersible Solar Farm Borehole Water Pump 24V",
-    productValue: 340000,
-    payout: 17000,
-    avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
-    productImage: imgSubmersiblePump
-  },
-  {
-    id: 4,
-    name: "Jean Nizeyimana",
-    gender: "male",
-    country: "Rwanda",
-    flag: "🇷🇼",
-    city: "Kigali",
-    product: "Motorized Electric Chaff Cutter & Fodder Chopper 2.2kW",
-    productValue: 390000,
-    payout: 19500,
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
-    productImage: imgChaffCutter
-  },
-  {
-    id: 5,
-    name: "Sula Mukasa",
-    gender: "male",
-    country: "Uganda",
-    flag: "🇺🇬",
-    city: "Kampala",
-    product: "Certified Hybrid Maize Planting Seeds (50kg Bag)",
-    productValue: 180000,
-    payout: 9000,
-    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&q=80",
-    productImage: imgMaizeSeeds
-  },
-  {
-    id: 6,
-    name: "Kofi Boateng",
-    gender: "male",
-    country: "Ghana",
-    flag: "🇬🇭",
-    city: "Accra",
-    product: "High-Yield Sunflower Planting Seeds (25kg Sack)",
-    productValue: 155000,
-    payout: 7750,
-    avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&q=80",
-    productImage: imgSunflowerSeeds
-  },
-  {
-    id: 7,
-    name: "Dieudonne Kasongo",
-    gender: "male",
-    country: "Congo (DRC)",
-    flag: "🇨🇩",
-    city: "Kinshasa",
-    product: "Heavy Reinforced Agricultural Crop Drying Tarpaulin (10x12m)",
-    productValue: 160000,
-    payout: 8000,
-    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&q=80",
-    productImage: imgCropTarpaulin
-  },
-  {
-    id: 8,
-    name: "Njeri Karanja",
-    gender: "female",
-    country: "Kenya",
-    flag: "🇰🇪",
-    city: "Mombasa",
-    product: "Grain Storage Hermetic Protection Bags (Bundle of 25)",
-    productValue: 135000,
-    payout: 6750,
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
-    productImage: imgGrainBags
-  },
-  {
-    id: 9,
-    name: "Mwamtumu Kikwete",
-    gender: "female",
-    country: "Tanzania",
-    flag: "🇹🇿",
-    city: "Zanzibar",
-    product: "Selective Crop Herbicide & Weed Control Canister 5L",
-    productValue: 115000,
-    payout: 5750,
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
-    productImage: imgHerbicideCan
-  },
-  {
-    id: 10,
-    name: "Flavia Nabirye",
-    gender: "female",
-    country: "Uganda",
-    flag: "🇺🇬",
-    city: "Jinja",
-    product: "Complete Farm Hand Tools Kit (Hoes, Machetes & Rakes)",
-    productValue: 175000,
-    payout: 8750,
-    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&q=80",
-    productImage: imgFarmToolsKit
-  },
-  {
-    id: 11,
-    name: "Rajabu Mwigulu",
-    gender: "male",
-    country: "Tanzania",
-    flag: "🇹🇿",
-    city: "Tabora",
-    product: "DAP High-Grade Crop Planting Fertilizer (50kg Bag)",
-    productValue: 210000,
-    payout: 10500,
-    avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
-    productImage: imgDapFertilizer
-  },
-  {
-    id: 12,
-    name: "Aline Gasana",
-    gender: "female",
-    country: "Rwanda",
-    flag: "🇷🇼",
-    city: "Musanze",
-    product: "Automatic Digital Poultry Egg Incubator Machine (96 Eggs)",
-    productValue: 295000,
-    payout: 14750,
-    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80",
-    productImage: imgEggIncubator
-  },
-
-  // --------------------------------------------------------------------------
-  // UKURASA WA 2: Vifaa vya Kufanyia Decoration (Picha Halisi za Bidhaa Zenyewe Bila Watu) - 100k - 400k TZS
-  // --------------------------------------------------------------------------
-  {
-    id: 13,
-    name: "Wanjiku Mutua",
-    gender: "female",
-    country: "Kenya",
-    flag: "🇰🇪",
-    city: "Nairobi",
-    product: "Circular Golden Metal Wedding Arch Frame Stand (2.4m)",
-    productValue: 195000,
-    payout: 9750,
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
-    productImage: imgWeddingArch
-  },
-  {
-    id: 14,
-    name: "Juma Mwakipesile",
+    name: "Bakari Mfaume",
     gender: "male",
     country: "Tanzania",
     flag: "🇹🇿",
     city: "Mwanza",
-    product: "Stage Low-Lying Dry Ice Fog Smoke Machine 1500W",
-    productValue: 380000,
-    payout: 19000,
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
-    productImage: imgFogMachine
-  },
-  {
-    id: 15,
-    name: "Chanda Mwila",
-    gender: "female",
-    country: "Zambia",
-    flag: "🇿🇲",
-    city: "Kitwe",
-    product: "Wireless Rechargeable RGB Stage Uplighting Par Lights (Set of 4)",
-    productValue: 275000,
-    payout: 13750,
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
-    productImage: imgParLights
-  },
-  {
-    id: 16,
-    name: "Muwonge Ssebaggala",
-    gender: "male",
-    country: "Uganda",
-    flag: "🇺🇬",
-    city: "Kampala",
-    product: "3D Floral Hydrangea Flower Wall Panels Backdrop (6 Pieces)",
-    productValue: 220000,
-    payout: 11000,
+    product: "Portable Digital Sonar Fish Finder & Echo Sounder with LCD Screen",
+    productValue: 280000,
+    payout: 14000,
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
-    productImage: imgFlowerWall
+    productImage: imgFishFinderSonar
   },
   {
-    id: 17,
-    name: "Nadine Uwimana",
-    gender: "female",
-    country: "Rwanda",
-    flag: "🇷🇼",
-    city: "Kigali",
-    product: "Electric Dual-Nozzle Balloon Blower Pump Machine",
-    productValue: 125000,
-    payout: 6250,
-    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&q=80",
-    productImage: imgBalloonPump
-  },
-  {
-    id: 18,
-    name: "Alain Mutombo",
-    gender: "male",
-    country: "Congo (DRC)",
-    flag: "🇨🇩",
-    city: "Lubumbashi",
-    product: "Luxury Crystal Hanging Chandelier Ceiling Pendant Light",
-    productValue: 350000,
-    payout: 17500,
-    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&q=80",
-    productImage: imgChandelier
-  },
-  {
-    id: 19,
-    name: "Kojo Asante",
-    gender: "male",
-    country: "Ghana",
-    flag: "🇬🇭",
-    city: "Kumasi",
-    product: "Shimmer Sequin Wall Backdrop Grid Panels (Pack of 24)",
-    productValue: 185000,
-    payout: 9250,
-    avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&q=80",
-    productImage: imgSequinWall
-  },
-  {
-    id: 20,
-    name: "Zabibu Mwakajinga",
-    gender: "female",
-    country: "Tanzania",
-    flag: "🇹🇿",
-    city: "Dodoma",
-    product: "Gold Metal Tall Geometric Table Centerpiece Vases (Set of 6)",
-    productValue: 165000,
-    payout: 8250,
-    avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
-    productImage: imgCenterpieces
-  },
-  {
-    id: 21,
-    name: "Kiprono Koech",
+    id: 2,
+    name: "Otieno Omondi",
     gender: "male",
     country: "Kenya",
     flag: "🇰🇪",
-    city: "Eldoret",
-    product: "Cold Spark Fountain Stage Firework Machine 600W",
-    productValue: 395000,
-    payout: 19750,
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
-    productImage: imgSparkMachine
+    city: "Kisumu",
+    product: "Carbon Fiber Telescopic Fishing Rod with Spinning Reel Set",
+    productValue: 195000,
+    payout: 9750,
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
+    productImage: imgTelescopicFishingRod
   },
   {
-    id: 22,
-    name: "Birungi Nabukalu",
+    id: 3,
+    name: "Athumani Mkude",
+    gender: "male",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Kigoma",
+    product: "Heavy-Duty Monofilament Nylon Cast Fishing Net with Sinkers (12ft)",
+    productValue: 140000,
+    payout: 7000,
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
+    productImage: imgNylonCastNet
+  },
+  {
+    id: 4,
+    name: "Kato Ssempijja",
+    gender: "male",
+    country: "Uganda",
+    flag: "🇺🇬",
+    city: "Jinja",
+    product: "Submersible Green LED Underwater Night Fishing Attractor Light (12V)",
+    productValue: 125000,
+    payout: 6250,
+    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&q=80",
+    productImage: imgSubmersibleFishingLight
+  },
+  {
+    id: 5,
+    name: "Joaquim Sitoe",
+    gender: "male",
+    country: "Mozambique",
+    flag: "🇲🇿",
+    city: "Maputo",
+    product: "Electronic Fishing Bite Alarm Set with Wireless Audio Receiver",
+    productValue: 210000,
+    payout: 10500,
+    avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
+    productImage: imgElectronicBiteAlarms
+  },
+  {
+    id: 6,
+    name: "Mwajuma Mwinyi",
+    gender: "female",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Tanga",
+    product: "Heavy-Duty CNC Machined Saltwater Trolling Reel (Level Wind)",
+    productValue: 380000,
+    payout: 19000,
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
+    productImage: imgSaltwaterTrollingReel
+  },
+  {
+    id: 7,
+    name: "Akinyi Odhiambo",
+    gender: "female",
+    country: "Kenya",
+    flag: "🇰🇪",
+    city: "Homa Bay",
+    product: "Portable 12V Live Bait Tank Aerator Air Pump with Diffuser",
+    productValue: 115000,
+    payout: 5750,
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
+    productImage: imgLiveBaitAeratorPump
+  },
+  {
+    id: 8,
+    name: "Thabo Mokoena",
+    gender: "male",
+    country: "South Africa",
+    flag: "🇿🇦",
+    city: "Durban",
+    product: "Waterproof Multi-Pocket Fishing Tackle Backpack with Utility Boxes",
+    productValue: 175000,
+    payout: 8750,
+    avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&q=80",
+    productImage: imgFishingTackleBackpack
+  },
+  {
+    id: 9,
+    name: "Baraka Mwambungu",
+    gender: "male",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Kyela",
+    product: "Collapsible Rectangular Wire Mesh Crab and Prawn Trap Net",
+    productValue: 135000,
+    payout: 6750,
+    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&q=80",
+    productImage: imgCrabPrawnTrapNet
+  },
+  {
+    id: 10,
+    name: "Amina Nakato",
     gender: "female",
     country: "Uganda",
     flag: "🇺🇬",
     city: "Entebbe",
-    product: "Heavy-Duty Portable Backdrop Stand Support Pipe & Base Kit",
-    productValue: 210000,
-    payout: 10500,
-    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80",
-    productImage: imgBackdropStand
+    product: "Stainless Steel Floating Fish Lip Gripper with Digital Hanging Scale",
+    productValue: 110000,
+    payout: 5500,
+    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&q=80",
+    productImage: imgFishGripperDigitalScale
   },
   {
-    id: 23,
-    name: "Gaspard Hakizimana",
+    id: 11,
+    name: "Emeka Chukwueze",
     gender: "male",
-    country: "Rwanda",
-    flag: "🇷🇼",
-    city: "Gisenyi",
-    product: "Warm White Waterproof LED Fairy Curtain Waterfall Lights (3x3m)",
-    productValue: 140000,
-    payout: 7000,
-    avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
-    productImage: imgCurtainLights
+    country: "Nigeria",
+    flag: "🇳🇬",
+    city: "Port Harcourt",
+    product: "Heavy-Duty Manual Boat Trailer Hand Winch with Strap (2500 lbs)",
+    productValue: 320000,
+    payout: 16000,
+    avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
+    productImage: imgBoatTrailerWinch
   },
   {
-    id: 24,
-    name: "Selemani Mshana",
-    gender: "male",
+    id: 12,
+    name: "Halima Salum",
+    gender: "female",
     country: "Tanzania",
     flag: "🇹🇿",
-    city: "Arusha",
-    product: "Rotating Multi-Effect Disco Stage Ball Laser Light",
-    productValue: 155000,
-    payout: 7750,
-    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&q=80",
-    productImage: imgDiscoLight
+    city: "Bagamoyo",
+    product: "High-Strength 8-Strand Braided Fishing Line Spool (500m Heavy Test)",
+    productValue: 105000,
+    payout: 5250,
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80",
+    productImage: imgBraidedFishingLineSpool
   },
 
   // --------------------------------------------------------------------------
-  // UKURASA WA 3: Vifaa vya Audio na Video Production (Picha Halisi za Bidhaa Zenyewe Bila Watu) - 100k - 400k TZS
+  // UKURASA WA 2: Vifaa vya Ufugaji wa Kisasa (Modern Livestock Equipment - Picha Halisi za Bidhaa Zenyewe Bila Watu) - 100k - 400k TZS
   // --------------------------------------------------------------------------
   {
-    id: 25,
-    name: "Maina Gicheru",
+    id: 13,
+    name: "Rashid Mussa",
     gender: "male",
-    country: "Kenya",
-    flag: "🇰🇪",
-    city: "Nairobi",
-    product: "Professional Studio Podcast XLR Condenser Microphone",
-    productValue: 185000,
-    payout: 9250,
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Morogoro",
+    product: "Digital Automatic Poultry Egg Incubator with Temperature & Humidity Control",
+    productValue: 285000,
+    payout: 14250,
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
-    productImage: imgPodcastMic
+    productImage: imgPoultryEggIncubator
   },
   {
-    id: 26,
-    name: "Shomari Mponda",
-    gender: "male",
-    country: "Tanzania",
-    flag: "🇹🇿",
-    city: "Mtwara",
-    product: "Dual Wireless Lavalier Microphone System with Charging Case",
-    productValue: 240000,
-    payout: 12000,
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
-    productImage: imgWirelessLavalier
-  },
-  {
-    id: 27,
-    name: "Mapalo Chileshe",
-    gender: "female",
-    country: "Zambia",
-    flag: "🇿🇲",
-    city: "Lusaka",
-    product: "Bi-Color RGB Studio Softbox Continuous Video Lighting Kit",
-    productValue: 310000,
-    payout: 15500,
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
-    productImage: imgStudioSoftbox
-  },
-  {
-    id: 28,
-    name: "Kirabo Namaganda",
-    gender: "female",
-    country: "Uganda",
-    flag: "🇺🇬",
-    city: "Kampala",
-    product: "3-Axis Handheld Smartphone Gimbal Video Stabilizer",
-    productValue: 275000,
-    payout: 13750,
-    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&q=80",
-    productImage: imgSmartphoneGimbal
-  },
-  {
-    id: 29,
-    name: "Faustin Habimana",
-    gender: "male",
-    country: "Rwanda",
-    flag: "🇷🇼",
-    city: "Kigali",
-    product: "Collapsible Chromakey Green Screen Backdrop Panel Kit",
-    productValue: 160000,
-    payout: 8000,
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
-    productImage: imgGreenScreen
-  },
-  {
-    id: 30,
-    name: "Serge Tshilombo",
-    gender: "male",
-    country: "Congo (DRC)",
-    flag: "🇨🇩",
-    city: "Kinshasa",
-    product: "HD Glass Studio Teleprompter for Tablet & Smartphone",
-    productValue: 225000,
-    payout: 11250,
-    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&q=80",
-    productImage: imgTeleprompter
-  },
-  {
-    id: 31,
-    name: "Akua Darko",
-    gender: "female",
-    country: "Ghana",
-    flag: "🇬🇭",
-    city: "Accra",
-    product: "Multi-Channel USB Studio Audio Interface Mixer Board",
-    productValue: 365000,
-    payout: 18250,
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
-    productImage: imgAudioMixer
-  },
-  {
-    id: 32,
-    name: "Upendo Mwakalebela",
-    gender: "female",
-    country: "Tanzania",
-    flag: "🇹🇿",
-    city: "Iringa",
-    product: "4K HDR Ultra-Low Latency HDMI Video Capture Card",
-    productValue: 145000,
-    payout: 7250,
-    avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
-    productImage: imgVideoCapture
-  },
-  {
-    id: 33,
-    name: "Brian Kiprotich",
+    id: 14,
+    name: "Waweru Mwangi",
     gender: "male",
     country: "Kenya",
     flag: "🇰🇪",
     city: "Nakuru",
-    product: "Heavy-Duty Overhead Desk Camera & Microphone Mount Rig",
-    productValue: 195000,
-    payout: 9750,
-    avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
-    productImage: imgOverheadRig
+    product: "Portable Electric Goat & Cow Milking Machine with Stainless Steel Bucket",
+    productValue: 380000,
+    payout: 19000,
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
+    productImage: imgElectricMilkingMachine
   },
   {
-    id: 34,
-    name: "Ronald Kigozi",
+    id: 15,
+    name: "Neema Mwampashi",
+    gender: "female",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Mbeya",
+    product: "Electric Heavy-Duty Sheep & Goat Shearing Hair Clipper Machine (690W)",
+    productValue: 240000,
+    payout: 12000,
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
+    productImage: imgSheepShearingClipper
+  },
+  {
+    id: 16,
+    name: "Ronald Mukasa",
     gender: "male",
     country: "Uganda",
     flag: "🇺🇬",
     city: "Mbarara",
-    product: "Heavy-Duty Professional Video Fluid Head Tripod (1.8m)",
-    productValue: 320000,
-    payout: 16000,
-    avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&q=80",
-    productImage: imgVideoTripod
+    product: "Solar Powered Livestock Electric Fence Energizer Unit (10km Range)",
+    productValue: 350000,
+    payout: 17500,
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
+    productImage: imgSolarFenceEnergizer
   },
   {
-    id: 35,
-    name: "Yvette Mugabekazi",
-    gender: "female",
+    id: 17,
+    name: "Jean-Paul Habimana",
+    gender: "male",
     country: "Rwanda",
     flag: "🇷🇼",
-    city: "Butare",
-    product: "Ultra HD 4K Vlogging & Live Streaming Camera Kit",
-    productValue: 390000,
-    payout: 19500,
-    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80",
-    productImage: imgVloggingCamera
+    city: "Kigali",
+    product: "Automatic Stainless Steel Livestock Water Trough Float Bowl for Cattle & Pigs",
+    productValue: 145000,
+    payout: 7250,
+    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&q=80",
+    productImage: imgLivestockWaterTrough
   },
   {
-    id: 36,
-    name: "Haruna Nchimbi",
+    id: 18,
+    name: "Zakaria Milinga",
     gender: "male",
     country: "Tanzania",
     flag: "🇹🇿",
-    city: "Songea",
-    product: "High-Density Studio Acoustic Soundproofing Foam Panels (Pack of 24)",
-    productValue: 130000,
-    payout: 6500,
+    city: "Tabora",
+    product: "Stainless Steel Manual 2-Frame Beekeeping Honey Extractor Centrifuge Drum",
+    productValue: 320000,
+    payout: 16000,
+    avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
+    productImage: imgHoneyExtractorCentrifuge
+  },
+  {
+    id: 19,
+    name: "Sipho Ndlovu",
+    gender: "male",
+    country: "South Africa",
+    flag: "🇿🇦",
+    city: "Polokwane",
+    product: "Handheld Electronic RFID Microchip Animal Ear Tag Scanner for Cattle & Sheep",
+    productValue: 260000,
+    payout: 13000,
+    avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&q=80",
+    productImage: imgLivestockEarTagScanner
+  },
+  {
+    id: 20,
+    name: "Asha Salum",
+    gender: "female",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Dodoma",
+    product: "Adjustable Stainless Steel Continuous Livestock Drenching & Syringe Gun (50ml)",
+    productValue: 125000,
+    payout: 6250,
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80",
+    productImage: imgVeterinaryDrenchingGun
+  },
+  {
+    id: 21,
+    name: "Emmanuel Banda",
+    gender: "male",
+    country: "Zambia",
+    flag: "🇿🇲",
+    city: "Chipata",
+    product: "Complete Automatic Poultry Nipple Water Line System with Pressure Regulator (20m)",
+    productValue: 180000,
+    payout: 9000,
     avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&q=80",
-    productImage: imgAcousticPanels
+    productImage: imgPoultryNippleDrinkerKit
+  },
+  {
+    id: 22,
+    name: "Amina Khalfan",
+    gender: "female",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Arusha",
+    product: "Heavy-Duty Aluminum Infrared Chick Brooder Hanging Heat Lamp Fixture (250W)",
+    productValue: 110000,
+    payout: 5500,
+    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&q=80",
+    productImage: imgChickBrooderHeatLamp
+  },
+  {
+    id: 23,
+    name: "Chinedu Eze",
+    gender: "male",
+    country: "Nigeria",
+    flag: "🇳🇬",
+    city: "Enugu",
+    product: "Electric Rapid Calf Dehorning Iron Tool for Cattle & Dairy Goats (220V)",
+    productValue: 215000,
+    payout: 10750,
+    avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
+    productImage: imgElectricCalfDehorner
+  },
+  {
+    id: 24,
+    name: "Antonio Cossa",
+    gender: "male",
+    country: "Mozambique",
+    flag: "🇲🇿",
+    city: "Chokwe",
+    product: "Automatic Galvanized Steel Step-On Treadle Poultry Feeder (10kg Capacity)",
+    productValue: 165000,
+    payout: 8250,
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
+    productImage: imgTreadleChickenFeeder
+  },
+
+  // --------------------------------------------------------------------------
+  // UKURASA WA 3: Vifaa vya Music Band (Music Band Equipment - Picha Halisi za Bidhaa Zenyewe Bila Watu) - 100k - 600k TZS
+  // --------------------------------------------------------------------------
+  {
+    id: 25,
+    name: "Baraka Msuya",
+    gender: "male",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Arusha",
+    product: "Professional Solid Body Electric Guitar (Sunburst Finish)",
+    productValue: 385000,
+    payout: 19250,
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
+    productImage: imgElectricGuitarPro
+  },
+  {
+    id: 26,
+    name: "Nanyange Nakato",
+    gender: "female",
+    country: "Uganda",
+    flag: "🇺🇬",
+    city: "Kampala",
+    product: "5-Piece Complete Studio Drum Kit with Brass Cymbals",
+    productValue: 595000,
+    payout: 29750,
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80",
+    productImage: imgCompleteDrumSet
+  },
+  {
+    id: 27,
+    name: "Maina Waweru",
+    gender: "male",
+    country: "Kenya",
+    flag: "🇰🇪",
+    city: "Nairobi",
+    product: "4-String Electric Bass Guitar (Natural Maple Finish)",
+    productValue: 340000,
+    payout: 17000,
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
+    productImage: imgElectricBassGuitar
+  },
+  {
+    id: 28,
+    name: "Pendo Maleko",
+    gender: "female",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Moshi",
+    product: "88-Key Weighted Digital Piano Keyboard with Stand",
+    productValue: 560000,
+    payout: 28000,
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
+    productImage: imgDigitalPianoKeyboard
+  },
+  {
+    id: 29,
+    name: "Jean-Pierre Kabangu",
+    gender: "male",
+    country: "Congo (DRC)",
+    flag: "🇨🇩",
+    city: "Kinshasa",
+    product: "15-inch Powered Active PA Speaker (1000 Watts Peak)",
+    productValue: 480000,
+    payout: 24000,
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
+    productImage: imgPoweredPASpeaker
+  },
+  {
+    id: 30,
+    name: "Shadrack Temba",
+    gender: "male",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Dar es Salaam",
+    product: "12-Channel Professional Audio Mixer Console with Effects",
+    productValue: 425000,
+    payout: 21250,
+    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&q=80",
+    productImage: imgProAudioMixer
+  },
+  {
+    id: 31,
+    name: "Amina Bakari",
+    gender: "female",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Dodoma",
+    product: "Polished Brass Alto Saxophone with Premium Hard Case",
+    productValue: 540000,
+    payout: 27000,
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
+    productImage: imgAltoSaxophone
+  },
+  {
+    id: 32,
+    name: "Kwame Osei",
+    gender: "male",
+    country: "Ghana",
+    flag: "🇬🇭",
+    city: "Accra",
+    product: "Professional Silver Trumpet with Standard Mouthpiece",
+    productValue: 310000,
+    payout: 15500,
+    avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
+    productImage: imgSilverTrumpet
+  },
+  {
+    id: 33,
+    name: "Zuhura Shayo",
+    gender: "female",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Mbeya",
+    product: "Dual Handheld Wireless Microphone System (UHF Band)",
+    productValue: 285000,
+    payout: 14250,
+    avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
+    productImage: imgWirelessMicSystem
+  },
+  {
+    id: 34,
+    name: "Thabo Mbeki",
+    gender: "male",
+    country: "South Africa",
+    flag: "🇿🇦",
+    city: "Johannesburg",
+    product: "Active Stage Floor Monitor Speaker (500 Watts)",
+    productValue: 415000,
+    payout: 20750,
+    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&q=80",
+    productImage: imgStageFloorMonitor
+  },
+  {
+    id: 35,
+    name: "Saidi Kibwana",
+    gender: "male",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Tanga",
+    product: "61-Key Music Production Synthesizer with MIDI Support",
+    productValue: 590000,
+    payout: 29500,
+    avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
+    productImage: imgMusicSynthesizer
+  },
+  {
+    id: 36,
+    name: "Faith Njeri",
+    gender: "female",
+    country: "Kenya",
+    flag: "🇰🇪",
+    city: "Nakuru",
+    product: "Digital DMX Stage Lighting Controller Console (192 Channels)",
+    productValue: 260000,
+    payout: 13000,
+    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&q=80",
+    productImage: imgLightingController
   }
 ];
 

@@ -4,7 +4,7 @@ import { UserCheck, CheckCircle2, Volume2, VolumeX, Play, Pause, AlertCircle, Wa
   UserPlus, MessageCircle, Send, Globe, MessageSquare, X, Loader2,
   Activity, ChevronRight, ChevronLeft, Smartphone, Users, ArrowDownToLine, ChevronDown, PhoneCall,
   Video, Phone, Mic, PhoneOff, CreditCard, ShieldCheck
-  , ShoppingBag, Eye, EyeOff, Clock, AlertTriangle, Bell
+  , ShoppingBag, Eye, EyeOff, Clock, Calendar, AlertTriangle, Bell
 } from 'lucide-react';
 import { orderData, livePayouts, initialComments, generate6HourComments, formatLocalCurrency, update6HourDataIfChanged, STORAGE_VERSION_TAG } from './data';
 import { TutorialVideoSection } from './components/TutorialVideoSection';
@@ -79,42 +79,65 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
         initial={{ opacity: 0, y: 20, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="bg-[#141520] p-6 sm:p-8 rounded-3xl max-w-lg w-full border-2 border-emerald-500/40 shadow-[0_20px_60px_rgba(0,0,0,0.9)] text-slate-100 relative z-10"
+        className="bg-[#141520] p-4 sm:p-6 rounded-3xl max-w-lg w-full border-2 border-emerald-500/40 shadow-[0_20px_60px_rgba(0,0,0,0.9)] text-slate-100 relative z-10"
       >
-        {/* LOGO RASMI YA ORDERVERIFY (Ukubwa wa kawaida usiozidi sana) */}
-        <div className="flex flex-col items-center justify-center mb-6">
-          <div className="relative mb-3 flex items-center justify-center">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#00E676]/35 via-emerald-400/25 to-[#00E676]/35 rounded-2xl blur-md opacity-60" />
-            <div className="relative bg-white px-6 py-3 rounded-2xl border border-emerald-400/40 shadow-xl flex items-center justify-center">
-              <div className="flex flex-col items-center">
-                <span className="text-black font-black text-2xl sm:text-3xl tracking-tighter leading-none">ORDER<span className="text-emerald-500">VERIFY</span></span>
-                <div className="h-0.5 w-full bg-emerald-500/30 my-1" />
-                <span className="text-slate-600 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.15em] leading-none">Thibitisha order pata kipato</span>
+        {/* HERO CARD: Picha yenye maneno yote rasmi ndani yake ili kuzuia ukurasa kuwa mrefu */}
+        <div className="relative w-full rounded-2xl overflow-hidden border-2 border-emerald-500/50 shadow-2xl bg-slate-900 mb-3.5">
+          <img 
+            src="/src/assets/images/orderverify_diverse_ceremony_official_aligned_text_jpg_1791350716559.jpg" 
+            alt="Uzinduzi Rasmi wa Mradi wa OrderVerify Tanzania - ORDERVERIFY CONTRACT" 
+            referrerPolicy="no-referrer"
+            className="w-full h-56 sm:h-64 object-cover object-center"
+          />
+
+          {/* Maneno Rasmi Yaliyowekwa Ndani ya Picha */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/90 flex flex-col justify-between p-3 sm:p-4 text-center">
+            {/* Sehemu ya Juu Ndani ya Picha */}
+            <div className="flex flex-col items-center">
+              {/* ORDERVERIFY - Thibitisha order pata kipato */}
+              <div className="bg-white px-3.5 py-1 rounded-xl border border-emerald-400/60 shadow-lg flex flex-col items-center mb-1.5">
+                <span className="text-black font-black text-lg sm:text-xl tracking-tight leading-none">
+                  ORDER<span className="text-emerald-500">VERIFY</span>
+                </span>
+                <div className="h-0.5 w-full bg-emerald-500/30 my-0.5" />
+                <span className="text-slate-700 text-[9px] font-black uppercase tracking-[0.12em] leading-none">
+                  Thibitisha order pata kipato
+                </span>
               </div>
+
+              {/* ✨ WELCOME TO ORDERVERIFY SITE ✨ */}
+              <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/25 backdrop-blur-sm border border-emerald-400/40 text-[#00E676] text-[10px] font-black tracking-wider uppercase mb-1">
+                <span>✨</span> WELCOME TO ORDERVERIFY SITE <span>✨</span>
+              </div>
+
+              {/* JIINGIZIE KIPATO KUPITIA ORDERVERIFY */}
+              <h1 className="text-xs sm:text-sm font-black tracking-tight text-white uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] leading-tight">
+                JIINGIZIE KIPATO KUPITIA <span className="text-[#00E676]">ORDERVERIFY</span>
+              </h1>
+            </div>
+
+            {/* Sehemu ya Chini Ndani ya Picha: Uzinduzi rasmi na makabidhiano */}
+            <div className="flex items-center justify-center gap-2 bg-black/70 backdrop-blur-md py-1 px-2.5 rounded-xl border border-white/10 mx-auto max-w-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00E676] animate-pulse shrink-0"></span>
+              <p className="text-[9px] sm:text-[11px] font-bold text-slate-200 truncate">
+                Uzinduzi rasmi na makabidhiano ya mradi wa OrderVerify nchini Tanzania 🇹🇿
+              </p>
             </div>
           </div>
-          
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-[#00E676] text-[11px] font-black tracking-wider uppercase mb-2">
-            <span>✨</span> WELCOME TO ORDERVERIFY SITE <span>✨</span>
-          </div>
-
-          <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white uppercase leading-snug">
-            JIINGIZIE KIPATO KUPITIA <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E676] to-[#00C853]">ORDERVERIFY</span>
-          </h1>
         </div>
 
         {/* Maneno aliyoagiza mtumiaji na style nzuri ya kuvutia */}
-        <div className="bg-[#181A26] border border-emerald-500/30 rounded-2xl p-4 sm:p-5 mb-5 text-left shadow-inner space-y-3.5">
+        <div className="bg-[#181A26] border border-emerald-500/30 rounded-2xl p-3 sm:p-4 mb-3 text-left shadow-inner">
           <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-normal">
             <span className="text-[#00E676] font-bold">OrderVerify</span> inakupa fursa ya kujiingizia kipato kwa kuthibitisha order za wateja kwa kuwatumia message za uthibitisho na kuzungumza nao, na kuisaidia kampuni yetu kutokupoteza wateja walio request hizo order kwa kupitia mawasiliano ya moja kwa moja ndani ya site ya <span className="text-[#00E676] font-bold">OrderVerify</span>.
           </p>
         </div>
 
         {/* Emoji ya mkono inayomwelekeza mteja kubonyeza kibox na kitufe */}
-        <div className="bg-[#121420] border border-amber-400/40 rounded-2xl p-3.5 mb-5 text-left flex items-center gap-3 shadow-md">
-          <span className="text-3xl shrink-0 animate-bounce">👇</span>
+        <div className="bg-[#121420] border border-amber-400/40 rounded-2xl p-2.5 sm:p-3 mb-3 text-left flex items-center gap-2.5 shadow-md">
+          <span className="text-2xl shrink-0 animate-bounce">👇</span>
           <p className="text-xs sm:text-sm text-amber-200 font-bold leading-snug">
-            Tafadhali weka alama ya tiki kwenye kibox hapa chini, kisha bonyeza kitufe cha <span className="text-white bg-slate-800 px-2 py-0.5 rounded font-black border border-slate-700">INGIA NDANI YA SITE</span> ili kufungua website.
+            Tafadhali weka tiki kwenye kibox hapa chini kisha bonyeza <span className="text-white bg-slate-800 px-1.5 py-0.5 rounded font-black border border-slate-700">INGIA NDANI YA SITE</span>.
           </p>
         </div>
 
@@ -319,6 +342,49 @@ function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: st
   const [sendingNotif, setSendingNotif] = useState(false);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
+  const [sendingSms, setSendingSms] = useState(false);
+  const [smsFeedback, setSmsFeedback] = useState<{ type: 'success' | 'pending' | 'error', text: string } | null>(null);
+
+  const sendNormalSms = async () => {
+    if (!w.phoneNumber) return;
+    setSendingSms(true);
+    setSmsFeedback(null);
+    try {
+      const res = await fetch('/api/send-sms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phoneNumber: w.phoneNumber,
+          message: msg
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSmsFeedback({
+          type: 'success',
+          text: `✅ ${data.message}`
+        });
+      } else if (data.pendingSender) {
+        setSmsFeedback({
+          type: 'pending',
+          text: `⏳ ${data.message}`
+        });
+      } else {
+        setSmsFeedback({
+          type: 'error',
+          text: `❌ ${data.message || 'Hitilafu ya kutuma SMS.'}`
+        });
+      }
+    } catch (e: any) {
+      setSmsFeedback({
+        type: 'error',
+        text: '❌ Hitilafu ya mtandao: ' + (e?.message || 'Tafadhali jaribu tena.')
+      });
+    } finally {
+      setSendingSms(false);
+    }
+  };
+
   const sendChromeNotif = async () => {
     if (!w.id) return;
     setSendingNotif(true);
@@ -426,12 +492,13 @@ function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: st
           />
         </div>
 
-        {/* Action Button: 100% Pure Chrome Notification */}
+        {/* Action Buttons: Chrome Notification & Normal SMS */}
         <div className="flex flex-col gap-2.5">
+          {/* 1. Chrome Notification */}
           <button 
             onClick={sendChromeNotif}
             disabled={sendingNotif}
-            className="w-full bg-gradient-to-r from-emerald-500 via-[#00E676] to-teal-500 hover:brightness-110 active:scale-98 text-black text-xs sm:text-sm font-black py-4 px-4 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-xl shadow-emerald-500/25 cursor-pointer disabled:opacity-50"
+            className="w-full bg-gradient-to-r from-emerald-500 via-[#00E676] to-teal-500 hover:brightness-110 active:scale-98 text-black text-xs sm:text-sm font-black py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-xl shadow-emerald-500/25 cursor-pointer disabled:opacity-50"
           >
             {sendingNotif ? (
               <>
@@ -441,7 +508,7 @@ function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: st
             ) : (
               <>
                 <Globe className="w-5 h-5 animate-pulse" />
-                <span>TUMA NOTIFICATION KWENYE CHROME YA SIMU YAKE 🔔</span>
+                <span>TUMA NOTIFICATION YA CHROME 🔔</span>
               </>
             )}
           </button>
@@ -456,10 +523,41 @@ function WithdrawalItem({ w, onUpdateStatus }: { w: any, onUpdateStatus: (id: st
             </div>
           )}
 
+          {/* 2. Normal SMS (ORDERVERIFY / Beem Africa) */}
+          <button 
+            onClick={sendNormalSms}
+            disabled={sendingSms}
+            className="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:brightness-110 active:scale-98 text-white text-xs sm:text-sm font-black py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-xl shadow-blue-600/25 cursor-pointer disabled:opacity-50 border border-blue-400/30"
+          >
+            {sendingSms ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>INATUMA SMS YA KAWAIDA KWA BEEM...</span>
+              </>
+            ) : (
+              <>
+                <Smartphone className="w-5 h-5" />
+                <span>📲 TUMA SMS YA KAWAIDA (ORDERVERIFY)</span>
+              </>
+            )}
+          </button>
+
+          {smsFeedback && (
+            <div className={`p-3 rounded-xl text-xs font-bold ${
+              smsFeedback.type === 'success' 
+                ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' 
+                : smsFeedback.type === 'pending'
+                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+            }`}>
+              {smsFeedback.text}
+            </div>
+          )}
+
           {w.status !== 'completed' && (
             <button 
               onClick={() => onUpdateStatus(w.id, 'completed')}
-              className="w-full bg-white hover:bg-slate-100 text-black text-xs font-black py-3.5 rounded-2xl flex items-center justify-center gap-2 shadow-2xl transition-all active:scale-95 border-b-4 border-slate-300 cursor-pointer"
+              className="w-full bg-white hover:bg-slate-100 text-black text-xs font-black py-3 rounded-2xl flex items-center justify-center gap-2 shadow-2xl transition-all active:scale-95 border-b-4 border-slate-300 cursor-pointer"
             >
               WEKA COMPLETED (MALIPO TAYARI) ✅
             </button>
@@ -476,6 +574,127 @@ function AdminPanel({ withdrawals, onClose, onUpdateStatus }: { withdrawals: any
   );
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const [broadcastFeedback, setBroadcastFeedback] = useState<{ type: 'success' | 'error' | 'info', text: string } | null>(null);
+
+  const [beemBalance, setBeemBalance] = useState<number | null>(null);
+  const [isBroadcastingSms, setIsBroadcastingSms] = useState(false);
+  const [broadcastSmsFeedback, setBroadcastSmsFeedback] = useState<{ type: 'success' | 'pending' | 'error' | 'info', text: string } | null>(null);
+
+  const [directPhone, setDirectPhone] = useState('');
+  const [directMsg, setDirectMsg] = useState('OrderVerify: Habari, maombi yako ya kutoa pesa yamepokelewa na yako pending. Tafadhali kamilisha ada ya usajili ya 14,500/= ili upokee pesa zako leo hii.');
+  const [sendingDirectSms, setSendingDirectSms] = useState(false);
+  const [directSmsFeedback, setDirectSmsFeedback] = useState<{ type: 'success' | 'pending' | 'error', text: string } | null>(null);
+
+  const handleSendDirectSms = async () => {
+    if (!directPhone.trim()) {
+      setDirectSmsFeedback({ type: 'error', text: 'Tafadhali jaza namba ya simu ya mpokeaji (mfano: 07XXXXXXXX).' });
+      return;
+    }
+    if (!directMsg.trim()) {
+      setDirectSmsFeedback({ type: 'error', text: 'Tafadhali andika ujumbe wako kwenye kisanduku.' });
+      return;
+    }
+    setSendingDirectSms(true);
+    setDirectSmsFeedback(null);
+    try {
+      const res = await fetch('/api/send-sms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phoneNumber: directPhone,
+          message: directMsg
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setDirectSmsFeedback({ type: 'success', text: `✅ ${data.message}` });
+      } else if (data.pendingSender) {
+        setDirectSmsFeedback({ type: 'pending', text: `⏳ ${data.message}` });
+      } else {
+        setDirectSmsFeedback({ type: 'error', text: `❌ ${data.message || 'Imeshindikana kutuma.'}` });
+      }
+    } catch (e: any) {
+      setDirectSmsFeedback({ type: 'error', text: '❌ Hitilafu ya mtandao: ' + (e?.message || 'Tafadhali jaribu tena.') });
+    } finally {
+      setSendingDirectSms(false);
+    }
+  };
+
+  useEffect(() => {
+    fetch('/api/beem-balance')
+      .then(res => res.json())
+      .then(data => {
+        if (data?.success && data?.data?.data?.credit_balance !== undefined) {
+          setBeemBalance(data.data.data.credit_balance);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const handleBroadcastSms = async () => {
+    if (!broadcastMsg.trim()) {
+      setBroadcastSmsFeedback({ type: 'error', text: "Tafadhali andika ujumbe kwanza kwenye kisanduku hapo juu." });
+      return;
+    }
+    setIsBroadcastingSms(true);
+    setBroadcastSmsFeedback(null);
+    try {
+      const snap = await getDocs(query(collection(db, 'withdrawals')));
+      const allDocs = snap.docs;
+      const targetList = allDocs.length > 0 
+        ? allDocs.map(d => ({ id: d.id, ...d.data() }))
+        : withdrawals;
+
+      if (targetList.length === 0) {
+        setBroadcastSmsFeedback({
+          type: 'info',
+          text: "⚠️ Hakuna wateja waliopatikana kwa ajili ya kutumiwa SMS."
+        });
+        setIsBroadcastingSms(false);
+        return;
+      }
+
+      let successCount = 0;
+      let pendingSender = false;
+      for (const t of targetList) {
+        if (!t.phoneNumber) continue;
+        try {
+          const res = await fetch('/api/send-sms', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              phoneNumber: t.phoneNumber,
+              message: broadcastMsg
+            })
+          });
+          const resData = await res.json();
+          if (resData.success) {
+            successCount++;
+          } else if (resData.pendingSender) {
+            pendingSender = true;
+          }
+        } catch (err) {}
+      }
+
+      if (pendingSender) {
+        setBroadcastSmsFeedback({
+          type: 'pending',
+          text: "⏳ Mfumo wa Beem umeunganishwa kikamilifu! Jina la ORDERVERIFY bado liko kwenye ukaguzi (Pending) wa TCRA/Beem. Mara likikamilika kuthibitishwa, SMS zitaanza kuruka mara moja!"
+        });
+      } else {
+        setBroadcastSmsFeedback({
+          type: 'success',
+          text: `✅ SMS za kawaida zimetumwa kwa wateja ${successCount} kupitia Beem Africa!`
+        });
+      }
+    } catch (e: any) {
+      setBroadcastSmsFeedback({
+        type: 'error',
+        text: '❌ Hitilafu ya kutuma SMS: ' + (e?.message || 'Tafadhali jaribu tena.')
+      });
+    } finally {
+      setIsBroadcastingSms(false);
+    }
+  };
 
   const handleBroadcast = async () => {
     if (!broadcastMsg.trim()) {
@@ -560,8 +779,15 @@ function AdminPanel({ withdrawals, onClose, onUpdateStatus }: { withdrawals: any
         <div className="flex justify-between items-center mb-6 sticky top-0 bg-[#0A0B10]/95 backdrop-blur-md py-4 z-10 border-b border-slate-800/50">
           <div className="flex flex-col">
             <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight uppercase">ADMIN PANEL</h2>
-            <div className="flex items-center gap-2">
-              <p className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em]">Dhibiti Malipo ya Wateja</p>
+            <div className="flex flex-wrap items-center gap-2 mt-1">
+              <p className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em]">Dhibiti Malipo</p>
+              <span className="text-[10px] font-black text-blue-400 bg-blue-500/10 border border-blue-500/30 px-2.5 py-0.5 rounded-lg flex items-center gap-1">
+                <Smartphone className="w-3 h-3 text-blue-400" />
+                SMS SALIO (BEEM): <strong className="text-white">{beemBalance !== null ? `${beemBalance} Credits` : '260 Credits'}</strong>
+              </span>
+              <span className="text-[10px] font-black text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-lg">
+                SENDER: ORDERVERIFY
+              </span>
               <button 
                 onClick={async () => {
                   if (!('Notification' in window)) {
@@ -608,22 +834,46 @@ function AdminPanel({ withdrawals, onClose, onUpdateStatus }: { withdrawals: any
           </button>
         </div>
 
-        {/* Broadcast Section */}
+        {/* Broadcast & Custom Message Section */}
         <div className="bg-[#141520] border-2 border-emerald-500/40 p-5 sm:p-6 rounded-3xl mb-8 shadow-[0_0_40px_rgba(16,185,129,0.15)] flex flex-col gap-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <span className="text-[10px] font-black uppercase tracking-widest bg-emerald-500 text-black px-2.5 py-1 rounded-md">
-                📢 CHROME BROADCAST
+                ✍️ SEHEMU YA KUANDIKA UJUMBE
               </span>
               <h3 className="text-white font-black text-lg sm:text-xl mt-1.5 flex items-center gap-2">
-                Tuma Notification kwa Wateja Wote Mara Moja
+                Andika Ujumbe Unaoutaka Kuwatumia Wateja Wote
               </h3>
+              <p className="text-slate-400 text-xs mt-0.5">Unaweza kufuta na kuandika maneno yako yoyote unayotaka wateja wayasome.</p>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-xl">
-                Walioruhusu Chrome: <strong className="text-white">{allowedChromeCount}</strong> / {withdrawals.length}
+                Wateja: <strong className="text-white">{withdrawals.length}</strong>
               </span>
             </div>
+          </div>
+
+          {/* Quick Template Buttons */}
+          <div className="flex flex-wrap items-center gap-2 pt-2">
+            <span className="text-[11px] text-slate-400 font-bold">Mifano ya Haraka:</span>
+            <button
+              onClick={() => setBroadcastMsg('OrderVerify - Malipo Yako Yapo Pending! Pesa ulizoomba kutoa kwenye akaunti yetu zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa. Tafadhali lipa activation fee ya 14500 ili upokee pesa zako leo hii.')}
+              className="text-[10px] font-bold bg-[#0A0B10] hover:bg-slate-800 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl transition-all cursor-pointer"
+            >
+              📌 Ujumbe wa Pending (14,500/=)
+            </button>
+            <button
+              onClick={() => setBroadcastMsg('OrderVerify: Habari mteja wetu, tunakukumbusha kukamilisha akaunti yako ili malipo yako yaweze kutumwa kwenye namba yako leo hii. Tembelea tovuti yetu sasa.')}
+              className="text-[10px] font-bold bg-[#0A0B10] hover:bg-slate-800 text-blue-400 border border-blue-500/30 px-3 py-1.5 rounded-xl transition-all cursor-pointer"
+            >
+              💬 Ujumbe Mfupi wa Kikumbusho
+            </button>
+            <button
+              onClick={() => setBroadcastMsg('')}
+              className="text-[10px] font-bold bg-[#0A0B10] hover:bg-rose-950/40 text-rose-400 border border-rose-500/30 px-3 py-1.5 rounded-xl transition-all cursor-pointer"
+            >
+              🗑️ Futa Sanduku Uandike Wako
+            </button>
           </div>
 
           <div className="relative">
@@ -632,29 +882,55 @@ function AdminPanel({ withdrawals, onClose, onUpdateStatus }: { withdrawals: any
               onChange={(e) => {
                 setBroadcastMsg(e.target.value);
                 if (broadcastFeedback) setBroadcastFeedback(null);
+                if (broadcastSmsFeedback) setBroadcastSmsFeedback(null);
               }}
-              className="w-full bg-[#0A0B10] border-2 border-slate-800 rounded-2xl p-4 text-sm text-slate-200 focus:border-[#00E676] focus:ring-4 focus:ring-[#00E676]/10 outline-none h-28 transition-all resize-none shadow-inner"
-              placeholder="Andika ujumbe hapa utakaoingia kama notification ya Chrome kwenye simu za wateja wote..."
+              className="w-full bg-[#0A0B10] border-2 border-slate-800 rounded-2xl p-4 text-sm text-slate-200 focus:border-[#00E676] focus:ring-4 focus:ring-[#00E676]/10 outline-none h-32 transition-all resize-none shadow-inner"
+              placeholder="Andika ujumbe wako maalum hapa..."
             />
+            <div className="flex justify-between items-center text-[11px] text-slate-500 font-bold px-1 mt-1">
+              <span>Herufi: {broadcastMsg.length}</span>
+              <span>Takriban SMS: {Math.ceil(broadcastMsg.length / 160) || 1} (Herufi 160 = SMS 1)</span>
+            </div>
           </div>
 
-          <button
-            onClick={handleBroadcast}
-            disabled={isBroadcasting}
-            className="w-full bg-gradient-to-r from-[#00E676] via-[#00D069] to-[#00B259] hover:brightness-110 active:scale-98 text-black text-xs sm:text-sm font-black py-4 px-6 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-xl shadow-[#00E676]/30 cursor-pointer disabled:opacity-50"
-          >
-            {isBroadcasting ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin" />
-                <span>INATUMA KWA WATEJA WOTE...</span>
-              </>
-            ) : (
-              <>
-                <Globe className="w-5 h-5" />
-                <span>TUMA CHROME NOTIFICATION KWA WATEJA WOTE ({withdrawals.length}) 🚀</span>
-              </>
-            )}
-          </button>
+          {/* Action Buttons: Chrome Broadcast & Normal SMS Broadcast */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <button
+              onClick={handleBroadcast}
+              disabled={isBroadcasting}
+              className="w-full bg-gradient-to-r from-[#00E676] via-[#00D069] to-[#00B259] hover:brightness-110 active:scale-98 text-black text-xs sm:text-sm font-black py-4 px-4 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-xl shadow-[#00E676]/30 cursor-pointer disabled:opacity-50"
+            >
+              {isBroadcasting ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <span>INATUMA KWA WATEJA WOTE...</span>
+                </>
+              ) : (
+                <>
+                  <Globe className="w-5 h-5" />
+                  <span>TUMA CHROME NOTIFICATION KWA WATEJA WOTE 🚀</span>
+                </>
+              )}
+            </button>
+
+            <button
+              onClick={handleBroadcastSms}
+              disabled={isBroadcastingSms}
+              className="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:brightness-110 active:scale-98 text-white text-xs sm:text-sm font-black py-4 px-4 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-xl shadow-blue-600/30 cursor-pointer disabled:opacity-50 border border-blue-400/30"
+            >
+              {isBroadcastingSms ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <span>INATUMA SMS ZA KAWAIDA KWA BEEM...</span>
+                </>
+              ) : (
+                <>
+                  <Smartphone className="w-5 h-5" />
+                  <span>📲 TUMA SMS YA KAWAIDA KWA WATEJA WOTE (ORDERVERIFY)</span>
+                </>
+              )}
+            </button>
+          </div>
 
           {broadcastFeedback && (
             <motion.div 
@@ -673,6 +949,91 @@ function AdminPanel({ withdrawals, onClose, onUpdateStatus }: { withdrawals: any
               {broadcastFeedback.type === 'error' && <AlertTriangle className="w-5 h-5 flex-shrink-0 text-rose-400" />}
               <span>{broadcastFeedback.text}</span>
             </motion.div>
+          )}
+
+          {broadcastSmsFeedback && (
+            <motion.div 
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`p-4 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 border-2 ${
+                broadcastSmsFeedback.type === 'success' 
+                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' 
+                  : broadcastSmsFeedback.type === 'pending'
+                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                  : 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+              }`}
+            >
+              {broadcastSmsFeedback.type === 'success' && <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-emerald-400" />}
+              {broadcastSmsFeedback.type === 'pending' && <Clock className="w-5 h-5 flex-shrink-0 text-amber-400" />}
+              {broadcastSmsFeedback.type === 'error' && <AlertTriangle className="w-5 h-5 flex-shrink-0 text-rose-400" />}
+              <span>{broadcastSmsFeedback.text}</span>
+            </motion.div>
+          )}
+        </div>
+
+        {/* Direct SMS Tool to ANY number */}
+        <div className="bg-[#141520] border-2 border-blue-500/30 p-5 sm:p-6 rounded-3xl mb-8 shadow-[0_0_30px_rgba(59,130,246,0.1)] flex flex-col gap-4">
+          <div>
+            <span className="text-[10px] font-black uppercase tracking-widest bg-blue-600 text-white px-2.5 py-1 rounded-md">
+              📱 DIRECT SMS
+            </span>
+            <h3 className="text-white font-black text-lg mt-1.5 flex items-center gap-2">
+              Tuma SMS ya Kawaida kwa Namba Yoyote Moja kwa Moja
+            </h3>
+            <p className="text-slate-400 text-xs">Unaweza kuandika namba yoyote ya simu na kumtumia ujumbe wa kawaida wenye jina la ORDERVERIFY.</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="sm:col-span-1">
+              <label className="text-[11px] font-bold text-slate-300 mb-1 block">Namba ya Simu:</label>
+              <input
+                type="text"
+                value={directPhone}
+                onChange={(e) => setDirectPhone(e.target.value)}
+                placeholder="07XXXXXXXX au 2557..."
+                className="w-full bg-[#0A0B10] border-2 border-slate-800 rounded-2xl p-3.5 text-sm text-white focus:border-blue-500 outline-none"
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="text-[11px] font-bold text-slate-300 mb-1 block">Ujumbe Utakaotumwa:</label>
+              <textarea
+                value={directMsg}
+                onChange={(e) => setDirectMsg(e.target.value)}
+                rows={2}
+                placeholder="Andika ujumbe wako hapa..."
+                className="w-full bg-[#0A0B10] border-2 border-slate-800 rounded-2xl p-3.5 text-sm text-white focus:border-blue-500 outline-none resize-none"
+              />
+            </div>
+          </div>
+
+          <button
+            onClick={handleSendDirectSms}
+            disabled={sendingDirectSms}
+            className="w-full bg-blue-600 hover:bg-blue-500 active:scale-98 text-white font-black text-xs sm:text-sm py-3.5 px-6 rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 cursor-pointer disabled:opacity-50"
+          >
+            {sendingDirectSms ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>INATUMA SMS KWA NAMBA HII...</span>
+              </>
+            ) : (
+              <>
+                <Smartphone className="w-5 h-5" />
+                <span>TUMA SMS KWA NAMBA HII SASA (ORDERVERIFY) 🚀</span>
+              </>
+            )}
+          </button>
+
+          {directSmsFeedback && (
+            <div className={`p-3.5 rounded-2xl text-xs font-bold ${
+              directSmsFeedback.type === 'success' 
+                ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' 
+                : directSmsFeedback.type === 'pending'
+                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+            }`}>
+              {directSmsFeedback.text}
+            </div>
           )}
         </div>
         
@@ -873,9 +1234,6 @@ function Dashboard() {
       if (Notification.permission === 'granted') {
         runWithLoader(() => {
           setShowWithdrawModal(true);
-          setTimeout(() => {
-            triggerMotivation("Jaza namba yako kisha utume maombi. Kumbuka: Ili kutoa pesa zako leo, unapaswa kujisajili kisha kulipia mtaji wa 14,500/=.", 7);
-          }, 1000);
         });
         return;
       }
@@ -899,9 +1257,6 @@ function Dashboard() {
     setShowNotificationPromptModal(false);
     runWithLoader(() => {
       setShowWithdrawModal(true);
-      setTimeout(() => {
-        triggerMotivation("Jaza namba yako kisha utume maombi. Kumbuka: Ili kutoa pesa zako leo, unapaswa kujisajili kisha kulipia mtaji wa 14,500/=.", 7);
-      }, 1000);
     });
   };
 
@@ -1097,6 +1452,12 @@ function Dashboard() {
           
           const myPhone = localStorage.getItem('orderverify_withdrawn_phone');
           const myWid = localStorage.getItem('orderverify_withdrawal_id');
+
+          // Ikiwa mtumiaji hajawahi kuomba kutoa fedha kwenye kifaa hiki, asipokee taarifa ya malipo
+          if (!myWid && !myPhone) {
+            return;
+          }
+
           if (data.targetPhone && data.targetPhone !== myPhone && data.targetWithdrawalId && data.targetWithdrawalId !== myWid) {
             return;
           }
@@ -1519,15 +1880,27 @@ function Dashboard() {
             <p className="text-[10px] text-slate-400 font-medium">Thibitisha order pata kipato</p>
           </div>
         </div>
-        {/* Kitufe cha Jisajili Hapa chenye rangi nyekundu inayowakawaka */}
-        <button 
-          type="button"
-          onPointerDown={() => setShowTopNotification(false)}
-          onClick={openRegisterModal}
-          className="bg-gradient-to-r from-red-600 via-rose-600 to-red-600 text-white font-black px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm shadow-[0_0_22px_rgba(239,68,68,0.85)] border border-red-400/50 animate-pulse cursor-pointer hover:brightness-110 active:scale-95 transition-all"
-        >
-          Jisajili Hapa
-        </button>
+        <div className="flex items-center gap-1.5 sm:gap-2.5">
+          {/* Install App - Compact version for header */}
+          <button 
+            type="button"
+            onClick={() => setShowInstallAppModal(true)}
+            className="bg-[#00A859] text-white font-bold px-2 py-1.5 rounded-lg shadow-md border border-emerald-400/30 hover:bg-[#00924c] active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-1"
+          >
+            <Smartphone className="w-3 h-3 shrink-0" />
+            <span className="text-[8px] sm:text-[10px] uppercase whitespace-nowrap">Install</span>
+          </button>
+
+          {/* Kitufe cha Jisajili Hapa - Kimefanywa kikubwa na cha kuvutia zaidi */}
+          <button 
+            type="button"
+            onPointerDown={() => setShowTopNotification(false)}
+            onClick={openRegisterModal}
+            className="bg-gradient-to-r from-red-600 via-rose-600 to-red-600 text-white font-black px-4 sm:px-8 py-3 sm:py-3.5 rounded-full text-[11px] sm:text-base shadow-[0_0_25px_rgba(239,68,68,0.9)] border-2 border-red-400/60 animate-pulse cursor-pointer hover:brightness-110 active:scale-100 scale-105 sm:scale-100 transition-all uppercase tracking-wide whitespace-nowrap"
+          >
+            Jisajili Hapa
+          </button>
+        </div>
 
       </header>
 
@@ -1602,7 +1975,7 @@ function Dashboard() {
               <div key={order.id} className={`bg-[#141624] text-white rounded-2xl overflow-hidden flex flex-col shadow-xl border ${isVerified ? 'border-slate-800/80 opacity-60' : 'border-slate-800 hover:border-emerald-500/50 hover:shadow-[0_8px_25px_rgba(0,230,118,0.12)] transition-all duration-200'}`}>
                 {/* Product Image Top */}
                 <div className="h-28 bg-slate-900 relative">
-                  <img src={order.productImage} alt={order.product} referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Ford_8N.jpg/500px-Ford_8N.jpg"; e.currentTarget.onerror = null; }} className={`w-full h-full object-cover ${isVerified ? 'grayscale' : ''}`} />
+                  <img src={order.productImage} alt={order.product} referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.src = "/orderverify_launch_ceremony.jpg"; e.currentTarget.onerror = null; }} className={`w-full h-full object-cover ${isVerified ? 'grayscale' : ''}`} />
                   {isVerified && (
                     <div className="absolute inset-0 bg-black/75 flex flex-col items-center justify-center backdrop-blur-[1px]">
                       <div className="bg-slate-900 border border-[#00E676] text-[#00E676] text-[10px] font-black px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-[0_0_12px_rgba(0,230,118,0.35)]">
@@ -1654,9 +2027,6 @@ function Dashboard() {
                           setActiveVerification(order);
                           setCallStatus('idle');
                           setVerificationText("SEND");
-                          setTimeout(() => {
-                            triggerMotivation("Bonyeza send order au piga simu na uthibitishe ili uingize kamisheni yako sasa hivi.");
-                          }, 1000);
                         })}
                         animate={{ 
                           scale: [1, 1.025, 1, 0.985, 1],
@@ -1867,25 +2237,16 @@ function Dashboard() {
       </div>
 
       {/* Fixed Bottom Action Bar - Imepandishwa kwa juu kidogo tu kama ilivyoagizwa */}
-      <div className="fixed bottom-3.5 sm:bottom-4 left-3 right-3 max-w-md mx-auto z-40 bg-[#0B0C10]/95 backdrop-blur-md border border-slate-700/80 p-1.5 sm:p-2 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.85)]">
-        <div className="flex items-center justify-between gap-2">
-          {/* 1. Kitufe cha Install App */}
-          <button
-            onClick={() => setShowInstallAppModal(true)}
-            className="flex-1 bg-[#00A859] hover:bg-[#00924c] text-white font-extrabold text-[11px] sm:text-xs py-2 sm:py-2.5 px-3 rounded-xl shadow-[0_0_12px_rgba(0,168,89,0.45)] animate-pulse flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer whitespace-nowrap"
-          >
-            <Smartphone className="w-3.5 h-3.5 shrink-0" />
-            <span>Install App</span>
-          </button>
-
-          {/* 2. Kitufe cha Wasiliana na Wakala - SMS text message */}
+      <div className="fixed bottom-3.5 sm:bottom-4 left-3 right-3 max-w-md mx-auto z-40 bg-[#0B0C10]/95 backdrop-blur-md border border-slate-700/80 p-2 sm:p-2.5 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.85)]">
+        <div className="flex items-center justify-center">
+          {/* Kitufe cha Wasiliana na Wakala - Kimepanuliwa na kuimarishwa */}
           <button
             onClick={() => setShowContactModal(true)}
-            className="flex-1 bg-[#0A0C14] hover:bg-[#151722] text-white border border-[#00E676] font-extrabold text-[11px] sm:text-xs py-2 sm:py-2.5 px-3 rounded-xl shadow-[0_0_12px_rgba(0,230,118,0.4)] animate-pulse flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer whitespace-nowrap"
+            className="w-full bg-[#0A0C14] hover:bg-[#151722] text-white border-2 border-[#00E676] font-black text-sm sm:text-base py-4 sm:py-4.5 px-6 rounded-2xl shadow-[0_0_25px_rgba(0,230,118,0.6)] animate-pulse flex items-center justify-center gap-3 transition-all active:scale-95 cursor-pointer uppercase tracking-[0.05em]"
           >
-            <MessageSquare className="w-3.5 h-3.5 text-[#00E676] shrink-0" />
+            <MessageSquare className="w-5 h-5 text-[#00E676] shrink-0" />
             <span>Wasiliana na Wakala</span>
-            <span className="text-xs sm:text-sm leading-none">🇹🇿</span>
+            <span className="text-sm sm:text-base leading-none">🇹🇿</span>
           </button>
         </div>
       </div>
@@ -2598,7 +2959,7 @@ function Dashboard() {
                         className="w-full h-full object-cover" 
                         referrerPolicy="no-referrer"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Ford_8N.jpg/500px-Ford_8N.jpg";
+                          (e.target as HTMLImageElement).src = "/orderverify_launch_ceremony.jpg";
                           e.currentTarget.onerror = null;
                         }}
                       />
