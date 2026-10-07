@@ -3256,9 +3256,9 @@ function Dashboard() {
         )}
       </AnimatePresence>
 
-      {/* Admin Access in Footer */}
+      {/* Admin Access in Footer - Hidden from regular users, only visible when logged in as admin */}
       <div className="mt-12 mb-12 flex flex-col items-center gap-4 pb-8">
-        {currentUser?.email === 'zuhurasalum186@gmail.com' ? (
+        {currentUser?.email === 'zuhurasalum186@gmail.com' && (
           <div className="flex flex-col items-center gap-2">
             <button 
               onClick={() => setShowAdminPanel(true)}
@@ -3268,14 +3268,6 @@ function Dashboard() {
             </button>
             <p className="text-[11px] text-emerald-400 font-bold">Umeingia kama Admin: {currentUser.email}</p>
           </div>
-        ) : (
-          <button 
-            onClick={handleAdminLogin}
-            disabled={isLoggingIn}
-            className="text-slate-500 hover:text-slate-300 text-[11px] font-bold py-2 px-5 rounded-xl border border-slate-800 hover:border-slate-700 transition-all cursor-pointer flex items-center gap-2 bg-[#12131C]"
-          >
-            <span>🔐 Ingia Kama Admin (Ili Utume Notifications)</span>
-          </button>
         )}
         <div 
           onClick={handleSecretTap}
