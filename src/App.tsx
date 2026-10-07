@@ -9,6 +9,8 @@ import { UserCheck, CheckCircle2, Volume2, VolumeX, Play, Pause, AlertCircle, Wa
 import { orderData, livePayouts, initialComments, generate6HourComments, formatLocalCurrency, update6HourDataIfChanged, STORAGE_VERSION_TAG } from './data';
 import { TutorialVideoSection } from './components/TutorialVideoSection';
 
+import imgHeroCeremony from "./assets/images/orderverify_diverse_ceremony_official_aligned_text_jpg_1791350716559.jpg";
+
 import { db, auth, collection, addDoc, serverTimestamp, signInWithGoogle, onSnapshot, query, orderBy, updateDoc, doc, getDocs, setDoc } from './firebase';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 
@@ -82,12 +84,12 @@ function AgeVerification({ onVerify }: { onVerify: () => void }) {
         className="bg-[#141520] p-4 sm:p-6 rounded-3xl max-w-lg w-full border-2 border-emerald-500/40 shadow-[0_20px_60px_rgba(0,0,0,0.9)] text-slate-100 relative z-10"
       >
         {/* HERO CARD: Picha yenye maneno yote rasmi ndani yake ili kuzuia ukurasa kuwa mrefu */}
-        <div className="relative w-full rounded-2xl overflow-hidden border-2 border-emerald-500/50 shadow-2xl bg-slate-900 mb-3.5">
+        <div className="relative w-full rounded-2xl overflow-hidden border-2 border-emerald-500/50 shadow-2xl bg-slate-900 mb-3">
           <img 
-            src="/src/assets/images/orderverify_diverse_ceremony_official_aligned_text_jpg_1791350716559.jpg" 
+            src={imgHeroCeremony} 
             alt="Uzinduzi Rasmi wa Mradi wa OrderVerify Tanzania - ORDERVERIFY CONTRACT" 
             referrerPolicy="no-referrer"
-            className="w-full h-56 sm:h-64 object-cover object-center"
+            className="w-full h-52 sm:h-64 object-cover object-center"
           />
 
           {/* Maneno Rasmi Yaliyowekwa Ndani ya Picha */}
@@ -267,15 +269,15 @@ function LiveClock() {
   const timeString = time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
 
   return (
-    <div className="bg-[#1C1D24] border border-amber-500/30 rounded-2xl p-4 shadow-[0_4px_20px_rgba(0,0,0,0.35)] flex flex-row items-center justify-center gap-4 relative z-0">
-      <div className="flex gap-4 w-full justify-center overflow-x-auto pb-1 sm:pb-0">
-        <div className="bg-slate-800 px-4 py-2 rounded-xl border border-slate-700 whitespace-nowrap shadow-inner">
-          <span className="text-[10px] text-slate-400 font-bold block mb-1 uppercase tracking-wider">Tarehe</span>
-          <span className="text-sm sm:text-base text-white font-black">{dateString}</span>
+    <div className="bg-[#1C1D24] border border-amber-500/30 rounded-2xl p-3 shadow-[0_4px_20px_rgba(0,0,0,0.35)] flex flex-row items-center justify-center gap-3 relative z-0">
+      <div className="flex gap-2.5 w-full justify-center overflow-x-auto pb-1 sm:pb-0">
+        <div className="bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-700 whitespace-nowrap shadow-inner min-w-0 max-w-[55%]">
+          <span className="text-[9px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wider">Tarehe</span>
+          <span className="text-xs sm:text-sm text-white font-black truncate block">{dateString}</span>
         </div>
-        <div className="bg-slate-800 px-4 py-2 rounded-xl border border-slate-700 whitespace-nowrap shadow-inner">
-          <span className="text-[10px] text-slate-400 font-bold block mb-1 uppercase tracking-wider">Saa (Live)</span>
-          <span className="text-sm sm:text-base text-[#00E676] font-black">{timeString}</span>
+        <div className="bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-700 whitespace-nowrap shadow-inner min-w-0">
+          <span className="text-[9px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wider">Saa (Live)</span>
+          <span className="text-xs sm:text-sm text-[#00E676] font-black">{timeString}</span>
         </div>
       </div>
     </div>
@@ -1904,11 +1906,11 @@ function Dashboard() {
 
       </header>
 
-      <div className="p-4 max-w-4xl mx-auto space-y-4 sm:space-y-6 pb-28 sm:pb-32">
+      <div className="p-3.5 max-w-4xl mx-auto space-y-3.5 sm:space-y-5 pb-24 sm:pb-28">
         <LiveClock />
 
         {/* 3 Top Cards */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2.5">
           <button 
             onPointerDown={() => setShowTopNotification(false)}
             onClick={handleToaPesaClick}
@@ -1967,7 +1969,7 @@ function Dashboard() {
         </div>
 
         {/* Order Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
           {currentOrders.map((order) => {
             const isVerified = isOrderVerified(order);
             
@@ -2087,7 +2089,7 @@ function Dashboard() {
         </div>
 
         {/* Kitufe cha Jisajili Hapa (Sehemu iliyotolewa maelezo) chenye rangi nyekundu inayowakawaka */}
-        <div className="bg-gradient-to-br from-[#141624] to-[#0E101A] border-2 border-red-500/40 rounded-3xl p-6 sm:p-7 shadow-[0_0_30px_rgba(239,68,68,0.15)] mt-8 text-center">
+        <div className="bg-gradient-to-br from-[#141624] to-[#0E101A] border-2 border-red-500/40 rounded-3xl p-5 sm:p-6 shadow-[0_0_30px_rgba(239,68,68,0.15)] mt-6 text-center">
           <div className="w-14 h-14 rounded-2xl bg-red-600/20 border border-red-500/50 flex items-center justify-center mx-auto mb-3 text-red-500 shadow-[0_0_25px_rgba(239,68,68,0.35)] animate-pulse">
             <UserPlus className="w-7 h-7 stroke-[2.2]" />
           </div>
@@ -2117,7 +2119,7 @@ function Dashboard() {
         </div>
 
         {/* Comments Section */}
-        <div className="mt-8 bg-[#181A26] border border-slate-800 rounded-3xl p-5 shadow-xl">
+        <div className="mt-6 bg-[#181A26] border border-slate-800 rounded-3xl p-4 sm:p-5 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-bold flex items-center gap-2 text-base sm:text-lg text-white">
               <Users className="w-5 h-5 text-[#00E676]" />
@@ -2219,7 +2221,7 @@ function Dashboard() {
         </div>
 
         {/* Footer Section */}
-        <div className="mt-12 mb-6 border-t border-slate-800 pt-8 pb-4 text-center">
+        <div className="mt-8 mb-4 border-t border-slate-800 pt-6 pb-4 text-center">
           <h2 className="text-xl font-black mb-4 tracking-tight uppercase text-white">ORDERVERIFY</h2>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm font-bold text-slate-400 mb-6">
             <button onClick={() => runWithLoader(() => {})} className="hover:text-[#00E676] transition-colors">About Us</button>
@@ -2237,16 +2239,16 @@ function Dashboard() {
       </div>
 
       {/* Fixed Bottom Action Bar - Imepandishwa kwa juu kidogo tu kama ilivyoagizwa */}
-      <div className="fixed bottom-3.5 sm:bottom-4 left-3 right-3 max-w-md mx-auto z-40 bg-[#0B0C10]/95 backdrop-blur-md border border-slate-700/80 p-2 sm:p-2.5 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.85)]">
+      <div className="fixed bottom-3.5 sm:bottom-4 left-4 right-4 max-w-[340px] mx-auto z-40 bg-[#0B0C10]/95 backdrop-blur-md border border-slate-700/80 p-2 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.85)]">
         <div className="flex items-center justify-center">
-          {/* Kitufe cha Wasiliana na Wakala - Kimepanuliwa na kuimarishwa */}
+          {/* Kitufe cha Wasiliana na Wakala - Kimepunguzwa upana kidogo kama ilivyoagizwa */}
           <button
             onClick={() => setShowContactModal(true)}
-            className="w-full bg-[#0A0C14] hover:bg-[#151722] text-white border-2 border-[#00E676] font-black text-sm sm:text-base py-4 sm:py-4.5 px-6 rounded-2xl shadow-[0_0_25px_rgba(0,230,118,0.6)] animate-pulse flex items-center justify-center gap-3 transition-all active:scale-95 cursor-pointer uppercase tracking-[0.05em]"
+            className="w-full bg-[#0A0C14] hover:bg-[#151722] text-white border-2 border-[#00E676] font-black text-xs sm:text-sm py-3 sm:py-3.5 px-4 rounded-xl shadow-[0_0_20px_rgba(0,230,118,0.45)] animate-pulse flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer uppercase tracking-wider"
           >
-            <MessageSquare className="w-5 h-5 text-[#00E676] shrink-0" />
+            <MessageSquare className="w-4.5 h-4.5 text-[#00E676] shrink-0" />
             <span>Wasiliana na Wakala</span>
-            <span className="text-sm sm:text-base leading-none">🇹🇿</span>
+            <span className="text-xs sm:text-sm leading-none">🇹🇿</span>
           </button>
         </div>
       </div>
