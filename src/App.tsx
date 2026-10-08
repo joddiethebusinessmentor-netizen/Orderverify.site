@@ -1823,14 +1823,14 @@ function Dashboard() {
           </div>
         </div>
         <div className="flex items-center gap-1.5 sm:gap-2.5">
-          {/* Install App - Compact version for header */}
+          {/* Wasiliana na Wakala - Juu kwenye header ambapo ilikuwa batani ya install */}
           <button 
             type="button"
-            onClick={() => setShowInstallAppModal(true)}
-            className="bg-[#00A859] text-white font-bold px-2 py-1.5 rounded-lg shadow-md border border-emerald-400/30 hover:bg-[#00924c] active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-1"
+            onClick={() => setShowContactModal(true)}
+            className="bg-[#0A0C14] hover:bg-[#151722] text-white border-2 border-[#00E676] font-black text-xs sm:text-sm py-2.5 sm:py-2.5 px-3.5 sm:px-5 rounded-full shadow-[0_0_20px_rgba(0,230,118,0.45)] flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer uppercase tracking-wider whitespace-nowrap"
           >
-            <Smartphone className="w-3 h-3 shrink-0" />
-            <span className="text-[8px] sm:text-[10px] uppercase whitespace-nowrap">Install</span>
+            <MessageSquare className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#00E676] shrink-0" />
+            <span>Wasiliana na Wakala</span>
           </button>
 
           {/* Kitufe cha Jisajili Hapa */}
@@ -2204,19 +2204,16 @@ function Dashboard() {
 
       </div>
 
-      {/* Fixed Bottom Action Bar - Imepandishwa kwa juu kidogo tu kama ilivyoagizwa */}
-      <div className="fixed bottom-3.5 sm:bottom-4 left-4 right-4 max-w-[340px] mx-auto z-40 bg-[#0B0C10]/95 backdrop-blur-md border border-slate-700/80 p-2 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.85)]">
-        <div className="flex items-center justify-center">
-          {/* Kitufe cha Wasiliana na Wakala - Kimepunguzwa upana kidogo kama ilivyoagizwa */}
-          <button
-            onClick={() => setShowContactModal(true)}
-            className="w-full bg-[#0A0C14] hover:bg-[#151722] text-white border-2 border-[#00E676] font-black text-xs sm:text-sm py-3 sm:py-3.5 px-4 rounded-xl shadow-[0_0_20px_rgba(0,230,118,0.45)] animate-pulse flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer uppercase tracking-wider"
-          >
-            <MessageSquare className="w-4.5 h-4.5 text-[#00E676] shrink-0" />
-            <span>Wasiliana na Wakala</span>
-            <span className="text-xs sm:text-sm leading-none">🇹🇿</span>
-          </button>
-        </div>
+      {/* Kitufe cha Install App - Chini kabisa upande wa kushoto */}
+      <div className="fixed bottom-3.5 sm:bottom-4 left-3.5 sm:left-4 z-40">
+        <button
+          type="button"
+          onClick={() => setShowInstallAppModal(true)}
+          className="bg-[#00A859] hover:bg-[#00924c] text-white font-black text-xs py-2.5 sm:py-3 px-3.5 sm:px-4 rounded-2xl shadow-[0_4px_20px_rgba(0,168,89,0.5)] border border-emerald-400/40 flex items-center gap-2 active:scale-95 transition-all cursor-pointer uppercase tracking-wider"
+        >
+          <Smartphone className="w-4 h-4 text-white shrink-0 animate-bounce" />
+          <span>Install App</span>
+        </button>
       </div>
 
 
