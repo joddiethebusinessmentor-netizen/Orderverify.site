@@ -1822,32 +1822,31 @@ function Dashboard() {
             <p className="text-[10px] text-slate-400 font-medium">Thibitisha order pata kipato</p>
           </div>
         </div>
-        <div className="flex items-center gap-1.5 sm:gap-2.5">
-          {/* Wasiliana na Wakala - Juu kwenye header ambapo ilikuwa batani ya install */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Kitufe cha Install App - Kimepunguzwa ukubwa zaidi (kidogo kabisa) */}
           <button 
             type="button"
-            onClick={() => setShowContactModal(true)}
-            className="bg-[#0A0C14] hover:bg-[#151722] text-white border-2 border-[#00E676] font-black text-xs sm:text-sm py-2.5 sm:py-2.5 px-3.5 sm:px-5 rounded-full shadow-[0_0_20px_rgba(0,230,118,0.45)] flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer uppercase tracking-wider whitespace-nowrap"
+            onClick={() => setShowInstallAppModal(true)}
+            className="bg-[#00A859] hover:bg-[#00924c] text-white font-bold text-[8.5px] sm:text-[9.5px] py-0.5 sm:py-1 px-1.5 sm:px-2 rounded-full shadow-sm flex items-center gap-1 transition-all active:scale-95 cursor-pointer uppercase tracking-tight whitespace-nowrap"
           >
-            <MessageSquare className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#00E676] shrink-0" />
-            <span>Wasiliana na Wakala</span>
+            <Smartphone className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white shrink-0" />
+            <span>Install App</span>
           </button>
 
-          {/* Kitufe cha Jisajili Hapa */}
+          {/* Kitufe cha Jisajili Hapa - Kimepunguzwa ukubwa kidogo */}
           <motion.button 
             type="button"
             onPointerDown={() => setShowTopNotification(false)}
             onClick={openRegisterModal}
             animate={{ 
-              scale: [1, 1.035, 1, 0.985, 1],
-              y: [0, -2, 0, 1.5, 0]
+              scale: [1, 1.02, 1],
             }}
             transition={{ 
               repeat: Infinity, 
               duration: 2.2, 
               ease: "easeInOut" 
             }}
-            className="bg-gradient-to-r from-red-600 via-rose-600 to-red-600 text-white font-bold px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm shadow-[0_0_15px_rgba(239,68,68,0.7)] hover:brightness-110 active:scale-95 transition-all uppercase tracking-wide whitespace-nowrap cursor-pointer border border-red-400/50"
+            className="bg-gradient-to-r from-red-600 via-rose-600 to-red-600 text-white font-black px-3 sm:px-3.5 py-1.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs shadow-[0_0_12px_rgba(239,68,68,0.6)] hover:brightness-110 active:scale-95 transition-all uppercase tracking-wide whitespace-nowrap cursor-pointer border border-red-300/40"
           >
             Jisajili Hapa
           </motion.button>
@@ -2204,16 +2203,29 @@ function Dashboard() {
 
       </div>
 
-      {/* Kitufe cha Install App - Chini kabisa upande wa kushoto */}
+      {/* Kitufe cha Wasiliana na Wakala - Rangi ya blue, maandishi meupe, na mng'ao sana */}
       <div className="fixed bottom-3.5 sm:bottom-4 left-3.5 sm:left-4 z-40">
-        <button
+        <motion.button
           type="button"
-          onClick={() => setShowInstallAppModal(true)}
-          className="bg-[#00A859] hover:bg-[#00924c] text-white font-black text-xs py-2.5 sm:py-3 px-3.5 sm:px-4 rounded-2xl shadow-[0_4px_20px_rgba(0,168,89,0.5)] border border-emerald-400/40 flex items-center gap-2 active:scale-95 transition-all cursor-pointer uppercase tracking-wider"
+          onClick={() => setShowContactModal(true)}
+          animate={{ 
+            scale: [1, 1.03, 1],
+            boxShadow: [
+              "0 0 15px rgba(0, 114, 255, 0.75)",
+              "0 0 30px rgba(59, 130, 246, 0.95)",
+              "0 0 15px rgba(0, 114, 255, 0.75)"
+            ]
+          }}
+          transition={{ 
+            repeat: Infinity, 
+            duration: 2, 
+            ease: "easeInOut" 
+          }}
+          className="bg-gradient-to-r from-[#0052D4] via-[#4364F7] to-[#0072FF] hover:brightness-110 text-white border-2 border-blue-300 font-black text-[11px] sm:text-xs py-2 sm:py-2.5 px-3.5 sm:px-4 rounded-xl shadow-[0_0_22px_rgba(0,114,255,0.85)] flex items-center gap-1.5 sm:gap-2 active:scale-95 cursor-pointer uppercase tracking-wider"
         >
-          <Smartphone className="w-4 h-4 text-white shrink-0 animate-bounce" />
-          <span>Install App</span>
-        </button>
+          <MessageSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white shrink-0 stroke-[2.5]" />
+          <span className="text-white font-black">Wasiliana na Wakala</span>
+        </motion.button>
       </div>
 
 
