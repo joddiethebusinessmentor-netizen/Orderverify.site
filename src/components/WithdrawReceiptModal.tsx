@@ -203,11 +203,11 @@ export function WithdrawReceiptModal({
                 </span>
               </div>
 
-              {/* 6. Makato */}
+              {/* 6. Makato (Asilimia 3 ya Muamala) */}
               <div className="flex items-center justify-between py-1.5 border-b border-slate-800/80">
                 <span className="text-slate-400 font-medium">Makato ya Muamala:</span>
-                <span className="font-bold text-[#00E676]">
-                  TZS {transaction.fee.toLocaleString()} (Bure)
+                <span className="font-mono font-bold text-slate-200">
+                  TZS {(transaction.fee > 0 ? transaction.fee : Math.round(transaction.amount * 0.03)).toLocaleString()}
                 </span>
               </div>
 

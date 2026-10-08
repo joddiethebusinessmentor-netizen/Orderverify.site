@@ -1371,16 +1371,16 @@ function Dashboard() {
         if (receiptNoticeTimerRef.current) clearTimeout(receiptNoticeTimerRef.current);
         if (receiptDismissTimerRef.current) clearTimeout(receiptDismissTimerRef.current);
 
-        // Baada ya sekunde 3.5 hadi 4 utokee ujumbe wa juu bila kuifunika risiti na batani ya kuwezesha account
+        // Baada ya sekunde 7 utokee ujumbe wa juu bila kuifunika risiti na batani ya kuwezesha account
         receiptNoticeTimerRef.current = setTimeout(() => {
           setShowReceiptNotice(true);
           setShowReceiptActivateBtn(true);
 
-          // Ujumbe ukae zaidi ya sekunde 40 (sekunde 60) kisha upotee na ibaki ile risiti tu
+          // Ujumbe uondoke baada ya sekunde 40 kisha ibaki ile risiti tu
           receiptDismissTimerRef.current = setTimeout(() => {
             setShowReceiptNotice(false);
-          }, 60000);
-        }, 3500);
+          }, 40000);
+        }, 7000);
       }
     }
     return () => {
@@ -1558,6 +1558,8 @@ function Dashboard() {
       minute: '2-digit'
     }).format(new Date());
 
+    const calculatedFee = Math.round(numAmount * 0.03);
+
     const newTxn: WithdrawalTransaction = {
       id: txnCode,
       phoneNumber: cleanPhone,
@@ -1565,7 +1567,7 @@ function Dashboard() {
       networkName: networkNames[selectedNetwork] || selectedNetwork.toUpperCase(),
       companyName: 'Orderverify LMT',
       amount: numAmount,
-      fee: 0,
+      fee: calculatedFee,
       status: 'pending',
       remainingBalance: newBal,
       timestamp: Date.now(),
@@ -1593,7 +1595,7 @@ function Dashboard() {
         transactionId: newTxn.id,
         phoneNumber: cleanPhone,
         amount: numAmount,
-        fee: 0,
+        fee: calculatedFee,
         remainingBalance: newBal,
         companyName: newTxn.companyName,
         status: 'pending',
