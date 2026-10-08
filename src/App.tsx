@@ -4,10 +4,14 @@ import { UserCheck, CheckCircle2, Volume2, VolumeX, Play, Pause, AlertCircle, Wa
   UserPlus, MessageCircle, Send, Globe, MessageSquare, X, Loader2,
   Activity, ChevronRight, ChevronLeft, Smartphone, Users, ArrowDownToLine, ChevronDown, PhoneCall,
   Video, Phone, Mic, PhoneOff, CreditCard, ShieldCheck
-  , ShoppingBag, Eye, EyeOff, Clock, Calendar, AlertTriangle, Bell
+  , ShoppingBag, Eye, EyeOff, Clock, Calendar, AlertTriangle, Bell, History
 } from 'lucide-react';
 import { orderData, livePayouts, initialComments, generate6HourComments, formatLocalCurrency, update6HourDataIfChanged, STORAGE_VERSION_TAG } from './data';
 import { TutorialVideoSection } from './components/TutorialVideoSection';
+import { RegistrationVideoSection } from './components/RegistrationVideoSection';
+import { WithdrawalTransaction } from './types/withdrawal';
+import { WithdrawReceiptModal } from './components/WithdrawReceiptModal';
+import { WithdrawHistoryModal } from './components/WithdrawHistoryModal';
 
 import imgHeroCeremony from "./assets/images/orderverify_diverse_ceremony_official_aligned_text_jpg_1791350716559.jpg";
 
@@ -1074,10 +1078,7 @@ function Dashboard() {
     const t1 = setTimeout(scrollToTop, 50);
     const t2 = setTimeout(scrollToTop, 150);
 
-    // Kagua kama simu tayari imeruhusu notifications, sajili Web Push token kimya kimya
-    if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
-      registerWebPushSubscription();
-    }
+    // Boot scroll reset completed
 
     return () => {
       cancelAnimationFrame(raf);
@@ -1242,15 +1243,34 @@ function Dashboard() {
 
   const [authModalState, setAuthModalState] = useState<{show: boolean, type: 'register' | 'payment', message: string}>({show: false, type: 'register', message: ''});
   const [showWithdrawModal, setShowWithdrawModal] = useState(false);
-  const [showWithdrawPendingNotice, setShowWithdrawPendingNotice] = useState(false);
   const [isProcessingWithdraw, setIsProcessingWithdraw] = useState(false);
-  const [processingSecondsLeft, setProcessingSecondsLeft] = useState(20);
+  const [processingSecondsLeft, setProcessingSecondsLeft] = useState(12);
   const [showPaymentGuide, setShowPaymentGuide] = useState(false);
   const [showRegisterConfirmModal, setShowRegisterConfirmModal] = useState(false);
   const [registerModalStep, setRegisterModalStep] = useState<'confirm' | 'instructions'>('confirm');
   const [showInstallAppModal, setShowInstallAppModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
-  const [showNotificationPromptModal, setShowNotificationPromptModal] = useState(false);
+
+  // Miamala ya kutoa fedha iliyohifadhiwa (Kumbukumbu ya Miamala)
+  const [withdrawTransactions, setWithdrawTransactions] = useState<WithdrawalTransaction[]>(() => {
+    try {
+      const saved = localStorage.getItem('orderverify_withdraw_history');
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
+  });
+
+  // Risiti ya Muamala
+  const [showReceiptModal, setShowReceiptModal] = useState(false);
+  const [activeReceiptTxn, setActiveReceiptTxn] = useState<WithdrawalTransaction | null>(null);
+  const [showReceiptNotice, setShowReceiptNotice] = useState(false);
+  const [showReceiptActivateBtn, setShowReceiptActivateBtn] = useState(false);
+  const receiptNoticeTimerRef = useRef<any>(null);
+  const receiptDismissTimerRef = useRef<any>(null);
+
+  // Kumbukumbu ya Miamala Modal
+  const [showHistoryModal, setShowHistoryModal] = useState(false);
 
   // Persistent flag for users who have requested a withdrawal
   const [hasPendingWithdrawal, setHasPendingWithdrawal] = useState<boolean>(() => {
@@ -1265,34 +1285,9 @@ function Dashboard() {
   const [adminWithdrawals, setAdminWithdrawals] = useState<any[]>([]);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
 
+  // Fungua moja kwa moja ukurasa wa kutoa pesa bila kuomba notifications za Chrome
   const handleToaPesaClick = () => {
     setShowTopNotification(false);
-    // Ikiwa tayari ameruhusu notification, moja kwa moja fungua dirisha la kutoa pesa
-    if (typeof window !== 'undefined' && 'Notification' in window) {
-      if (Notification.permission === 'granted') {
-        runWithLoader(() => {
-          setShowWithdrawModal(true);
-        });
-        return;
-      }
-    }
-    // Ikiwa hajaruhusu au ni mara ya kwanza, fungua dirisha rasmi la kumwomba aruhusu taarifa
-    setShowNotificationPromptModal(true);
-  };
-
-  const handleGrantNotificationAndProceed = async () => {
-    if (typeof window !== 'undefined' && 'Notification' in window) {
-      try {
-        const permission = await Notification.requestPermission();
-        if (permission === 'granted') {
-          // Sajili Web Push Token kimya kimya chini kwa chini bila kutuma notification ya ziada
-          await registerWebPushSubscription();
-        }
-      } catch (e) {
-        console.error("Notification permission error:", e);
-      }
-    }
-    setShowNotificationPromptModal(false);
     runWithLoader(() => {
       setShowWithdrawModal(true);
     });
@@ -1358,7 +1353,7 @@ function Dashboard() {
     }
   };
 
-  // Countdown ya sekunde 20 wakati muamala unafanyiwa kazi
+  // Countdown ya sekunde wakati muamala wa kutoa pesa unafanyiwa kazi
   useEffect(() => {
     let timer: any;
     if (isProcessingWithdraw) {
@@ -1368,11 +1363,24 @@ function Dashboard() {
         }, 1000);
       } else {
         setIsProcessingWithdraw(false);
-        setShowWithdrawPendingNotice(true);
-        sendDeviceNotification(
-          "OrderVerify – Malipo Yako Yapo Pending!",
-          "Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali ingia kwenye website yetu au wasiliana na wakala wetu ili ukamilishe akaunti yako kwa activation fee ya elfu kumi na nne na mia tano 14500 ili upokee pesa zako leo hii. Karibu sana!"
-        );
+        // Hapo hapo itokee risiti ya huo muamala
+        setShowReceiptModal(true);
+        setShowReceiptNotice(false);
+        setShowReceiptActivateBtn(false);
+
+        if (receiptNoticeTimerRef.current) clearTimeout(receiptNoticeTimerRef.current);
+        if (receiptDismissTimerRef.current) clearTimeout(receiptDismissTimerRef.current);
+
+        // Baada ya sekunde 3.5 hadi 4 utokee ujumbe wa juu bila kuifunika risiti na batani ya kuwezesha account
+        receiptNoticeTimerRef.current = setTimeout(() => {
+          setShowReceiptNotice(true);
+          setShowReceiptActivateBtn(true);
+
+          // Huo ujumbe ukae sekunde 20 kisha upotee na ibaki ile risiti tu
+          receiptDismissTimerRef.current = setTimeout(() => {
+            setShowReceiptNotice(false);
+          }, 20000);
+        }, 3500);
       }
     }
     return () => {
@@ -1403,55 +1411,14 @@ function Dashboard() {
     } catch (e) {}
   };
 
-  // Function ya kutuma notification ya simu ya mfumo (System Notification kwenye Chrome ya Simu)
-  const sendDeviceNotification = (title: string, body: string) => {
+  // Taarifa ndani ya website pekee (Notification za Chrome zimeondolewa kama ilivyoelekezwa)
+  const sendDeviceNotification = (_title: string, _body: string) => {
     if (typeof window === 'undefined') return;
-
     playNotificationSound();
     if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
       try {
-        navigator.vibrate([500, 200, 500, 200, 500]);
+        navigator.vibrate([300, 150, 300]);
       } catch (e) {}
-    }
-
-    const options = {
-      body: body,
-      icon: '/orderverify_official_logo.jpg',
-      badge: '/orderverify_logo_transparent.png',
-      tag: 'orderverify-alert-' + Date.now(),
-      renotify: true,
-      requireInteraction: true,
-      silent: false,
-      vibrate: [500, 200, 500, 200, 500],
-      actions: [
-        { action: 'open', title: 'Fungua OrderVerify' },
-        { action: 'activate', title: 'Washa Akaunti Yako' }
-      ],
-      data: { url: '/' }
-    } as any;
-
-    if ('Notification' in window && Notification.permission === 'granted') {
-      // Kwenye simu za Android Chrome, Service Worker ndiyo inatoa notification kwenye kioo cha juu (status bar/notification tray)
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.ready.then((reg) => {
-          reg.showNotification(title, options);
-        }).catch(() => {
-          try {
-            new Notification(title, options);
-          } catch (e) {}
-        });
-        if (navigator.serviceWorker.controller) {
-          navigator.serviceWorker.controller.postMessage({
-            type: 'TRIGGER_NOTIFICATION',
-            title,
-            body
-          });
-        }
-      } else {
-        try {
-          new Notification(title, options);
-        } catch (e) {}
-      }
     }
   };
 
@@ -1512,115 +1479,7 @@ function Dashboard() {
     return () => unsub();
   }, []);
 
-  // Notification inayojituma kiotomatiki kila baada ya masaa 2 kamili (7,200,000 ms za uhakika bila kukosa)
-  // Isitokee ndani ya website (inatokea nje ya website pekee kule juu kwenye screen ya simu kama pop-up ya mfumo hata asipofungua website)
-  useEffect(() => {
-    if (!hasPendingWithdrawal) return;
-
-    const TWO_HOURS_MS = 2 * 60 * 60 * 1000; // Masaa 2 kamili
-    const notificationMessage = "Pesa ulizoomba kutoa kwenye akaunti yetu ya OrderVerify zimetolewa kwenye balance yako na ziko pending kwa sababu huna akaunti iliyowashwa kwenye profile ya kulipwa. Tafadhali ingia kwenye website yetu au wasiliana na wakala wetu ili ukamilishe akaunti yako kwa activation fee ya elfu kumi na nne na mia tano 14500 ili upokee pesa zako leo hii. Karibu sana!";
-
-    // Amuru Service Worker iendelee kutuma kila masaa 2 hata mtu asipofungua website
-    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-      navigator.serviceWorker.ready.then((reg) => {
-        if (reg.active) {
-          reg.active.postMessage({
-            type: 'START_BACKGROUND_SCHEDULE',
-            title: "OrderVerify – Malipo Yako Yapo Pending!",
-            body: notificationMessage
-          });
-        }
-      }).catch(() => {});
-    }
-
-    const firePendingAlert = () => {
-      const now = Date.now();
-      const lastSentStr = localStorage.getItem('orderverify_last_notif_sent');
-      const lastSent = lastSentStr ? Number(lastSentStr) : 0;
-      
-      // Zuia kutuma mara mbili ndani ya dakika 10
-      if (lastSent && (now - lastSent < 600000)) {
-        return;
-      }
-      
-      try {
-        localStorage.setItem('orderverify_last_notif_sent', String(now));
-      } catch (e) {}
-
-      sendDeviceNotification("OrderVerify – Malipo Yako Yapo Pending!", notificationMessage);
-    };
-
-    // Tuma sekunde 5 baada ya kuingia
-    const initialTimer = setTimeout(() => {
-      firePendingAlert();
-    }, 5000);
-
-    // Mfumo wa uhakika wa masaa 2 (Web Worker + Watchdog Loop)
-    let worker: Worker | null = null;
-    let watchdogTimer: any = null;
-    try {
-      const workerBlob = new Blob([`
-        let timer = null;
-        self.onmessage = function(e) {
-          if (e.data === 'START') {
-            if (!timer) {
-              timer = setInterval(function() {
-                self.postMessage('TICK');
-              }, 7200000); // Kila masaa 2 kamili (7200s)
-            }
-          } else if (e.data === 'STOP') {
-            if (timer) {
-              clearInterval(timer);
-              timer = null;
-            }
-          }
-        };
-      `], { type: 'application/javascript' });
-      worker = new Worker(URL.createObjectURL(workerBlob));
-      worker.onmessage = (e) => {
-        if (e.data === 'TICK') {
-          firePendingAlert();
-        }
-      };
-      worker.postMessage('START');
-    } catch (e) {}
-
-    // Watchdog Timer inayoangalia kila sekunde 30 endapo masaa 2 zimetimia
-    watchdogTimer = setInterval(() => {
-      const now = Date.now();
-      const lastSentStr = localStorage.getItem('orderverify_last_notif_sent');
-      const lastSent = lastSentStr ? Number(lastSentStr) : 0;
-      if (!lastSent || (now - lastSent >= TWO_HOURS_MS)) {
-        firePendingAlert();
-      }
-    }, 30000);
-
-    // Akiwa offline data ikawashwa au akifungua skrini, notification ifike kwenye status bar ya juu ya simu endapo masaa 2 yametimia!
-    const handleReconnectOrFocus = () => {
-      const now = Date.now();
-      const lastSentStr = localStorage.getItem('orderverify_last_notif_sent');
-      const lastSent = lastSentStr ? Number(lastSentStr) : 0;
-      if (!lastSent || (now - lastSent >= TWO_HOURS_MS)) {
-        firePendingAlert();
-      }
-    };
-
-    window.addEventListener('online', handleReconnectOrFocus);
-    window.addEventListener('focus', handleReconnectOrFocus);
-
-    return () => {
-      clearTimeout(initialTimer);
-      if (watchdogTimer) {
-        clearInterval(watchdogTimer);
-      }
-      if (worker) {
-        worker.postMessage('STOP');
-        worker.terminate();
-      }
-      window.removeEventListener('online', handleReconnectOrFocus);
-      window.removeEventListener('focus', handleReconnectOrFocus);
-    };
-  }, [hasPendingWithdrawal]);
+  // Taarifa zote za mfumo zinabaki ndani ya website pekee (Notification za Chrome zimeondolewa)
 
   const openRegisterModal = () => {
     setShowTopNotification(false);
@@ -1682,33 +1541,76 @@ function Dashboard() {
     // Vigezo vyote vimekidhiwa kikamilifu: Punguza fedha kwenye balance na anza uchakataji
     const newBal = Math.max(0, balance - numAmount);
     setBalance(newBal);
+
+    const networkNames: Record<string, string> = {
+      mpesa: 'Vodacom M-Pesa',
+      tigo: 'Tigo Pesa',
+      airtel: 'Airtel Money',
+      halopesa: 'HaloPesa'
+    };
+
+    const txnCode = 'OV-' + Math.floor(10000000 + Math.random() * 90000000);
+    const formattedDate = new Intl.DateTimeFormat('sw-TZ', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }).format(new Date());
+
+    const newTxn: WithdrawalTransaction = {
+      id: txnCode,
+      phoneNumber: cleanPhone,
+      network: selectedNetwork,
+      networkName: networkNames[selectedNetwork] || selectedNetwork.toUpperCase(),
+      companyName: 'OrderVerify Tanzania Limited',
+      amount: numAmount,
+      fee: 0,
+      status: 'pending',
+      remainingBalance: newBal,
+      timestamp: Date.now(),
+      formattedDate: formattedDate
+    };
+
+    // Hifadhi kwenye kumbukumbu ya miamala (state + localStorage)
+    setWithdrawTransactions((prev) => {
+      const updated = [newTxn, ...prev];
+      try {
+        localStorage.setItem('orderverify_withdraw_history', JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
+
     try {
       localStorage.setItem('orderverify_user_balance', String(newBal));
       localStorage.setItem('orderverify_has_pending_withdrawal', 'true');
+      localStorage.setItem('orderverify_withdrawn_phone', cleanPhone);
       
-      // Check notification permission at moment of withdrawal
-      const isNotifAllowed = typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted';
-      const userPlatform = /iPad|iPhone|iPod/.test(navigator.userAgent) ? 'iOS' : 'Android/Chrome';
+      const userPlatform = /iPad|iPhone|iPod/.test(navigator.userAgent) ? 'iOS' : 'Android/Web';
 
       // SAVE TO DATABASE (FIREBASE)
       addDoc(collection(db, 'withdrawals'), {
+        transactionId: newTxn.id,
         phoneNumber: cleanPhone,
         amount: numAmount,
+        fee: 0,
+        remainingBalance: newBal,
+        companyName: newTxn.companyName,
         status: 'pending',
         timestamp: serverTimestamp(),
         network: selectedNetwork,
-        hasNotificationPermission: isNotifAllowed,
+        networkName: newTxn.networkName,
         devicePlatform: userPlatform
       }).then(docRef => {
         localStorage.setItem('orderverify_withdrawal_id', docRef.id);
-        registerWebPushSubscription(cleanPhone, docRef.id);
       }).catch(err => console.error("Database save failed:", err));
 
     } catch (e) {}
     setHasPendingWithdrawal(true);
+    setActiveReceiptTxn(newTxn);
 
     setShowWithdrawModal(false);
-    setProcessingSecondsLeft(20);
+    setProcessingSecondsLeft(12);
     setIsProcessingWithdraw(true);
   };
   
@@ -2369,47 +2271,6 @@ function Dashboard() {
         )}
       </AnimatePresence>
 
-      {/* Notification Consent Pre-Withdrawal Modal */}
-      <AnimatePresence>
-        {showNotificationPromptModal && (
-          <div 
-            onClick={() => setShowNotificationPromptModal(false)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
-          >
-            <motion.div 
-              onClick={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-[#141624] border-2 border-[#00E676] rounded-3xl p-6 max-w-sm sm:max-w-md w-full shadow-[0_0_50px_rgba(0,230,118,0.25)] text-center relative"
-            >
-              <button 
-                type="button"
-                onClick={() => setShowNotificationPromptModal(false)}
-                className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 rounded-full p-1.5 transition-colors cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <div className="bg-[#0B0C12] border border-amber-500/30 rounded-2xl p-5 text-center my-4">
-                <p className="text-sm sm:text-base text-slate-100 font-bold leading-relaxed">
-                  Tafadhali bonyeza <span className="bg-white text-black px-1.5 py-0.5 rounded font-black text-xs">ALLOW ✅</span> kwenye ujumbe wa Chrome utakaotokea ili uwe unatumiwa taarifa za malipo yako utayako kuwa unalipwa. Usibonyeze <span className="underline decoration-red-500 font-black">Block ❌</span>.
-                </p>
-              </div>
-
-              <button 
-                type="button"
-                onClick={handleGrantNotificationAndProceed}
-                className="w-full bg-gradient-to-r from-[#00E676] via-[#00D069] to-[#00B259] hover:brightness-110 active:scale-95 text-black font-black py-4 rounded-2xl transition-all text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-[#00E676]/30 cursor-pointer"
-              >
-                <span>ENDELEA</span>
-                <ChevronRight className="w-5 h-5 stroke-[3]" />
-              </button>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
       {/* Withdraw Modal */}
       <AnimatePresence>
         {showWithdrawModal && (
@@ -2438,9 +2299,40 @@ function Dashboard() {
                 <X className="w-5 h-5" />
               </button>
 
-              <h3 className="text-white font-black text-lg mb-4 flex items-center gap-2">
-                <CreditCard className="w-5 h-5 text-[#00E676]" /> KUTOA PESA 
+              <h3 className="text-white font-black text-lg mb-3 flex items-center justify-between">
+                <span className="flex items-center gap-2">
+                  <CreditCard className="w-5 h-5 text-[#00E676]" /> KUTOA PESA
+                </span>
               </h3>
+
+              {/* Batani ya Kumbukumbu ya Miamala */}
+              <button 
+                type="button"
+                onPointerDown={() => setShowTopNotification(false)}
+                onClick={() => {
+                  setShowTopNotification(false);
+                  setShowWithdrawModal(false);
+                  setShowHistoryModal(true);
+                }}
+                className="w-full mb-4 bg-[#0B0C12] hover:bg-[#141624] border border-slate-700/80 hover:border-[#00E676]/60 p-3 rounded-2xl text-xs font-bold text-slate-200 transition-all flex items-center justify-between cursor-pointer shadow-inner group"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg bg-[#00E676]/15 flex items-center justify-center text-[#00E676] group-hover:scale-110 transition-transform">
+                    <History className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="group-hover:text-white">Kumbukumbu ya Miamala</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  {withdrawTransactions.length > 0 ? (
+                    <span className="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black px-2 py-0.5 rounded-full">
+                      {withdrawTransactions.length} {withdrawTransactions.length === 1 ? 'Muamala' : 'Miamala'}
+                    </span>
+                  ) : (
+                    <span className="text-[10px] text-slate-500">Tazama</span>
+                  )}
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
+                </div>
+              </button>
               
               <div className="mb-4 text-left">
                 <label className="text-xs text-slate-400 font-bold mb-2 block uppercase">1. Chagua Mtandao</label>
@@ -2598,14 +2490,14 @@ function Dashboard() {
               {/* Progress Bar & Percentage (Bila maneno yoyote ya ziada) */}
               <div className="bg-[#0B0C12] border border-slate-800 rounded-2xl p-4 mb-4 shadow-inner space-y-2">
                 <div className="flex items-center justify-end text-xs font-bold">
-                  <span className="text-[#00E676] font-mono font-black text-sm">{Math.min(100, Math.round(((20 - processingSecondsLeft) / 20) * 100))}%</span>
+                  <span className="text-[#00E676] font-mono font-black text-sm">{Math.min(100, Math.round(((12 - processingSecondsLeft) / 12) * 100))}%</span>
                 </div>
                 
                 {/* Progress Bar */}
                 <div className="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
                   <div 
                     className="bg-gradient-to-r from-[#00E676] to-[#00C853] h-full rounded-full transition-all duration-1000 ease-linear shadow-[0_0_12px_rgba(0,230,118,0.5)]"
-                    style={{ width: `${Math.min(100, Math.round(((20 - processingSecondsLeft) / 20) * 100))}%` }}
+                    style={{ width: `${Math.min(100, Math.round(((12 - processingSecondsLeft) / 12) * 100))}%` }}
                   />
                 </div>
               </div>
@@ -2620,84 +2512,46 @@ function Dashboard() {
         )}
       </AnimatePresence>
 
-      {/* Ujumbe wa hitilafu ya kutoa pesa pending kabla ya maelezo ya usajili */}
-      <AnimatePresence>
-        {showWithdrawPendingNotice && (
-          <div 
-            onClick={() => setShowWithdrawPendingNotice(false)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-[#0B0C10]/95 backdrop-blur-md overflow-y-auto"
-          >
-            <motion.div 
-              onClick={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-[#141624] border-2 border-red-500 rounded-3xl p-5 sm:p-6 max-w-sm sm:max-w-md w-full shadow-[0_0_35px_rgba(239,68,68,0.35)] relative text-center my-auto"
-            >
-              {/* Close Button */}
-              <button 
-                type="button"
-                onClick={() => setShowWithdrawPendingNotice(false)}
-                className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800/80 hover:bg-slate-700 rounded-full p-1.5 transition-colors cursor-pointer"
-                aria-label="Funga"
-              >
-                <X className="w-5 h-5" />
-              </button>
+      {/* Risiti Rasmi ya Muamala (Inaonekana mara baada ya uchakataji) */}
+      <WithdrawReceiptModal
+        isOpen={showReceiptModal}
+        onClose={() => {
+          setShowReceiptModal(false);
+          setShowReceiptNotice(false);
+          setShowReceiptActivateBtn(false);
+          if (receiptNoticeTimerRef.current) clearTimeout(receiptNoticeTimerRef.current);
+          if (receiptDismissTimerRef.current) clearTimeout(receiptDismissTimerRef.current);
+        }}
+        transaction={activeReceiptTxn}
+        showNotice={showReceiptNotice}
+        showActivateBtn={showReceiptActivateBtn}
+        onActivateAccount={() => {
+          setShowReceiptModal(false);
+          setShowReceiptNotice(false);
+          setShowReceiptActivateBtn(false);
+          if (receiptNoticeTimerRef.current) clearTimeout(receiptNoticeTimerRef.current);
+          if (receiptDismissTimerRef.current) clearTimeout(receiptDismissTimerRef.current);
+          setRegisterModalStep('confirm');
+          setShowRegisterConfirmModal(true);
+        }}
+      />
 
-              <div className="w-14 h-14 rounded-2xl bg-red-500/20 border border-red-500/50 flex items-center justify-center mx-auto mb-3 text-red-400">
-                <AlertTriangle className="w-7 h-7 stroke-[2.2] animate-bounce" />
-              </div>
-
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/20 text-red-400 border border-red-500/40 text-[11px] font-black uppercase tracking-wider mb-3">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
-                <span>HALI YA MUAMALA: PENDING (HAUKUKAMILIKA)</span>
-              </div>
-
-              <div className="space-y-3.5 my-3 text-left">
-                <div className="bg-red-950/40 border border-red-500/40 rounded-2xl p-4 shadow-inner">
-                  <p className="text-xs sm:text-sm text-red-100 font-bold leading-relaxed">
-                    TUMESHINDWA KUKUTUMIA PESA ZAKO KWA SABABU MFUMO HAUONI AKAUNTI YENYE TAARIFA KAMA ULIZOJAZA INAYOSTAHILI KUPOKEA PESA KUTOKA KWETU. HAKUNA AKAUNTI ILIYOSAJILIWA NA KUWASHWA (ACTIVE) INAYOENDANA NA NAMBA HII YA SIMU KWENYE DATABASE YETU.
-                  </p>
-                </div>
-
-                <div className="bg-amber-950/40 border border-amber-500/40 rounded-2xl p-4 shadow-inner space-y-1.5">
-                  <div className="flex items-center gap-1.5 text-amber-400 font-black text-xs uppercase tracking-wider">
-                    <CheckCircle2 className="w-4 h-4 shrink-0 text-[#00E676]" />
-                    <span>HATUA YA KUFANYA ILI KUPOKEA PESA ZAKO</span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-amber-100 font-bold leading-relaxed">
-                    TAFADHALI FUNGUA AKAUNTI KWANZA NA ULIPE MTAJI WA 14,500 TZS ILI KUWASHA  PROFILE YAKO YA KULIPWA. FEDHA ZAKO ZITATUMWA MOJA KWA MOJA KWENYE NAMBA YAKO MARA TU AKAUNTI YAKO ITAKAPOTHIBITISHWA.
-                  </p>
-                </div>
-              </div>
-
-              {/* Buttons */}
-              <div className="space-y-2.5 mt-4">
-                <button 
-                  type="button"
-                  onClick={() => {
-                    setShowWithdrawPendingNotice(false);
-                    setRegisterModalStep('instructions');
-                    setShowRegisterConfirmModal(true);
-                  }}
-                  className="w-full bg-gradient-to-r from-[#00E676] to-[#00C853] hover:brightness-110 active:scale-95 text-black font-black py-3.5 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#00E676]/30 cursor-pointer"
-                >
-                  <span>ENDELEA NA USAJILI SASA</span>
-                  <ChevronRight className="w-4 h-4 stroke-[3]" />
-                </button>
-
-                <button 
-                  type="button"
-                  onClick={() => setShowWithdrawPendingNotice(false)}
-                  className="w-full bg-[#1C1D26] hover:bg-[#252733] text-slate-300 font-bold py-2.5 rounded-2xl transition-all text-xs uppercase tracking-wider border border-slate-700 cursor-pointer"
-                >
-                  RUDI NYUMA
-                </button>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+      {/* Kumbukumbu ya Miamala Modal */}
+      <WithdrawHistoryModal
+        isOpen={showHistoryModal}
+        onClose={() => setShowHistoryModal(false)}
+        transactions={withdrawTransactions}
+        onViewReceipt={(txn) => {
+          setActiveReceiptTxn(txn);
+          setShowHistoryModal(false);
+          setShowReceiptModal(true);
+          setShowReceiptNotice(false);
+          setShowReceiptActivateBtn(true);
+        }}
+        onNewWithdraw={() => {
+          setShowWithdrawModal(true);
+        }}
+      />
 
       {/* Register Confirmation Modal: Step 1 (Uthibitisho wa Mtaji wa 14,500) & Step 2 (Maelezo ya Jinsi ya Kujisajili + Batani ya ANZA KUJISAJILI HAPA) */}
       <AnimatePresence>
@@ -2807,46 +2661,19 @@ function Dashboard() {
                   </div>
                 </div>
 
-                {/* Scrollable Content: Maelezo Halisi ya Usajili */}
-                <div className="overflow-y-auto pr-1 sm:pr-2 space-y-4 text-xs sm:text-sm font-medium text-slate-300 flex-1">
-                  <div className="bg-[#0B0C12] border border-slate-800 rounded-2xl p-4 space-y-3.5">
-                    <p className="flex items-start gap-2 leading-relaxed">
-                      <span className="text-[#00E676] font-black shrink-0">Hatua ya kwanza</span>
-                      <span>Weka email yako yoyote tu afu changanya na namba 👉👉 <span className="text-white italic font-bold">mfano anny33@gmail.com</span></span>
-                    </p>
-                    <p className="flex items-start gap-2 leading-relaxed">
-                      <span className="text-[#00E676] font-black shrink-0">Hatua ya pili</span>
-                      <span>Weka namba yako ya simu kwa ajili ya kupokea pesa 👉👉 <span className="text-white italic font-bold">mfano 0740463678 au +255777729109</span></span>
-                    </p>
-                    <p className="flex items-start gap-2 leading-relaxed">
-                      <span className="text-[#00E676] font-black shrink-0">Hatua ya tatu</span>
-                      <span>Weka jina la usajili wa laini yako <span className="text-white italic font-bold">Mfano Emma zakayo sas we weka lako</span></span>
-                    </p>
-                    <p className="flex items-start gap-2 leading-relaxed">
-                      <span className="text-[#00E676] font-black shrink-0">Hatua ya nne</span>
-                      <span>Weka username yako jina moja changanya na namba 2 afu bananisha maneno <span className="text-white italic font-bold">mfano juma55 au mussa44 usiruke nafasi</span></span>
-                    </p>
-                    <p className="flex items-start gap-2 leading-relaxed">
-                      <span className="text-[#00E676] font-black shrink-0">Hatua ya tano</span>
-                      <span>WEKA Paswerd yako yoyote tu cha msingi uwe unaikumbuka na iwe namba nne tu</span>
-                    </p>
-                    <p className="flex items-start gap-2 leading-relaxed">
-                      <span className="text-[#00E676] font-black shrink-0">Hatua ya sita</span>
-                      <span>Rudia hiyo Paswerd tena</span>
-                    </p>
-                  </div>
-
-                  {/* Maelezo ya Chini Yenye Muonekano Unaowakawaka (Glowing & Pulsing) */}
-                  <div className="border-2 border-[#00E676] bg-gradient-to-r from-emerald-950/60 via-[#0E1511] to-emerald-950/60 p-4 rounded-2xl shadow-[0_0_20px_rgba(0,230,118,0.35)] animate-pulse space-y-2 text-xs sm:text-sm">
-                    <p className="text-white font-bold">
-                      Hakikisha unakariri username na password yako ulizo jaza hapo wakati wa kujisajili
-                    </p>
-                    <p className="text-white font-bold">
-                      Afu bofya hilo neno <span className="text-[#00E676] font-black italic underline decoration-2">SIGN UP</span>
-                    </p>
-                    <p className="text-[#00E676] font-black italic border-t border-[#00E676]/25 pt-2 leading-relaxed">
-                      Ukimaliza kujisajili lipia automatic au lipia kwa Lipa Namba itakayo onekana Baada ya kujisajili Kisha tuma taarifa kwa agent wetu. Ukishindwa wasiliana na agent wetu.
-                    </p>
+                {/* Registration Video Guide (Replacing textual steps as requested) */}
+                <div className="overflow-y-auto pr-1 sm:pr-2 flex-1">
+                  <div className="space-y-4">
+                    <RegistrationVideoSection videoSrc="/Video%20ya%20kujisajili.mp4" />
+                    
+                    <div className="border-2 border-[#00E676] bg-gradient-to-r from-emerald-950/60 via-[#0E1511] to-emerald-950/60 p-4 rounded-2xl shadow-[0_0_20px_rgba(0,230,118,0.35)] animate-pulse space-y-2 text-xs sm:text-sm text-center">
+                      <p className="text-white font-bold">
+                        TAZAMA VIDEO HAPO JUU KWANZA ILI UJUE NAMNA YA KUJISAJILI
+                      </p>
+                      <p className="text-[#00E676] font-black italic border-t border-[#00E676]/25 pt-2 leading-relaxed">
+                        Ukimaliza kutazama video, bofya kitufe cha nyekundu hapo chini kinachosema "ANZA KUJISAJILI HAPA"
+                      </p>
+                    </div>
                   </div>
                 </div>
 
@@ -3409,7 +3236,7 @@ function GlobalAudioPlayer() {
     <div className="fixed bottom-24 sm:bottom-20 right-3 z-[150] flex flex-col items-end gap-1.5 pointer-events-none">
       <audio 
         ref={audioRef} 
-        src="/Joddie.mp3"
+        src="/Tina.mp3"
         playsInline
         preload="auto" 
         onEnded={() => setIsPlaying(false)} 
