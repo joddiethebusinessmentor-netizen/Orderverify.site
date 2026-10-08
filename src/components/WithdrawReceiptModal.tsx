@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  X, CheckCircle2, AlertTriangle, ShieldCheck, Copy, Check, 
-  ArrowRight, Download, Share2, Building2, Smartphone, 
-  Clock, Hash, FileCheck, ExternalLink, ChevronLeft
+  X, AlertTriangle, ShieldCheck, 
+  ArrowRight, Building2, Smartphone, 
+  Clock, Hash, FileCheck, ChevronLeft
 } from 'lucide-react';
 import { WithdrawalTransaction } from '../types/withdrawal';
 
@@ -24,36 +24,7 @@ export function WithdrawReceiptModal({
   showActivateBtn,
   onActivateAccount
 }: WithdrawReceiptModalProps) {
-  const [copiedCode, setCopiedCode] = useState(false);
-  const [copiedAll, setCopiedAll] = useState(false);
-
   if (!isOpen || !transaction) return null;
-
-  const handleCopyCode = () => {
-    try {
-      navigator.clipboard.writeText(transaction.id);
-      setCopiedCode(true);
-      setTimeout(() => setCopiedCode(false), 2000);
-    } catch (e) {}
-  };
-
-  const handleCopySummary = () => {
-    try {
-      const summary = `RISITI YA MUAMALA - ORDERVERIFY TANZANIA
-Namba ya Muamala: ${transaction.id}
-Kampuni Inayolipa: ${transaction.companyName}
-Namba ya Mpokeaji: ${transaction.phoneNumber}
-Mtandao: ${transaction.networkName}
-Kiasi: TZS ${transaction.amount.toLocaleString()}
-Makato: TZS ${transaction.fee.toLocaleString()} (Bure)
-Hali: ${transaction.status.toUpperCase()}
-Salio Lililobaki: TZS ${transaction.remainingBalance.toLocaleString()}
-Tarehe: ${transaction.formattedDate}`;
-      navigator.clipboard.writeText(summary);
-      setCopiedAll(true);
-      setTimeout(() => setCopiedAll(false), 2000);
-    } catch (e) {}
-  };
 
   const getNetworkBadge = (network: string) => {
     switch (network.toLowerCase()) {
@@ -82,30 +53,45 @@ Tarehe: ${transaction.formattedDate}`;
           onClick={(e) => e.stopPropagation()}
           className="w-full max-w-md my-auto py-4 flex flex-col items-center"
         >
-          {/* Ujumbe wa juu: Ukitokea baada ya sekunde 3-5 na kukaa sekunde 20 bila kuifunika risiti */}
+          {/* Ujumbe wa juu na kitufe kidogo chini yake (bila kuwa ndani na bila gape kubwa) */}
           <AnimatePresence>
             {showNotice && (
               <motion.div
-                initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                initial={{ opacity: 0, y: -15, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -15, scale: 0.95 }}
+                exit={{ opacity: 0, y: -15, scale: 0.96 }}
                 transition={{ duration: 0.35, ease: 'easeOut' }}
-                className="w-full mb-3 bg-gradient-to-r from-amber-950/95 via-[#231709]/95 to-amber-950/95 border-2 border-amber-500/80 rounded-2xl p-4 shadow-[0_0_30px_rgba(245,158,11,0.25)] relative text-left"
+                className="w-full mb-3 flex flex-col items-center"
               >
-                <div className="flex items-start gap-3">
-                  <div className="p-2 bg-amber-500/20 rounded-xl text-amber-400 shrink-0 mt-0.5 border border-amber-500/40">
-                    <AlertTriangle className="w-5 h-5 animate-pulse" />
-                  </div>
-                  <div className="flex-1 pr-2">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[11px] font-black uppercase tracking-wider text-amber-400 bg-amber-500/20 px-2 py-0.5 rounded-full border border-amber-500/30">
-                        Taarifa Muhimu ya Malipo
-                      </span>
+                {/* Ujumbe wa maandishi pekee */}
+                <div className="w-full bg-gradient-to-r from-amber-950/95 via-[#231709]/95 to-amber-950/95 border-2 border-amber-500/80 rounded-2xl p-3.5 sm:p-4 shadow-[0_0_30px_rgba(245,158,11,0.25)] text-left">
+                  <div className="flex items-start gap-3">
+                    <div className="p-2 bg-amber-500/20 rounded-xl text-amber-400 shrink-0 mt-0.5 border border-amber-500/40">
+                      <AlertTriangle className="w-5 h-5 animate-pulse" />
                     </div>
-                    <p className="text-xs sm:text-sm text-amber-100 font-bold leading-relaxed">
-                      pesa ulizo omba kutoa zimetolewa kwenye balance yako na ziko pending kwa sababu huna account ya orderverify iliyo ruhusiwa kupokea pesa tafadhari wezesha account yako
-                    </p>
+                    <div className="flex-1 pr-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[11px] font-black uppercase tracking-wider text-amber-400 bg-amber-500/20 px-2 py-0.5 rounded-full border border-amber-500/30">
+                          Taarifa ya Muamala
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm text-amber-100 font-bold leading-relaxed">
+                        pesa ulizo omba kutoa zimetolewa kwenye balance yako na ziko pending kwa sababu huna account ya orderverify iliyo ruhusiwa kupokea pesa tafadhari wezesha account yako kwa kulipia efu kumi na nne na mia tano 14500 ili kupokea pesa zako
+                      </p>
+                    </div>
                   </div>
+                </div>
+
+                {/* Kitufe kidogo chini ya huo ujumbe bila gape kubwa */}
+                <div className="w-full flex justify-end mt-1.5 px-1">
+                  <button
+                    type="button"
+                    onClick={onActivateAccount}
+                    className="inline-flex items-center gap-1.5 bg-[#00E676] hover:bg-[#00c853] active:scale-95 text-black font-black px-3.5 py-1.5 rounded-xl text-xs uppercase tracking-wider shadow-md shadow-[#00E676]/30 cursor-pointer transition-all border border-[#00E676]"
+                  >
+                    <span>Wezesha Account Hapa</span>
+                    <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
+                  </button>
                 </div>
               </motion.div>
             )}
@@ -118,7 +104,7 @@ Tarehe: ${transaction.formattedDate}`;
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             className="w-full bg-[#12141D] border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden relative"
           >
-            {/* Header ya Juu yenye Nembo na Hati Rasmi */}
+            {/* Header ya Juu yenye Nembo na Jina la Kampuni */}
             <div className="bg-gradient-to-b from-[#1C2030] to-[#141724] p-5 border-b border-slate-700/70 relative">
               {/* Close Icon */}
               <button 
@@ -136,7 +122,7 @@ Tarehe: ${transaction.formattedDate}`;
                 </div>
                 <div>
                   <h3 className="text-white font-black text-sm sm:text-base tracking-wide uppercase flex items-center gap-1.5">
-                    {transaction.companyName}
+                    Orderverify LMT
                   </h3>
                   <p className="text-[11px] text-[#00E676] font-bold flex items-center gap-1">
                     <FileCheck className="w-3.5 h-3.5" />
@@ -165,35 +151,25 @@ Tarehe: ${transaction.formattedDate}`;
 
             {/* Vipengele vya Risiti (Key-Value Breakdown) */}
             <div className="p-5 space-y-3 text-xs bg-[#12141D]">
-              {/* 1. Namba ya Muamala (Transaction Code) */}
+              {/* 1. Namba ya Muamala (Transaction Code bila kitufe cha kunakili) */}
               <div className="flex items-center justify-between py-1.5 border-b border-slate-800/80">
                 <span className="text-slate-400 font-medium flex items-center gap-1.5">
                   <Hash className="w-3.5 h-3.5 text-slate-500" />
                   Code ya Muamala:
                 </span>
-                <div className="flex items-center gap-1.5">
-                  <span className="font-mono font-black text-white bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700">
-                    {transaction.id}
-                  </span>
-                  <button 
-                    type="button"
-                    onClick={handleCopyCode}
-                    title="Nakili Code"
-                    className="p-1 hover:bg-slate-800 rounded text-slate-400 hover:text-[#00E676] transition-colors"
-                  >
-                    {copiedCode ? <Check className="w-3.5 h-3.5 text-[#00E676]" /> : <Copy className="w-3.5 h-3.5" />}
-                  </button>
-                </div>
+                <span className="font-mono font-black text-white bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">
+                  {transaction.id}
+                </span>
               </div>
 
-              {/* 2. Jina la Kampuni Inayomlipa */}
+              {/* 2. Jina la Kampuni Inayomlipa (Rangi Nyeupe) */}
               <div className="flex items-center justify-between py-1.5 border-b border-slate-800/80">
                 <span className="text-slate-400 font-medium flex items-center gap-1.5">
                   <Building2 className="w-3.5 h-3.5 text-slate-500" />
                   Kampuni Inayolipa:
                 </span>
                 <span className="font-bold text-white text-right">
-                  {transaction.companyName}
+                  Orderverify LMT
                 </span>
               </div>
 
@@ -276,19 +252,10 @@ Tarehe: ${transaction.formattedDate}`;
               </p>
             </div>
 
-            {/* Quick Actions Footer (Copy Summary / Share) */}
-            <div className="bg-[#10121A] p-3 border-t border-slate-800 flex items-center justify-between text-xs">
-              <button 
-                type="button"
-                onClick={handleCopySummary}
-                className="flex items-center gap-1.5 text-slate-400 hover:text-white px-2.5 py-1.5 rounded-lg hover:bg-slate-800 transition-colors"
-              >
-                {copiedAll ? <Check className="w-3.5 h-3.5 text-[#00E676]" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copiedAll ? 'Imenakiliwa!' : 'Nakili Risiti'}</span>
-              </button>
-
-              <span className="text-[10px] text-slate-500">
-                Risiti Hii Imehifadhiwa
+            {/* Footer ya Risiti (Bila kitufe cha kunakili) */}
+            <div className="bg-[#10121A] py-2.5 px-4 border-t border-slate-800 flex items-center justify-center text-xs">
+              <span className="text-[11px] text-slate-400 font-medium">
+                Hati Rasmi ya Kielektroniki • Orderverify LMT
               </span>
             </div>
           </motion.div>

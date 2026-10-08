@@ -13,7 +13,6 @@ export function RegistrationVideoSection({
 
   const handleOpenFullscreen = () => {
     setIsFullscreen(true);
-    // Trigger playback directly inside user gesture so browser permits immediate unmuted playback
     if (videoRef.current) {
       if (videoRef.current.ended) {
         videoRef.current.currentTime = 0;
@@ -34,7 +33,6 @@ export function RegistrationVideoSection({
     }
   };
 
-  // Extra fallback to guarantee playback starts as soon as fullscreen state toggles
   useEffect(() => {
     if (isFullscreen && videoRef.current) {
       const playPromise = videoRef.current.play();
@@ -52,31 +50,27 @@ export function RegistrationVideoSection({
         </p>
       </div>
       
-      {/* Thumbnail / Play Button Banner */}
+      {/* Thumbnail / Play Button Banner (Bila kupakia video ya pili chini kwa chini ili kuzuia kuganda) */}
       <div 
         onClick={handleOpenFullscreen}
-        className="relative w-full aspect-video rounded-2xl overflow-hidden group shadow-xl border border-slate-800 cursor-pointer bg-[#0B0C12]"
+        className="relative w-full aspect-video rounded-2xl overflow-hidden group shadow-xl border border-slate-800 cursor-pointer bg-gradient-to-br from-[#121420] via-[#0B0C12] to-[#181B2C]"
       >
-        <div className="absolute inset-0 flex flex-col items-center justify-center z-10 bg-black/45 group-hover:bg-black/25 transition-all">
-          <div className="w-14 h-14 rounded-full bg-[#00E676] text-black flex items-center justify-center shadow-[0_0_20px_rgba(0,230,118,0.6)] group-hover:scale-110 active:scale-95 transition-transform">
-            <Play className="w-7 h-7 fill-current ml-1" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#00E676]/10 via-transparent to-black/60" />
+
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-10 p-4 text-center">
+          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#00E676] to-[#00B259] text-black flex items-center justify-center shadow-[0_0_25px_rgba(0,230,118,0.7)] group-hover:scale-110 active:scale-95 transition-all">
+            <Play className="w-8 h-8 fill-current ml-1" />
           </div>
-          <p className="text-white text-[11px] font-black mt-3 uppercase tracking-wider drop-shadow-md">
+          <p className="text-white text-xs sm:text-sm font-black mt-3 uppercase tracking-wider drop-shadow-md">
             GUSA HAPA ILI KUCHEZA VIDEO
           </p>
+          <span className="text-[10px] text-slate-400 font-bold mt-1 bg-slate-900/80 px-2.5 py-0.5 rounded-full border border-slate-700">
+            Muongozo Rasmi wa Hatua kwa Hatua
+          </span>
         </div>
-        
-        {/* Background video preview */}
-        <video 
-          src={videoSrc}
-          className="absolute inset-0 w-full h-full object-cover opacity-35"
-          muted
-          playsInline
-          preload="metadata"
-        />
       </div>
 
-      {/* Fullscreen Video Overlay (persistent in DOM so user gesture can start playback immediately) */}
+      {/* Fullscreen Video Overlay */}
       <div 
         className={`fixed inset-0 z-[10000] bg-black/95 backdrop-blur-md flex flex-col items-center justify-between p-3 sm:p-5 transition-all duration-300 ${
           isFullscreen ? 'opacity-100 pointer-events-auto visible' : 'opacity-0 pointer-events-none invisible'
@@ -103,14 +97,15 @@ export function RegistrationVideoSection({
         <div className="w-full flex-1 flex items-center justify-center my-auto min-h-0">
           <video
             ref={videoRef}
-            src={videoSrc}
+            src={isFullscreen ? videoSrc : undefined}
             controls
             playsInline
-            preload="auto"
-            className="max-h-[72vh] sm:max-h-[78vh] w-auto max-w-[95vw] sm:max-w-[420px] object-contain rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.9)] border border-slate-800 bg-black"
+            preload={isFullscreen ? "auto" : "none"}
+            controlsList="nodownload noplaybackrate"
+            className="max-h-[72vh] sm:max-h-[78vh] w-auto max-w-[95vw] sm:max-w-[420px] object-contain rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.9)] border border-slate-800 bg-black transform-gpu"
             onEnded={handleCloseFullscreen}
           >
-            <source src={videoSrc} type="video/mp4" />
+            {isFullscreen && <source src={videoSrc} type="video/mp4" />}
             Samahani, kivinjari chako hakikubali kucheza video hii.
           </video>
         </div>

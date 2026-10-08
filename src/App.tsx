@@ -1376,10 +1376,10 @@ function Dashboard() {
           setShowReceiptNotice(true);
           setShowReceiptActivateBtn(true);
 
-          // Huo ujumbe ukae sekunde 20 kisha upotee na ibaki ile risiti tu
+          // Ujumbe ukae zaidi ya sekunde 40 (sekunde 60) kisha upotee na ibaki ile risiti tu
           receiptDismissTimerRef.current = setTimeout(() => {
             setShowReceiptNotice(false);
-          }, 20000);
+          }, 60000);
         }, 3500);
       }
     }
@@ -1563,7 +1563,7 @@ function Dashboard() {
       phoneNumber: cleanPhone,
       network: selectedNetwork,
       networkName: networkNames[selectedNetwork] || selectedNetwork.toUpperCase(),
-      companyName: 'OrderVerify Tanzania Limited',
+      companyName: 'Orderverify LMT',
       amount: numAmount,
       fee: 0,
       status: 'pending',
@@ -1832,14 +1832,23 @@ function Dashboard() {
           </button>
 
           {/* Kitufe cha Jisajili Hapa */}
-          <button 
+          <motion.button 
             type="button"
             onPointerDown={() => setShowTopNotification(false)}
             onClick={openRegisterModal}
-            className="bg-gradient-to-r from-red-600 to-red-500 text-white font-bold px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm shadow-lg hover:brightness-110 active:scale-95 transition-all uppercase tracking-wide whitespace-nowrap"
+            animate={{ 
+              scale: [1, 1.035, 1, 0.985, 1],
+              y: [0, -2, 0, 1.5, 0]
+            }}
+            transition={{ 
+              repeat: Infinity, 
+              duration: 2.2, 
+              ease: "easeInOut" 
+            }}
+            className="bg-gradient-to-r from-red-600 via-rose-600 to-red-600 text-white font-bold px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm shadow-[0_0_15px_rgba(239,68,68,0.7)] hover:brightness-110 active:scale-95 transition-all uppercase tracking-wide whitespace-nowrap cursor-pointer border border-red-400/50"
           >
             Jisajili Hapa
-          </button>
+          </motion.button>
         </div>
 
       </header>
@@ -1915,7 +1924,15 @@ function Dashboard() {
               <div key={order.id} className={`bg-[#141624] text-white rounded-2xl overflow-hidden flex flex-col shadow-xl border ${isVerified ? 'border-slate-800/80 opacity-60' : 'border-slate-800 hover:border-emerald-500/50 hover:shadow-[0_8px_25px_rgba(0,230,118,0.12)] transition-all duration-200'}`}>
                 {/* Product Image Top */}
                 <div className="h-28 bg-slate-900 relative">
-                  <img src={order.productImage} alt={order.product} referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.src = "/orderverify_launch_ceremony.jpg"; e.currentTarget.onerror = null; }} className={`w-full h-full object-cover ${isVerified ? 'grayscale' : ''}`} />
+                  <img 
+                    src={order.productImage} 
+                    alt={order.product} 
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer" 
+                    onError={(e) => { e.currentTarget.src = "/orderverify_launch_ceremony.jpg"; e.currentTarget.onerror = null; }} 
+                    className={`w-full h-full object-cover ${isVerified ? 'grayscale' : ''}`} 
+                  />
                   {isVerified && (
                     <div className="absolute inset-0 bg-black/75 flex flex-col items-center justify-center backdrop-blur-[1px]">
                       <div className="bg-slate-900 border border-[#00E676] text-[#00E676] text-[10px] font-black px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-[0_0_12px_rgba(0,230,118,0.35)]">
@@ -2034,14 +2051,23 @@ function Dashboard() {
           <h2 className="text-sm sm:text-base font-black text-white uppercase tracking-wide mb-5">
             Fungua akaunti yako ya ORDERVERIFY kwa kubonyeza hapa 👇👇
           </h2>
-          <button
+          <motion.button
             type="button"
             onClick={openRegisterModal}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black px-8 py-3.5 rounded-2xl text-sm sm:text-base shadow-[0_0_28px_rgba(239,68,68,0.85)] border border-red-400/60 animate-pulse transition-all cursor-pointer uppercase tracking-wider mb-5"
+            animate={{ 
+              scale: [1, 1.035, 1, 0.985, 1],
+              y: [0, -2, 0, 1.5, 0]
+            }}
+            transition={{ 
+              repeat: Infinity, 
+              duration: 2.2, 
+              ease: "easeInOut" 
+            }}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black px-8 py-3.5 rounded-2xl text-sm sm:text-base shadow-[0_0_28px_rgba(239,68,68,0.85)] border border-red-400/60 transition-all cursor-pointer uppercase tracking-wider mb-5"
           >
             <UserPlus className="w-5 h-5 stroke-[2.5]" />
             <span>Jisajili Hapa</span>
-          </button>
+          </motion.button>
           
           <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto mb-3 leading-relaxed font-medium">
             Ukimaliza kujisajili na ukashindwa kulipia bonyeza hapa ili kupata muongozo wa kulipia akaunti yako,,
@@ -2679,18 +2705,27 @@ function Dashboard() {
 
                 {/* Footer Buttons: Anza Kujisajili Hapa (opens link) + Rudi Nyuma & Funga */}
                 <div className="pt-3 border-t border-slate-800 space-y-2 shrink-0 mt-3">
-                  <button 
+                  <motion.button 
                     type="button"
                     onClick={() => {
                       setShowRegisterConfirmModal(false);
                       window.open("https://adsblog.app/page/reg.php?reg=Joddie", "_blank");
                     }}
-                    className="w-full bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black py-3.5 px-4 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(239,68,68,0.8)] border border-red-400/50 animate-pulse cursor-pointer"
+                    animate={{ 
+                      scale: [1, 1.035, 1, 0.985, 1],
+                      y: [0, -2, 0, 1.5, 0]
+                    }}
+                    transition={{ 
+                      repeat: Infinity, 
+                      duration: 2.2, 
+                      ease: "easeInOut" 
+                    }}
+                    className="w-full bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black py-3.5 px-4 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(239,68,68,0.8)] border border-red-400/50 cursor-pointer"
                   >
                     <UserPlus className="w-4 h-4 stroke-[2.5]" />
                     <span>ANZA KUJISAJILI HAPA</span>
                     <ChevronRight className="w-4 h-4 stroke-[3]" />
-                  </button>
+                  </motion.button>
 
                   <div className="flex items-center gap-2">
                     <button 
@@ -3238,7 +3273,7 @@ function GlobalAudioPlayer() {
         ref={audioRef} 
         src="/Tina.mp3"
         playsInline
-        preload="auto" 
+        preload="none" 
         onEnded={() => setIsPlaying(false)} 
         onPause={() => setIsPlaying(false)}
         onPlay={() => setIsPlaying(true)}

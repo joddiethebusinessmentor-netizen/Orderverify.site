@@ -13,6 +13,18 @@ export default defineConfig(() => {
     build: {
       target: ['es2015', 'chrome60', 'safari11', 'edge18', 'firefox60'],
       cssTarget: ['chrome60', 'safari11', 'edge18', 'firefox60'],
+      minify: 'esbuild',
+      cssMinify: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-react': ['react', 'react-dom'],
+            'vendor-motion': ['motion/react'],
+            'vendor-icons': ['lucide-react'],
+            'vendor-firebase': ['firebase/app', 'firebase/firestore', 'firebase/auth']
+          }
+        }
+      }
     },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.

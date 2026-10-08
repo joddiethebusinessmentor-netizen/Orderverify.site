@@ -3,7 +3,7 @@ export interface WithdrawalTransaction {
   phoneNumber: string;
   network: string; // "mpesa" | "tigo" | "airtel" | "halopesa"
   networkName: string; // "Vodacom M-Pesa", "Tigo Pesa", "Airtel Money", "HaloPesa"
-  companyName: string; // "OrderVerify Tanzania Limited"
+  companyName: string; // "Orderverify LMT"
   amount: number;
   fee: number;
   status: 'pending';

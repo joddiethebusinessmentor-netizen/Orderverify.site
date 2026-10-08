@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Play, Users, X } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Play, Users, X, Video } from 'lucide-react';
 
 interface TutorialVideoSectionProps {
   whatsappUrl?: string;
@@ -13,12 +13,14 @@ export function TutorialVideoSection({
 
   const handleOpenFullscreen = () => {
     setIsFullscreen(true);
-    // Optional: play the video when the modal opens if allowed by the browser
     if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Autoplay might be blocked if not triggered directly by a user click event in some strict in-app browsers, 
-        // the user can still use the native controls.
-      });
+      if (videoRef.current.ended) {
+        videoRef.current.currentTime = 0;
+      }
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
     }
   };
 
@@ -29,6 +31,15 @@ export function TutorialVideoSection({
     }
   };
 
+  useEffect(() => {
+    if (isFullscreen && videoRef.current) {
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    }
+  }, [isFullscreen]);
+
   return (
     <div className="w-full mt-4">
       <div className="mb-3 text-center">
@@ -36,37 +47,27 @@ export function TutorialVideoSection({
           ANGALIA HII VIDEO ILI UJIFUNZE NAMNA YA KUTUMIA AKAUNTI YA ORDERVERIFY
         </p>
       </div>
+
       {/* 1. SEHEMU YA KWANZA: Banner (Thumbnail) inayovutia kwenye ukurasa */}
       <div 
         onClick={handleOpenFullscreen}
-        className="relative w-full aspect-[21/9] sm:aspect-[21/9] rounded-2xl sm:rounded-3xl overflow-hidden group shadow-2xl border border-slate-800/80 cursor-pointer bg-slate-900"
+        className="relative w-full aspect-[21/9] sm:aspect-[21/9] rounded-2xl sm:rounded-3xl overflow-hidden group shadow-2xl border border-slate-800/80 cursor-pointer bg-gradient-to-br from-[#121420] via-[#0B0C12] to-[#181B2C]"
       >
-        {/* Picha ya Nyuma (Thumbnail Simulation) */}
-        <div className="absolute inset-0 w-full h-full bg-[#181A26] flex items-center justify-center">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
-          <div className="w-full h-full opacity-40 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900/40 via-[#0B0C10] to-[#0B0C10]"></div>
-          
-          {/* Tumia video kama background kwa ukimya ili iweze kuonyesha picha (poster frame) */}
-          <video 
-            src="/Muongozo.mp4" 
-            className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-20 transition-opacity duration-300 group-hover:scale-105 pointer-events-none"
-            preload="metadata"
-            muted
-            playsInline
-          />
-        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#00E676]/10 via-transparent to-black/70" />
 
         {/* Maandishi na Kitufe cha Play */}
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-4">
-          <button 
-            type="button"
-            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#00E676] hover:bg-[#00c853] text-black flex items-center justify-center shadow-[0_0_35px_rgba(0,230,118,0.7)] transform transition-transform group-hover:scale-110 active:scale-95 cursor-pointer"
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-4 text-center">
+          <div 
+            className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[#00E676] to-[#00B259] text-black flex items-center justify-center shadow-[0_0_30px_rgba(0,230,118,0.7)] group-hover:scale-110 active:scale-95 transition-all"
           >
-            <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-current ml-1" />
-          </button>
-          <p className="text-white text-xs sm:text-sm font-black mt-3 uppercase tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
-            Bofya Kutazama Video
+            <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1" />
+          </div>
+          <p className="text-white text-xs sm:text-sm font-black mt-2.5 uppercase tracking-wider drop-shadow-md">
+            BOFYA KUTAZAMA VIDEO YA MUONGOZO
           </p>
+          <span className="text-[10px] text-slate-400 font-bold mt-1 bg-slate-900/80 px-2.5 py-0.5 rounded-full border border-slate-700">
+            Jifunze Hatua kwa Hatua
+          </span>
         </div>
       </div>
 
@@ -85,54 +86,55 @@ export function TutorialVideoSection({
 
       {/* 2. MTUMIAJI AKIBONYEZA PLAY: Fullscreen Mode */}
       <div 
-        className={`fixed inset-0 z-[9999] bg-black/95 backdrop-blur-md flex flex-col items-center justify-center select-none transition-all duration-300 p-2 sm:p-4 ${
+        className={`fixed inset-0 z-[9999] bg-black/95 backdrop-blur-md flex flex-col items-center justify-between p-3 sm:p-5 transition-all duration-300 ${
           isFullscreen ? 'opacity-100 pointer-events-auto visible' : 'opacity-0 pointer-events-none invisible'
         }`}
       >
         {/* Fullscreen Header na Kitufe cha Kufunga */}
-        <div className="absolute top-0 left-0 right-0 z-30 px-4 py-3 sm:py-4 flex items-center justify-between bg-gradient-to-b from-black/90 via-black/50 to-transparent">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#00E676] animate-pulse" />
-            <span className="text-xs sm:text-sm font-black text-white tracking-wider uppercase">
-              ORDERVERIFY - MUONGOZO
+        <div className="w-full z-20 flex justify-between items-center py-2 px-1 max-w-2xl mx-auto">
+          <div className="flex items-center gap-2 text-white">
+            <Video className="w-5 h-5 text-[#00E676]" />
+            <span className="text-xs sm:text-sm font-black uppercase tracking-wider">
+              ORDERVERIFY - MUONGOZO WA WEBSITE
             </span>
           </div>
           
           <button 
             type="button"
             onClick={handleCloseFullscreen}
-            className="p-2 sm:p-2.5 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 text-white transition-all cursor-pointer backdrop-blur-sm flex items-center gap-1.5"
+            className="p-2 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 text-white transition-all flex items-center gap-1.5 cursor-pointer"
             aria-label="Funga video"
           >
-            <X className="w-5 h-5 sm:w-6 sm:h-6" />
-            <span className="text-xs font-bold hidden xs:inline pr-1">Funga</span>
+            <X className="w-6 h-6" />
+            <span className="text-xs font-bold pr-1">Funga</span>
           </button>
         </div>
 
-        {/* Video Player Frame - Local HTML5 Video (Mobile & In-App Browser Compatible) */}
-        <div className="relative w-full max-w-[380px] sm:max-w-[400px] aspect-[9/16] max-h-[85vh] sm:max-h-[88vh] flex items-center justify-center rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.95)] bg-black border border-slate-800 mx-auto mt-12">
-          {/* Render the video element directly. Native controls bypass in-app browser restrictions */}
+        {/* Video Player Frame */}
+        <div className="w-full flex-1 flex items-center justify-center my-auto min-h-0">
           <video
             ref={videoRef}
-            src="/Muongozo.mp4"
+            src={isFullscreen ? "/Muongozo.mp4" : undefined}
             controls
             playsInline
-            preload="metadata"
+            preload={isFullscreen ? "auto" : "none"}
+            controlsList="nodownload noplaybackrate"
             onEnded={handleCloseFullscreen}
-            className="w-full h-full object-contain"
+            className="max-h-[72vh] sm:max-h-[78vh] w-auto max-w-[95vw] sm:max-w-[420px] object-contain rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.9)] border border-slate-800 bg-black transform-gpu"
           >
-            <source src="/Muongozo.mp4" type="video/mp4" />
+            {isFullscreen && <source src="/Muongozo.mp4" type="video/mp4" />}
             Samahani, kivinjari chako hakikubali kucheza video hii.
           </video>
         </div>
         
-        <div className="mt-6 text-center w-full">
-           <button 
+        {/* Bottom CTA Button */}
+        <div className="w-full max-w-md mx-auto pt-3 pb-2 flex justify-center">
+          <button 
             type="button"
             onClick={handleCloseFullscreen}
-            className="px-6 py-2 bg-white/10 hover:bg-white/20 active:bg-white/30 rounded-xl font-bold text-white transition-all cursor-pointer inline-flex items-center gap-2"
+            className="w-full sm:w-auto px-8 py-3 bg-[#00E676] hover:bg-[#00c853] text-black font-black rounded-2xl shadow-xl active:scale-95 transition-all uppercase text-xs tracking-wider cursor-pointer text-center"
           >
-            <X className="w-4 h-4" /> Funga Video
+            Funga Video & Rudi Kwenye Tovuti
           </button>
         </div>
       </div>
