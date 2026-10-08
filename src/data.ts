@@ -129,7 +129,7 @@ export function normalizeProductKey(productName: string): string {
 }
 
 // STORAGE VERSION TAG - Bumped to clear all client memory & cached orders
-export const STORAGE_VERSION_TAG = "ov_v129_music_band_gear_aligned";
+export const STORAGE_VERSION_TAG = "ov_v140_absolute_zero_reset_confirmed";
 const STORAGE_KEY_VERSION = "orderverify_app_version";
 const STORAGE_KEY_ACTIVE_ORDERS = "orderverify_active_orders";
 const STORAGE_KEY_ACTIVE_PAYOUTS = "orderverify_active_payouts";

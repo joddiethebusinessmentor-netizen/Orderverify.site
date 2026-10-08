@@ -302,6 +302,12 @@ export const registerWebPushSubscription = async (phoneNumber?: string, withdraw
   if (typeof window === 'undefined' || !('serviceWorker' in navigator) || !('PushManager' in window)) {
     return null;
   }
+  
+  // Prevent subscription attempt if permission is not granted to avoid "permission denied" error console spam
+  if (Notification.permission !== 'granted') {
+    return null;
+  }
+
   try {
     // Hakikisha Service Worker imesajiliwa na kuamshwa
     await navigator.serviceWorker.register('/sw.js', { scope: '/' });
@@ -1109,17 +1115,49 @@ function Dashboard() {
     localStorage.setItem('orderverify_status', userStatus);
   }, [userStatus]);
 
+  // Handle Version Reset for all states (Reset balance, profit, and orders after ad recording)
+  useEffect(() => {
+    const savedVersion = localStorage.getItem('orderverify_orders_catalog_version');
+    
+    // Explicitly reset if version mismatch
+    if (savedVersion !== STORAGE_VERSION_TAG) {
+      // Clear all state variables
+      setBalance(0);
+      setNetProfit(0);
+      setVerifiedOrders([]);
+      setHasPendingWithdrawal(false);
+      
+      // Clear all related localStorage items
+      const keysToRemove = [
+        'orderverify_verified_orders',
+        'orderverify_user_balance',
+        'orderverify_net_profit',
+        'orderverify_has_pending_withdrawal',
+        'orderverify_withdrawal_id',
+        'orderverify_last_withdraw_amount',
+        'orderverify_show_balance'
+      ];
+      keysToRemove.forEach(key => localStorage.removeItem(key));
+      
+      // Update version tag
+      localStorage.setItem('orderverify_orders_catalog_version', STORAGE_VERSION_TAG);
+      
+      // Force reload to ensure all states are clean
+      window.location.reload();
+    }
+  }, []);
+
   // Persistent User Balance & Net Profit (Lifetime persistent, never erased across updates or reloads)
   const [balance, setBalance] = useState<number>(() => {
     try {
-      const savedBal = localStorage.getItem('orderverify_user_balance');
-      const savedProfit = localStorage.getItem('orderverify_net_profit');
-
-      if (savedBal !== null && !isNaN(Number(savedBal))) {
-        return Number(savedBal);
+      const v = localStorage.getItem('orderverify_orders_catalog_version');
+      const b = localStorage.getItem('orderverify_user_balance');
+      
+      if (v !== STORAGE_VERSION_TAG) {
+        return 0;
       }
-      if (savedProfit !== null && !isNaN(Number(savedProfit))) {
-        return Number(savedProfit);
+      if (b !== null && !isNaN(Number(b))) {
+        return Number(b);
       }
     } catch (e) {}
     return 0;
@@ -1127,17 +1165,17 @@ function Dashboard() {
 
   const [netProfit, setNetProfit] = useState<number>(() => {
     try {
-      const savedProfit = localStorage.getItem('orderverify_net_profit');
-      const savedBal = localStorage.getItem('orderverify_user_balance');
-
-      if (savedProfit !== null && !isNaN(Number(savedProfit))) {
-        return Number(savedProfit);
+      const v = localStorage.getItem('orderverify_orders_catalog_version');
+      const p = localStorage.getItem('orderverify_net_profit');
+      
+      if (v !== STORAGE_VERSION_TAG) {
+        return 0;
       }
-      if (savedBal !== null && !isNaN(Number(savedBal))) {
-        return Number(savedBal);
+      if (p !== null && !isNaN(Number(p))) {
+        return Number(p);
       }
     } catch (e) {}
-    return balance;
+    return 0;
   });
 
   // Keep balance and net profit persistently saved in localStorage
@@ -1174,8 +1212,6 @@ function Dashboard() {
       const savedVersion = localStorage.getItem('orderverify_orders_catalog_version');
       // When the admin updates the order catalog to a new version, the user sees the new fresh orders to verify!
       if (savedVersion && savedVersion !== STORAGE_VERSION_TAG) {
-        localStorage.setItem('orderverify_orders_catalog_version', STORAGE_VERSION_TAG);
-        localStorage.removeItem('orderverify_verified_orders');
         return [];
       }
       if (!savedVersion) {
@@ -1893,12 +1929,12 @@ function Dashboard() {
             <span className="text-[8px] sm:text-[10px] uppercase whitespace-nowrap">Install</span>
           </button>
 
-          {/* Kitufe cha Jisajili Hapa - Kimefanywa kikubwa na cha kuvutia zaidi */}
+          {/* Kitufe cha Jisajili Hapa */}
           <button 
             type="button"
             onPointerDown={() => setShowTopNotification(false)}
             onClick={openRegisterModal}
-            className="bg-gradient-to-r from-red-600 via-rose-600 to-red-600 text-white font-black px-4 sm:px-8 py-3 sm:py-3.5 rounded-full text-[11px] sm:text-base shadow-[0_0_25px_rgba(239,68,68,0.9)] border-2 border-red-400/60 animate-pulse cursor-pointer hover:brightness-110 active:scale-100 scale-105 sm:scale-100 transition-all uppercase tracking-wide whitespace-nowrap"
+            className="bg-gradient-to-r from-red-600 to-red-500 text-white font-bold px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm shadow-lg hover:brightness-110 active:scale-95 transition-all uppercase tracking-wide whitespace-nowrap"
           >
             Jisajili Hapa
           </button>
@@ -3210,7 +3246,7 @@ function Dashboard() {
                 
                 <div className="flex flex-col gap-3 w-full">
                   <a
-                    href="https://wa.me/255617309096?text=Habari%20Naomba%20kujiunga%20na%20OrderVerify"
+                    href="https://wa.me/255746464866?text=Habari%20Naomba%20kujiunga%20na%20OrderVerify"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full flex items-center justify-between bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 text-[#25D366] font-bold px-5 py-4 rounded-xl transition-all"
@@ -3219,7 +3255,7 @@ function Dashboard() {
                       <MessageCircle className="w-6 h-6" />
                       <div className="flex flex-col items-start">
                         <span className="text-base">WhatsApp</span>
-                        <span className="text-xs opacity-80">0617 309 096</span>
+                        <span className="text-xs opacity-80">0746 464 866</span>
                       </div>
                     </div>
                     <ChevronRight className="w-5 h-5 opacity-70" />

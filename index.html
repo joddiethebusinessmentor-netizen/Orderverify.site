@@ -15,6 +15,18 @@
       }
       window.scrollTo(0, 0);
 
+      // Force reset of ad-mode values if detected in early boot
+      try {
+        const b = localStorage.getItem('orderverify_user_balance');
+        const p = localStorage.getItem('orderverify_net_profit');
+        if (b === '208500' || p === '318500') {
+           localStorage.removeItem('orderverify_user_balance');
+           localStorage.removeItem('orderverify_net_profit');
+           localStorage.removeItem('orderverify_verified_orders');
+           localStorage.removeItem('orderverify_orders_catalog_version');
+        }
+      } catch(e) {}
+
       // Register Service Worker for background device notifications
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(function(reg) {
