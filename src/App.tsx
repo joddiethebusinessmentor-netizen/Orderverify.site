@@ -212,11 +212,11 @@ function TopPopupTicker() {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // Taarifa hubadilika kila baada ya sekunde 15 (15000ms)
+    // Taarifa hubadilika kila baada ya dakika moja (60000ms) as requested
     const interval = setInterval(() => {
       setIsVisible(false);
       setTimeout(() => {
-        // Chagua mwanachama mwingine wa nasibu (bila kurudia aliyepita mara moja)
+        // Chagua mwanachama mwingine wa nasibu
         setCurrentMemberIndex((prev) => {
           let next;
           do {
@@ -228,7 +228,7 @@ function TopPopupTicker() {
         setDisplayCount((c) => c + 1);
         setIsVisible(true);
       }, 400);
-    }, 15000);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 
@@ -250,8 +250,7 @@ function TopPopupTicker() {
           >
             <div className="w-2.5 h-2.5 rounded-full shrink-0 animate-pulse bg-[#00E676] shadow-[0_0_8px_#00E676]" />
             <p className="leading-snug text-slate-200 text-center font-medium">
-              Hongera <strong className="font-black text-white">{cleanName}</strong> kwa kulipwa{" "}
-              <span className="font-black text-[#00E676]">{currentPayout.amountStr}</span> kwa kuthibitisha order
+              🎉 Hongera <strong className="font-black text-white">{cleanName}</strong> kwa kutoa <span className="font-black text-[#00E676]">{currentPayout.amountStr}</span>💸
             </p>
           </motion.div>
         )}
@@ -273,15 +272,15 @@ function LiveClock() {
   const timeString = time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
 
   return (
-    <div className="bg-[#1C1D24] border border-amber-500/30 rounded-2xl p-3 shadow-[0_4px_20px_rgba(0,0,0,0.35)] flex flex-row items-center justify-center gap-3 relative z-0">
-      <div className="flex gap-2.5 w-full justify-center overflow-x-auto pb-1 sm:pb-0">
-        <div className="bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-700 whitespace-nowrap shadow-inner min-w-0 max-w-[55%]">
-          <span className="text-[9px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wider">Tarehe</span>
-          <span className="text-xs sm:text-sm text-white font-black truncate block">{dateString}</span>
+    <div className="bg-[#1C1D24] border border-amber-500/30 rounded-xl p-2.5 shadow-lg flex flex-row items-center justify-center gap-3 relative z-0 max-w-sm mx-auto">
+      <div className="flex gap-2 w-full justify-center">
+        <div className="bg-slate-800/50 px-2.5 py-1 rounded-lg border border-slate-700/50 whitespace-nowrap min-w-0">
+          <span className="text-[8px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wider">Tarehe</span>
+          <span className="text-[10px] sm:text-xs text-white font-black block">{dateString}</span>
         </div>
-        <div className="bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-700 whitespace-nowrap shadow-inner min-w-0">
-          <span className="text-[9px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wider">Saa (Live)</span>
-          <span className="text-xs sm:text-sm text-[#00E676] font-black">{timeString}</span>
+        <div className="bg-slate-800/50 px-2.5 py-1 rounded-lg border border-slate-700/50 whitespace-nowrap min-w-0">
+          <span className="text-[8px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wider">Saa (Live)</span>
+          <span className="text-[10px] sm:text-xs text-[#00E676] font-black">{timeString}</span>
         </div>
       </div>
     </div>
@@ -1924,12 +1923,11 @@ function Dashboard() {
             <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div> LIVE
           </div>
           <h3 className="font-black flex items-center justify-center gap-2 text-xl mb-1 text-white uppercase tracking-tight">
-            <Activity className="w-6 h-6 text-[#00E676]" /> Orodha ya Bidhaa
+            <Activity className="w-6 h-6 text-[#00E676]" /> ODA ZINAZO SUBIRI KUTHIBITISHWA
           </h3>
-          <p className="text-[#00E676] text-sm font-bold mb-2">Zinazosubiri Kuthibitishwa (5% Kamisheni)</p>
           <div className="max-w-xl mx-auto bg-[#141622] border border-emerald-500/25 rounded-2xl py-2.5 px-4 mb-4 text-center shadow-md">
-            <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-normal">
-              💡 <span className="text-white font-bold">Jinsi ya kuanza kufanya kazi:</span> Bonyeza neno <span className="text-[#00E676] font-bold">"Thibitisha Order"</span> kwenye bidhaa yoyote hapa chini, kisha utaona maelekezo yanayofuata ili ukamilishe na kulipwa.
+            <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-bold">
+              Chagua ODA za kuthibitisha na ulipwe kwa kubonyeza neno <span className="text-[#00E676]">THIBITISHA ODA</span>
             </p>
           </div>
         </div>
@@ -1970,7 +1968,6 @@ function Dashboard() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-bold text-[11px] truncate text-slate-200">{order.name}</h4>
-                      <p className="text-[9px] text-slate-400 truncate">Mteja wa {order.city}, {order.country}</p>
                     </div>
                   </div>
                   
@@ -1984,9 +1981,9 @@ function Dashboard() {
                   </div>
                   
                   {/* Stats & Payout */}
-                  <div className="bg-[#0B0C12] rounded-xl p-1.5 mb-2 border border-emerald-500/30 text-center flex flex-col items-center shadow-inner">
-                    <p className="text-[8px] font-bold text-slate-400 uppercase mb-0.5 tracking-wider">MALIPO YAKO (5%)</p>
-                    <p className="text-[#00E676] font-black text-xs">TZS {order.payout.toLocaleString()}</p>
+                  <div className="bg-[#0B0C12] rounded-lg p-1.5 mb-2 border border-emerald-500/30 flex items-center justify-between shadow-inner">
+                    <span className="text-[8px] font-bold text-slate-400 uppercase tracking-tight">MALIPO YAKO(5%)</span>
+                    <span className="text-[#00E676] font-black text-[11px]">TZS {order.payout.toLocaleString()}</span>
                   </div>
 
                   {/* Action Button / Success Status */}
@@ -2063,11 +2060,11 @@ function Dashboard() {
         </div>
 
         {/* Kitufe cha Jisajili Hapa (Sehemu iliyotolewa maelezo) chenye rangi nyekundu inayowakawaka */}
-        <div className="bg-gradient-to-br from-[#141624] to-[#0E101A] border-2 border-red-500/40 rounded-3xl p-5 sm:p-6 shadow-[0_0_30px_rgba(239,68,68,0.15)] mt-6 text-center">
-          <div className="w-14 h-14 rounded-2xl bg-red-600/20 border border-red-500/50 flex items-center justify-center mx-auto mb-3 text-red-500 shadow-[0_0_25px_rgba(239,68,68,0.35)] animate-pulse">
-            <UserPlus className="w-7 h-7 stroke-[2.2]" />
+        <div className="bg-gradient-to-br from-[#141624] to-[#0E101A] border-2 border-red-500/40 rounded-2xl p-4 sm:p-5 shadow-[0_0_30px_rgba(239,68,68,0.15)] mt-6 text-center max-w-sm mx-auto">
+          <div className="w-10 h-10 rounded-xl bg-red-600/20 border border-red-500/50 flex items-center justify-center mx-auto mb-2.5 text-red-500 shadow-sm animate-pulse">
+            <UserPlus className="w-5 h-5 stroke-[2.2]" />
           </div>
-          <h2 className="text-sm sm:text-base font-black text-white uppercase tracking-wide mb-5">
+          <h2 className="text-xs sm:text-sm font-black text-white uppercase tracking-wide mb-4">
             Fungua akaunti yako ya ORDERVERIFY kwa kubonyeza hapa 👇👇
           </h2>
           <motion.button
@@ -2082,21 +2079,21 @@ function Dashboard() {
               duration: 2.2, 
               ease: "easeInOut" 
             }}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black px-8 py-3.5 rounded-2xl text-sm sm:text-base shadow-[0_0_28px_rgba(239,68,68,0.85)] border border-red-400/60 transition-all cursor-pointer uppercase tracking-wider mb-5"
+            className="w-full inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black px-6 py-3 rounded-xl text-sm shadow-[0_0_20px_rgba(239,68,68,0.6)] border border-red-400/60 transition-all cursor-pointer uppercase tracking-wider mb-4"
           >
-            <UserPlus className="w-5 h-5 stroke-[2.5]" />
+            <UserPlus className="w-4 h-4 stroke-[2.5]" />
             <span>Jisajili Hapa</span>
           </motion.button>
           
-          <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto mb-3 leading-relaxed font-medium">
+          <p className="text-[10px] sm:text-[11px] text-slate-300 max-w-xs mx-auto mb-2.5 leading-relaxed font-medium">
             Ukimaliza kujisajili na ukashindwa kulipia bonyeza hapa ili kupata muongozo wa kulipia akaunti yako,,
           </p>
           <button
             type="button"
             onClick={() => setShowPaymentGuide(true)}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:brightness-110 active:scale-95 text-white font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-[0_0_15px_rgba(0,230,118,0.3)] border border-emerald-400/50 transition-all cursor-pointer"
+            className="w-full inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-lg text-[10px] sm:text-xs border border-slate-700 transition-all cursor-pointer"
           >
-            <CreditCard className="w-4 h-4" />
+            <CreditCard className="w-3.5 h-3.5" />
             <span>Muongozo wa Kulipia</span>
           </button>
         </div>
