@@ -15,14 +15,18 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // VAPID Credentials for Web Push
-const VAPID_PUBLIC_KEY = (process.env.VAPID_PUBLIC_KEY || 'BJG0Zv0mii8Cd7AX7Ob0p30z8xiqm3VY5sLqN67WD0iVSXJZGIAC9G8hZ68U59bC7XJ1d2BggMGgnz5mvlZX8vA').trim();
-const VAPID_PRIVATE_KEY = (process.env.VAPID_PRIVATE_KEY || 'yvjKnDqjOpnmoObk3W1E5m9w4zjchGdM6GrQiFuH2N4').trim();
+const VAPID_PUBLIC_KEY = (process.env.VAPID_PUBLIC_KEY || 'BJ5U9OKm-24u0KZvOFJ036vp7xjl8jSSsiEj1J4m7mgAjkx7PIimRbrxAhseu2qRK41DBT4qZ4F7p12hTq1O5yc').trim();
+const VAPID_PRIVATE_KEY = (process.env.VAPID_PRIVATE_KEY || 'RnmQUbJ8ZA7LZctV0Gh5YCQBUhmSc_MlFoUUtgN70MY').trim();
 
-webpush.setVapidDetails(
-  'mailto:zuhurasalum186@gmail.com',
-  VAPID_PUBLIC_KEY,
-  VAPID_PRIVATE_KEY
-);
+try {
+  webpush.setVapidDetails(
+    'mailto:zuhurasalum186@gmail.com',
+    VAPID_PUBLIC_KEY,
+    VAPID_PRIVATE_KEY
+  );
+} catch (e) {
+  console.warn('VAPID setup notice:', e);
+}
 
 // In-memory & file storage for push subscriptions
 const SUBS_FILE = path.join(__dirname, 'subscriptions.json');

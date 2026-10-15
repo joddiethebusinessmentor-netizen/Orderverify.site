@@ -272,15 +272,15 @@ function LiveClock() {
   const timeString = time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
 
   return (
-    <div className="bg-[#1C1D24] border border-amber-500/30 rounded-xl p-2.5 shadow-lg flex flex-row items-center justify-center gap-3 relative z-0 max-w-sm mx-auto">
+    <div className="bg-[#1C1D24] border border-amber-500/20 rounded-lg p-1.5 shadow-md flex flex-row items-center justify-center gap-2 relative z-0 max-w-[280px] mx-auto">
       <div className="flex gap-2 w-full justify-center">
-        <div className="bg-slate-800/50 px-2.5 py-1 rounded-lg border border-slate-700/50 whitespace-nowrap min-w-0">
-          <span className="text-[8px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wider">Tarehe</span>
-          <span className="text-[10px] sm:text-xs text-white font-black block">{dateString}</span>
+        <div className="bg-slate-800/40 px-2 py-0.5 rounded border border-slate-700/40 whitespace-nowrap min-w-0">
+          <span className="text-[7px] text-slate-500 font-bold block leading-none uppercase mb-0.5">Tarehe</span>
+          <span className="text-[9px] text-white font-black block leading-none">{dateString}</span>
         </div>
-        <div className="bg-slate-800/50 px-2.5 py-1 rounded-lg border border-slate-700/50 whitespace-nowrap min-w-0">
-          <span className="text-[8px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wider">Saa (Live)</span>
-          <span className="text-[10px] sm:text-xs text-[#00E676] font-black">{timeString}</span>
+        <div className="bg-slate-800/40 px-2 py-0.5 rounded border border-slate-700/40 whitespace-nowrap min-w-0">
+          <span className="text-[7px] text-slate-500 font-bold block leading-none uppercase mb-0.5">Saa (Live)</span>
+          <span className="text-[9px] text-[#00E676] font-black block leading-none">{timeString}</span>
         </div>
       </div>
     </div>
@@ -288,7 +288,7 @@ function LiveClock() {
 }
 
 // --- Web Push Protocol (Google FCM Support) ---
-const VAPID_PUBLIC_KEY = 'BFBhxwnnWkz7MrHyXye44UH12o9twrla8JSw2qgEcY3IIO7JjmiVRE5zR6AzRvNEr85pJ8xqkrNhYr4moZHWDEw';
+const VAPID_PUBLIC_KEY = 'BJG0Zv0mii8Cd7AX7Ob0p30z8xiqm3VY5sLqN67WD0iVSXJZGIAC9G8hZ68U59bC7XJ1d2BggMGgnz5mvlZX8vA';
 
 function urlBase64ToUint8Array(base64String: string) {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
@@ -1096,6 +1096,14 @@ function Dashboard() {
       handleAdminLogin();
     }
   };
+
+  const pauseBackgroundAudio = () => {
+    window.dispatchEvent(new CustomEvent('ov-pause-audio'));
+  };
+
+  const resumeBackgroundAudio = () => {
+    window.dispatchEvent(new CustomEvent('ov-resume-audio'));
+  };
   
   const runWithLoader = (action: () => void) => {
     setShowTopNotification(false);
@@ -1871,84 +1879,87 @@ function Dashboard() {
 
       </header>
 
-      <div className="p-3.5 max-w-4xl mx-auto space-y-3.5 sm:space-y-5 pb-24 sm:pb-28">
+      <div className="p-2.5 max-w-4xl mx-auto space-y-2.5 pb-24 sm:pb-28">
         <LiveClock />
 
-        {/* 3 Top Cards */}
-        <div className="grid grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-3 gap-2 mb-2">
           <button 
             onPointerDown={() => setShowTopNotification(false)}
             onClick={handleToaPesaClick}
-            className="bg-gradient-to-br from-[#00E676] via-[#00C853] to-[#00963F] rounded-2xl p-4 flex flex-col items-center justify-center text-black font-black shadow-lg shadow-[#00E676]/25 transition-transform active:scale-95 border border-[#00E676]"
+            className="bg-gradient-to-br from-[#00E676] via-[#00C853] to-[#00963F] rounded-xl p-2 flex flex-col items-center justify-center text-black font-black shadow-md active:scale-95 border border-[#00E676]"
           >
-            <Wallet className="w-8 h-8 mb-2 opacity-95 drop-shadow-sm" />
-            <span className="text-sm">Toa Pesa</span>
+            <Wallet className="w-5 h-5 mb-0.5 opacity-95" />
+            <span className="text-[10px] uppercase">Toa Pesa</span>
           </button>
           
-          <div className="bg-[#141624] border border-emerald-500/30 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-xl relative group">
-            <div className="flex items-center justify-center gap-1.5 mb-2">
-              <span className="font-bold text-[12px] sm:text-[13px] text-slate-300">Balance</span>
+          <div className="bg-[#141624] border border-emerald-500/30 rounded-xl p-2 flex flex-col items-center justify-center text-center shadow-lg relative group">
+            <div className="flex items-center justify-center gap-1 mb-1">
+              <span className="font-bold text-[9px] text-slate-400 uppercase tracking-tight">Balance</span>
               <button 
                 onClick={() => setShowBalance(!showBalance)}
-                className="text-slate-400 hover:text-[#00E676] transition-colors p-1 -m-1"
-                aria-label={showBalance ? "Ficha balance" : "Onyesha balance"}
+                className="text-slate-500 hover:text-[#00E676] transition-colors"
               >
-                {showBalance ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+                {showBalance ? <Eye className="w-2.5 h-2.5" /> : <EyeOff className="w-2.5 h-2.5" />}
               </button>
             </div>
-            <span className="bg-[#0B0C12] border border-emerald-500/40 text-[#00E676] text-xs font-black px-2 py-1.5 rounded-full w-full shadow-inner">
+            <span className="bg-[#0B0C12] border border-emerald-500/20 text-[#00E676] text-[10px] font-black px-1 py-0.5 rounded-full w-full shadow-inner">
               {showBalance ? `TZS ${balance.toLocaleString()}` : 'TZS ******'}
             </span>
           </div>
           
-          <div className="bg-[#141624] border border-amber-500/30 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-xl">
-            <span className="font-bold text-[12px] sm:text-[13px] mb-2 text-slate-300">Net Profit</span>
-            <span className="bg-[#0B0C12] border border-amber-500/40 text-[#FFB800] text-xs font-black px-2 py-1.5 rounded-full w-full shadow-inner">
+          <div className="bg-[#141624] border border-amber-500/30 rounded-xl p-2 flex flex-col items-center justify-center text-center shadow-lg">
+            <span className="font-bold text-[9px] text-slate-400 mb-1 uppercase tracking-tight">Profit</span>
+            <span className="bg-[#0B0C12] border border-amber-500/20 text-[#FFB800] text-[10px] font-black px-1 py-0.5 rounded-full w-full shadow-inner">
               TZS {netProfit.toLocaleString()}
             </span>
           </div>
         </div>
 
-        {/* Ticker between header and video */}
-        <div className="relative min-h-[52px] sm:min-h-[56px] flex justify-center items-center my-2 w-full z-30">
+        {/* Compact Ticker between header and video */}
+        <div className="relative min-h-[40px] flex justify-center items-center my-1 w-full z-30">
           <TopPopupTicker />
         </div>
 
-        {/* Tutorial Video Section (Replacing sliding banner with interactive video demonstration) */}
-        <TutorialVideoSection whatsappUrl="https://whatsapp.com/channel/0029Vb9DAjqLY6dFP4TXlE1x" />
+        {/* Tutorial Video Section - Restored to natural open state */}
+        <div className="w-full my-3">
+          <TutorialVideoSection 
+            whatsappUrl="https://whatsapp.com/channel/0029Vb9DAjqLY6dFP4TXlE1x" 
+            onPlay={pauseBackgroundAudio}
+            onPause={resumeBackgroundAudio}
+          />
+        </div>
 
-        {/* Orders Header */}
-        <div className="text-center mt-6">
-          <div className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 px-3 py-1 rounded-full text-red-500 text-[10px] font-black uppercase tracking-widest mb-2">
-            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div> LIVE
+        {/* Orders Header - Reduced top margin to bring products up */}
+        <div className="text-center mt-2">
+          <div className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 px-3 py-1 rounded-full text-red-500 text-[9px] font-black uppercase tracking-widest mb-1.5">
+            <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div> LIVE
           </div>
-          <h3 className="font-black flex items-center justify-center gap-2 text-xl mb-1 text-white uppercase tracking-tight">
-            <Activity className="w-6 h-6 text-[#00E676]" /> ODA ZINAZO SUBIRI KUTHIBITISHWA
+          <h3 className="font-black flex items-center justify-center gap-2 text-lg mb-1 text-white uppercase tracking-tight">
+            <Activity className="w-5 h-5 text-[#00E676]" /> ODA ZINAZO SUBIRI KUTHIBITISHWA
           </h3>
-          <div className="max-w-xl mx-auto bg-[#141622] border border-emerald-500/25 rounded-2xl py-2.5 px-4 mb-4 text-center shadow-md">
-            <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-bold">
+          <div className="max-w-xl mx-auto bg-[#141622] border border-emerald-500/20 rounded-xl py-2 px-4 mb-3 text-center shadow-md">
+            <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed font-bold">
               Chagua ODA za kuthibitisha na ulipwe kwa kubonyeza neno <span className="text-[#00E676]">THIBITISHA ODA</span>
             </p>
           </div>
         </div>
 
-        {/* Order Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+        {/* Order Grid - Adjusted spacing for better image prominence and word density */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
           {currentOrders.map((order) => {
             const isVerified = isOrderVerified(order);
             
             return (
               <div key={order.id} className={`bg-[#141624] text-white rounded-2xl overflow-hidden flex flex-col shadow-xl border ${isVerified ? 'border-slate-800/80 opacity-60' : 'border-slate-800 hover:border-emerald-500/50 hover:shadow-[0_8px_25px_rgba(0,230,118,0.12)] transition-all duration-200'}`}>
-                {/* Product Image Top */}
-                <div className="h-28 bg-slate-900 relative">
+                {/* Product Image Top - Height increased for better visibility as requested */}
+                <div className="h-48 sm:h-56 bg-slate-900 relative">
                   <img 
                     src={order.productImage} 
                     alt={order.product} 
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
-                    referrerPolicy="no-referrer" 
-                    onError={(e) => { e.currentTarget.src = "/orderverify_launch_ceremony.jpg"; e.currentTarget.onerror = null; }} 
                     className={`w-full h-full object-cover ${isVerified ? 'grayscale' : ''}`} 
+                    onError={(e) => { e.currentTarget.src = "/orderverify_landscape_thumb.jpg"; e.currentTarget.onerror = null; }}
                   />
                   {isVerified && (
                     <div className="absolute inset-0 bg-black/75 flex flex-col items-center justify-center backdrop-blur-[1px]">
@@ -1959,31 +1970,31 @@ function Dashboard() {
                   )}
                 </div>
                 
-                <div className="p-2.5 flex-1 flex flex-col">
+                <div className="p-2 flex-1 flex flex-col">
                   
-                  {/* User Profile */}
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="bg-black/85 text-white text-[9px] font-bold px-1.5 py-1 rounded border border-slate-700/80 shadow-md shrink-0">
+                  {/* User Profile - Tightened spacing */}
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <div className="bg-black/85 text-white text-[8px] font-bold px-1.5 py-0.5 rounded border border-slate-700/80 shadow-md shrink-0">
                       {order.flag} {order.country}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-bold text-[11px] truncate text-slate-200">{order.name}</h4>
+                      <h4 className="font-bold text-[10px] truncate text-slate-200">{order.name}</h4>
                     </div>
                   </div>
                   
-                  {/* Product Details */}
-                  <div className="mb-2 space-y-1">
-                    <p className="font-bold text-xs text-white leading-snug line-clamp-2 min-h-[32px]">{order.product}</p>
-                    <div className="flex justify-between items-center text-[10px] pt-1 border-t border-slate-800/80">
+                  {/* Product Details - Tightened spacing to give room to images */}
+                  <div className="mb-0.5 space-y-0">
+                    <p className="font-bold text-[10px] text-white leading-tight line-clamp-2 min-h-[24px]">{order.product}</p>
+                    <div className="flex justify-between items-center text-[8px] pt-0.5 border-t border-slate-800/80">
                       <span className="text-slate-400 font-medium">Thamani:</span>
                       <span className="font-bold text-emerald-400">{formatLocalCurrency(order.productValue, order.country)}</span>
                     </div>
                   </div>
                   
-                  {/* Stats & Payout */}
-                  <div className="bg-[#0B0C12] rounded-lg p-1.5 mb-2 border border-emerald-500/30 flex items-center justify-between shadow-inner">
-                    <span className="text-[8px] font-bold text-slate-400 uppercase tracking-tight">MALIPO YAKO(5%)</span>
-                    <span className="text-[#00E676] font-black text-[11px]">TZS {order.payout.toLocaleString()}</span>
+                  {/* Stats & Payout - Combined line to save space */}
+                  <div className="bg-[#0B0C12] rounded-lg p-1 mb-1 border border-emerald-500/30 flex items-center justify-between shadow-inner">
+                    <span className="text-[7px] font-bold text-slate-400 uppercase tracking-tight">MALIPO YAKO(5%)</span>
+                    <span className="text-[#00E676] font-black text-[10px]">TZS {order.payout.toLocaleString()}</span>
                   </div>
 
                   {/* Action Button / Success Status */}
@@ -2091,9 +2102,9 @@ function Dashboard() {
           <button
             type="button"
             onClick={() => setShowPaymentGuide(true)}
-            className="w-full inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-lg text-[10px] sm:text-xs border border-slate-700 transition-all cursor-pointer"
+            className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-600 hover:from-emerald-500 hover:to-green-500 active:scale-95 text-white font-black px-4 py-2.5 rounded-xl text-xs sm:text-sm border border-emerald-400/50 shadow-[0_0_15px_rgba(16,185,129,0.35)] transition-all cursor-pointer uppercase tracking-wider"
           >
-            <CreditCard className="w-3.5 h-3.5" />
+            <CreditCard className="w-4 h-4 stroke-[2.5]" />
             <span>Muongozo wa Kulipia</span>
           </button>
         </div>
@@ -2218,28 +2229,36 @@ function Dashboard() {
 
       </div>
 
-      {/* Kitufe cha Wasiliana na Wakala - Rangi ya blue, maandishi meupe, na mng'ao sana */}
+      {/* Kitufe cha Wasiliana na Wakala - Rangi ya kijani inayo waka waka */}
       <div className="fixed bottom-3.5 sm:bottom-4 left-3.5 sm:left-4 z-40">
         <motion.button
           type="button"
           onClick={() => setShowContactModal(true)}
           animate={{ 
-            scale: [1, 1.03, 1],
+            scale: [1, 1.04, 1],
             boxShadow: [
-              "0 0 15px rgba(0, 114, 255, 0.75)",
-              "0 0 30px rgba(59, 130, 246, 0.95)",
-              "0 0 15px rgba(0, 114, 255, 0.75)"
+              "0 0 14px rgba(0, 230, 118, 0.7)",
+              "0 0 35px rgba(0, 255, 128, 0.95)",
+              "0 0 14px rgba(0, 230, 118, 0.7)"
+            ],
+            filter: [
+              "brightness(1)",
+              "brightness(1.25)",
+              "brightness(1)"
             ]
           }}
           transition={{ 
             repeat: Infinity, 
-            duration: 2, 
+            duration: 1.4, 
             ease: "easeInOut" 
           }}
-          className="bg-gradient-to-r from-[#0052D4] via-[#4364F7] to-[#0072FF] hover:brightness-110 text-white border-2 border-blue-300 font-black text-[11px] sm:text-xs py-2 sm:py-2.5 px-3.5 sm:px-4 rounded-xl shadow-[0_0_22px_rgba(0,114,255,0.85)] flex items-center gap-1.5 sm:gap-2 active:scale-95 cursor-pointer uppercase tracking-wider"
+          className="bg-gradient-to-r from-emerald-500 via-green-400 to-emerald-500 hover:brightness-110 text-black border-2 border-emerald-300 font-bold py-1.5 sm:py-2 px-3 sm:px-3.5 rounded-xl shadow-[0_0_20px_rgba(0,230,118,0.85)] flex items-center gap-2 active:scale-95 cursor-pointer text-left"
         >
-          <MessageSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white shrink-0 stroke-[2.5]" />
-          <span className="text-white font-black">Wasiliana na Wakala</span>
+          <MessageSquare className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-black shrink-0 stroke-[2.5]" />
+          <div className="flex flex-col text-left leading-tight">
+            <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-black">GUSA HAPA</span>
+            <span className="text-[10.5px] sm:text-[11.5px] font-bold text-black whitespace-nowrap">Kuwasiliana na Wakala</span>
+          </div>
         </motion.button>
       </div>
 
@@ -2313,9 +2332,10 @@ function Dashboard() {
                     setShowCustomerAlertModal(false);
                     setShowContactModal(true);
                   }}
-                  className="w-full bg-slate-800 hover:bg-slate-700 text-white font-black py-3.5 rounded-2xl text-xs uppercase cursor-pointer transition-all active:scale-95"
+                  className="w-full bg-gradient-to-r from-emerald-500 via-green-400 to-emerald-500 hover:brightness-110 text-black font-bold py-2.5 rounded-2xl text-xs cursor-pointer transition-all active:scale-95 border border-emerald-300/80 shadow-lg shadow-emerald-950/40 flex flex-col items-center justify-center leading-tight"
                 >
-                  Wasiliana na Wakala
+                  <span className="text-[10px] font-black uppercase tracking-wider text-black">GUSA HAPA</span>
+                  <span className="text-[11px] font-bold text-black">Kuwasiliana na Wakala</span>
                 </button>
               </div>
             </motion.div>
@@ -2716,7 +2736,11 @@ function Dashboard() {
                 {/* Registration Video Guide (Replacing textual steps as requested) */}
                 <div className="overflow-y-auto pr-1 sm:pr-2 flex-1">
                   <div className="space-y-4">
-                    <RegistrationVideoSection videoSrc="/Video%20ya%20kujisajili.mp4" />
+                    <RegistrationVideoSection 
+                      videoSrc="/Video%20ya%20kujisajili.mp4" 
+                      onPlay={pauseBackgroundAudio}
+                      onPause={resumeBackgroundAudio}
+                    />
                     
                     <div className="border-2 border-[#00E676] bg-gradient-to-r from-emerald-950/60 via-[#0E1511] to-emerald-950/60 p-4 rounded-2xl shadow-[0_0_20px_rgba(0,230,118,0.35)] animate-pulse space-y-2 text-xs sm:text-sm text-center">
                       <p className="text-white font-bold">
@@ -3091,13 +3115,26 @@ function Dashboard() {
                 <p className="text-xs sm:text-sm text-center text-slate-300 mb-3">
                   Ukimaliza kulipia au ukishindwa kulipia wasiliana na wakala wetu kwa kubonyeza hapa👇
                 </p>
-                <button
+                <motion.button
+                  type="button"
                   onClick={() => setShowContactModal(true)}
-                  className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:brightness-110 text-white font-bold px-6 py-3.5 rounded-xl text-sm transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+                  animate={{
+                    scale: [1, 1.02, 1],
+                    boxShadow: [
+                      "0 0 15px rgba(0, 230, 118, 0.6)",
+                      "0 0 32px rgba(0, 255, 128, 0.95)",
+                      "0 0 15px rgba(0, 230, 118, 0.6)"
+                    ]
+                  }}
+                  transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                  className="w-full inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-emerald-500 via-green-400 to-emerald-500 hover:brightness-110 active:scale-95 text-black font-bold px-6 py-2.5 rounded-xl text-sm transition-all border border-emerald-300/80 shadow-[0_0_20px_rgba(0,230,118,0.5)] cursor-pointer"
                 >
-                  <MessageSquare className="w-5 h-5" />
-                  <span>Wasiliana na Wakala</span>
-                </button>
+                  <MessageSquare className="w-5 h-5 text-black stroke-[2.5] shrink-0" />
+                  <div className="flex flex-col items-center leading-tight">
+                    <span className="text-[10.5px] font-black uppercase tracking-wider text-black">GUSA HAPA</span>
+                    <span className="text-xs font-bold text-black whitespace-nowrap">Kuwasiliana na Wakala</span>
+                  </div>
+                </motion.button>
               </div>
             </motion.div>
           </div>
@@ -3134,6 +3171,22 @@ function Dashboard() {
                 
                 <div className="flex flex-col gap-3 w-full">
                   <a
+                    href="https://whatsapp.com/channel/0029Vb9DAjqLY6dFP4TXlE1x"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full flex items-center justify-between bg-gradient-to-r from-[#25D366] to-[#1DA851] text-white font-black px-5 py-4 rounded-xl transition-all shadow-lg shadow-emerald-500/20"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Users className="w-6 h-6" />
+                      <div className="flex flex-col items-start">
+                        <span className="text-sm uppercase">Join WhatsApp Channel</span>
+                        <span className="text-[10px] opacity-90 font-bold uppercase tracking-widest">JIUNGE NA CHANNEL YETU</span>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-5 h-5 opacity-70" />
+                  </a>
+
+                  <a
                     href="https://wa.me/255617309096?text=Habari%20Naomba%20kujiunga%20na%20OrderVerify"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -3142,7 +3195,7 @@ function Dashboard() {
                     <div className="flex items-center gap-3">
                       <MessageCircle className="w-6 h-6" />
                       <div className="flex flex-col items-start">
-                        <span className="text-base">WhatsApp</span>
+                        <span className="text-base">WhatsApp (Wakala)</span>
                         <span className="text-xs opacity-80">0617 309 096</span>
                       </div>
                     </div>
@@ -3221,7 +3274,8 @@ function GlobalAudioPlayer() {
     let isMounted = true;
     
     const tryPlay = () => {
-      // Kama ishafanikiwa ku-play, isijaribu tena (inazuia kujirudia na scratchy sounds)
+      // Kama kuna video inacheza, au ishafanikiwa ku-play, isijaribu tena
+      if ((window as any).__isMediaVideoPlaying) return;
       if (!isMounted || !audioRef.current || autoplaySuccess.current) return;
       
       const playPromise = audioRef.current.play();
@@ -3268,6 +3322,29 @@ function GlobalAudioPlayer() {
         .catch(err => console.error('SW Boot Registration Failed:', err));
     }
   }, []);
+
+  useEffect(() => {
+    const handlePause = () => {
+      (window as any).__isMediaVideoPlaying = true;
+      if (audioRef.current) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
+    };
+    const handleResume = () => {
+      (window as any).__isMediaVideoPlaying = false;
+      if (audioRef.current && !isPlaying) {
+        audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+      }
+    };
+
+    window.addEventListener('ov-pause-audio', handlePause);
+    window.addEventListener('ov-resume-audio', handleResume);
+    return () => {
+      window.removeEventListener('ov-pause-audio', handlePause);
+      window.removeEventListener('ov-resume-audio', handleResume);
+    };
+  }, [isPlaying]);
 
   const togglePlay = () => {
     if (!audioRef.current) return;

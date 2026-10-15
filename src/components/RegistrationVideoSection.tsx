@@ -3,16 +3,21 @@ import { Play, X, Video } from 'lucide-react';
 
 interface RegistrationVideoSectionProps {
   videoSrc: string;
+  onPlay?: () => void;
+  onPause?: () => void;
 }
 
 export function RegistrationVideoSection({
-  videoSrc
+  videoSrc,
+  onPlay,
+  onPause
 }: RegistrationVideoSectionProps) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleOpenFullscreen = () => {
     setIsFullscreen(true);
+    if (onPlay) onPlay();
     if (videoRef.current) {
       if (videoRef.current.ended) {
         videoRef.current.currentTime = 0;
@@ -28,6 +33,7 @@ export function RegistrationVideoSection({
 
   const handleCloseFullscreen = () => {
     setIsFullscreen(false);
+    if (onPause) onPause();
     if (videoRef.current) {
       videoRef.current.pause();
     }
@@ -100,7 +106,7 @@ export function RegistrationVideoSection({
             src={isFullscreen ? videoSrc : undefined}
             controls
             playsInline
-            preload={isFullscreen ? "auto" : "none"}
+            preload="metadata"
             controlsList="nodownload noplaybackrate"
             className="max-h-[72vh] sm:max-h-[78vh] w-auto max-w-[95vw] sm:max-w-[420px] object-contain rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.9)] border border-slate-800 bg-black transform-gpu"
             onEnded={handleCloseFullscreen}
