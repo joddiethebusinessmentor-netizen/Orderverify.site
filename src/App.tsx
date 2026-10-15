@@ -15,7 +15,7 @@ import { WithdrawHistoryModal } from './components/WithdrawHistoryModal';
 
 import imgHeroCeremony from "./assets/images/orderverify_diverse_ceremony_official_aligned_text_jpg_1791350716559.jpg";
 
-import { db, auth, collection, addDoc, serverTimestamp, signInWithGoogle, onSnapshot, query, orderBy, updateDoc, doc, getDocs, setDoc } from './firebase';
+import { db, auth, collection, addDoc, serverTimestamp, signInWithGoogle, onSnapshot, query, orderBy, updateDoc, doc, getDocs, setDoc, handleFirestoreError, OperationType } from './firebase';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 
 // --- Toast Component ---
@@ -1303,10 +1303,16 @@ function Dashboard() {
   useEffect(() => {
     if (currentUser?.email === 'zuhurasalum186@gmail.com') {
       const q = query(collection(db, 'withdrawals'), orderBy('timestamp', 'desc'));
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        const list = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setAdminWithdrawals(list);
-      });
+      const unsubscribe = onSnapshot(
+        q,
+        (snapshot) => {
+          const list = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setAdminWithdrawals(list);
+        },
+        (error) => {
+          handleFirestoreError(error, OperationType.LIST, 'withdrawals');
+        }
+      );
       return () => unsubscribe();
     }
   }, [currentUser]);
@@ -1426,56 +1432,68 @@ function Dashboard() {
   useEffect(() => {
     const wid = localStorage.getItem('orderverify_withdrawal_id');
     if (wid) {
-      const unsubscribe = onSnapshot(doc(db, 'withdrawals', wid), (snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.data();
-          if (data.adminMessage) {
-            setCustomerAlertMessage(data.adminMessage);
-            const lastSeen = localStorage.getItem(`orderverify_notif_seen_${wid}`);
-            const reminderTime = data.lastReminderAt?.toMillis ? data.lastReminderAt.toMillis() : Date.now();
-            
-            if (lastSeen !== String(reminderTime)) {
-              setShowCustomerAlertModal(true);
-              sendDeviceNotification("OrderVerify - Taarifa ya Malipo", data.adminMessage);
-              localStorage.setItem(`orderverify_notif_seen_${wid}`, String(reminderTime));
+      const unsubscribe = onSnapshot(
+        doc(db, 'withdrawals', wid), 
+        (snapshot) => {
+          if (snapshot.exists()) {
+            const data = snapshot.data();
+            if (data.adminMessage) {
+              setCustomerAlertMessage(data.adminMessage);
+              const lastSeen = localStorage.getItem(`orderverify_notif_seen_${wid}`);
+              const reminderTime = data.lastReminderAt?.toMillis ? data.lastReminderAt.toMillis() : Date.now();
+              
+              if (lastSeen !== String(reminderTime)) {
+                setShowCustomerAlertModal(true);
+                sendDeviceNotification("OrderVerify - Taarifa ya Malipo", data.adminMessage);
+                localStorage.setItem(`orderverify_notif_seen_${wid}`, String(reminderTime));
+              }
             }
           }
+        },
+        (error) => {
+          handleFirestoreError(error, OperationType.GET, `withdrawals/${wid}`);
         }
-      });
+      );
       return () => unsubscribe();
     }
   }, []);
 
   // Msikilizaji wa Global Broadcast kwa simu zote zilizofungua tovuti
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, 'system_alerts', 'latest_broadcast'), (snap) => {
-      if (snap.exists()) {
-        const data = snap.data();
-        if (data && data.body) {
-          const alertTime = data.timestamp?.toMillis ? data.timestamp.toMillis() : Date.now();
-          const lastSeenAlert = localStorage.getItem('orderverify_last_seen_broadcast');
-          
-          const myPhone = localStorage.getItem('orderverify_withdrawn_phone');
-          const myWid = localStorage.getItem('orderverify_withdrawal_id');
+    const unsub = onSnapshot(
+      doc(db, 'system_alerts', 'latest_broadcast'), 
+      (snap) => {
+        if (snap.exists()) {
+          const data = snap.data();
+          if (data && data.body) {
+            const alertTime = data.timestamp?.toMillis ? data.timestamp.toMillis() : Date.now();
+            const lastSeenAlert = localStorage.getItem('orderverify_last_seen_broadcast');
+            
+            const myPhone = localStorage.getItem('orderverify_withdrawn_phone');
+            const myWid = localStorage.getItem('orderverify_withdrawal_id');
 
-          // Ikiwa mtumiaji hajawahi kuomba kutoa fedha kwenye kifaa hiki, asipokee taarifa ya malipo
-          if (!myWid && !myPhone) {
-            return;
-          }
+            // Ikiwa mtumiaji hajawahi kuomba kutoa fedha kwenye kifaa hiki, asipokee taarifa ya malipo
+            if (!myWid && !myPhone) {
+              return;
+            }
 
-          if (data.targetPhone && data.targetPhone !== myPhone && data.targetWithdrawalId && data.targetWithdrawalId !== myWid) {
-            return;
-          }
+            if (data.targetPhone && data.targetPhone !== myPhone && data.targetWithdrawalId && data.targetWithdrawalId !== myWid) {
+              return;
+            }
 
-          if (lastSeenAlert !== String(alertTime) && (Date.now() - alertTime < 24 * 60 * 60 * 1000)) {
-            localStorage.setItem('orderverify_last_seen_broadcast', String(alertTime));
-            setCustomerAlertMessage(data.body);
-            setShowCustomerAlertModal(true);
-            sendDeviceNotification(data.title || "OrderVerify - Taarifa ya Malipo", data.body);
+            if (lastSeenAlert !== String(alertTime) && (Date.now() - alertTime < 24 * 60 * 60 * 1000)) {
+              localStorage.setItem('orderverify_last_seen_broadcast', String(alertTime));
+              setCustomerAlertMessage(data.body);
+              setShowCustomerAlertModal(true);
+              sendDeviceNotification(data.title || "OrderVerify - Taarifa ya Malipo", data.body);
+            }
           }
         }
+      },
+      (error) => {
+        handleFirestoreError(error, OperationType.GET, 'system_alerts/latest_broadcast');
       }
-    });
+    );
     return () => unsub();
   }, []);
 

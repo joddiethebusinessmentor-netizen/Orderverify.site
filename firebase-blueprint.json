@@ -39,12 +39,45 @@
         }
       },
       "required": ["phoneNumber", "amount", "status", "timestamp"]
+    },
+    "systemAlert": {
+      "title": "System Alert",
+      "description": "Broadcast alert notification sent to users",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title of the alert"
+        },
+        "body": {
+          "type": "string",
+          "description": "Body message of the alert"
+        },
+        "targetPhone": {
+          "type": "string",
+          "description": "Optional target phone number"
+        },
+        "targetWithdrawalId": {
+          "type": "string",
+          "description": "Optional target withdrawal ID"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when alert was broadcasted"
+        }
+      },
+      "required": ["title", "body", "timestamp"]
     }
   },
   "firestore": {
     "withdrawals/{withdrawalId}": {
       "schema": "withdrawal",
       "description": "Collection of all withdrawal requests"
+    },
+    "system_alerts/{alertId}": {
+      "schema": "systemAlert",
+      "description": "System broadcast alerts"
     }
   }
 }

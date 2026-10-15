@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config({ override: true });
 import express from 'express';
 import webpush from 'web-push';
 import path from 'path';
@@ -13,8 +15,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // VAPID Credentials for Web Push
-const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY || 'BFBhxwnnWkz7MrHyXye44UH12o9twrla8JSw2qgEcY3IIO7JjmiVRE5zR6AzRvNEr85pJ8xqkrNhYr4moZHWDEw';
-const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || 'yPggbq09d9pXa0iphTh8raAHWmYk7oB2-D0AhVfgQqM';
+const VAPID_PUBLIC_KEY = (process.env.VAPID_PUBLIC_KEY || 'BJG0Zv0mii8Cd7AX7Ob0p30z8xiqm3VY5sLqN67WD0iVSXJZGIAC9G8hZ68U59bC7XJ1d2BggMGgnz5mvlZX8vA').trim();
+const VAPID_PRIVATE_KEY = (process.env.VAPID_PRIVATE_KEY || 'yvjKnDqjOpnmoObk3W1E5m9w4zjchGdM6GrQiFuH2N4').trim();
 
 webpush.setVapidDetails(
   'mailto:zuhurasalum186@gmail.com',

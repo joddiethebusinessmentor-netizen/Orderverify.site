@@ -11,20 +11,15 @@ service cloud.firestore {
       return request.auth != null;
     }
     
-    function isVerified() {
-      return isSignedIn() && request.auth.token.email_verified == true;
-    }
-    
     function isAdmin() {
-      return isVerified() && request.auth.token.email == 'zuhurasalum186@gmail.com';
+      return isSignedIn() && request.auth.token.email == 'zuhurasalum186@gmail.com';
     }
 
     function isValidWithdrawal(data) {
       return data.phoneNumber is string && 
              data.phoneNumber.size() >= 8 && data.phoneNumber.size() <= 20 &&
              data.amount is number && data.amount > 0 &&
-             data.status in ['pending', 'completed'] &&
-             data.timestamp == request.time;
+             data.status in ['pending', 'completed'];
     }
 
     // Withdrawals collection
