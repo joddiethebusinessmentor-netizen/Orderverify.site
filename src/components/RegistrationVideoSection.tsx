@@ -118,13 +118,15 @@ export function RegistrationVideoSection({
 
         {/* Bottom CTA Button */}
         <div className="w-full max-w-md mx-auto pt-3 pb-2 flex justify-center">
-          <button 
-            type="button"
+          <a 
+            href="https://adsblog.app/page/reg.php?reg=Joddie"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={handleCloseFullscreen}
-            className="w-full sm:w-auto px-8 py-3 bg-[#00E676] hover:bg-[#00c853] text-black font-black rounded-2xl shadow-xl active:scale-95 transition-all uppercase text-xs tracking-wider cursor-pointer text-center"
+            className="w-full sm:w-auto px-8 py-3 bg-[#00E676] hover:bg-[#00c853] text-black font-black rounded-2xl shadow-xl active:scale-95 transition-all uppercase text-xs tracking-wider cursor-pointer text-center no-underline inline-block"
           >
             Funga Video & Anza Kujisajili
-          </button>
+          </a>
         </div>
       </div>
     </div>

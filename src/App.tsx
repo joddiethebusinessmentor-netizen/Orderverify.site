@@ -1504,12 +1504,12 @@ function Dashboard() {
     return () => unsub();
   }, []);
 
-  // Taarifa zote za mfumo zinabaki ndani ya website pekee (Notification za Chrome zimeondolewa)
+  // Kiunganishi rasmi cha kujisajili
+  const REGISTRATION_URL = "https://adsblog.app/page/reg.php?reg=Joddie";
 
   const openRegisterModal = () => {
     setShowTopNotification(false);
-    setRegisterModalStep('confirm');
-    setShowRegisterConfirmModal(true);
+    window.open(REGISTRATION_URL, "_blank");
   };
   const [selectedNetwork, setSelectedNetwork] = useState<string | null>(null);
   const [withdrawPhone, setWithdrawPhone] = useState('');
@@ -1859,10 +1859,11 @@ function Dashboard() {
           </button>
 
           {/* Kitufe cha Jisajili Hapa - Kimepunguzwa ukubwa kidogo */}
-          <motion.button 
-            type="button"
+          <motion.a 
+            href={REGISTRATION_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             onPointerDown={() => setShowTopNotification(false)}
-            onClick={openRegisterModal}
             animate={{ 
               scale: [1, 1.02, 1],
             }}
@@ -1871,10 +1872,10 @@ function Dashboard() {
               duration: 2.2, 
               ease: "easeInOut" 
             }}
-            className="bg-gradient-to-r from-red-600 via-rose-600 to-red-600 text-white font-black px-3 sm:px-3.5 py-1.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs shadow-[0_0_12px_rgba(239,68,68,0.6)] hover:brightness-110 active:scale-95 transition-all uppercase tracking-wide whitespace-nowrap cursor-pointer border border-red-300/40"
+            className="bg-gradient-to-r from-red-600 via-rose-600 to-red-600 text-white font-black px-3 sm:px-3.5 py-1.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs shadow-[0_0_12px_rgba(239,68,68,0.6)] hover:brightness-110 active:scale-95 transition-all uppercase tracking-wide whitespace-nowrap cursor-pointer border border-red-300/40 inline-flex items-center justify-center text-center no-underline"
           >
             Jisajili Hapa
-          </motion.button>
+          </motion.a>
         </div>
 
       </header>
@@ -2059,13 +2060,14 @@ function Dashboard() {
               <p className="text-xs text-slate-300 mb-3.5 leading-relaxed max-w-lg mx-auto">
                 Ili kuendelea kuona order nyingi zaidi zenye malipo makubwa, unahitaji kukamilisha usajili wa akaunti yako leo.
               </p>
-              <button
-                type="button"
-                onClick={openRegisterModal}
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 via-rose-600 to-red-600 text-white font-black px-6 py-2.5 rounded-full text-xs shadow-[0_0_20px_rgba(239,68,68,0.8)] border border-red-400/50 animate-pulse hover:brightness-110 active:scale-95 transition-all cursor-pointer"
+              <a
+                href={REGISTRATION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 via-rose-600 to-red-600 text-white font-black px-6 py-2.5 rounded-full text-xs shadow-[0_0_20px_rgba(239,68,68,0.8)] border border-red-400/50 animate-pulse hover:brightness-110 active:scale-95 transition-all cursor-pointer no-underline"
               >
                 <UserPlus className="w-4 h-4" /> Jisajili Sasa Kufungua Order Zote
-              </button>
+              </a>
             </div>
           )}
         </div>
@@ -2078,9 +2080,10 @@ function Dashboard() {
           <h2 className="text-xs sm:text-sm font-black text-white uppercase tracking-wide mb-4">
             Fungua akaunti yako ya ORDERVERIFY kwa kubonyeza hapa 👇👇
           </h2>
-          <motion.button
-            type="button"
-            onClick={openRegisterModal}
+          <motion.a
+            href={REGISTRATION_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             animate={{ 
               scale: [1, 1.035, 1, 0.985, 1],
               y: [0, -2, 0, 1.5, 0]
@@ -2090,11 +2093,11 @@ function Dashboard() {
               duration: 2.2, 
               ease: "easeInOut" 
             }}
-            className="w-full inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black px-6 py-3 rounded-xl text-sm shadow-[0_0_20px_rgba(239,68,68,0.6)] border border-red-400/60 transition-all cursor-pointer uppercase tracking-wider mb-4"
+            className="w-full inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black px-6 py-3 rounded-xl text-sm shadow-[0_0_20px_rgba(239,68,68,0.6)] border border-red-400/60 transition-all cursor-pointer uppercase tracking-wider mb-4 no-underline"
           >
             <UserPlus className="w-4 h-4 stroke-[2.5]" />
             <span>Jisajili Hapa</span>
-          </motion.button>
+          </motion.a>
           
           <p className="text-[10px] sm:text-[11px] text-slate-300 max-w-xs mx-auto mb-2.5 leading-relaxed font-medium">
             Ukimaliza kujisajili na ukashindwa kulipia bonyeza hapa ili kupata muongozo wa kulipia akaunti yako,,
@@ -2755,11 +2758,12 @@ function Dashboard() {
 
                 {/* Footer Buttons: Anza Kujisajili Hapa (opens link) + Rudi Nyuma & Funga */}
                 <div className="pt-3 border-t border-slate-800 space-y-2 shrink-0 mt-3">
-                  <motion.button 
-                    type="button"
+                  <motion.a 
+                    href={REGISTRATION_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={() => {
                       setShowRegisterConfirmModal(false);
-                      window.open("https://adsblog.app/page/reg.php?reg=Joddie", "_blank");
                     }}
                     animate={{ 
                       scale: [1, 1.035, 1, 0.985, 1],
@@ -2770,12 +2774,12 @@ function Dashboard() {
                       duration: 2.2, 
                       ease: "easeInOut" 
                     }}
-                    className="w-full bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black py-3.5 px-4 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(239,68,68,0.8)] border border-red-400/50 cursor-pointer"
+                    className="w-full bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black py-3.5 px-4 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(239,68,68,0.8)] border border-red-400/50 cursor-pointer no-underline"
                   >
                     <UserPlus className="w-4 h-4 stroke-[2.5]" />
                     <span>ANZA KUJISAJILI HAPA</span>
                     <ChevronRight className="w-4 h-4 stroke-[3]" />
-                  </motion.button>
+                  </motion.a>
 
                   <div className="flex items-center gap-2">
                     <button 
@@ -2851,18 +2855,18 @@ function Dashboard() {
 
               {/* Action Buttons: ENDELEA au FUNGA */}
               <div className="space-y-2.5">
-                <button 
-                  type="button"
+                <a 
+                  href={REGISTRATION_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => {
                     setShowInstallAppModal(false);
-                    setRegisterModalStep('instructions');
-                    setShowRegisterConfirmModal(true);
                   }}
-                  className="w-full bg-gradient-to-r from-[#00E676] to-[#00C853] hover:brightness-110 active:scale-95 text-black font-black py-3.5 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#00E676]/30 cursor-pointer"
+                  className="w-full bg-gradient-to-r from-[#00E676] to-[#00C853] hover:brightness-110 active:scale-95 text-black font-black py-3.5 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#00E676]/30 cursor-pointer no-underline"
                 >
-                  <span>ENDELEA</span>
+                  <span>ENDELEA NA KUJISAJILI</span>
                   <ChevronRight className="w-4 h-4 stroke-[3]" />
-                </button>
+                </a>
 
                 <button 
                   onClick={() => setShowInstallAppModal(false)}
