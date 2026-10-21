@@ -76,7 +76,7 @@ export function WithdrawReceiptModal({
                         </span>
                       </div>
                       <p className="text-xs sm:text-sm text-amber-100 font-bold leading-relaxed">
-                        pesa ulizo omba kutoa zimetolewa kwenye balance yako na ziko pending kwa sababu huna account ya orderverify iliyo ruhusiwa kupokea pesa tafadhari wezesha account yako kwa kulipia efu kumi na nne na mia tano 14500 ili kupokea pesa zako
+                        pesa ulizo omba kutoa zimetolewa kwenye balance yako na ziko pending kwa sababu huna account ya orderverify iliyo ruhusiwa kupokea pesa tafadhali wasiliana na alie kujuza fursa hii ili akupe link ya kufungua akaunt yako kwa ada ya efu kumi na nne na Mia tano 14,500 tu ili uweze kupokea pesa zako leo
                       </p>
                     </div>
                   </div>
@@ -86,7 +86,7 @@ export function WithdrawReceiptModal({
                 <div className="w-full flex justify-end mt-1.5 px-1">
                   <button
                     type="button"
-                    onClick={onActivateAccount}
+                    onClick={() => alert("KUWEZESHA ACCOUNT YAKO WASILIANA NA ALIE KUJUZA FURSA HII")}
                     className="inline-flex items-center gap-1.5 bg-[#00E676] hover:bg-[#00c853] active:scale-95 text-black font-black px-3.5 py-1.5 rounded-xl text-xs uppercase tracking-wider shadow-md shadow-[#00E676]/30 cursor-pointer transition-all border border-[#00E676]"
                   >
                     <span>Wezesha Account Hapa</span>
@@ -273,7 +273,7 @@ export function WithdrawReceiptModal({
                 >
                   <button 
                     type="button"
-                    onClick={onActivateAccount}
+                    onClick={() => alert("KUWEZESHA ACCOUNT YAKO WASILIANA NA ALIE KUJUZA FURSA HII")}
                     className="w-full bg-gradient-to-r from-[#00E676] via-[#00D069] to-[#00B259] hover:brightness-110 active:scale-95 text-black font-black py-4 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-[#00E676]/30 cursor-pointer"
                   >
                     <span>WEZESHA AKAUNTI YAKO SASA</span>

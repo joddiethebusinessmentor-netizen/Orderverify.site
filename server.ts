@@ -15,15 +15,26 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // VAPID Credentials for Web Push
-const VAPID_PUBLIC_KEY = (process.env.VAPID_PUBLIC_KEY || 'BJ5U9OKm-24u0KZvOFJ036vp7xjl8jSSsiEj1J4m7mgAjkx7PIimRbrxAhseu2qRK41DBT4qZ4F7p12hTq1O5yc').trim();
-const VAPID_PRIVATE_KEY = (process.env.VAPID_PRIVATE_KEY || 'RnmQUbJ8ZA7LZctV0Gh5YCQBUhmSc_MlFoUUtgN70MY').trim();
+const VAPID_PUBLIC_KEY = (process.env.VAPID_PUBLIC_KEY || 'BCzxmexTpPz4PAWm6_CxPtW4ta0B1TfvpzSEEPtmNQk5bbfKEw-uUXekPvhWWp8N-Ip1npOCc8tqdhHzwfJeLz8')
+  .trim()
+  .replace(/=/g, '')
+  .replace(/\+/g, '-')
+  .replace(/\//g, '_');
+
+const VAPID_PRIVATE_KEY = (process.env.VAPID_PRIVATE_KEY || '_XhWUEEK-nFXIkM9NrcQrtzZcbgqS5Jj1MQWqPZecfw')
+  .trim()
+  .replace(/=/g, '')
+  .replace(/\+/g, '-')
+  .replace(/\//g, '_');
 
 try {
-  webpush.setVapidDetails(
-    'mailto:zuhurasalum186@gmail.com',
-    VAPID_PUBLIC_KEY,
-    VAPID_PRIVATE_KEY
-  );
+  if (VAPID_PUBLIC_KEY && VAPID_PRIVATE_KEY) {
+    webpush.setVapidDetails(
+      'mailto:zuhurasalum186@gmail.com',
+      VAPID_PUBLIC_KEY,
+      VAPID_PRIVATE_KEY
+    );
+  }
 } catch (e) {
   console.warn('VAPID setup notice:', e);
 }

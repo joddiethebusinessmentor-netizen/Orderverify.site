@@ -1257,6 +1257,7 @@ function Dashboard() {
   const [registerModalStep, setRegisterModalStep] = useState<'confirm' | 'instructions'>('confirm');
   const [showInstallAppModal, setShowInstallAppModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
+  const [infoModalMessage, setInfoModalMessage] = useState<string | null>(null);
 
   // Miamala ya kutoa fedha iliyohifadhiwa (Kumbukumbu ya Miamala)
   const [withdrawTransactions, setWithdrawTransactions] = useState<WithdrawalTransaction[]>(() => {
@@ -1509,7 +1510,7 @@ function Dashboard() {
 
   const openRegisterModal = () => {
     setShowTopNotification(false);
-    window.open(REGISTRATION_URL, "_blank");
+    alert("Tafadhali Wasiliana na alie kujuza fursa hii ili akupe link ya kufungua akaunt yako leo");
   };
   const [selectedNetwork, setSelectedNetwork] = useState<string | null>(null);
   const [withdrawPhone, setWithdrawPhone] = useState('');
@@ -1851,7 +1852,7 @@ function Dashboard() {
           {/* Kitufe cha Install App - Kimepunguzwa ukubwa zaidi (kidogo kabisa) */}
           <button 
             type="button"
-            onClick={() => setShowInstallAppModal(true)}
+            onClick={() => setInfoModalMessage("Wasiliana na aliyekujuza fursa hii ili akupe maelekezo zaidi kuhusu namna ya kudownload application yetu.")}
             className="bg-[#00A859] hover:bg-[#00924c] text-white font-bold text-[8.5px] sm:text-[9.5px] py-0.5 sm:py-1 px-1.5 sm:px-2 rounded-full shadow-sm flex items-center gap-1 transition-all active:scale-95 cursor-pointer uppercase tracking-tight whitespace-nowrap"
           >
             <Smartphone className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white shrink-0" />
@@ -1859,10 +1860,9 @@ function Dashboard() {
           </button>
 
           {/* Kitufe cha Jisajili Hapa - Kimepunguzwa ukubwa kidogo */}
-          <motion.a 
-            href={REGISTRATION_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <motion.button 
+            type="button"
+            onClick={() => setInfoModalMessage("Tafadhali wasiliana na aliyekujuza fursa hii ili akupe link ya kufungua akaunti yako leo.")}
             onPointerDown={() => setShowTopNotification(false)}
             animate={{ 
               scale: [1, 1.02, 1],
@@ -1875,7 +1875,7 @@ function Dashboard() {
             className="bg-gradient-to-r from-red-600 via-rose-600 to-red-600 text-white font-black px-3 sm:px-3.5 py-1.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs shadow-[0_0_12px_rgba(239,68,68,0.6)] hover:brightness-110 active:scale-95 transition-all uppercase tracking-wide whitespace-nowrap cursor-pointer border border-red-300/40 inline-flex items-center justify-center text-center no-underline"
           >
             Jisajili Hapa
-          </motion.a>
+          </motion.button>
         </div>
 
       </header>
@@ -2045,72 +2045,17 @@ function Dashboard() {
             </button>
           )}
           
-          {currentPage < totalPages ? (
+          {currentPage < totalPages && (
             <button
               onClick={() => setCurrentPage(prev => prev + 1)}
               className="bg-[#00E676] hover:bg-[#00C260] text-black font-bold py-4 px-6 rounded-2xl flex items-center gap-2 transition-colors shadow-[0_4px_15px_rgba(0,230,118,0.3)]"
             >
               Ukurasa Unaofuata <ChevronRight className="w-5 h-5" />
             </button>
-          ) : (
-            <div className="bg-gradient-to-br from-[#141624] to-[#0E101A] border border-emerald-500/30 rounded-2xl p-5 text-center w-full shadow-xl">
-              <h4 className="text-sm sm:text-base font-bold text-white mb-1.5">
-                Kuna Order Zaidi ya 1,450 Zinasubiri
-              </h4>
-              <p className="text-xs text-slate-300 mb-3.5 leading-relaxed max-w-lg mx-auto">
-                Ili kuendelea kuona order nyingi zaidi zenye malipo makubwa, unahitaji kukamilisha usajili wa akaunti yako leo.
-              </p>
-              <a
-                href={REGISTRATION_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 via-rose-600 to-red-600 text-white font-black px-6 py-2.5 rounded-full text-xs shadow-[0_0_20px_rgba(239,68,68,0.8)] border border-red-400/50 animate-pulse hover:brightness-110 active:scale-95 transition-all cursor-pointer no-underline"
-              >
-                <UserPlus className="w-4 h-4" /> Jisajili Sasa Kufungua Order Zote
-              </a>
-            </div>
           )}
         </div>
 
-        {/* Kitufe cha Jisajili Hapa (Sehemu iliyotolewa maelezo) chenye rangi nyekundu inayowakawaka */}
-        <div className="bg-gradient-to-br from-[#141624] to-[#0E101A] border-2 border-red-500/40 rounded-2xl p-4 sm:p-5 shadow-[0_0_30px_rgba(239,68,68,0.15)] mt-6 text-center max-w-sm mx-auto">
-          <div className="w-10 h-10 rounded-xl bg-red-600/20 border border-red-500/50 flex items-center justify-center mx-auto mb-2.5 text-red-500 shadow-sm animate-pulse">
-            <UserPlus className="w-5 h-5 stroke-[2.2]" />
-          </div>
-          <h2 className="text-xs sm:text-sm font-black text-white uppercase tracking-wide mb-4">
-            Fungua akaunti yako ya ORDERVERIFY kwa kubonyeza hapa 👇👇
-          </h2>
-          <motion.a
-            href={REGISTRATION_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            animate={{ 
-              scale: [1, 1.035, 1, 0.985, 1],
-              y: [0, -2, 0, 1.5, 0]
-            }}
-            transition={{ 
-              repeat: Infinity, 
-              duration: 2.2, 
-              ease: "easeInOut" 
-            }}
-            className="w-full inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 active:scale-95 text-white font-black px-6 py-3 rounded-xl text-sm shadow-[0_0_20px_rgba(239,68,68,0.6)] border border-red-400/60 transition-all cursor-pointer uppercase tracking-wider mb-4 no-underline"
-          >
-            <UserPlus className="w-4 h-4 stroke-[2.5]" />
-            <span>Jisajili Hapa</span>
-          </motion.a>
-          
-          <p className="text-[10px] sm:text-[11px] text-slate-300 max-w-xs mx-auto mb-2.5 leading-relaxed font-medium">
-            Ukimaliza kujisajili na ukashindwa kulipia bonyeza hapa ili kupata muongozo wa kulipia akaunti yako,,
-          </p>
-          <button
-            type="button"
-            onClick={() => setShowPaymentGuide(true)}
-            className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-600 hover:from-emerald-500 hover:to-green-500 active:scale-95 text-white font-black px-4 py-2.5 rounded-xl text-xs sm:text-sm border border-emerald-400/50 shadow-[0_0_15px_rgba(16,185,129,0.35)] transition-all cursor-pointer uppercase tracking-wider"
-          >
-            <CreditCard className="w-4 h-4 stroke-[2.5]" />
-            <span>Muongozo wa Kulipia</span>
-          </button>
-        </div>
+
 
         {/* Comments Section */}
         <div className="mt-6 bg-[#181A26] border border-slate-800 rounded-3xl p-4 sm:p-5 shadow-xl">
@@ -2232,38 +2177,7 @@ function Dashboard() {
 
       </div>
 
-      {/* Kitufe cha Wasiliana na Wakala - Rangi ya kijani inayo waka waka */}
-      <div className="fixed bottom-3.5 sm:bottom-4 left-3.5 sm:left-4 z-40">
-        <motion.button
-          type="button"
-          onClick={() => setShowContactModal(true)}
-          animate={{ 
-            scale: [1, 1.04, 1],
-            boxShadow: [
-              "0 0 14px rgba(0, 230, 118, 0.7)",
-              "0 0 35px rgba(0, 255, 128, 0.95)",
-              "0 0 14px rgba(0, 230, 118, 0.7)"
-            ],
-            filter: [
-              "brightness(1)",
-              "brightness(1.25)",
-              "brightness(1)"
-            ]
-          }}
-          transition={{ 
-            repeat: Infinity, 
-            duration: 1.4, 
-            ease: "easeInOut" 
-          }}
-          className="bg-gradient-to-r from-emerald-500 via-green-400 to-emerald-500 hover:brightness-110 text-black border-2 border-emerald-300 font-bold py-1.5 sm:py-2 px-3 sm:px-3.5 rounded-xl shadow-[0_0_20px_rgba(0,230,118,0.85)] flex items-center gap-2 active:scale-95 cursor-pointer text-left"
-        >
-          <MessageSquare className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-black shrink-0 stroke-[2.5]" />
-          <div className="flex flex-col text-left leading-tight">
-            <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-black">GUSA HAPA</span>
-            <span className="text-[10.5px] sm:text-[11.5px] font-bold text-black whitespace-nowrap">Kuwasiliana na Wakala</span>
-          </div>
-        </motion.button>
-      </div>
+
 
 
       {/* Global Loading Overlay */}
@@ -2880,6 +2794,53 @@ function Dashboard() {
         )}
       </AnimatePresence>
 
+
+      {/* Custom Info Modal for Header Buttons */}
+      <AnimatePresence>
+        {infoModalMessage && (
+          <div 
+            onClick={() => setInfoModalMessage(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0B0C10]/95 backdrop-blur-md"
+          >
+            <motion.div 
+              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-[#141624] border-2 border-[#00E676] rounded-3xl p-6 max-w-sm w-full shadow-2xl relative text-center"
+            >
+              <button 
+                onClick={() => setInfoModalMessage(null)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800/80 hover:bg-slate-700 rounded-full p-1.5 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="w-14 h-14 rounded-2xl bg-[#00E676]/20 border border-[#00E676]/50 flex items-center justify-center mx-auto mb-3 text-[#00E676]">
+                <AlertCircle className="w-7 h-7 stroke-[2.2]" />
+              </div>
+
+              <h3 className="text-white font-black text-base sm:text-lg mb-3 uppercase tracking-wide">
+                Taarifa Muhimu
+              </h3>
+
+              <div className="bg-[#0B0C12] border border-slate-700/80 rounded-2xl p-4 mb-5 text-center shadow-inner">
+                <p className="text-xs sm:text-sm text-slate-100 font-bold leading-relaxed">
+                  {infoModalMessage}
+                </p>
+              </div>
+
+              <button 
+                type="button"
+                onClick={() => setInfoModalMessage(null)}
+                className="w-full bg-gradient-to-r from-[#00E676] to-[#00C853] hover:brightness-110 active:scale-95 text-black font-black py-3.5 rounded-2xl transition-all text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#00E676]/30 cursor-pointer"
+              >
+                <span>Funga</span>
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Verification Modal / Interactive Action */}
       <AnimatePresence>
