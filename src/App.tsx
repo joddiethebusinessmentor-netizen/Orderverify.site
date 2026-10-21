@@ -1659,6 +1659,7 @@ function Dashboard() {
     }
     setTopNotification(message);
     setShowTopNotification(true);
+    playNotificationSound();
     if (durationSec > 0) {
       notificationTimerRef.current = setTimeout(() => {
         setShowTopNotification(false);
