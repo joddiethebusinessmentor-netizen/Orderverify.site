@@ -1,37 +1,37 @@
 // ============================================================================
-// ORDERVERIFY DATA ENGINE (VERSION 129 - MUSIC BAND EQUIPMENT ALIGNED)
+// ORDERVERIFY DATA ENGINE (VERSION 151 - AUTO PARTS & LIVESTOCK/POULTRY)
 // ============================================================================
-// Page 1: Vifaa vya Uvuvi wa Kisasa (Modern Fishing Gear)
-// Page 2: Vifaa vya Ufugaji wa Kisasa (Modern Livestock Equipment)
-// Page 3: Vifaa vya Music Band (Music Band Equipment - Electric Guitar, Drum Set, Bass, Piano, Speakers, Mixers, Saxophone)
+// Page 1: Spare Parts za Magari na Pikipiki (Auto & Moto Spare Parts)
+// Page 2: Vifaa vya Ufugaji wa Wanyama na Ndege (Livestock & Poultry Equipment)
+// Page 3: Vifaa vya Music Band (Music Band Equipment)
 // Malipo: 5% (Math.round(productValue * 0.05))
 // Zero duplicate names across Orders, Live Notifications, and Comments.
 // ============================================================================
 
-import imgFishFinderSonar from "./assets/images/fish_finder_sonar_1791342090674.jpg";
-import imgTelescopicFishingRod from "./assets/images/telescopic_fishing_rod_1791342099874.jpg";
-import imgNylonCastNet from "./assets/images/nylon_cast_net_1791342110058.jpg";
-import imgSubmersibleFishingLight from "./assets/images/submersible_fishing_light_1791342119311.jpg";
-import imgElectronicBiteAlarms from "./assets/images/electronic_bite_alarms_1791342129473.jpg";
-import imgSaltwaterTrollingReel from "./assets/images/saltwater_trolling_reel_1791342140190.jpg";
-import imgLiveBaitAeratorPump from "./assets/images/live_bait_aerator_pump_1791342149339.jpg";
-import imgFishingTackleBackpack from "./assets/images/fishing_tackle_backpack_1791342158433.jpg";
-import imgCrabPrawnTrapNet from "./assets/images/crab_prawn_trap_net_1791342167732.jpg";
-import imgFishGripperDigitalScale from "./assets/images/fish_gripper_digital_scale_1791342177614.jpg";
-import imgBoatTrailerWinch from "./assets/images/boat_trailer_winch_1791342187336.jpg";
-import imgBraidedFishingLineSpool from "./assets/images/braided_fishing_line_spool_1791342196621.jpg";
+import imgCarBrakeRotorCaliper from "./assets/images/car_brake_rotor_caliper_1790462768027.jpg";
+import imgMotoChainSprocket from "./assets/images/moto_chain_sprocket_1790462878188.jpg";
+import imgCarAlternatorGen from "./assets/images/car_alternator_gen_1790462782249.jpg";
+import imgMotoFrontForks from "./assets/images/moto_front_forks_1790462794958.jpg";
+import imgCarThrottleBody from "./assets/images/car_throttle_body_1790462808489.jpg";
+import imgMotoRearMonoshock from "./assets/images/moto_rear_monoshock_1790462855305.jpg";
+import imgCarFuelPumpMod from "./assets/images/car_fuel_pump_mod_1790462831255.jpg";
+import imgMotoCdiStator from "./assets/images/moto_cdi_stator_1790462904935.jpg";
+import imgCarAcCompressor from "./assets/images/car_ac_compressor_1790462843485.jpg";
+import imgCarClutchKit from "./assets/images/car_clutch_kit_1790462866948.jpg";
+import imgCarStarterMotor from "./assets/images/car_starter_motor_1790462890861.jpg";
+import imgCarRecoveryWinch from "./assets/images/electric_cargo_winch_1790258223028.jpg";
 
 import imgPoultryEggIncubator from "./assets/images/poultry_egg_incubator_1791345750502.jpg";
 import imgElectricMilkingMachine from "./assets/images/electric_milking_machine_1791345760639.jpg";
 import imgSheepShearingClipper from "./assets/images/sheep_shearing_clipper_1791345770182.jpg";
 import imgSolarFenceEnergizer from "./assets/images/solar_fence_energizer_1791345779321.jpg";
-import imgLivestockWaterTrough from "./assets/images/livestock_water_trough_1791345788287.jpg";
-import imgHoneyExtractorCentrifuge from "./assets/images/honey_extractor_centrifuge_1791345797071.jpg";
+import imgLivestockScale from "./assets/images/livestock_platform_scale_1790726966969.jpg";
+import imgAnimalFeedGrinder from "./assets/images/animal_feed_grinder_1790726945036.jpg";
 import imgLivestockEarTagScanner from "./assets/images/livestock_ear_tag_scanner_1791345806088.jpg";
-import imgVeterinaryDrenchingGun from "./assets/images/veterinary_drenching_gun_1791345815145.jpg";
+import imgLivestockWaterTrough from "./assets/images/livestock_water_trough_1791345788287.jpg";
 import imgPoultryNippleDrinkerKit from "./assets/images/poultry_nipple_drinker_kit_1791345825473.jpg";
 import imgChickBrooderHeatLamp from "./assets/images/chick_brooder_heat_lamp_1791345833898.jpg";
-import imgElectricCalfDehorner from "./assets/images/electric_calf_dehorner_1791345843922.jpg";
+import imgVeterinaryDrenchingGun from "./assets/images/veterinary_drenching_gun_1791345815145.jpg";
 import imgTreadleChickenFeeder from "./assets/images/treadle_chicken_feeder_1791345852077.jpg";
 
 import imgElectricGuitarPro from "./assets/images/music_band_gear_set_1_jpg_1791351368065.jpg";
@@ -129,7 +129,7 @@ export function normalizeProductKey(productName: string): string {
 }
 
 // STORAGE VERSION TAG - Bumped to clear all client memory & cached orders
-export const STORAGE_VERSION_TAG = "ov_v140_absolute_zero_reset_confirmed";
+export const STORAGE_VERSION_TAG = "ov_v151_livestock_poultry_page2_refresh";
 const STORAGE_KEY_VERSION = "orderverify_app_version";
 const STORAGE_KEY_ACTIVE_ORDERS = "orderverify_active_orders";
 const STORAGE_KEY_ACTIVE_PAYOUTS = "orderverify_active_payouts";
@@ -170,321 +170,321 @@ function storageRemove(key: string): void {
 
 export const MASTER_EXACT_ORDERS: Order[] = [
   // --------------------------------------------------------------------------
-  // UKURASA WA 1: Vifaa vya Uvuvi wa Kisasa (Modern Fishing Equipment - Picha Halisi za Bidhaa Zenyewe Bila Watu) - 100k - 400k TZS
+  // UKURASA WA 1: Spare Parts za Magari na Pikipiki (Auto & Motorcycle Spare Parts - Picha Halisi za Vifaa Bila Watu) - 100k - 500k TZS
   // --------------------------------------------------------------------------
   {
     id: 1,
-    name: "Bakari Mfaume",
+    name: "Juma Shabani",
     gender: "male",
     country: "Tanzania",
     flag: "🇹🇿",
-    city: "Mwanza",
-    product: "Digital Sonar Fish Finder",
-    productValue: 280000,
-    payout: 14000,
+    city: "Dar es Salaam",
+    product: "Car Disc Brake Rotor & Caliper Kit",
+    productValue: 360000,
+    payout: 18000,
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
-    productImage: imgFishFinderSonar
+    productImage: imgCarBrakeRotorCaliper
   },
   {
     id: 2,
-    name: "Otieno Omondi",
+    name: "Brian Ochieng",
     gender: "male",
     country: "Kenya",
     flag: "🇰🇪",
     city: "Kisumu",
-    product: "Telescopic Fishing Rod",
-    productValue: 195000,
-    payout: 9750,
+    product: "Motorcycle Drive Chain & Sprocket Set",
+    productValue: 145000,
+    payout: 7250,
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
-    productImage: imgTelescopicFishingRod
+    productImage: imgMotoChainSprocket
   },
   {
     id: 3,
-    name: "Athumani Mkude",
+    name: "Amani Mwita",
     gender: "male",
     country: "Tanzania",
     flag: "🇹🇿",
-    city: "Kigoma",
-    product: "Nylon Cast Fishing Net",
-    productValue: 140000,
-    payout: 7000,
+    city: "Mwanza",
+    product: "Car High-Output Alternator 12V",
+    productValue: 420000,
+    payout: 21000,
     avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
-    productImage: imgNylonCastNet
+    productImage: imgCarAlternatorGen
   },
   {
     id: 4,
-    name: "Kato Ssempijja",
+    name: "Ivan Ssenyonjo",
     gender: "male",
     country: "Uganda",
     flag: "🇺🇬",
-    city: "Jinja",
-    product: "Submersible LED Fishing Light",
-    productValue: 125000,
-    payout: 6250,
+    city: "Kampala",
+    product: "Motorcycle Hydraulic Front Fork Assembly",
+    productValue: 290000,
+    payout: 14500,
     avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&q=80",
-    productImage: imgSubmersibleFishingLight
+    productImage: imgMotoFrontForks
   },
   {
     id: 5,
-    name: "Joaquim Sitoe",
-    gender: "male",
-    country: "Mozambique",
-    flag: "🇲🇿",
-    city: "Maputo",
-    product: "Electronic Fishing Bite Alarm",
-    productValue: 210000,
-    payout: 10500,
-    avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
-    productImage: imgElectronicBiteAlarms
-  },
-  {
-    id: 6,
-    name: "Mwajuma Mwinyi",
+    name: "Zainabu Mpili",
     gender: "female",
     country: "Tanzania",
     flag: "🇹🇿",
     city: "Tanga",
-    product: "Saltwater Trolling Reel",
-    productValue: 380000,
-    payout: 19000,
+    product: "Car Electronic Throttle Body Assembly",
+    productValue: 240000,
+    payout: 12000,
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
-    productImage: imgSaltwaterTrollingReel
+    productImage: imgCarThrottleBody
+  },
+  {
+    id: 6,
+    name: "Faustin Ngarambe",
+    gender: "male",
+    country: "Rwanda",
+    flag: "🇷🇼",
+    city: "Kigali",
+    product: "Motorcycle Rear Nitrogen Monoshock",
+    productValue: 195000,
+    payout: 9750,
+    avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
+    productImage: imgMotoRearMonoshock
   },
   {
     id: 7,
-    name: "Akinyi Odhiambo",
-    gender: "female",
+    name: "Hassan Kibet",
+    gender: "male",
     country: "Kenya",
     flag: "🇰🇪",
-    city: "Homa Bay",
-    product: "Live Bait Tank Aerator Pump",
-    productValue: 115000,
-    payout: 5750,
+    city: "Eldoret",
+    product: "Automotive High-Pressure Fuel Pump",
+    productValue: 310000,
+    payout: 15500,
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
-    productImage: imgLiveBaitAeratorPump
+    productImage: imgCarFuelPumpMod
   },
   {
     id: 8,
-    name: "Thabo Mokoena",
+    name: "Hamisi Mkwawa",
+    gender: "male",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Iringa",
+    product: "Motorcycle Ignition Stator Coil & CDI Unit",
+    productValue: 160000,
+    payout: 8000,
+    avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&q=80",
+    productImage: imgMotoCdiStator
+  },
+  {
+    id: 9,
+    name: "Bongani Zwane",
     gender: "male",
     country: "South Africa",
     flag: "🇿🇦",
     city: "Durban",
-    product: "Fishing Tackle Backpack",
-    productValue: 175000,
-    payout: 8750,
-    avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&q=80",
-    productImage: imgFishingTackleBackpack
-  },
-  {
-    id: 9,
-    name: "Baraka Mwambungu",
-    gender: "male",
-    country: "Tanzania",
-    flag: "🇹🇿",
-    city: "Kyela",
-    product: "Crab and Prawn Trap Net",
-    productValue: 135000,
-    payout: 6750,
+    product: "Car Air Conditioner Compressor Unit",
+    productValue: 480000,
+    payout: 24000,
     avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&q=80",
-    productImage: imgCrabPrawnTrapNet
+    productImage: imgCarAcCompressor
   },
   {
     id: 10,
-    name: "Amina Nakato",
-    gender: "female",
-    country: "Uganda",
-    flag: "🇺🇬",
-    city: "Entebbe",
-    product: "Fish Lip Gripper with Scale",
-    productValue: 110000,
-    payout: 5500,
-    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&q=80",
-    productImage: imgFishGripperDigitalScale
+    name: "Dieudonné Ilunga",
+    gender: "male",
+    country: "Congo (DRC)",
+    flag: "🇨🇩",
+    city: "Lubumbashi",
+    product: "Car Heavy-Duty Clutch Pressure Plate Kit",
+    productValue: 390000,
+    payout: 19500,
+    avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
+    productImage: imgCarClutchKit
   },
   {
     id: 11,
-    name: "Emeka Chukwueze",
-    gender: "male",
-    country: "Nigeria",
-    flag: "🇳🇬",
-    city: "Port Harcourt",
-    product: "Boat Trailer Hand Winch",
-    productValue: 320000,
-    payout: 16000,
-    avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
-    productImage: imgBoatTrailerWinch
-  },
-  {
-    id: 12,
-    name: "Halima Salum",
+    name: "Zawadi Mlowe",
     gender: "female",
     country: "Tanzania",
     flag: "🇹🇿",
-    city: "Bagamoyo",
-    product: "Braided Fishing Line Spool",
-    productValue: 105000,
-    payout: 5250,
+    city: "Mbeya",
+    product: "Car Engine Electric Starter Motor",
+    productValue: 275000,
+    payout: 13750,
     avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80",
-    productImage: imgBraidedFishingLineSpool
+    productImage: imgCarStarterMotor
+  },
+  {
+    id: 12,
+    name: "Chileshe Mulenga",
+    gender: "male",
+    country: "Zambia",
+    flag: "🇿🇲",
+    city: "Lusaka",
+    product: "Electric 4x4 Off-Road Recovery Winch",
+    productValue: 490000,
+    payout: 24500,
+    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&q=80",
+    productImage: imgCarRecoveryWinch
   },
 
   // --------------------------------------------------------------------------
-  // UKURASA WA 2: Vifaa vya Ufugaji wa Kisasa (Modern Livestock Equipment - Picha Halisi za Bidhaa Zenyewe Bila Watu) - 100k - 400k TZS
+  // UKURASA WA 2: Vifaa vya Ufugaji wa Wanyama na Ndege (Livestock & Poultry Equipment - Picha Halisi za Vifaa Bila Watu) - 100k - 600k TZS
   // --------------------------------------------------------------------------
   {
     id: 13,
-    name: "Rashid Mussa",
+    name: "Selemani Mkude",
     gender: "male",
     country: "Tanzania",
     flag: "🇹🇿",
     city: "Morogoro",
-    product: "Poultry Egg Incubator",
-    productValue: 285000,
-    payout: 14250,
+    product: "Automatic Poultry Egg Incubator",
+    productValue: 480000,
+    payout: 24000,
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
     productImage: imgPoultryEggIncubator
   },
   {
     id: 14,
-    name: "Waweru Mwangi",
+    name: "Geoffrey Kiprop",
     gender: "male",
     country: "Kenya",
     flag: "🇰🇪",
     city: "Nakuru",
-    product: "Electric Milking Machine",
-    productValue: 380000,
-    payout: 19000,
+    product: "Dual-Bucket Electric Milking Machine",
+    productValue: 580000,
+    payout: 29000,
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
     productImage: imgElectricMilkingMachine
   },
   {
     id: 15,
-    name: "Neema Mwampashi",
+    name: "Subira Mwakipesile",
     gender: "female",
     country: "Tanzania",
     flag: "🇹🇿",
     city: "Mbeya",
-    product: "Sheep Shearing Clipper",
-    productValue: 240000,
-    payout: 12000,
+    product: "Professional Sheep Shearing Clipper",
+    productValue: 270000,
+    payout: 13500,
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
     productImage: imgSheepShearingClipper
   },
   {
     id: 16,
-    name: "Ronald Mukasa",
+    name: "Ronald Tumusiime",
     gender: "male",
     country: "Uganda",
     flag: "🇺🇬",
     city: "Mbarara",
-    product: "Solar Fence Energizer",
-    productValue: 350000,
-    payout: 17500,
+    product: "Solar Livestock Electric Fence Energizer",
+    productValue: 520000,
+    payout: 26000,
     avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
     productImage: imgSolarFenceEnergizer
   },
   {
     id: 17,
-    name: "Jean-Paul Habimana",
+    name: "Jean-Claude Mugabo",
     gender: "male",
     country: "Rwanda",
     flag: "🇷🇼",
     city: "Kigali",
-    product: "Livestock Water Trough",
-    productValue: 145000,
-    payout: 7250,
+    product: "Heavy-Duty Livestock Platform Scale",
+    productValue: 460000,
+    payout: 23000,
     avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&q=80",
-    productImage: imgLivestockWaterTrough
+    productImage: imgLivestockScale
   },
   {
     id: 18,
-    name: "Zakaria Milinga",
+    name: "Lucas Masanja",
     gender: "male",
     country: "Tanzania",
     flag: "🇹🇿",
-    city: "Tabora",
-    product: "Honey Extractor Centrifuge",
-    productValue: 320000,
-    payout: 16000,
+    city: "Shinyanga",
+    product: "Commercial Animal Feed Grinder",
+    productValue: 550000,
+    payout: 27500,
     avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
-    productImage: imgHoneyExtractorCentrifuge
+    productImage: imgAnimalFeedGrinder
   },
   {
     id: 19,
-    name: "Sipho Ndlovu",
+    name: "Kagiso Molefe",
     gender: "male",
     country: "South Africa",
     flag: "🇿🇦",
     city: "Polokwane",
-    product: "RFID Animal Ear Tag Scanner",
-    productValue: 260000,
-    payout: 13000,
+    product: "RFID Livestock Ear Tag Scanner",
+    productValue: 310000,
+    payout: 15500,
     avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&q=80",
     productImage: imgLivestockEarTagScanner
   },
   {
     id: 20,
-    name: "Asha Salum",
+    name: "Hawa Mazengo",
     gender: "female",
     country: "Tanzania",
     flag: "🇹🇿",
     city: "Dodoma",
-    product: "Livestock Drenching Gun",
-    productValue: 125000,
-    payout: 6250,
+    product: "Automatic Float Valve Water Trough",
+    productValue: 185000,
+    payout: 9250,
     avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80",
-    productImage: imgVeterinaryDrenchingGun
+    productImage: imgLivestockWaterTrough
   },
   {
     id: 21,
-    name: "Emmanuel Banda",
+    name: "Derrick Lungu",
     gender: "male",
     country: "Zambia",
     flag: "🇿🇲",
     city: "Chipata",
-    product: "Poultry Nipple Drinker Kit",
-    productValue: 180000,
-    payout: 9000,
+    product: "Automatic Poultry Nipple Drinker System",
+    productValue: 145000,
+    payout: 7250,
     avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&q=80",
     productImage: imgPoultryNippleDrinkerKit
   },
   {
     id: 22,
-    name: "Amina Khalfan",
+    name: "Faith Mutua",
     gender: "female",
-    country: "Tanzania",
-    flag: "🇹🇿",
-    city: "Arusha",
-    product: "Chick Brooder Heat Lamp",
-    productValue: 110000,
-    payout: 5500,
+    country: "Kenya",
+    flag: "🇰🇪",
+    city: "Machakos",
+    product: "Infrared Chick Brooder Heat Lamp",
+    productValue: 120000,
+    payout: 6000,
     avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&q=80",
     productImage: imgChickBrooderHeatLamp
   },
   {
     id: 23,
-    name: "Chinedu Eze",
+    name: "Adebayo Ogunleye",
     gender: "male",
     country: "Nigeria",
     flag: "🇳🇬",
-    city: "Enugu",
-    product: "Electric Calf Dehorner",
-    productValue: 215000,
-    payout: 10750,
+    city: "Ibadan",
+    product: "Continuous Veterinary Drenching Gun",
+    productValue: 165000,
+    payout: 8250,
     avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
-    productImage: imgElectricCalfDehorner
+    productImage: imgVeterinaryDrenchingGun
   },
   {
     id: 24,
-    name: "Antonio Cossa",
+    name: "Mateus Mabunda",
     gender: "male",
     country: "Mozambique",
     flag: "🇲🇿",
     city: "Chokwe",
-    product: "Treadle Chicken Feeder",
-    productValue: 165000,
-    payout: 8250,
+    product: "Automatic Treadle Poultry Feeder",
+    productValue: 210000,
+    payout: 10500,
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
     productImage: imgTreadleChickenFeeder
   },

@@ -1773,8 +1773,8 @@ function Dashboard() {
     setTimeout(() => {
       setCallStatus('idle');
       setActiveVerification(null);
-      handleActionRequiresAuth("");
-    }, 4500);
+      setInfoModalMessage("Tafadhali wasiliana na alie kujuza fursa hii ili uweze kufungua akaunti kwanza");
+    }, 5000);
   };
 
   const handleActionRequiresAuth = (message: string) => {
