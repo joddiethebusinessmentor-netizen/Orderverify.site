@@ -1114,6 +1114,22 @@ function Dashboard() {
     }, 2000); // 2 seconds loading simulation
   };
 
+  const VIP_LEVELS = [
+    { level: 0, name: 'Standard (Free)', fee: 0, maxOrderValue: 180000, dailyLimit: 5, canWithdraw: false },
+    { level: 1, name: 'VIP 1 (Bronze)', fee: 14500, maxOrderValue: 350000, dailyLimit: 15, canWithdraw: true },
+    { level: 2, name: 'VIP 2 (Silver)', fee: 45000, maxOrderValue: 550000, dailyLimit: 35, canWithdraw: true },
+    { level: 3, name: 'VIP 3 (Gold)', fee: 150000, maxOrderValue: 1000000, dailyLimit: 100, canWithdraw: true },
+  ];
+
+  const [vipLevel, setVipLevel] = useState<number>(() => {
+    const saved = localStorage.getItem('orderverify_vip_level');
+    return saved !== null ? Number(saved) : 0;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('orderverify_vip_level', String(vipLevel));
+  }, [vipLevel]);
+
   const [userStatus, setUserStatus] = useState<"visitor" | "registered" | "activated">(() => {
     const saved = localStorage.getItem('orderverify_status');
     return (saved as "visitor" | "registered" | "activated") || "visitor";
@@ -1121,7 +1137,11 @@ function Dashboard() {
   
   useEffect(() => {
     localStorage.setItem('orderverify_status', userStatus);
-  }, [userStatus]);
+    // Auto-upgrade to VIP 1 if status is activated
+    if (userStatus === 'activated' && vipLevel === 0) {
+      setVipLevel(1);
+    }
+  }, [userStatus, vipLevel]);
 
   // Handle Version Reset for all states (Reset balance, profit, and orders after ad recording)
   useEffect(() => {
@@ -1168,7 +1188,8 @@ function Dashboard() {
         return Number(b);
       }
     } catch (e) {}
-    return 0;
+    // Karibu Bonus ya TZS 20,000 kwa mtumiaji mpya
+    return 20000;
   });
 
   const [netProfit, setNetProfit] = useState<number>(() => {
@@ -1258,6 +1279,7 @@ function Dashboard() {
   const [showInstallAppModal, setShowInstallAppModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
   const [infoModalMessage, setInfoModalMessage] = useState<string | null>(null);
+  const [showVipModal, setShowVipModal] = useState(false);
 
   // Miamala ya kutoa fedha iliyohifadhiwa (Kumbukumbu ya Miamala)
   const [withdrawTransactions, setWithdrawTransactions] = useState<WithdrawalTransaction[]>(() => {
@@ -1525,6 +1547,12 @@ function Dashboard() {
     setShowTopNotification(false);
     setWithdrawError('');
 
+    // 0. Uthibitisho wa VIP Level
+    if (vipLevel === 0) {
+      setWithdrawError('Akaunti yako bado ipo kwenye Standard (Free). Ili uweze kutoa pesa zako, unahitaji ku-upgrade kwenda VIP 1 (Bronze) kwanza kwa kulipia mtaji wa 14,500/= tu!');
+      return;
+    }
+
     // 1. Uthibitisho wa salio
     if (!balance || balance <= 0) {
       setWithdrawError('Huna salio la kutosha kwenye akaunti yako (Salio lako ni TZS 0). Tafadhali thibitisha order kwanza ili kupata salio la kutoa.');
@@ -1741,7 +1769,23 @@ function Dashboard() {
 
   const handleConfirmAction = (orderId: number, payout: number) => {
     const targetOrder = orders.find(o => o.id === orderId);
-    const signature = targetOrder ? `${orderId}:${targetOrder.product}` : String(orderId);
+    if (!targetOrder) return;
+
+    const currentVip = VIP_LEVELS.find(v => v.level === vipLevel) || VIP_LEVELS[0];
+
+    // 1. Check Daily Limit
+    if (verifiedOrders.length >= currentVip.dailyLimit) {
+      setInfoModalMessage(`Umeshafikia ukomo wa kuthibitisha order kwa siku kwa daraja lako la ${currentVip.name}. Tafadhali upgrade VIP yako ili uendelee kupata kipato zaidi leo!`);
+      return;
+    }
+
+    // 2. Check Order Value Limit
+    if (targetOrder.productValue > currentVip.maxOrderValue) {
+      setInfoModalMessage(`Order hii ni ya thamani kubwa (${formatLocalCurrency(targetOrder.productValue, targetOrder.country)}). Daraja lako la ${currentVip.name} haliruhusu kuthibitisha order zenye thamani zaidi ya ${formatLocalCurrency(currentVip.maxOrderValue, targetOrder.country)}. Tafadhali upgrade VIP ili uweze kuipata hii!`);
+      return;
+    }
+
+    const signature = `${orderId}:${targetOrder.product}`;
 
     const updatedVerified = Array.from(new Set([...verifiedOrders, signature, String(orderId)]));
     setVerifiedOrders(updatedVerified);
@@ -1764,7 +1808,10 @@ function Dashboard() {
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2500);
     setTimeout(() => {
-      triggerMotivation(`Hongera kwa kuthibitisha order! Salio lako sasa ni TZS ${newBalance.toLocaleString()}. Kumbuka, ili kuitoa pesa hii utahitaji kujisajili na kulipia mtaji wa 14,500/= tu.`, 7);
+      const msg = vipLevel === 0 
+        ? `Hongera sana! Salio lako sasa ni TZS ${newBalance.toLocaleString()}. Ili uweze kutoa pesa hizi na kuendelea kuthibitisha order kubwa zaidi, unahitaji ku-upgrade kwenda VIP 1 (Bronze) kwa gharama ya 14,500/= tu!`
+        : `Hongera kwa kuthibitisha order! Salio lako limeongezeka na kuwa TZS ${newBalance.toLocaleString()}. Endelea hivi hivi ili ufikie malengo yako!`;
+      triggerMotivation(msg, 8);
     }, 2000);
   };
 
@@ -1850,7 +1897,12 @@ function Dashboard() {
           </div>
           <div>
             <h2 className="font-black text-base sm:text-lg leading-none tracking-tight text-white">ORDER<span className="text-[#00E676]">VERIFY</span></h2>
-            <p className="text-[10px] text-slate-400 font-medium">Thibitisha order pata kipato</p>
+            <div className="flex items-center gap-1 mt-0.5">
+              <p className="text-[10px] text-slate-400 font-medium">Thibitisha order</p>
+              <span className={`text-[8px] font-black px-1.5 py-0.5 rounded ${vipLevel > 0 ? 'bg-amber-500 text-black' : 'bg-slate-700 text-slate-300'}`}>
+                {VIP_LEVELS.find(v => v.level === vipLevel)?.name.split(' ')[0] || 'Standard'}
+              </span>
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-1.5 sm:gap-2">

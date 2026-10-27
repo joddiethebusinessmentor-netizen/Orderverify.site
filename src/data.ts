@@ -1,51 +1,51 @@
 // ============================================================================
-// ORDERVERIFY DATA ENGINE (VERSION 151 - AUTO PARTS & LIVESTOCK/POULTRY)
+// ORDERVERIFY DATA ENGINE (VERSION 154 - WATER & OIL WELL CONSTRUCTION PAGE 3)
 // ============================================================================
-// Page 1: Spare Parts za Magari na Pikipiki (Auto & Moto Spare Parts)
-// Page 2: Vifaa vya Ufugaji wa Wanyama na Ndege (Livestock & Poultry Equipment)
-// Page 3: Vifaa vya Music Band (Music Band Equipment)
+// Page 1: Vifaa vya Ujenzi wa Barabara na Madaraja (Road & Bridge Construction Equipment)
+// Page 2: Vifaa vya Ujenzi wa Nyumba na Maghorofa (Building & High-Rise Construction Equipment)
+// Page 3: Vifaa vya Ujenzi wa Visima vya Maji na Mafuta (Water & Oil Well Construction Equipment)
 // Malipo: 5% (Math.round(productValue * 0.05))
 // Zero duplicate names across Orders, Live Notifications, and Comments.
 // ============================================================================
 
-import imgCarBrakeRotorCaliper from "./assets/images/car_brake_rotor_caliper_1790462768027.jpg";
-import imgMotoChainSprocket from "./assets/images/moto_chain_sprocket_1790462878188.jpg";
-import imgCarAlternatorGen from "./assets/images/car_alternator_gen_1790462782249.jpg";
-import imgMotoFrontForks from "./assets/images/moto_front_forks_1790462794958.jpg";
-import imgCarThrottleBody from "./assets/images/car_throttle_body_1790462808489.jpg";
-import imgMotoRearMonoshock from "./assets/images/moto_rear_monoshock_1790462855305.jpg";
-import imgCarFuelPumpMod from "./assets/images/car_fuel_pump_mod_1790462831255.jpg";
-import imgMotoCdiStator from "./assets/images/moto_cdi_stator_1790462904935.jpg";
-import imgCarAcCompressor from "./assets/images/car_ac_compressor_1790462843485.jpg";
-import imgCarClutchKit from "./assets/images/car_clutch_kit_1790462866948.jpg";
-import imgCarStarterMotor from "./assets/images/car_starter_motor_1790462890861.jpg";
-import imgCarRecoveryWinch from "./assets/images/electric_cargo_winch_1790258223028.jpg";
+import imgJawRockCrusher from "./assets/images/jaw_rock_crusher_1790256407898.jpg";
+import imgSlurryDewateringPump from "./assets/images/mining_slurry_pump_1790256438122.jpg";
+import imgBridgeCraneScale from "./assets/images/crane_freight_scale_1790258316741.jpg";
+import imgBridgeCableWinch from "./assets/images/electric_cargo_winch_1790258223028.jpg";
+import imgGirderRollerSkates from "./assets/images/machinery_moving_skates_1790258303733.jpg";
+import imgHydraulicMaterialJack from "./assets/images/hydraulic_pallet_truck_1790258207851.jpg";
+import imgTunnelVentilationBlower from "./assets/images/mining_ventilation_blower_1790256502211.jpg";
+import imgHighwaySolarStreetLight from "./assets/images/solar_street_light_1789537172548.jpg";
+import imgBridgeBoltingToolChest from "./assets/images/mechanic_toolbox_1789046768121.jpg";
+import imgAsphaltLaserThermometer from "./assets/images/laser_temp_gun_1789046752653.jpg";
+import imgBridgeRatchetStraps from "./assets/images/cargo_ratchet_straps_1790258261372.jpg";
+import imgRoadCuringTarpaulin from "./assets/images/truck_cargo_tarpaulin_1790258286863.jpg";
 
-import imgPoultryEggIncubator from "./assets/images/poultry_egg_incubator_1791345750502.jpg";
-import imgElectricMilkingMachine from "./assets/images/electric_milking_machine_1791345760639.jpg";
-import imgSheepShearingClipper from "./assets/images/sheep_shearing_clipper_1791345770182.jpg";
-import imgSolarFenceEnergizer from "./assets/images/solar_fence_energizer_1791345779321.jpg";
-import imgLivestockScale from "./assets/images/livestock_platform_scale_1790726966969.jpg";
-import imgAnimalFeedGrinder from "./assets/images/animal_feed_grinder_1790726945036.jpg";
-import imgLivestockEarTagScanner from "./assets/images/livestock_ear_tag_scanner_1791345806088.jpg";
-import imgLivestockWaterTrough from "./assets/images/livestock_water_trough_1791345788287.jpg";
-import imgPoultryNippleDrinkerKit from "./assets/images/poultry_nipple_drinker_kit_1791345825473.jpg";
-import imgChickBrooderHeatLamp from "./assets/images/chick_brooder_heat_lamp_1791345833898.jpg";
-import imgVeterinaryDrenchingGun from "./assets/images/veterinary_drenching_gun_1791345815145.jpg";
-import imgTreadleChickenFeeder from "./assets/images/treadle_chicken_feeder_1791345852077.jpg";
+import imgConcreteMixerMachine from "./assets/images/concrete_mixer_machine_1790064880449.jpg";
+import imgDiamondCoreDrill from "./assets/images/diamond_core_drill_1790256465596.jpg";
+import imgGreenLaserLevel from "./assets/images/green_laser_level_1790064891481.jpg";
+import imgPneumaticJackhammer from "./assets/images/pneumatic_rock_drill_1790256396223.jpg";
+import imgConcreteVibratorPoker from "./assets/images/concrete_vibrator_poker_1790064913250.jpg";
+import imgMetalCutSaw from "./assets/images/metal_cut_saw_1789046736190.jpg";
+import imgCordlessHammerDrill from "./assets/images/cordless_hammer_drill_1790064868417.jpg";
+import imgCeramicTileCutter from "./assets/images/ceramic_tile_cutter_1790064902501.jpg";
+import imgWeldingMachine from "./assets/images/welding_machine_1789046717800.jpg";
+import imgTelescopicLadder from "./assets/images/telescopic_ladder_1790064923864.jpg";
+import imgAirCompressorTank from "./assets/images/air_compressor_tank_1789028891849.jpg";
+import imgStairCargoTrolley from "./assets/images/stair_cargo_trolley_1790258245929.jpg";
 
-import imgElectricGuitarPro from "./assets/images/music_band_gear_set_1_jpg_1791351368065.jpg";
-import imgCompleteDrumSet from "./assets/images/music_band_gear_set_2_jpg_1791351382397.jpg";
-import imgElectricBassGuitar from "./assets/images/music_band_gear_set_3_jpg_1791351393580.jpg";
-import imgDigitalPianoKeyboard from "./assets/images/music_band_gear_set_4_jpg_1791351405088.jpg";
-import imgPoweredPASpeaker from "./assets/images/music_band_gear_set_5_jpg_1791351415676.jpg";
-import imgProAudioMixer from "./assets/images/music_band_gear_set_6_jpg_1791351427189.jpg";
-import imgAltoSaxophone from "./assets/images/music_band_gear_set_7_jpg_1791351439939.jpg";
-import imgSilverTrumpet from "./assets/images/music_band_gear_set_8_jpg_1791351454460.jpg";
-import imgWirelessMicSystem from "./assets/images/music_band_gear_set_9_jpg_1791351467016.jpg";
-import imgStageFloorMonitor from "./assets/images/music_band_gear_set_10_jpg_1791351477959.jpg";
-import imgMusicSynthesizer from "./assets/images/music_band_gear_set_11_jpg_1791351489124.jpg";
-import imgLightingController from "./assets/images/music_band_gear_set_12_jpg_1791351501210.jpg";
+import imgBoreholeSubmersiblePump from "./assets/images/submersible_solar_pump_1789537226900.jpg";
+import imgDieselDrillingMudPump from "./assets/images/irrigation_water_pump_1789537012954.jpg";
+import imgWellFlushingTestPump from "./assets/images/petrol_water_pump_1789028875127.jpg";
+import imgOilWellExtractionPump from "./assets/images/car_fuel_pump_mod_1790462831255.jpg";
+import imgWellheadFlowValve from "./assets/images/car_throttle_body_1790462808489.jpg";
+import imgBoreholeCasingWinch from "./assets/images/boat_trailer_winch_1791342187336.jpg";
+import imgOilWellheadCompressor from "./assets/images/car_ac_compressor_1790462843485.jpg";
+import imgDrillingRigStarterMotor from "./assets/images/car_starter_motor_1790462890861.jpg";
+import imgWellPumpVoltageStabilizer from "./assets/images/automatic_voltage_stabilizer_avr_5000va_1790728096362.jpg";
+import imgSolarBoreholeMpptController from "./assets/images/mppt_charge_controller_1789537205902.jpg";
+import imgCrudeOilWaterDistiller from "./assets/images/lab_distillation_set_1790463451879.jpg";
+import imgBoreholePumpMultimeter from "./assets/images/multimeter_1789046685788.jpg";
 
 export interface Order {
   id: number;
@@ -129,7 +129,7 @@ export function normalizeProductKey(productName: string): string {
 }
 
 // STORAGE VERSION TAG - Bumped to clear all client memory & cached orders
-export const STORAGE_VERSION_TAG = "ov_v151_livestock_poultry_page2_refresh";
+export const STORAGE_VERSION_TAG = "ov_v155_fresh_comments_and_live_notifications";
 const STORAGE_KEY_VERSION = "orderverify_app_version";
 const STORAGE_KEY_ACTIVE_ORDERS = "orderverify_active_orders";
 const STORAGE_KEY_ACTIVE_PAYOUTS = "orderverify_active_payouts";
@@ -170,167 +170,167 @@ function storageRemove(key: string): void {
 
 export const MASTER_EXACT_ORDERS: Order[] = [
   // --------------------------------------------------------------------------
-  // UKURASA WA 1: Spare Parts za Magari na Pikipiki (Auto & Motorcycle Spare Parts - Picha Halisi za Vifaa Bila Watu) - 100k - 500k TZS
+  // UKURASA WA 1: Vifaa vya Ujenzi wa Barabara na Madaraja (Road & Bridge Construction Equipment - Picha Halisi za Bidhaa Zenyewe) - 100k - 800k TZS
   // --------------------------------------------------------------------------
   {
     id: 1,
-    name: "Juma Shabani",
+    name: "Omary Mwakasege",
     gender: "male",
     country: "Tanzania",
     flag: "🇹🇿",
     city: "Dar es Salaam",
-    product: "Car Disc Brake Rotor & Caliper Kit",
-    productValue: 360000,
-    payout: 18000,
+    product: "Road Aggregate Jaw Crusher Machine",
+    productValue: 785000,
+    payout: 39250,
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
-    productImage: imgCarBrakeRotorCaliper
+    productImage: imgJawRockCrusher
   },
   {
     id: 2,
-    name: "Brian Ochieng",
+    name: "Kelvin Omondi",
     gender: "male",
     country: "Kenya",
     flag: "🇰🇪",
-    city: "Kisumu",
-    product: "Motorcycle Drive Chain & Sprocket Set",
-    productValue: 145000,
-    payout: 7250,
+    city: "Nairobi",
+    product: "Bridge Foundation Slurry Dewatering Pump",
+    productValue: 690000,
+    payout: 34500,
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
-    productImage: imgMotoChainSprocket
+    productImage: imgSlurryDewateringPump
   },
   {
     id: 3,
-    name: "Amani Mwita",
-    gender: "male",
+    name: "Salma Mwakalukwa",
+    gender: "female",
     country: "Tanzania",
     flag: "🇹🇿",
-    city: "Mwanza",
-    product: "Car High-Output Alternator 12V",
-    productValue: 420000,
-    payout: 21000,
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
-    productImage: imgCarAlternatorGen
+    city: "Dodoma",
+    product: "30-Ton Bridge Crane Hanging Scale",
+    productValue: 740000,
+    payout: 37000,
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
+    productImage: imgBridgeCraneScale
   },
   {
     id: 4,
-    name: "Ivan Ssenyonjo",
+    name: "Denis Ssekandi",
     gender: "male",
     country: "Uganda",
     flag: "🇺🇬",
     city: "Kampala",
-    product: "Motorcycle Hydraulic Front Fork Assembly",
-    productValue: 290000,
-    payout: 14500,
+    product: "13000Lbs Heavy-Duty Bridge Cable Winch",
+    productValue: 640000,
+    payout: 32000,
     avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&q=80",
-    productImage: imgMotoFrontForks
+    productImage: imgBridgeCableWinch
   },
   {
     id: 5,
-    name: "Zainabu Mpili",
-    gender: "female",
+    name: "Athumani Mzava",
+    gender: "male",
     country: "Tanzania",
     flag: "🇹🇿",
     city: "Tanga",
-    product: "Car Electronic Throttle Body Assembly",
-    productValue: 240000,
-    payout: 12000,
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
-    productImage: imgCarThrottleBody
+    product: "Heavy-Duty Bridge Girder Roller Skates",
+    productValue: 530000,
+    payout: 26500,
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
+    productImage: imgGirderRollerSkates
   },
   {
     id: 6,
-    name: "Faustin Ngarambe",
+    name: "Olivier Habimana",
     gender: "male",
     country: "Rwanda",
     flag: "🇷🇼",
     city: "Kigali",
-    product: "Motorcycle Rear Nitrogen Monoshock",
-    productValue: 195000,
-    payout: 9750,
+    product: "3-Ton Hydraulic Curbstone & Material Jack",
+    productValue: 590000,
+    payout: 29500,
     avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
-    productImage: imgMotoRearMonoshock
+    productImage: imgHydraulicMaterialJack
   },
   {
     id: 7,
-    name: "Hassan Kibet",
-    gender: "male",
+    name: "Wanjiku Kamau",
+    gender: "female",
     country: "Kenya",
     flag: "🇰🇪",
-    city: "Eldoret",
-    product: "Automotive High-Pressure Fuel Pump",
-    productValue: 310000,
-    payout: 15500,
+    city: "Nakuru",
+    product: "Axial Tunnel & Bridge Culvert Blower Fan",
+    productValue: 460000,
+    payout: 23000,
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
-    productImage: imgCarFuelPumpMod
+    productImage: imgTunnelVentilationBlower
   },
   {
     id: 8,
-    name: "Hamisi Mkwawa",
+    name: "Suleiman Mapunda",
     gender: "male",
     country: "Tanzania",
     flag: "🇹🇿",
-    city: "Iringa",
-    product: "Motorcycle Ignition Stator Coil & CDI Unit",
-    productValue: 160000,
-    payout: 8000,
+    city: "Mwanza",
+    product: "Highway & Bridge Solar LED Street Light",
+    productValue: 380000,
+    payout: 19000,
     avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&q=80",
-    productImage: imgMotoCdiStator
+    productImage: imgHighwaySolarStreetLight
   },
   {
     id: 9,
-    name: "Bongani Zwane",
+    name: "Sipho Ndlovu",
     gender: "male",
     country: "South Africa",
     flag: "🇿🇦",
-    city: "Durban",
-    product: "Car Air Conditioner Compressor Unit",
-    productValue: 480000,
-    payout: 24000,
+    city: "Pretoria",
+    product: "Heavy-Duty Bridge Bolting Socket Tool Chest",
+    productValue: 320000,
+    payout: 16000,
     avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&q=80",
-    productImage: imgCarAcCompressor
+    productImage: imgBridgeBoltingToolChest
   },
   {
     id: 10,
-    name: "Dieudonné Ilunga",
+    name: "Tresor Tshibangu",
     gender: "male",
     country: "Congo (DRC)",
     flag: "🇨🇩",
     city: "Lubumbashi",
-    product: "Car Heavy-Duty Clutch Pressure Plate Kit",
-    productValue: 390000,
-    payout: 19500,
+    product: "Infrared Asphalt Paving Thermometer",
+    productValue: 185000,
+    payout: 9250,
     avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
-    productImage: imgCarClutchKit
+    productImage: imgAsphaltLaserThermometer
   },
   {
     id: 11,
-    name: "Zawadi Mlowe",
+    name: "Halima Mwandambo",
     gender: "female",
     country: "Tanzania",
     flag: "🇹🇿",
-    city: "Mbeya",
-    product: "Car Engine Electric Starter Motor",
-    productValue: 275000,
-    payout: 13750,
+    city: "Arusha",
+    product: "Bridge Beam Tension Ratchet Straps Set",
+    productValue: 145000,
+    payout: 7250,
     avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80",
-    productImage: imgCarStarterMotor
+    productImage: imgBridgeRatchetStraps
   },
   {
     id: 12,
-    name: "Chileshe Mulenga",
+    name: "Mutale Bwalya",
     gender: "male",
     country: "Zambia",
     flag: "🇿🇲",
-    city: "Lusaka",
-    product: "Electric 4x4 Off-Road Recovery Winch",
-    productValue: 490000,
-    payout: 24500,
+    city: "Ndola",
+    product: "Waterproof Road Concrete Curing Tarpaulin",
+    productValue: 230000,
+    payout: 11500,
     avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&q=80",
-    productImage: imgCarRecoveryWinch
+    productImage: imgRoadCuringTarpaulin
   },
 
   // --------------------------------------------------------------------------
-  // UKURASA WA 2: Vifaa vya Ufugaji wa Wanyama na Ndege (Livestock & Poultry Equipment - Picha Halisi za Vifaa Bila Watu) - 100k - 600k TZS
+  // UKURASA WA 2: Vifaa vya Ujenzi wa Nyumba na Maghorofa (Building & High-Rise Construction Equipment - Picha Halisi za Bidhaa Zenyewe) - 100k - 600k TZS
   // --------------------------------------------------------------------------
   {
     id: 13,
@@ -338,12 +338,12 @@ export const MASTER_EXACT_ORDERS: Order[] = [
     gender: "male",
     country: "Tanzania",
     flag: "🇹🇿",
-    city: "Morogoro",
-    product: "Automatic Poultry Egg Incubator",
-    productValue: 480000,
-    payout: 24000,
+    city: "Dar es Salaam",
+    product: "Electric Concrete Mixer Machine",
+    productValue: 590000,
+    payout: 29500,
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
-    productImage: imgPoultryEggIncubator
+    productImage: imgConcreteMixerMachine
   },
   {
     id: 14,
@@ -351,12 +351,12 @@ export const MASTER_EXACT_ORDERS: Order[] = [
     gender: "male",
     country: "Kenya",
     flag: "🇰🇪",
-    city: "Nakuru",
-    product: "Dual-Bucket Electric Milking Machine",
-    productValue: 580000,
-    payout: 29000,
+    city: "Nairobi",
+    product: "Diamond Concrete Core Drilling Rig",
+    productValue: 560000,
+    payout: 28000,
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
-    productImage: imgElectricMilkingMachine
+    productImage: imgDiamondCoreDrill
   },
   {
     id: 15,
@@ -365,11 +365,11 @@ export const MASTER_EXACT_ORDERS: Order[] = [
     country: "Tanzania",
     flag: "🇹🇿",
     city: "Mbeya",
-    product: "Professional Sheep Shearing Clipper",
-    productValue: 270000,
-    payout: 13500,
+    product: "3D Green Beam Construction Laser Level",
+    productValue: 240000,
+    payout: 12000,
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
-    productImage: imgSheepShearingClipper
+    productImage: imgGreenLaserLevel
   },
   {
     id: 16,
@@ -377,12 +377,12 @@ export const MASTER_EXACT_ORDERS: Order[] = [
     gender: "male",
     country: "Uganda",
     flag: "🇺🇬",
-    city: "Mbarara",
-    product: "Solar Livestock Electric Fence Energizer",
-    productValue: 520000,
-    payout: 26000,
+    city: "Kampala",
+    product: "Pneumatic Concrete Breaker Jackhammer",
+    productValue: 510000,
+    payout: 25500,
     avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
-    productImage: imgSolarFenceEnergizer
+    productImage: imgPneumaticJackhammer
   },
   {
     id: 17,
@@ -391,11 +391,11 @@ export const MASTER_EXACT_ORDERS: Order[] = [
     country: "Rwanda",
     flag: "🇷🇼",
     city: "Kigali",
-    product: "Heavy-Duty Livestock Platform Scale",
-    productValue: 460000,
-    payout: 23000,
+    product: "Electric Concrete Vibrator Poker",
+    productValue: 280000,
+    payout: 14000,
     avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&q=80",
-    productImage: imgLivestockScale
+    productImage: imgConcreteVibratorPoker
   },
   {
     id: 18,
@@ -403,12 +403,12 @@ export const MASTER_EXACT_ORDERS: Order[] = [
     gender: "male",
     country: "Tanzania",
     flag: "🇹🇿",
-    city: "Shinyanga",
-    product: "Commercial Animal Feed Grinder",
-    productValue: 550000,
-    payout: 27500,
+    city: "Mwanza",
+    product: "Industrial Rebar & Steel Cut-Off Saw",
+    productValue: 340000,
+    payout: 17000,
     avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
-    productImage: imgAnimalFeedGrinder
+    productImage: imgMetalCutSaw
   },
   {
     id: 19,
@@ -416,12 +416,12 @@ export const MASTER_EXACT_ORDERS: Order[] = [
     gender: "male",
     country: "South Africa",
     flag: "🇿🇦",
-    city: "Polokwane",
-    product: "RFID Livestock Ear Tag Scanner",
-    productValue: 310000,
-    payout: 15500,
+    city: "Johannesburg",
+    product: "Cordless Rotary Hammer Drill Kit",
+    productValue: 390000,
+    payout: 19500,
     avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&q=80",
-    productImage: imgLivestockEarTagScanner
+    productImage: imgCordlessHammerDrill
   },
   {
     id: 20,
@@ -430,11 +430,11 @@ export const MASTER_EXACT_ORDERS: Order[] = [
     country: "Tanzania",
     flag: "🇹🇿",
     city: "Dodoma",
-    product: "Automatic Float Valve Water Trough",
-    productValue: 185000,
-    payout: 9250,
+    product: "Heavy-Duty Manual Ceramic Tile Cutter",
+    productValue: 165000,
+    payout: 8250,
     avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80",
-    productImage: imgLivestockWaterTrough
+    productImage: imgCeramicTileCutter
   },
   {
     id: 21,
@@ -442,12 +442,12 @@ export const MASTER_EXACT_ORDERS: Order[] = [
     gender: "male",
     country: "Zambia",
     flag: "🇿🇲",
-    city: "Chipata",
-    product: "Automatic Poultry Nipple Drinker System",
-    productValue: 145000,
-    payout: 7250,
+    city: "Lusaka",
+    product: "Digital Inverter Arc Welding Machine",
+    productValue: 310000,
+    payout: 15500,
     avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&q=80",
-    productImage: imgPoultryNippleDrinkerKit
+    productImage: imgWeldingMachine
   },
   {
     id: 22,
@@ -455,12 +455,12 @@ export const MASTER_EXACT_ORDERS: Order[] = [
     gender: "female",
     country: "Kenya",
     flag: "🇰🇪",
-    city: "Machakos",
-    product: "Infrared Chick Brooder Heat Lamp",
-    productValue: 120000,
-    payout: 6000,
+    city: "Mombasa",
+    product: "Multi-Purpose Aluminum Extension Ladder",
+    productValue: 220000,
+    payout: 11000,
     avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&q=80",
-    productImage: imgChickBrooderHeatLamp
+    productImage: imgTelescopicLadder
   },
   {
     id: 23,
@@ -468,12 +468,12 @@ export const MASTER_EXACT_ORDERS: Order[] = [
     gender: "male",
     country: "Nigeria",
     flag: "🇳🇬",
-    city: "Ibadan",
-    product: "Continuous Veterinary Drenching Gun",
-    productValue: 165000,
-    payout: 8250,
+    city: "Lagos",
+    product: "Heavy-Duty Building Air Compressor",
+    productValue: 450000,
+    payout: 22500,
     avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
-    productImage: imgVeterinaryDrenchingGun
+    productImage: imgAirCompressorTank
   },
   {
     id: 24,
@@ -481,172 +481,172 @@ export const MASTER_EXACT_ORDERS: Order[] = [
     gender: "male",
     country: "Mozambique",
     flag: "🇲🇿",
-    city: "Chokwe",
-    product: "Automatic Treadle Poultry Feeder",
-    productValue: 210000,
-    payout: 10500,
+    city: "Maputo",
+    product: "Stair-Climbing Building Material Trolley",
+    productValue: 140000,
+    payout: 7000,
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
-    productImage: imgTreadleChickenFeeder
+    productImage: imgStairCargoTrolley
   },
 
   // --------------------------------------------------------------------------
-  // UKURASA WA 3: Vifaa vya Music Band (Music Band Equipment - Picha Halisi za Bidhaa Zenyewe Bila Watu) - 100k - 600k TZS
+  // UKURASA WA 3: Vifaa vya Ujenzi wa Visima vya Maji na Mafuta (Water & Oil Well Construction Equipment - Picha Halisi za Bidhaa Zenyewe) - 100k - 600k TZS
   // --------------------------------------------------------------------------
   {
     id: 25,
-    name: "Baraka Msuya",
-    gender: "male",
-    country: "Tanzania",
-    flag: "🇹🇿",
-    city: "Arusha",
-    product: "Pro Electric Guitar",
-    productValue: 385000,
-    payout: 19250,
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
-    productImage: imgElectricGuitarPro
-  },
-  {
-    id: 26,
-    name: "Nanyange Nakato",
-    gender: "female",
-    country: "Uganda",
-    flag: "🇺🇬",
-    city: "Kampala",
-    product: "Complete Studio Drum Set",
-    productValue: 595000,
-    payout: 29750,
-    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80",
-    productImage: imgCompleteDrumSet
-  },
-  {
-    id: 27,
-    name: "Maina Waweru",
-    gender: "male",
-    country: "Kenya",
-    flag: "🇰🇪",
-    city: "Nairobi",
-    product: "Electric Bass Guitar",
-    productValue: 340000,
-    payout: 17000,
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
-    productImage: imgElectricBassGuitar
-  },
-  {
-    id: 28,
-    name: "Pendo Maleko",
-    gender: "female",
-    country: "Tanzania",
-    flag: "🇹🇿",
-    city: "Moshi",
-    product: "Digital Piano Keyboard",
-    productValue: 560000,
-    payout: 28000,
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
-    productImage: imgDigitalPianoKeyboard
-  },
-  {
-    id: 29,
-    name: "Jean-Pierre Kabangu",
-    gender: "male",
-    country: "Congo (DRC)",
-    flag: "🇨🇩",
-    city: "Kinshasa",
-    product: "Powered PA Speaker",
-    productValue: 480000,
-    payout: 24000,
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
-    productImage: imgPoweredPASpeaker
-  },
-  {
-    id: 30,
-    name: "Shadrack Temba",
+    name: "Ramadhani Mwakalebela",
     gender: "male",
     country: "Tanzania",
     flag: "🇹🇿",
     city: "Dar es Salaam",
-    product: "Pro Audio Mixer",
-    productValue: 425000,
-    payout: 21250,
+    product: "Deep Borehole Stainless Submersible Pump",
+    productValue: 590000,
+    payout: 29500,
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
+    productImage: imgBoreholeSubmersiblePump
+  },
+  {
+    id: 26,
+    name: "Nakato Namuganza",
+    gender: "female",
+    country: "Uganda",
+    flag: "🇺🇬",
+    city: "Kampala",
+    product: "Diesel Borehole Drilling Mud & Water Pump",
+    productValue: 550000,
+    payout: 27500,
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80",
+    productImage: imgDieselDrillingMudPump
+  },
+  {
+    id: 27,
+    name: "Mwangi Njoroge",
+    gender: "male",
+    country: "Kenya",
+    flag: "🇰🇪",
+    city: "Nairobi",
+    product: "High-Flow Well Flushing & Test Pump 7HP",
+    productValue: 480000,
+    payout: 24000,
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
+    productImage: imgWellFlushingTestPump
+  },
+  {
+    id: 28,
+    name: "Latifa Mwakinyo",
+    gender: "female",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Tanga",
+    product: "Submersible Oil Well Extraction Pump Unit",
+    productValue: 430000,
+    payout: 21500,
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
+    productImage: imgOilWellExtractionPump
+  },
+  {
+    id: 29,
+    name: "Patrice Mutombo",
+    gender: "male",
+    country: "Congo (DRC)",
+    flag: "🇨🇩",
+    city: "Kinshasa",
+    product: "Motorized Wellhead Pipeline Flow Valve",
+    productValue: 340000,
+    payout: 17000,
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
+    productImage: imgWellheadFlowValve
+  },
+  {
+    id: 30,
+    name: "Jafari Mwakalindile",
+    gender: "male",
+    country: "Tanzania",
+    flag: "🇹🇿",
+    city: "Mbeya",
+    product: "2-Ton Borehole Casing & Pump Hoist Winch",
+    productValue: 260000,
+    payout: 13000,
     avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&q=80",
-    productImage: imgProAudioMixer
+    productImage: imgBoreholeCasingWinch
   },
   {
     id: 31,
-    name: "Amina Bakari",
+    name: "Zena Mwakapugi",
     gender: "female",
     country: "Tanzania",
     flag: "🇹🇿",
     city: "Dodoma",
-    product: "Alto Saxophone",
-    productValue: 540000,
-    payout: 27000,
+    product: "Rotary Oil Wellhead Pressure Compressor",
+    productValue: 460000,
+    payout: 23000,
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
-    productImage: imgAltoSaxophone
+    productImage: imgOilWellheadCompressor
   },
   {
     id: 32,
-    name: "Kwame Osei",
+    name: "Kofi Mensah",
     gender: "male",
     country: "Ghana",
     flag: "🇬🇭",
     city: "Accra",
-    product: "Silver Trumpet",
-    productValue: 310000,
-    payout: 15500,
+    product: "Drilling Rig Diesel Engine Starter Motor",
+    productValue: 285000,
+    payout: 14250,
     avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
-    productImage: imgSilverTrumpet
+    productImage: imgDrillingRigStarterMotor
   },
   {
     id: 33,
-    name: "Zuhura Shayo",
+    name: "Nasra Mwakipesa",
     gender: "female",
     country: "Tanzania",
     flag: "🇹🇿",
-    city: "Mbeya",
-    product: "Wireless Mic System",
-    productValue: 285000,
-    payout: 14250,
+    city: "Morogoro",
+    product: "5KVA Deep Well Pump Voltage Stabilizer",
+    productValue: 310000,
+    payout: 15500,
     avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
-    productImage: imgWirelessMicSystem
+    productImage: imgWellPumpVoltageStabilizer
   },
   {
     id: 34,
-    name: "Thabo Mbeki",
+    name: "Lunga Dlamini",
     gender: "male",
     country: "South Africa",
     flag: "🇿🇦",
     city: "Johannesburg",
-    product: "Stage Floor Monitor",
-    productValue: 415000,
-    payout: 20750,
+    product: "Solar Borehole Water Pump MPPT Controller",
+    productValue: 195000,
+    payout: 9750,
     avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&q=80",
-    productImage: imgStageFloorMonitor
+    productImage: imgSolarBoreholeMpptController
   },
   {
     id: 35,
-    name: "Saidi Kibwana",
+    name: "Chinedu Okafor",
     gender: "male",
-    country: "Tanzania",
-    flag: "🇹🇿",
-    city: "Tanga",
-    product: "Music Synthesizer",
-    productValue: 590000,
-    payout: 29500,
+    country: "Nigeria",
+    flag: "🇳🇬",
+    city: "Port Harcourt",
+    product: "Crude Oil & Well Water Distillation Tester",
+    productValue: 240000,
+    payout: 12000,
     avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
-    productImage: imgMusicSynthesizer
+    productImage: imgCrudeOilWaterDistiller
   },
   {
     id: 36,
-    name: "Faith Njeri",
+    name: "Mercy Chepkirui",
     gender: "female",
     country: "Kenya",
     flag: "🇰🇪",
-    city: "Nakuru",
-    product: "Lighting Controller",
-    productValue: 260000,
-    payout: 13000,
+    city: "Eldoret",
+    product: "Borehole Pump Electrical Diagnostic Multimeter",
+    productValue: 160000,
+    payout: 8000,
     avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&q=80",
-    productImage: imgLightingController
+    productImage: imgBoreholePumpMultimeter
   }
 ];
 
@@ -663,246 +663,282 @@ export interface CommentTemplateDef {
 
 export const rawSwahiliCommentsData: CommentTemplateDef[] = [
   {
-    name: "Neema Kilasara",
-    text: "Mungu ni mwema sana jamani! Nilikuwa na wasiwasi mwanzoni lakini leo asubuhi nimetoa laki 2 na 40 nikalipia ada ya mdogo wangu papo hapo bila kuchelewa 🙏😭❤️",
-    time: "Dakika 2 zilizopita",
+    name: "Mariam Kihwele",
+    text: "Wallahi sikutarajia kama nitapokea pesa haraka hivi, nimeomba kutoa saa nne asubuhi na meseji ya M-Pesa imeingia sasa hivi 😭🙏",
+    time: "Dakika 1 iliyopita",
     replies: [
-      { name: "Daudi Mgonja", text: "Hongera sana dada yangu! Hii website imekuwa ukombozi kwa vijana wengi sana mtaani kwetu 👏🔥", time: "Dakika 1 iliyopita" }
+      { name: "Erick Mwandu", text: "Hongera sana dada, hata mimi jana nilitoa bila usumbufu wowote.", time: "Sasa hivi" }
     ]
   },
   {
-    name: "Baraka Mwashambwa",
-    text: "Hii kitu inalipa kweli bila longolongo yoyote! Kazi yangu ni kuthibitisha order nikiwa kwenye daladala tu na pesa inaingia safi kabisa 💯📱💸",
-    time: "Dakika 4 zilizopita",
+    name: "Shabani Lugendo",
+    text: "Hii kitu ni uhakika 100% hakuna cha kuumiza kichwa",
+    time: "Dakika 3 zilizopita",
     replies: []
   },
   {
-    name: "Zuhura Kipingu",
-    text: "Nashukuru sana huduma ya wateja walivyonielekeza kwa uvumilivu. Nimepata faida yangu ya kwanza leo jioni na nina furaha kupitiliza! 🥰✨💃",
-    time: "Dakika 8 zilizopita",
+    name: "Vumilia Nchimbi",
+    text: "Yaani nimeweza kulipa kodi ya chumba changu mwezi huu kupitia kamisheni za kuthibitisha order tu. Mungu awabariki sana OrderVerify ❤️🙌",
+    time: "Dakika 5 zilizopita",
     replies: []
   },
   {
-    name: "Emmanuel Sanga",
-    text: "Kazi rahisi na ya uhakika. Kila order ninayothibitisha inaniongezea kipato. Nimeshaacha kukopa kopa hovyo 🙌💰",
-    time: "Dakika 12 zilizopita",
+    name: "Fadhili Kanyama",
+    text: "Kazi safi sana, ukiwa na bando lako tu unatengeneza pesa ukiwa nyumbani.",
+    time: "Dakika 7 zilizopita",
     replies: []
   },
   {
-    name: "Fatuma Ndauka",
-    text: "Nilidhani ni utani mpaka balance yangu ilipoongezeka na nikaweza kutoa kwa Vodacom M-Pesa. Asanteni sana OrderVerify! 🟢📱🎉",
-    time: "Dakika 15 zilizopita",
-    replies: []
-  },
-  {
-    name: "Godfrey Maleko",
-    text: "Hii ndio maana halisi ya kutumia simu ya kiganjani kutengeneza pesa. Uthibitishaji unaenda fasta bila usumbufu wowote ⚡🚀",
-    time: "Dakika 22 zilizopita",
-    replies: []
-  },
-  {
-    name: "Amina Rashidi",
-    text: "Niliamka asubuhi na shida ya hela ya matumizi ya nyumbani, nimeingia nikathibitisha order zangu mara pesa iko tayari. Mbarikiwe sana! 🍲🧺❤️",
-    time: "Dakika 28 zilizopita",
+    name: "Saumu Bwire",
+    text: "Mwanzoni niliona kama hadithi za mtandaoni ila nilipojaribu mwenyewe nimebaki mdomo wazi, Tigo Pesa imesoma laki na themanini leo 🔥💸",
+    time: "Dakika 10 zilizopita",
     replies: [
-      { name: "Salim Bakari", text: "Ukweli mtupu Amina, hata mimi nimefanya hivyohivyo na imenisaidia sana leo 🤝✨", time: "Dakika 18 zilizopita" }
+      { name: "Gideon Maganga", text: "Kabisa dada, uoga wetu ndio unatuchelewesha kupata maendeleo 👏", time: "Dakika 6 zilizopita" }
     ]
   },
   {
-    name: "Josephat Mrema",
-    text: "Kila nikipata muda wa mapumziko kazini naingia nazo. Nimeshaingiza zaidi ya laki tano mwezi huu pekee! 📈💵💪",
-    time: "Dakika 35 zilizopita",
+    name: "Ismail Mpangala",
+    text: "Huduma nzuri na malipo yanaenda kwa wakati",
+    time: "Dakika 14 zilizopita",
     replies: []
   },
   {
-    name: "Rehema Mwakyoma",
-    text: "Uaminifu wao ndio unanifanya niwapende. Hakuna kupoteza muda wala masharti magumu. Karibuni wote mjionee wenyewe 😍👌",
-    time: "Dakika 42 zilizopita",
+    name: "Sikudhani Ngonyani",
+    text: "Nimefurahi sana kuona malipo yanaingia bila longolongo. Hii website imeniokoa sana kipindi hiki cha majukumu mengi ya familia 🥰",
+    time: "Dakika 18 zilizopita",
     replies: []
   },
   {
-    name: "Kassim Mndeme",
-    text: "Hii website imebadilisha kabisa mtazamo wangu kuhusu kazi za mtandaoni. Hapa ni vitendo tu sio maneno mengi 🏆🌟",
-    time: "Dakika 50 zilizopita",
+    name: "Benson Kasebele",
+    text: "Kila nikiingia kuthibitisha order napata nguvu mpya maana matokeo yake yanaonekana wazi kwenye simu yangu 📱💰",
+    time: "Dakika 21 zilizopita",
     replies: []
   },
   {
-    name: "Grace Lyatuu",
-    text: "Nalipwa kila ninapoomba kutoa, hakuna hata siku moja nimekataliwa. Nawashauri msichelewe kujiunga 💃🥳📲",
+    name: "Mwanaidi Lukinja",
+    text: "Airtel Money imeingia chap bila kuchelewa, asanteni sana",
+    time: "Dakika 25 zilizopita",
+    replies: []
+  },
+  {
+    name: "Tumsifu Mlowezi",
+    text: "Nilianza kwa kuthibitisha order chache tu za majaribio, leo hii imekuwa sehemu yangu kubwa ya kuingiza kipato cha kila siku. Nawapongeza sana waanzilishi wa mfumo huu 🙏✨",
+    time: "Dakika 30 zilizopita",
+    replies: []
+  },
+  {
+    name: "Farida Nditi",
+    text: "Uhakika mtupu jamani msisite kujiunga 👌",
+    time: "Dakika 34 zilizopita",
+    replies: []
+  },
+  {
+    name: "Nuhu Kalenga",
+    text: "Nimetoka kununua mahitaji ya watoto wa shule kwa hela niliyoitoa hapa jana jioni. Sina cha kuwalipa zaidi ya kuwaombea heri",
+    time: "Dakika 39 zilizopita",
+    replies: []
+  },
+  {
+    name: "Happiness Rwegasira",
+    text: "Simu yangu sasa hivi imekuwa ofisi kamili, kila saa napiga kazi na salio linasoma vizuri 😍💵",
+    time: "Dakika 44 zilizopita",
+    replies: [
+      { name: "Stanley Byabato", text: "Safi sana, tuendelee kuchangamkia fursa hii.", time: "Dakika 29 zilizopita" }
+    ]
+  },
+  {
+    name: "Rajabu Mponda",
+    text: "Hapa ni kazi na malipo tu hakuna blabla",
+    time: "Dakika 48 zilizopita",
+    replies: []
+  },
+  {
+    name: "Mwanahamisi Kibao",
+    text: "Nilikuwa nimeshakata tamaa na kazi za online kutokana na matapeli wengi, lakini OrderVerify imenifuta machozi. Pesa inaingia kweli jamani 😭❤️",
+    time: "Dakika 53 zilizopita",
+    replies: []
+  },
+  {
+    name: "Cyprian Tibaijuka",
+    text: "Kamisheni za order ni nzuri sana, ukithibitisha order zako kwa umakini unapata faida kubwa kwa muda mfupi 📈💪",
+    time: "Dakika 58 zilizopita",
+    replies: []
+  },
+  {
+    name: "Rukia Mzighani",
+    text: "Asanteni sana kwa uaminifu wenu, nimepokea elfu tisini na tano muda si mrefu",
     time: "Saa 1 lililopita",
     replies: []
   },
   {
-    name: "Joshua Mwakatobe",
-    text: "Siri ni kuwa makini na taarifa za wateja na kuhakiki haraka. Faida inajikusanya vizuri sana kila siku 💼📊",
+    name: "Deogratius Kanyigo",
+    text: "Mfumo uko fasta sana haukwami kwami 🚀",
     time: "Saa 1 lililopita",
     replies: []
   },
   {
-    name: "Subira Mgaza",
-    text: "Hatimaye nimepata mtandao unaoheshimu muda wangu. Hongereni sana waandaaji wa mfumo huu 🙏✨",
+    name: "Hidaya Mwinuka",
+    text: "Leo ni siku yangu ya nne tangu nianze na tayari nimeshatoa mara mbili kwa HaloPesa. Kweli penye nia pana njia 🙌🎉",
+    time: "Saa 2 zilizopita",
+    replies: [
+      { name: "Waziri Mbena", text: "Hongera sana Hidaya, hapa ni mwendo wa kuingiza faida tu.", time: "Saa 1 lililopita" }
+    ]
+  },
+  {
+    name: "Mudathir Kaseja",
+    text: "Kazi rahisi inayoeleweka hata kama huna ujuzi mkubwa wa simu.",
     time: "Saa 2 zilizopita",
     replies: []
   },
   {
-    name: "Shadrack Mwamlima",
-    text: "Nilikuwa siamini kabisa mambo ya mtandaoni, lakini rafiki yangu alinionyesha ushahidi wa malipo yake nikajaribu. Sasa hivi nimeamini kwa vitendo! 🤝🔥",
-    time: "Saa 2 zilizopita",
-    replies: []
-  },
-  {
-    name: "Pendo Chambo",
-    text: "Pesa zangu zinaingia Airtel Money haraka bila makato makubwa. Nimeridhika asilimia zote mia moja 🔴📱💖",
+    name: "Ashura Mbembati",
+    text: "Nimepata mtaji wa kuongeza bidhaa kwenye genge langu kutokana na faida nilizokusanya wiki hii. Asante Mungu 🙏❤️",
     time: "Saa 3 zilizopita",
     replies: []
   },
   {
-    name: "Frank Msigwa",
-    text: "Order za leo zimekuwa na faida kubwa sana! Nimefurahia kila sekunde niliyotumia hapa 🤑🚀",
+    name: "Sylvester Kapinga",
+    text: "Safi sana OrderVerify, malipo yangu yamefika salama",
     time: "Saa 3 zilizopita",
     replies: []
   },
   {
-    name: "Lilian Kweka",
-    text: "Nawashukuru sana kwa huduma yenu nzuri na ya kuaminika. Nimepata mtaji wa kuanzisha biashara yangu ndogo ya nguo 👗🛍️🥰",
+    name: "Bahati Nditu",
+    text: "Mimi nilijiunga baada ya kuona mdogo wangu analipwa kila wiki, sasa hivi na mimi nimekuwa shahidi wa huu ukweli 💯🔥",
     time: "Saa 4 zilizopita",
     replies: []
   },
   {
-    name: "Rashid Kibwana",
-    text: "Uthibitishaji unaenda chap chap! Hakuna kigugumizi, mfumo uko vizuri sana ⚡👌",
+    name: "Twalib Msangi",
+    text: "Hakuna kucheleweshwa, ukiomba kutoa pesa inashughulikiwa haraka sana.",
     time: "Saa 4 zilizopita",
     replies: []
   },
   {
-    name: "Diana Mmasi",
-    text: "Kila mwanamke anapaswa kujitegemea kiuchumi. Kupitia OrderVerify nimeweza kujiwekea akiba yangu mwenyewe 👑🌸💰",
+    name: "Khairat Mzamil",
+    text: "Najivunia sana kuijua hii website mapema, imenipunguzia stress za kukosa hela ya matumizi madogo madogo 💃✨",
     time: "Saa 5 zilizopita",
     replies: []
   },
   {
-    name: "Ally Msuya",
-    text: "Malipo ya Tigo Pesa yameingia ndani ya dakika chache tu baada ya kumaliza kazi. Ni raha tupu! 🔵📲🎉",
+    name: "Japhet Komba",
+    text: "Mambo ni mazuri huku, mwenye macho haambiwi tazama 💰",
     time: "Saa 5 zilizopita",
     replies: []
   },
   {
-    name: "Hellen Kimario",
-    text: "Hii ni fursa ya dhahabu kwa mtu yeyote mwenye smartphone. Usikubali ibaki kuwa ya kuangalia picha tu tumia uingize hela 📲💎✨",
+    name: "Sifa Lusinde",
+    text: "Hata ukiwa safarini au umepumzika nyumbani bado unaweza kuthibitisha order na kuingiza kamisheni yako safi kabisa.",
     time: "Saa 6 zilizopita",
     replies: []
   },
   {
-    name: "Moses Mboya",
-    text: "Nimeridhika sana na usalama wa taarifa na ufanisi wa malipo. Tuko pamoja sana mpaka mwisho 🛡️🤝",
+    name: "Abdulmalik Chande",
+    text: "Nimehakiki order zangu za leo na nimeshatoa faida yangu tayari 📲✅",
     time: "Saa 6 zilizopita",
     replies: []
   },
   {
-    name: "Asha Ngowi",
-    text: "Kila siku asubuhi na jioni lazima nithibitishe order zangu. Hii ni ajira yangu ya ziada isiyonisumbua kabisa 🌞☕💵",
+    name: "Veronica Mwageni",
+    text: "Jamani msiogope kujaribu, mimi nilianza kwa mashaka mengi lakini sasa hivi nashukuru siku niliyoamua kuanza 🙏😭",
+    time: "Saa 7 zilizopita",
+    replies: [
+      { name: "Issa Ndembo", text: "Kweli kabisa Veronica, hatua ya kwanza ndio muhimu zaidi.", time: "Saa 6 zilizopita" }
+    ]
+  },
+  {
+    name: "Khamis Basso",
+    text: "Uaminifu wao uko juu sana",
     time: "Saa 7 zilizopita",
     replies: []
   },
   {
-    name: "Jackson Temba",
-    text: "Nilipokea pesa zangu asubuhi ya leo moja kwa moja benki. Huduma hii haina mfano Afrika Mashariki nzima 🌍💳🏆",
-    time: "Saa 7 zilizopita",
-    replies: []
-  },
-  {
-    name: "Martha Kisamo",
-    text: "Wapendwa changamkieni fursa hii bado ipo. Mimi nimejionea matunda yake kwa macho yangu mawili 👀🙌💸",
+    name: "Tatu Ngalawa",
+    text: "Nimetumiwa pesa yangu kwenye M-Pesa ndani ya muda mfupi tu. Nimefurahi mpaka nimeruka juu kwa furaha 🥳❤️",
     time: "Saa 8 zilizopita",
     replies: []
   },
   {
-    name: "Elias Mchome",
-    text: "Hakuna maneno mengi, hapa ni kazi na kupokea haki yako. Asanteni wote mnaosimamia mtandao huu 👏💼",
+    name: "Goodluck Mayanja",
+    text: "Hii fursa imekuja wakati muafaka sana kwangu, kila siku naona ongezeko kwenye akaunti yangu.",
     time: "Saa 8 zilizopita",
     replies: []
   },
   {
-    name: "Judith Mmbaga",
-    text: "Nimevutiwa sana na uwazi uliopo. Kila order inaonyesha wazi thamani yake na kamisheni unayopata 📊🎯❤️",
+    name: "Swaumu Kambi",
+    text: "Asanteni wasimamizi wa mfumo, mko vizuri sana 👏",
     time: "Saa 9 zilizopita",
     replies: []
   },
   {
-    name: "Victor Moshi",
-    text: "Kuanzia mwezi uliopita maisha yangu yamebadilika sana kifedha. Sasa naweza kusaidia wazazi wangu kijijini kwa wakati 🏡🌾🙏",
+    name: "Boniface Mapigano",
+    text: "Kwa vijana wenzangu mnaolalamika hakuna kazi, ingieni hapa mthibitishe order muone jinsi simu zenu zinavyoweza kuwalipa 🔥💪",
     time: "Saa 9 zilizopita",
     replies: []
   },
   {
-    name: "Winfrida Lyimo",
-    text: "Huduma hii ni ya kipekee kabisa. Nimepata faida yangu bila usumbufu wowote leo asubuhi 🥰💸✨",
+    name: "Husna Kidevu",
+    text: "Pesa inaingia kweli bila chenga",
     time: "Saa 10 zilizopita",
     replies: []
   },
   {
-    name: "Hamisi Tarimo",
-    text: "Nawatakia mafanikio mema wote mnaoendelea kuthibitisha order. Tuendelee kupambana ushindi upo mkononi 🚀💪🔥",
+    name: "Ezekiel Lwanyantika",
+    text: "Nimependa jinsi kila order inavyoonyesha wazi kamisheni yake kabla hata hujaithibitisha. Uwazi mkubwa sana.",
     time: "Saa 10 zilizopita",
     replies: []
   },
   {
-    name: "Gladness Mrema",
-    text: "Sikujua kama kuthibitisha order kunaweza kuwa na tija kiasi hiki. Nimefurahia sana kujiunga nanyi 🎉💃",
+    name: "Mwajuma Sefu",
+    text: "Leo nimefanikiwa kutoa laki mbili kamili, namshukuru Mungu kwa kunionyesha njia hii ya halali 🙏💸",
     time: "Saa 11 zilizopita",
     replies: []
   },
   {
-    name: "Charles Shayo",
-    text: "Uaminifu wa OrderVerify unazidi kuonekana kila kukicha. Endeleeni na moyo huo huo wa kuwasaidia watu 🌟🤝",
+    name: "Clarence Mziwanda",
+    text: "Kazi inaenda vizuri, muhimu kufuata maelekezo tu",
     time: "Saa 11 zilizopita",
     replies: []
   },
   {
-    name: "Paulina Kaaya",
-    text: "Nalala nikijua kesho yangu iko salama kiuchumi kwa sababu nina chanzo hiki cha uhakika cha mapato 🌙😴💖",
+    name: "Jamila Kidunda",
+    text: "Familia yangu inafurahia matunda ya OrderVerify kila wiki. Mbarikiwe sana kwa kuanzisha huduma hii 🥰🌸",
     time: "Saa 12 zilizopita",
     replies: []
   },
   {
-    name: "Geoffrey Mtei",
-    text: "Nimetoka kutoa laki moja na nusu hivi punde, simu imelia meseji ya pesa mara moja. Ni uhakika mtupu! 📱🔔💰",
-    time: "Saa 12 zilizopita",
-    replies: []
-  },
-  {
-    name: "Sophia Massawe",
-    text: "Kila ninayemshirikisha fursa hii anashukuru sana baada ya kupokea malipo yake ya kwanza 🌸👭✨",
+    name: "Felix Mwakitwange",
+    text: "Malipo ni ya uhakika asilimia mia moja 💯",
     time: "Saa 13 zilizopita",
     replies: []
   },
   {
-    name: "Dominic Lema",
-    text: "Mfumo ni thabiti sana na hauleti hitilafu yoyote wakati wa kufanya kazi. Safi sana wataalamu wetu 💻⚙️👍",
+    name: "Habiba Mjema",
+    text: "Nilipoona jirani yangu amenunua friji mpya kutokana na kazi hii ndipo nilipoamini. Sasa na mimi nimeshaanza kuona faida yake.",
     time: "Saa 14 zilizopita",
     replies: []
   },
   {
-    name: "Beatrice Shirima",
-    text: "Hongereni sana kwa kutuletea mfumo huu unaoeleweka kwa urahisi hata kwa wanaoanza leo 👏📚💐",
+    name: "Yohana Ndugai",
+    text: "Hongereni sana kwa huduma bora na ya haraka ⚡",
     time: "Saa 15 zilizopita",
     replies: []
   },
   {
-    name: "Samwel Kimaro",
-    text: "Nimefanya kazi asubuhi hii na tayari nimelipwa. Hakuna haja ya kusubiri mwisho wa mwezi tena 🚀⏰💵",
+    name: "Chiku Mlawa",
+    text: "Kila asubuhi kabla sijaenda kwenye mihangaiko yangu napitia kuthibitisha order zangu kwanza. Inalipa sana jamani ❤️📲",
     time: "Saa 16 zilizopita",
     replies: []
   },
   {
-    name: "Agnes Mushi",
-    text: "Kazi hii hainizuii kufanya shughuli zangu nyingine za nyumbani. Naifanya nikiwa na furaha tele 🏡👩‍👧‍👦❤️",
+    name: "Abubakar Kilonzo",
+    text: "Tigo Pesa imesoma salama kabisa, sina shaka tena na huu mtandao.",
     time: "Saa 17 zilizopita",
     replies: []
   },
   {
-    name: "Festus Maro",
-    text: "Huu ndio mfano wa kuigwa kwa biashara za kidijitali Tanzania na Afrika nzima. Kila la heri kwa wote 🇹🇿🌍🌟",
+    name: "Consolata Nyoni",
+    text: "Mungu azidi kuwapa nguvu viongozi wa OrderVerify, mmetutoa kimasomaso wengi tulioamini fursa hii 🙏✨",
     time: "Saa 18 zilizopita",
     replies: []
   }
@@ -929,80 +965,78 @@ export function buildCompliantComments(): CommentItem[] {
 }
 
 // ============================================================================
-// BRAND NEW LIVE PAYOUT NOTIFICATIONS (70+ COMPLETELY DISTINCT MEMBERS)
+// BRAND NEW LIVE PAYOUT NOTIFICATIONS (68 COMPLETELY DISTINCT MEMBERS)
 // ============================================================================
 
 export const RAW_LIVE_PAYOUT_MEMBERS: { name: string; amount: number }[] = [
-  { name: "Bakari Mgonja", amount: 24500 },
-  { name: "Clementina Shayo", amount: 38000 },
-  { name: "Damas Lyimo", amount: 19500 },
-  { name: "Eusebia Kavishe", amount: 46000 },
-  { name: "Filbert Mndeme", amount: 31000 },
-  { name: "Gasper Kimambo", amount: 53500 },
-  { name: "Hilda Minja", amount: 22500 },
-  { name: "Innocent Nkya", amount: 41000 },
-  { name: "Justina Assenga", amount: 35000 },
-  { name: "Kajiru Tarimo", amount: 48500 },
-  { name: "Leokadia Maro", amount: 27000 },
-  { name: "Mathias Kweka", amount: 55000 },
-  { name: "Novatus Lema", amount: 18500 },
-  { name: "Octavian Mushi", amount: 39500 },
-  { name: "Prisca Shirima", amount: 44000 },
-  { name: "Quintus Massawe", amount: 26000 },
-  { name: "Regina Swai", amount: 52000 },
-  { name: "Severin Mallya", amount: 33500 },
-  { name: "Telesphor Mosha", amount: 47000 },
-  { name: "Ursula Meela", amount: 21000 },
-  { name: "Valerian Macha", amount: 36500 },
-  { name: "Wilhelmina Tesha", amount: 50500 },
-  { name: "Xaveria Kaaya", amount: 29000 },
-  { name: "Yustino Mmbando", amount: 43000 },
-  { name: "Zablon Kisamo", amount: 17500 },
-  { name: "Albano Mchome", amount: 54000 },
-  { name: "Bernadetha Moshi", amount: 32500 },
-  { name: "Costantine Lyakurwa", amount: 45500 },
-  { name: "Desideria Sikana", amount: 20500 },
-  { name: "Emiliana Mwangosi", amount: 37500 },
-  { name: "Fulgence Songa", amount: 51500 },
-  { name: "Gervas Mwambapa", amount: 28500 },
-  { name: "Helena Mwankenja", amount: 42500 },
-  { name: "Ildefons Mwashitete", amount: 16000 },
-  { name: "Julitha Ndunguru", amount: 49000 },
-  { name: "Kipara Kinyaga", amount: 34000 },
-  { name: "Laurentia Mbwilo", amount: 23000 },
-  { name: "Melkior Mtweve", amount: 56000 },
-  { name: "Norbert Ndalama", amount: 30000 },
-  { name: "Onesmo Mhagama", amount: 47500 },
-  { name: "Petronila Msuvva", amount: 25500 },
-  { name: "Quirinus Mwita", amount: 38500 },
-  { name: "Rosalia Kileo", amount: 52500 },
-  { name: "Silvester Msacky", amount: 19000 },
-  { name: "Theresia Kibona", amount: 44500 },
-  { name: "Urbanus Mbise", amount: 27500 },
-  { name: "Veneranda Ngowi", amount: 51000 },
-  { name: "Wilbard Lyatuu", amount: 36000 },
-  { name: "Yulitha Chalamila", amount: 22000 },
-  { name: "Zephania Temba", amount: 48000 },
-  { name: "Abelard Mboya", amount: 33000 },
-  { name: "Bonifasia Kimario", amount: 54500 },
-  { name: "Celestin Mgaza", amount: 26500 },
-  { name: "Dionisia Mmasi", amount: 40500 },
-  { name: "Elpidius Sanga", amount: 18000 },
-  { name: "Fortunatha Ndauka", amount: 49500 },
-  { name: "Gorgonius Kipingu", amount: 31500 },
-  { name: "Hermenegild Mwashambwa", amount: 45000 },
-  { name: "Immaculata Kilasara", amount: 24000 },
-  { name: "Juvenalis Mwakatobe", amount: 53000 },
-  { name: "Kassiana Mndeme", amount: 37000 },
-  { name: "Liberatus Msigwa", amount: 21500 },
-  { name: "Modestus Chambo", amount: 46500 },
-  { name: "Nazarius Kibwana", amount: 29500 },
-  { name: "Odilia Mmbaga", amount: 55500 },
-  { name: "Prosper Tarimo", amount: 17000 },
-  { name: "Renatus Mrema", amount: 41500 },
-  { name: "Scholastica Shayo", amount: 35500 },
-  { name: "Tarcisius Kaaya", amount: 50000 },
-  { name: "Venance Mtei", amount: 28000 }
+  { name: "Amiri Katimba", amount: 26500 },
+  { name: "Blandina Nkomola", amount: 41000 },
+  { name: "Cassian Mvela", amount: 18500 },
+  { name: "Devotha Haule", amount: 52000 },
+  { name: "Edson Ruhinda", amount: 34500 },
+  { name: "Fauzia Mkopi", amount: 47500 },
+  { name: "Germanus Gama", amount: 23000 },
+  { name: "Hadija Matimbwa", amount: 58000 },
+  { name: "Ibrahimu Soka", amount: 31000 },
+  { name: "Janeth Kihongo", amount: 44500 },
+  { name: "Khalfan Mpenda", amount: 19500 },
+  { name: "Lightness Rwiza", amount: 53000 },
+  { name: "Mussa Chilunda", amount: 28500 },
+  { name: "Nuru Kabela", amount: 39000 },
+  { name: "Ombeni Luvanda", amount: 49500 },
+  { name: "Penina Mrosso", amount: 21500 },
+  { name: "Qassim Mbaruku", amount: 37000 },
+  { name: "Restituta Mhaiki", amount: 55000 },
+  { name: "Sadiki Msemo", amount: 24000 },
+  { name: "Tabitha Rugambwa", amount: 46000 },
+  { name: "Ulimboka Kasege", amount: 32000 },
+  { name: "Vaileth Milinga", amount: 51500 },
+  { name: "William Nditie", amount: 17500 },
+  { name: "Yusuph Kapufi", amount: 43500 },
+  { name: "Zaituni Mlaponi", amount: 29500 },
+  { name: "Anselm Kabyemera", amount: 56500 },
+  { name: "Bertha Mwanri", amount: 35000 },
+  { name: "Cosmas Njovu", amount: 22500 },
+  { name: "Dorah Kipobota", amount: 48000 },
+  { name: "Ephraim Mwandosya", amount: 30500 },
+  { name: "Frida Kalombo", amount: 54500 },
+  { name: "Gerald Kihampa", amount: 25000 },
+  { name: "Haika Mziray", amount: 42000 },
+  { name: "Isaya Mwangaza", amount: 19000 },
+  { name: "Joyce Kamugisha", amount: 50000 },
+  { name: "Kenneth Mbwambo", amount: 36000 },
+  { name: "Leila Mkombozi", amount: 27500 },
+  { name: "Majaliwa Simba", amount: 57000 },
+  { name: "Najma Kijazi", amount: 33500 },
+  { name: "Othman Makamba", amount: 45000 },
+  { name: "Pili Mwananzila", amount: 20000 },
+  { name: "Raphael Rutashobya", amount: 38500 },
+  { name: "Salome Kagine", amount: 52500 },
+  { name: "Thomas Lukuvi", amount: 26000 },
+  { name: "Upendo Kipesha", amount: 47000 },
+  { name: "Vincent Mpogolo", amount: 31500 },
+  { name: "Witness Ndibalema", amount: 53500 },
+  { name: "Yahya Mchomvu", amount: 24500 },
+  { name: "Zamda Kichwabuta", amount: 40000 },
+  { name: "Anwar Mkuchika", amount: 18000 },
+  { name: "Belinda Kingunge", amount: 49000 },
+  { name: "Christian Mzindakaya", amount: 35500 },
+  { name: "Domina Kawawa", amount: 56000 },
+  { name: "Eliud Kambona", amount: 23500 },
+  { name: "Fatma Sokoine", amount: 41500 },
+  { name: "Gabriel Kolimba", amount: 29000 },
+  { name: "Hussein Rupia", amount: 50500 },
+  { name: "Irene Kahama", amount: 34000 },
+  { name: "Julius Bomani", amount: 21000 },
+  { name: "Khadija Malecela", amount: 46500 },
+  { name: "Leonard Warioba", amount: 37500 },
+  { name: "Magreth Cleopa", amount: 54000 },
+  { name: "Nassoro Fundikira", amount: 25500 },
+  { name: "Oliver Sykes", amount: 43000 },
+  { name: "Paschal Mzena", amount: 30000 },
+  { name: "Rahel Mbilinyi", amount: 48500 },
+  { name: "Steven Mwakikosa", amount: 22000 },
+  { name: "Tumaini Mwanjisi", amount: 51000 }
 ];
 
 export function buildCompliantLivePayouts(): LivePayout[] {
