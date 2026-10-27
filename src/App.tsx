@@ -1767,7 +1767,7 @@ function Dashboard() {
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2500);
     setTimeout(() => {
-      triggerMotivation(`Hongera kwa kuthibitisha order! Salio lako limeongezeka na kuwa TZS ${newBalance.toLocaleString()}. Endelea hivi hivi ili ufikie malengo yako!`, 8);
+      triggerMotivation(`Hongera kwa kuthibitisha order! Salio lako sasa ni TZS ${newBalance.toLocaleString()}. Kumbuka, ili kutoa pesa hii utahitaji kujisajili na kulipia mtaji wa 14,500/= tu.`, 8);
     }, 2000);
   };
 
